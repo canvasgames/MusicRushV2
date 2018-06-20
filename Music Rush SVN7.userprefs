@@ -1,0 +1,21 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\GameOverController.cs">
+    <Files>
+      <File FileName="Assets\GameOverController.cs" Line="157" Column="41" />
+      <File FileName="Assets\Scripts\QA.cs" Line="31" Column="13" />
+      <File FileName="Assets\Scripts\hud_controller.cs" Line="606" Column="26" />
+      <File FileName="Assets\Scripts\ball_hero.cs" Line="883" Column="24" />
+      <File FileName="Assets\Scripts\game_controller.cs" Line="381" Column="31" />
+      <File FileName="Assets\BtJukebox.cs" Line="14" Column="44" />
+      <File FileName="Assets\TransMaster.cs" Line="48" Column="1" />
+      <File FileName="Assets\Scripts\activate_pw_button.cs" Line="63" Column="19" />
+      <File FileName="Assets\store_controller.cs" Line="72" Column="22" />
+      <File FileName="Assets\PwWheelMaster.cs" Line="72" Column="25" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
