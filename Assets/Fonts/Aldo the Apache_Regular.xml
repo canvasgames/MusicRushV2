@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EmbeddedFont type="FontMetaData" version="1.0">
+  <Filename type="string">Aldo the Apache_Regular</Filename>
+  <FontStyle type="fontStyle">Regular</FontStyle>
+  <FontFamily type="string">Aldo the Apache</FontFamily>
+  <ResizeInformationCollection type="genericDictionary(sizeF,ResizeInformation)">
+    <item type="KeyValuePair(sizeF,ResizeInformation)">
+      <key type="sizeF">
+        <width type="float">0.4</width>
+        <height type="float">0.5</height>
+      </key>
+      <value type="ResizeInformation">
+        <MinSize type="float">23</MinSize>
+      </value>
+    </item>
+  </ResizeInformationCollection>
+  <UnfoundReferences />
+</EmbeddedFont>

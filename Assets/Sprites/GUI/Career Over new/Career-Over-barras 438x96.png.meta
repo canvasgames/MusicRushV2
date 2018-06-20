@@ -1,0 +1,377 @@
+fileFormatVersion: 2
+guid: 55419f2c7b6b46941bf52e046acdf8bc
+timeCreated: 1507140210
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Career-Over-barras 438x96_0
+    21300002: Career-Over-barras 438x96_1
+    21300004: Career-Over-barras 438x96_2
+    21300006: Career-Over-barras 438x96_3
+    21300008: Career-Over-barras 438x96_4
+    21300010: Career-Over-barras 438x96_5
+    21300012: Career-Over-barras 438x96_6
+    21300014: Career-Over-barras 438x96_7
+    21300016: Career-Over-barras 438x96_8
+    21300018: Career-Over-barras 438x96_9
+    21300020: Career-Over-barras 438x96_10
+    21300022: Career-Over-barras 438x96_11
+    21300024: Career-Over-barras 438x96_12
+    21300026: Career-Over-barras 438x96_13
+    21300028: Career-Over-barras 438x96_14
+    21300030: Career-Over-barras 438x96_15
+    21300032: Career-Over-barras 438x96_16
+    21300034: Career-Over-barras 438x96_17
+    21300036: Career-Over-barras 438x96_18
+    21300038: Career-Over-barras 438x96_19
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Career-Over-barras 438x96_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 928
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    - name: Career-Over-barras 438x96_1
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 928
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    - name: Career-Over-barras 438x96_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 832
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    - name: Career-Over-barras 438x96_3
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 832
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    - name: Career-Over-barras 438x96_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 736
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    - name: Career-Over-barras 438x96_5
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 736
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    - name: Career-Over-barras 438x96_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 640
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    - name: Career-Over-barras 438x96_7
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 640
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    - name: Career-Over-barras 438x96_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 544
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    - name: Career-Over-barras 438x96_9
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 544
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    - name: Career-Over-barras 438x96_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 448
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    - name: Career-Over-barras 438x96_11
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 448
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    - name: Career-Over-barras 438x96_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 352
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    - name: Career-Over-barras 438x96_13
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 352
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    - name: Career-Over-barras 438x96_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    - name: Career-Over-barras 438x96_15
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 256
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    - name: Career-Over-barras 438x96_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 160
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    - name: Career-Over-barras 438x96_17
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 160
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    - name: Career-Over-barras 438x96_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    - name: Career-Over-barras 438x96_19
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 64
+        width: 438
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -219, y: 48}
+        - {x: -219, y: -48}
+        - {x: 219, y: -48}
+        - {x: 219, y: 48}
+    outline: []
+  spritePackingTag: game_over
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
