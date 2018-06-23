@@ -32,8 +32,6 @@ public class QA : MonoBehaviour {
 
 	public Ease ease1;
 
-	public bool DELTADNA_ON;
-
 	public GameObject SqBt, invButton;
 	// Use this for initialization
 	void Awake() {
@@ -54,7 +52,7 @@ public class QA : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Time.timeScale != TIMESCALE) Time.timeScale = TIMESCALE;
+		if(Time.timeScale != TIMESCALE && globals.s.GAME_PAUSED == false) Time.timeScale = TIMESCALE;
     }
 
 	public void SwitchSquaresMode(){

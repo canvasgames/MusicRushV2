@@ -65,16 +65,17 @@ public class globals : MonoBehaviour {
 
     [HideInInspector] public bool PW_ENDING = false;
 
+    [HideInInspector] public bool GAME_PAUSED = false;
+
     [HideInInspector] public bool FIRST_GAME = true;
 
-    [HideInInspector]
-    public bool CAN_REVIVE = false;
-    [HideInInspector]
-    public bool SHOW_VIDEO_AFTER = false;
-    [HideInInspector]
-    public bool REVIVING = false;
+    [HideInInspector] public bool CAN_REVIVE = false;
+    [HideInInspector] public bool SHOW_VIDEO_AFTER = false;
+    [HideInInspector] public bool REVIVING = false;
 
 	[HideInInspector] public bool GIFT_ANIMATION = false;
+
+    [HideInInspector] public bool CURSOR_IN_PAUSE_BT = false;
 
     [HideInInspector]
     public bool MENU_OPEN = false;

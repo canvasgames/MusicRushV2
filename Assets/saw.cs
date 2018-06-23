@@ -17,11 +17,11 @@ public class saw : scenario_objects
     public bool triple_spk = false;
     float timer = 0;
     internal string wave_name;
-
+    public float distance2Appear = 0;
     // Use this for initialization
     void Start () {
         //my_skin.transform.localScale = new Vector3(1, 0, 0);
-        if (1==1||globals.s.PW_SIGHT_BEYOND_SIGHT == true)
+        if (globals.s.PW_SIGHT_BEYOND_SIGHT == true)
         {
             show_me_pw_sight();
         }
@@ -41,7 +41,7 @@ public class saw : scenario_objects
         if ( already_appeared == false &&
            globals.s.BALL_Y - globals.s.BALL_R > transform.position.y - 2f && my_floor <= globals.s.BALL_FLOOR + 1)
         {
-            if (already_placed && Mathf.Abs(transform.position.x - globals.s.BALL_X) < 12f)
+            if (already_placed && Mathf.Abs(transform.position.x - globals.s.BALL_X) < distance2Appear)
             {
                 show_me();
             }
@@ -71,6 +71,7 @@ public class saw : scenario_objects
     {
         already_appeared = true;
         transform.GetComponent<CircleCollider2D>().enabled = true;
+        back_original_color_pw_sight();
 
         transform.DOLocalMoveY((transform.localPosition.y + 0.64f), 0.1f).SetEase(Ease.Linear); 
         if(transform.position.x < 0)

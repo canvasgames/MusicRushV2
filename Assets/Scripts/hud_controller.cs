@@ -43,6 +43,7 @@ public class hud_controller : MonoBehaviour {
 	[Space (5)]
 	[Header ("GAMEPLAY")]
 	public GameObject gameplah_hud_label;
+    public GameObject pauseButton;
     public GameObject floor;
     public GameObject best;
     public GameObject notes;
@@ -71,7 +72,12 @@ public class hud_controller : MonoBehaviour {
 	public GameObject pw_time_bar;
 	public GameObject pw_time_left_title_on, roullete_time_left, gift_time_left;
 
-	public Text pw_Text_Header;
+    [Space(10)]
+    [Header("PAUSE")]
+    public GameObject pause;
+
+    [Space(10)]
+    public Text pw_Text_Header;
     public Text PW_time_text;
 
 	public bool giftAnimationEnded = false;
@@ -308,7 +314,8 @@ public class hud_controller : MonoBehaviour {
 	void hud_entrance(){
 		intro_label.SetActive (false);
 		store_label.SetActive (false);
-		gameplah_hud_label.SetActive (true);
+        pauseButton.SetActive(true);
+        gameplah_hud_label.SetActive (true);
 		float y_start = gameplah_hud_label.transform.localPosition.y;
 		gameplah_hud_label.transform.localPosition = new Vector2 (gameplah_hud_label.transform.localPosition.x, 
 			gameplah_hud_label.transform.localPosition.y + 250);
@@ -1274,19 +1281,31 @@ public class hud_controller : MonoBehaviour {
 		giftAnimation.GetComponent<GiftAnimationLogic> ().EnterTitle (style);
 	}
 
-//
-//	IEnumerator GiveChar(int musicType){
-//		yield return new WaitForSeconds (1f);
-//
-//		giftChar.SetActive (true);
-//		giftChar.GetComponent<CharGift> ().InitAnimation ((MusicStyle)musicType);
-//		store_controller.s.GiveCharacterForFree (musicType);
-//
-//		giftBt.GetComponent<GiftButton> ().SetCountownState ();
-//		getGift ();
-//
-//		giftAnimation.GetComponent<GiftAnimationLogic> ().EnterTitle ((MusicStyle)musicType);
-//	}
+    //
+    //	IEnumerator GiveChar(int musicType){
+    //		yield return new WaitForSeconds (1f);
+    //
+    //		giftChar.SetActive (true);
+    //		giftChar.GetComponent<CharGift> ().InitAnimation ((MusicStyle)musicType);
+    //		store_controller.s.GiveCharacterForFree (musicType);
+    //
+    //		giftBt.GetComponent<GiftButton> ().SetCountownState ();
+    //		getGift ();
+    //
+    //		giftAnimation.GetComponent<GiftAnimationLogic> ().EnterTitle ((MusicStyle)musicType);
+    //	}
 
-	#endregion
+    #endregion
+
+    #region PAUSE MENU
+    public void OpenPauseMenu()
+    {
+        pause.SetActive(true);
+    }
+
+    public void ClosePauseMenu()
+    {
+        pause.GetComponent<PauseMenu>().BGAlphaOff();
+    }
+    #endregion
 }

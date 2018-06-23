@@ -122,7 +122,7 @@ public class game_controller : MonoBehaviour {
 
     #region ====== SCENE START =======
 	public bool alertDebug = false;
-
+    
 	void Alert_unbug(){
 		globals.s.ALERT_BALL = false;
 		alertDebug = true;
@@ -282,6 +282,38 @@ public class game_controller : MonoBehaviour {
 		USER.s.BEST_SCORE = 0;
     }
 
+    #endregion
+
+    #region PAUSE
+    void Update()
+    {
+        if (Input.GetKeyDown("p"))
+        {
+            ClickedPauseButton();
+        }
+    }
+
+    public void ClickedPauseButton()
+    {
+        if (globals.s.GAME_PAUSED)
+            UnPauseGame();
+        else
+            PauseGame();
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        globals.s.GAME_PAUSED = true;
+        hud_controller.si.OpenPauseMenu();
+    }
+
+    public void UnPauseGame()
+    {
+        Time.timeScale = 1;
+        globals.s.GAME_PAUSED = false;
+        hud_controller.si.ClosePauseMenu();
+    }
     #endregion
 
     #region ====== GAME END =======
@@ -2169,8 +2201,8 @@ public class game_controller : MonoBehaviour {
         }
     }
 
-    //SINGLE SPIKE SOMEWHERE
-    bool create_wave_saw(int n, int custom_wave = -1)
+    //SINGLE SAW FAR
+    bool create_wave_saw_far(int n, int custom_wave = -1)
     {
         float actual_y = globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n;
         int rand = Random.Range(1, 100);
@@ -2311,7 +2343,7 @@ public class game_controller : MonoBehaviour {
         }
     }
 
-    void create_saw(float x, float y, int n, bool corner_repositionable = false, bool repositionable = false)
+    void create_saw(float x, float y, int n, bool corner_repositionable = false, bool repositionable = false, float distanceAppear = 12)
     {
         GameObject obj = objects_pool_controller.s.reposite_saw(x, y + globals.s.SLOT / 2);
         saw saw = obj.GetComponent<saw>();
@@ -2322,6 +2354,7 @@ public class game_controller : MonoBehaviour {
             saw.corner_repositionable = corner_repositionable;
             saw.repositionable = repositionable;
             saw.wave_name = wave_name;
+            saw.distance2Appear = distanceAppear;
         }
 
         ///////////////////////// CREATE NOTES OR NOT

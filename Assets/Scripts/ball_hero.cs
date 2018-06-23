@@ -258,11 +258,13 @@ public class ball_hero : MonoBehaviour
 
 	IEnumerator ShowAlert() {
 		yield return new WaitForSeconds (0.05f);
-		Debug.Log("SHOWING ALERT!! MY FLOOR: " + my_floor);
-		my_alert.SetActive(true);
-		my_alert.transform.localScale = new Vector2(2.3f, 0);
-		my_alert.transform.DOScaleY(2.3f, 0.12f);
-		if(sound_controller.s != null) sound_controller.s.play_alert();
+
+            Debug.Log("SHOWING ALERT!! MY FLOOR: " + my_floor);
+            my_alert.SetActive(true);
+            my_alert.transform.localScale = new Vector2(2.3f, 0);
+            my_alert.transform.DOScaleY(2.3f, 0.12f);
+            if (sound_controller.s != null) sound_controller.s.play_alert();
+
 	}
 
 	public void activate_pos_revive() // TBD FOLLOWERS
@@ -307,10 +309,10 @@ public class ball_hero : MonoBehaviour
         }
 
 		// ===================== JUMP ============================
-		if (globals.s.GAME_STARTED == true) {
+		if (globals.s.GAME_STARTED == true && globals.s.CURSOR_IN_PAUSE_BT == false) {
 			if ((Input.GetMouseButtonDown (0) || Input.GetKey ("space")) && globals.s.GAME_STARTED == true) {
 				StartCoroutine (Jump ());
-//				Debug.Log ("1JJJJJJJUMP! " + Input.mousePosition.y );
+                Debug.Log ("1JJJJJJJUMP! " + Input.mousePosition.y );
 //				Debug.Log ("GAME ALREADY STARTED, JUST JUMP!!!");
 
 

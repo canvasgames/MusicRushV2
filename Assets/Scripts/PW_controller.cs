@@ -126,6 +126,12 @@ public class PW_controller : MonoBehaviour
         {
             holes[i].show_me_pw_sight();
         }
+
+        saw[] saws = FindObjectsOfType(typeof(saw)) as saw[];
+        for (i = 0; i < saws.Length; i++)
+        {
+            saws[i].show_me_pw_sight();
+        }
     }
 
     void back_color_sight_pw()
