@@ -63,9 +63,9 @@ public class PwWheelMaster : MonoBehaviour {
 			globals.s.NOTES_COLLECTED_JUKEBOX += rewardToGive;
 			GameOverController.s.Init ();
 		} else {
-			hud_controller.si.activate_pw_bt.GetComponent<Button> ().interactable = false;
+//			hud_controller.si.activate_pw_bt.GetComponent<Button> ().interactable = false;
 		}
-
+		hud_controller.si.activate_pw_bt.GetComponent<Button> ().interactable = false;
 
 //        Invoke("closeTampa",0.3f);
     }
