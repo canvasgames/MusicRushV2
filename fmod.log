@@ -8,7 +8,7 @@
 [LOG] Thread::initThread                       : Init FMOD stream thread. Priority: 2, Stack Size: 65536, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Priority: 3, Stack Size: 49152, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 00000000742B0778 isAsync 1 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 000000005BE17378 isAsync 1 updatePeriod 0.02
 [LOG] Thread::initThread                       : Init FMOD Studio update thread. Priority: 0, Stack Size: 65536, Semaphore: No, Sleep Time: 1, Looping: No.
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
@@ -27,25 +27,65 @@
 [LOG] SystemI::createSound                     : filename = D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank : mode 02010082
 [LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
 [LOG] Thread::initThread                       : Init FMOD nonblocking thread (0). Priority: 1, Stack Size: 81920, Semaphore: Yes, Sleep Time: 0, Looping: Yes.
-[LOG] SystemI::createSound                     : setdata soundi = 000000005A0F9088 : node = 000000001DB3A7F0
-[LOG] SystemI::createSound                     : add node to async list : head = 000000005A431BA8.  list count = 0
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000005A0F9088
+[LOG] SystemI::createSound                     : setdata soundi = 000000004A34EEA8 : node = 000000005BD5B7C0
+[LOG] SystemI::createSound                     : add node to async list : head = 000000005BB75E58.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000004A34EEA8
 [LOG] SystemI::createSoundInternal             :     Create name='D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank', mode=0x02010082
 [LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
 [LOG] SystemI::createSoundInternal             :     exinfo->length             = 14828416
 [LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 37280
 [LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000001DB3A908
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000005BD5B8D8
 [LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
 [LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
 [LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
 [LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Daft_Loop_1', format=2, channels=2, frequency=24000, lengthbytes=292320, lengthpcm=368640, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999969.
 [LOG] Thread::initThread                       :     Init FMOD file thread. Priority: 1, Stack Size: 16384, Semaphore: No, Sleep Time: 10, Looping: Yes.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000005A0F9088
-[LOG] SoundI::getSubSound                      : sound 000000005A0F9088.  Subsound index 0 / 1
-[LOG] SoundI::release                          : Daft_Loop_1 (000000005A0F9088)
-[LOG] SoundI::release                          :     Daft_Loop_1 (000000005A431D98)
-[LOG] SoundI::release                          :     Daft_Loop_1 (0000000059DE5918)
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000004A34EEA8
+[LOG] SoundI::getSubSound                      : sound 000000004A34EEA8.  Subsound index 0 / 1
+[LOG] SystemI::createSound                     : filename = D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000000005BB77398 : node = 000000005BD5B910
+[LOG] SystemI::createSound                     : add node to async list : head = 000000005BB75E58.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000005BB77398
+[LOG] SystemI::createSoundInternal             :     Create name='D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 14828416
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 37280
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000005BD5BA28
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Daft_Loop_1', format=2, channels=2, frequency=24000, lengthbytes=292320, lengthpcm=368640, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999969.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000005BB77398
+[LOG] SoundI::getSubSound                      : sound 000000005BB77398.  Subsound index 0 / 1
+[LOG] SoundI::release                          : Daft_Loop_1 (000000004A34EEA8)
+[LOG] SoundI::release                          :     Daft_Loop_1 (000000005BB18DB8)
+[LOG] SoundI::release                          :     Daft_Loop_1 (000000004A50E5A8)
+[LOG] SystemI::createSound                     : filename = D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000000005BB771E8 : node = 000000005BD5B7C0
+[LOG] SystemI::createSound                     : add node to async list : head = 000000005BB75E58.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000005BB771E8
+[LOG] SystemI::createSoundInternal             :     Create name='D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 14828416
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 37280
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000005BD5B8D8
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Daft_Loop_1', format=2, channels=2, frequency=24000, lengthbytes=292320, lengthpcm=368640, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999969.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000005BB771E8
+[LOG] SoundI::getSubSound                      : sound 000000005BB771E8.  Subsound index 0 / 1
+[LOG] SoundI::release                          : Daft_Loop_1 (000000005BB77398)
+[LOG] SoundI::release                          :     Daft_Loop_1 (000000005BB75EA8)
+[LOG] SoundI::release                          :     Daft_Loop_1 (000000004A34F058)
+[LOG] SoundI::release                          : Daft_Loop_1 (000000005BB771E8)
+[LOG] SoundI::release                          :     Daft_Loop_1 (000000005BB76048)
+[LOG] SoundI::release                          :     Daft_Loop_1 (000000004A34EEA8)
 [LOG] Thread::callback                         : FMOD Studio update thread finished.
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.
 [LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
