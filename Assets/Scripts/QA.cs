@@ -10,8 +10,9 @@ public class QA : MonoBehaviour {
     public static QA s;
 
 	public bool DONT_START_THE_GAME = false;
+    public bool DELTADNA_ON = false;
 
-	public bool OLD_PLAYER;
+    public bool OLD_PLAYER;
 
 	public bool ALL_UNLOCKED;
 	bool sqMode = true;
@@ -32,7 +33,7 @@ public class QA : MonoBehaviour {
 
 	public Ease ease1;
 
-	public bool DELTADNA_ON;
+
 	public bool FMOD_ON;
 
 	public GameObject SqBt, invButton;
