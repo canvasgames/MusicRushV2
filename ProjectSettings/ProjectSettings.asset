@@ -126,7 +126,7 @@ PlayerSettings:
     16:10: 0
     16:9: 0
     Others: 0
-  bundleVersion: 17
+  bundleVersion: 19
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -165,7 +165,7 @@ PlayerSettings:
     tvOS: com.CanvasMobileGames.SuperCasual
   buildNumber:
     iOS: 0
-  AndroidBundleVersionCode: 8
+  AndroidBundleVersionCode: 9
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -248,7 +248,7 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: E:/Desktop/Music Rush SVN7 - updated/ms2.keystore
+  AndroidKeystoreName: E:/Desktop/Music Rush new SVN/trunk/ms2.keystore
   AndroidKeyaliasName: com.canvasgames.musicrush
   AndroidTVCompatibility: 1
   AndroidIsGame: 1

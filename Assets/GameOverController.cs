@@ -60,6 +60,9 @@ public class GameOverController : MonoBehaviour {
 		yTitlePos = careerOverTitle.transform.localPosition.y;
 		yScorePos = scorePanel.transform.localPosition.y;
 //		Init (34, 50);
+//		USER.s.NOTES = 98;
+//		globals.s.NOTES_COLLECTED_JUKEBOX = 8 ;
+//		globals.s.NOTES_COLLECTED = 8 ;
 	}
 
 //	void
@@ -133,6 +136,7 @@ public class GameOverController : MonoBehaviour {
 	}
 
 	public void Enterer(){
+		globals.s.curGameScreen = GameScreen.LevelEnd;
 //		Init ();
 		Init (Random.Range(2,40), 50);
 //		StartCoroutine (EnteringAnimations ());
@@ -151,7 +155,7 @@ public class GameOverController : MonoBehaviour {
 			// reset positions
 			scorePanel.transform.localScale = Vector3.one;
 			scorePanel.transform.localPosition = new Vector2 (scorePanel.transform.localPosition.x, yScorePos + 1200);
-
+			scoreText.text = "0";
 			careerOverTitle.transform.localPosition = new Vector2 (careerOverTitle.transform.localPosition.x, careerOverTitle.transform.localPosition.y + 450);
 
 			yield return new WaitForSeconds (0.05f); // init animations

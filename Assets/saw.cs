@@ -75,9 +75,9 @@ public class saw : scenario_objects
 
         transform.DOLocalMoveY((transform.localPosition.y + 0.64f), 0.1f).SetEase(Ease.Linear); 
         if(transform.position.x < 0)
-            transform.DOMoveX((transform.position.x + 11f), QA.s.jokerf).SetEase(Ease.Linear);
+            transform.DOMoveX((transform.position.x + 11f), 1.8f).SetEase(Ease.Linear);
         else
-            transform.DOMoveX((transform.position.x - 11f), QA.s.jokerf).SetEase(Ease.Linear);
+            transform.DOMoveX((transform.position.x - 11f), 1.8f).SetEase(Ease.Linear);
     }
 
     public void unshow_me()

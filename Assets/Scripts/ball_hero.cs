@@ -668,7 +668,7 @@ public class ball_hero : MonoBehaviour
 			PW_Collect temp = coll.gameObject.GetComponent<PW_Collect> ();
 			coll.transform.position = new Vector2 (-9909,-9999);
 			pw_do_something (temp);
-			if(sound_controller.s != null) sound_controller.s.play_collect_pw ();
+			if(sound_controller.s != null) sound_controller.s.PlaySfxCollectPw ();
 		} 
 		else if (coll.gameObject.CompareTag ("Spike")) {
 			if (globals.s.PW_SUPER_JUMP == false && !QA.s.INVENCIBLE) {
@@ -760,6 +760,8 @@ public class ball_hero : MonoBehaviour
                 //transform.position = new Vector2(transform.position.x, coll.transform.position.y + coll.transform.GetComponent<SpriteRenderer>().bounds.size.y / 2 + globals.s.BALL_R);
                 my_floor = coll.gameObject.GetComponent<floor>().my_floor;
                 //Debug.Log(my_id + " KKKKKKKKKKKKKKKKKK KOLLISION! MY NEW FLOOR: " + my_floor + " I AM GROUNDED ");
+
+				globals.s.BALL_CUR_FLOOR_Y = coll.gameObject.transform.position.y;
 
                 if (globals.s.PW_SUPER_JUMP) {
                     pw_super_end_for_real();
@@ -880,7 +882,7 @@ public class ball_hero : MonoBehaviour
 //			}
 //		}
 
-		if(sound_controller.s != null) sound_controller.s.PlayExplosion();
+		if(sound_controller.s != null) sound_controller.s.PlaySfxCharacterExplosion();
 		Instantiate(explosion, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);
 
 		game_controller.s.game_over(killer_wave_name, bolas, with_high_score);

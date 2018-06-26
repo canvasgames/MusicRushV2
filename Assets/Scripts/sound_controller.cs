@@ -282,17 +282,22 @@ public class sound_controller : MonoBehaviour
 	}
 
 	public void PlaySfxReward(){
-//		FMODUnity.
+		if(soundMuted == false)
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_ui_new_highscore");
 	}
 
 	public void special_event() {
 		//PlaySingle(Collect);
-		PlaySingle(Jumps[Random.Range(0, 7)], 1.5f);
+//		PlaySingle(Jumps[Random.Range(0, 7)], 1.5f);
+
 	}
 
-	public void play_collect_pw() {
-		PlaySingle(Collect);
+	public void PlaySfxCollectPw() {
+//		PlaySingle(Collect);
 		//PlaySingle(Jumps[Random.Range(0, 7)]);
+		if(soundMuted == false)
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_collect_power_up");
+
 	}
 
 	public void PlayJump()
@@ -308,22 +313,17 @@ public class sound_controller : MonoBehaviour
 		}
 	}
 
-	void can_play_jump_again()
-	{
+	void can_play_jump_again() 	{
 		can_play_jump = true;
 	}
-	public void PlayExplosion()
-	{
-//		Debug.Log ("PLAY EXPLOSION SOUNd!!!");
-		if (soundMuted == false) {
-//			Debug.Log ("PLAY EXPLOSION SOUNd!!!2");
 
-//			PlaySingle (Explosion);
-			PlaySingle (Explosion, 2f);
+	public void PlaySfxCharacterExplosion()	{
+		if (soundMuted == false) {
+
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_explosion");
 		}
 	}
 	#endregion
-
   
 	#region ==== Technical Stuff =====
     //#####################################################

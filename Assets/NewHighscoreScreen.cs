@@ -17,6 +17,8 @@ public class NewHighscoreScreen : MonoBehaviour {
 		canClick = false;
 		HighscoreText.text = (globals.s.BALL_FLOOR + 1).ToString ();
 		Invoke ("AllowClick", 1f);
+
+		sound_controller.s.PlaySfxReward ();
 	}
 
 	void AllowClick(){

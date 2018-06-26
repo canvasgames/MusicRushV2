@@ -58,7 +58,7 @@ public class PwWheelMaster : MonoBehaviour {
 
 		hud_controller.si.PowerUpsMenuClose ();
 
-		if (globals.s.GAME_OVER == 1) {
+		if (globals.s.GAME_OVER == 1 || globals.s.curGameScreen == GameScreen.LevelEnd) {
 			globals.s.NOTES_COLLECTED += rewardToGive;
 			globals.s.NOTES_COLLECTED_JUKEBOX += rewardToGive;
 			GameOverController.s.Init ();

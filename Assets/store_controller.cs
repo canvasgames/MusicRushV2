@@ -69,9 +69,9 @@ public class store_controller : MonoBehaviour {
 
 	#region === Init ===
     void Start () {
-		USER.s.NOTES = 101;
 //		USER.s.NOTES = 98;
-		globals.s.NOTES_COLLECTED_JUKEBOX = 8 ;
+//		USER.s.NOTES = 101;
+//		globals.s.NOTES_COLLECTED_JUKEBOX = 8 ;
 
 		SetPileOfCoinsInitalPosition ();
 
@@ -145,9 +145,12 @@ public class store_controller : MonoBehaviour {
 	public void OpenStore(){
 		Invoke ("OpenStore2", 0.1f);
 		if (globals.s.NOTES_COLLECTED_JUKEBOX > 0) {
-			StartCoroutine(InitCoinFallingAnimation(globals.s.NOTES_COLLECTED_JUKEBOX ));
+			StartCoroutine (InitCoinFallingAnimation (globals.s.NOTES_COLLECTED_JUKEBOX));
+		} else {
+//			myCoinsFalling.GetComponent<Animator> ().enabled = false;
+			myCoinsFalling.SetActive(false);
+			myCoinsQuantity.text = USER.s.NOTES + "/"+globals.s.JUKEBOX_CURRENT_PRICE;
 		}
-
 //		DisplayNotes ();
 //		changeAnimationEquipButtonNew(MusicStyle.Eletro);
 //		OnCharacterChangedNew((MusicStyle)actualCharInScreen);
@@ -409,7 +412,7 @@ public class store_controller : MonoBehaviour {
 
 
 	public IEnumerator InitCoinFallingAnimation(int nCoins = 0){
-		Debug.Log ("COIIIIIIIINS ANIMATION");
+		Debug.Log ("[JUKE] COIIIIIIIINS ANIMATION");
 		yield return new WaitForSeconds (0.5f);
 		int initialCoins = USER.s.NOTES - nCoins;
 		myCoinsFalling.SetActive (true);

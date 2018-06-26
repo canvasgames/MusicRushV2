@@ -137,6 +137,7 @@ public class hud_controller : MonoBehaviour {
 		var lowlevelSystem = FMODUnity.RuntimeManager.LowlevelSystem;
 		uint version;
 		lowlevelSystem.getVersion(out version);
+
 		FMODUnity.RuntimeManager.PlayOneShot ("event:/JumpTest");
 //		lowlevelSystem.p
 
@@ -518,6 +519,7 @@ public class hud_controller : MonoBehaviour {
 		store_label.SetActive (true);
 		if(storeY == 99999) storeY = store_label.transform.localPosition.y;
 		store_controller.s.OpenStore ();
+
 		store_label.transform.localPosition = new Vector3 (0, storeY - store_label.GetComponent <RectTransform> ().rect.height , store_label.transform.localPosition.z);
 		store_label.transform.DOLocalMoveY(storeY
 			, 0.5f).SetEase (Ease.OutQuad);
@@ -553,17 +555,19 @@ public class hud_controller : MonoBehaviour {
 			game_controller.s.RewindEffect ();
 
 		} else {
+
+			if(globals.s.previousGameScreen == GameScreen.LevelEnd){
+				GameOverController.s.UpdateJukeboxInformation ();
+			}
+
 			yield return new WaitForSeconds (0.35f);
 
 			globals.s.curGameScreen = globals.s.previousGameScreen;
+
 			if(globals.s.curGameScreen == GameScreen.MainMenu) 
 				game_title.transform.DOMoveY (game_title_y, 0.5f).SetEase (Ease.OutQuad);
 			store_label.SetActive (false);
 
-
-			if(globals.s.curGameScreen == GameScreen.LevelEnd){
-				GameOverController.s.UpdateJukeboxInformation ();
-			}
 		}
 
 //		pw_info.transform.DOMoveY (pw_info_y, 0.5f).SetEase (Ease.OutQuad);

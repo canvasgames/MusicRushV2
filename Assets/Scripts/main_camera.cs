@@ -132,12 +132,15 @@ public class main_camera : MonoBehaviour {
 			if (globals.s.GAME_OVER == 0 && !falling && !hitted_on_wall) {
 				if (initiated == false)
 				{
+					Debug.Log ("[aacam] INIT Y: " + (globals.s.BALL_CUR_FLOOR_Y- transform.position.y - QA.s.jokerf) +" REAL Y: " + globals.s.BALL_Y);
+					Debug.Log ("[aacam2] INIT Y: " + (globals.s.BALL_CUR_FLOOR_Y- transform.position.y - QA.s.jokerf2) + " / DIF X : " + (globals.s.BALL_X - QA.s.jokerf3));
+
 					//if ball is in a superior position than the camera
-					if (globals.s.BALL_Y > transform.position.y + QA.s.jokerf3 && 
-						((globals.s.BALL_X > QA.s.jokerf2 && globals.s.BALL_SPEED_X > 0)||
-						(globals.s.BALL_X > QA.s.jokerf2 && globals.s.BALL_SPEED_X < 0))) 
-					{
-						Debug.Log ("[cam] DIF Y: " + (globals.s.BALL_Y - transform.position.y - QA.s.jokerf3) + " / DIF X : " + (globals.s.BALL_X));
+					if (globals.s.BALL_CUR_FLOOR_Y > transform.position.y + QA.s.jokerf || 
+							(globals.s.BALL_CUR_FLOOR_Y> transform.position.y + QA.s.jokerf2 &&
+							((globals.s.BALL_X > QA.s.jokerf3 && globals.s.BALL_SPEED_X > 0) ||
+							(globals.s.BALL_X > QA.s.jokerf3 && globals.s.BALL_SPEED_X < 0)))) {
+							Debug.Log ("[cam] FOR REEEEAL DIF Y: " + (globals.s.BALL_CUR_FLOOR_Y- transform.position.y - QA.s.jokerf3) + " / DIF X : " + (globals.s.BALL_X - QA.s.jokerf3));
 						rb.velocity = new Vector2(0, globals.s.CAMERA_SPEED);
 						initiated = true;
 						moving = true;
@@ -145,21 +148,36 @@ public class main_camera : MonoBehaviour {
 				}
 				else
 				{
+					
 					//if ball is in a superior position than the camera
-					if (moving == false && globals.s.BALL_Y > transform.position.y + QA.s.jokerf3 &&
-					    ((globals.s.BALL_X > QA.s.jokerf2 && globals.s.BALL_SPEED_X > 0) ||
-					    (globals.s.BALL_X > QA.s.jokerf2 && globals.s.BALL_SPEED_X < 0))) {
-						QA.s.TIMESCALE = 1;
+					if (globals.s.BALL_CUR_FLOOR_Y> transform.position.y + QA.s.jokerf || 
+							(globals.s.BALL_CUR_FLOOR_Y> transform.position.y + QA.s.jokerf2 &&
+							((globals.s.BALL_X > QA.s.jokerf3 && globals.s.BALL_SPEED_X > 0) ||
+							(globals.s.BALL_X > QA.s.jokerf3 && globals.s.BALL_SPEED_X < 0)))) {
+//						QA.s.TIMESCALE = 1;
+//						Debug.Log ("[cam] moooooove for real " + (globals.s.BALL_CUR_FLOOR_Y- transform.position.y - QA.s.jokerf));
+						Debug.Log ("[cam] KEEEP MOVING BALL Y: " + (globals.s.BALL_CUR_FLOOR_Y- transform.position.y - QA.s.jokerf));
+						Debug.Log ("[cam2] KEEEP MOVING DIF Y: " + (globals.s.BALL_CUR_FLOOR_Y- transform.position.y - QA.s.jokerf2) + " / DIF X : " + (globals.s.BALL_X - QA.s.jokerf3));
 
-
-						Debug.Log ("[cam] KEEEP MOVING DIF Y: " + (globals.s.BALL_Y - transform.position.y - QA.s.jokerf3) + " / DIF X : " + (globals.s.BALL_X));
-						rb.velocity = new Vector2 (0, globals.s.CAMERA_SPEED);
-						moving = true;
-					} else if (moving == true && globals.s.BALL_Y < transform.position.y + QA.s.jokerf3) {
-						Debug.Log ("[cam] PAAAAAAUSE MOV DIF Y: " + (globals.s.BALL_Y - transform.position.y - QA.s.jokerf3) + " / DIF X : " + (globals.s.BALL_X));
+						if (moving == false) {
+							rb.velocity = new Vector2 (0, globals.s.CAMERA_SPEED);
+							moving = true;
+							Debug.Log ("sssssssssssssssssssssssssssss");
+							Debug.Log ("[LLcam] KEEEP MOVING BALL Y: " + (globals.s.BALL_CUR_FLOOR_Y- transform.position.y - QA.s.jokerf));
+							Debug.Log ("[LLcam2] KEEEP MOVING DIF Y: " + (globals.s.BALL_CUR_FLOOR_Y- transform.position.y - QA.s.jokerf2) + " / DIF X : " + (globals.s.BALL_X - QA.s.jokerf3));
+						}
+					} else if (globals.s.BALL_CUR_FLOOR_Y< transform.position.y + QA.s.jokerf3) {
+						Debug.Log ("[cam stop] PAAAAAAUSE MOV DIF Y: " + (globals.s.BALL_CUR_FLOOR_Y- transform.position.y - QA.s.jokerf));
+						Debug.Log ("[cam stop] PAAAAAAUSE MOV DIF Y: " + (globals.s.BALL_CUR_FLOOR_Y - transform.position.y - QA.s.jokerf2) + " / DIF X : " + (globals.s.BALL_X - QA.s.jokerf3));
 //						QA.s.TIMESCALE = 0.1f;
-						moving = false;
-						rb.velocity = new Vector2 (0,0);
+						if (moving == true) {
+							QA.s.TIMESCALE = 0;
+							moving = false;
+							Debug.Log ("XXXXXXXXXXXXXXXXX");
+							Debug.Log ("[XXXXXcam stop] PAAAAAAUSE MOV DIF Y: " + (globals.s.BALL_CUR_FLOOR_Y- transform.position.y - QA.s.jokerf));
+							Debug.Log ("[XXXXcam stop] PAAAAAAUSE MOV DIF Y: " + (globals.s.BALL_CUR_FLOOR_Y - transform.position.y - QA.s.jokerf2) + " / DIF X : " + (globals.s.BALL_X - QA.s.jokerf3));
+							rb.velocity = new Vector2 (0, 0);
+						}
 					}
 
 //					// ball is to high

@@ -37,7 +37,8 @@ public class globals : MonoBehaviour {
     public float BALL_Y = -8f;
     public float BALL_X = -4f;
     public float CUR_BALL_SPEED;
-    public int BALL_FLOOR = 0;
+	public int BALL_FLOOR = 0;
+	public float BALL_CUR_FLOOR_Y = 0;
     public bool BALL_GROUNDED = true;
     public float BALL_SPEED_X = 4f;
     public float BALL_SPEED_Y;

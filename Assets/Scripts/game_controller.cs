@@ -616,7 +616,8 @@ public class game_controller : MonoBehaviour {
             // if (ball_floor >= 1) camerda.GetComponent<Rigidbody2D>().velocity = new Vector2(0, globals.s.CAMERA_SPEED);
             cur_floor = ball_floor;
             hud_controller.si.update_floor(cur_floor);
-            globals.s.BALL_FLOOR = cur_floor;
+			globals.s.BALL_FLOOR = cur_floor;
+//			globals.s.BALL_CUR_FLOOR_Y = globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * cur_floor;
 
 			if (USER.s.NEWBIE_PLAYER == 1 && cur_floor >= GD.s.FTU_NEWBIE_SCORE) {
 				USER.s.SetNotNewbiePlayer ();
