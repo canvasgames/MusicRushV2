@@ -120,7 +120,7 @@ public class store_controller : MonoBehaviour {
 //		DefineActualCharOnTheScreen ();
 		DefineActualCharOnTheScreenNew ();
 //		OnCharacterChanged(actualCharInScreen);
-		OnCharacterChangedNew(actualCharInScreen);
+		OnCharacterChangedNew(actualCharInScreen, true);
 
 //        buyPrice.text = eletronicPrice.ToString();
 
@@ -159,10 +159,14 @@ public class store_controller : MonoBehaviour {
 //		ScrollSnap.SetCurrentPage((MusicStyle)globals.s.ACTUAL_STYLE);
 		ScrollSnap.SetCurrentPage(globals.s.ACTUAL_SKIN.id);
 		title.text = globals.s.ACTUAL_SKIN.skinName;
+
+		sound_controller.s.curJukeboxMusic = globals.s.ACTUAL_STYLE;
 	}
 
 	public void CloseStore(bool fromBackBt){
-		if(fromBackBt == true) sound_controller.s.change_music((MusicStyle)globals.s.ACTUAL_STYLE);
+//		if(fromBackBt == true) sound_controller.s.change_music((MusicStyle)globals.s.ACTUAL_STYLE);
+//				if(fromBackBt == true) sound_controller.s.SoltaOSomAeDJAndreMarques(globals.s.ACTUAL_STYLE);
+		if(fromBackBt == true) sound_controller.s.SoltaOSomAeDJAndreMarques(globals.s.ACTUAL_STYLE);
 		else equipCharacterNew ();
 	}
 
@@ -287,7 +291,7 @@ public class store_controller : MonoBehaviour {
 
 	public void OnCharacterChangedNew(int skinId, bool dontPlayMusic = false) {
 		MusicStyle style = GD.s.skins [skinId].musicStyle;
-
+		myChars [skinId].SetActive (true);
 //		Debug.Log ("[JUKEBOX] Character changed new: " + style.ToString());
 		Debug.Log ("[JUKEBOX] Character changed new: " + GD.s.skins[skinId].skinName);
 		actualCharInScreen = skinId;
@@ -442,6 +446,16 @@ public class store_controller : MonoBehaviour {
    
     #endregion
 
+	public void buyCharacterWithGems(bool dontChangeMusic = false){
+		//		USER.s.SetCurrentSelectedMusic ((MusicStyle)actualCharInScreen,  1);
+		USER.s.SetCurrentSelectedMusic (GD.s.skins[actualCharInScreen].musicStyle,  actualCharInScreen);
+		changeActualCharSkin ();
+
+		//		changeAnimationEquipButton("eletronic");
+		changeAnimationEquipButtonNew(actualCharInScreen);
+		if(dontChangeMusic == false) sound_controller.s.change_music(globals.s.ACTUAL_STYLE);
+	}
+
 	#region ==== Buying and Animation ====
 
 	public void SetBuyButtonState(){
@@ -458,9 +472,9 @@ public class store_controller : MonoBehaviour {
 			jukeboxBt.GetComponent<Button> ().interactable = false;
 			StartCoroutine (StartRoulleteAnimation ());
 
-			USER.s.NOTES -= globals.s.JUKEBOX_CURRENT_PRICE; 
-
-			USER.s.SaveUserNotes ();
+//			USER.s.NOTES -= globals.s.JUKEBOX_CURRENT_PRICE; 
+			USER.s.SpendUserNotes (globals.s.JUKEBOX_CURRENT_PRICE, "BuyRandomSkin");
+//			USER.s.SaveUserNotes ();
 
 			FTUController.s.SetFirstSongPurchased ();
 

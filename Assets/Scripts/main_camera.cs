@@ -12,6 +12,7 @@ public class main_camera : MonoBehaviour {
     public static main_camera s;
     public bool hitted_on_wall = false;
 	public float  yStart;
+	public Vector2 targetCenterPos;
 
     void Awake (){ s = this; }
   
@@ -20,6 +21,7 @@ public class main_camera : MonoBehaviour {
     {
 		yStart = transform.position.y;
         rb = transform.GetComponent<Rigidbody2D>();
+		Debug.Log ("[cam] YSTART!! " + yStart);
 
         // set the desired aspect ratio (the values in this example are
         // hard-coded for 16:9, but you could make them into public
@@ -80,7 +82,6 @@ public class main_camera : MonoBehaviour {
 
             Debug.Log("vvvvvvvvvvvvvvvvvvvvv [CAMERA] ON BALL FALLING !! TDIF: " + target_dif + " [] YD: " + (transform.position.y - globals.s.BALL_Y) + " MY POSITION: " + transform.position.y + "  MY TARGET Y " + (transform.position.y - globals.s.FLOOR_HEIGHT - 0.5f));
 
-
             transform.DOMoveY(transform.position.y - target_dif, 0.4f).SetEase(Ease.InOutQuad).OnComplete(() => falling = false);
         }
     }
@@ -99,8 +100,8 @@ public class main_camera : MonoBehaviour {
         transform.DOMoveY(pos_y, time).SetEase(Ease.InOutSine);
         pw_super_jump = true;
     }
-    public void PW_super_jump(float pos_y)
-    {
+   
+	public void PW_super_jump(float pos_y) {
         transform.position = new Vector3(transform.position.x, pos_y, transform.position.z);
     }
 
@@ -123,8 +124,81 @@ public class main_camera : MonoBehaviour {
         }
     }
 
-    // Update is called once per frame
-    void Update() {
+	void Update() {
+
+		//transform.position = new Vector3 (0, 0,0);
+		if (pw_super_jump == false && globals.s.REVIVING == false && globals.s.GAME_STARTED == true)
+		{
+			if (globals.s.GAME_OVER == 0 && !falling && !hitted_on_wall) {
+				if (initiated == false)
+				{
+					//if ball is in a superior position than the camera
+					if (globals.s.BALL_Y > transform.position.y + QA.s.jokerf3 && 
+						((globals.s.BALL_X > QA.s.jokerf2 && globals.s.BALL_SPEED_X > 0)||
+						(globals.s.BALL_X > QA.s.jokerf2 && globals.s.BALL_SPEED_X < 0))) 
+					{
+						Debug.Log ("[cam] DIF Y: " + (globals.s.BALL_Y - transform.position.y - QA.s.jokerf3) + " / DIF X : " + (globals.s.BALL_X));
+						rb.velocity = new Vector2(0, globals.s.CAMERA_SPEED);
+						initiated = true;
+						moving = true;
+					}
+				}
+				else
+				{
+					//if ball is in a superior position than the camera
+					if (moving == false && globals.s.BALL_Y > transform.position.y + QA.s.jokerf3 &&
+					    ((globals.s.BALL_X > QA.s.jokerf2 && globals.s.BALL_SPEED_X > 0) ||
+					    (globals.s.BALL_X > QA.s.jokerf2 && globals.s.BALL_SPEED_X < 0))) {
+						QA.s.TIMESCALE = 1;
+
+
+						Debug.Log ("[cam] KEEEP MOVING DIF Y: " + (globals.s.BALL_Y - transform.position.y - QA.s.jokerf3) + " / DIF X : " + (globals.s.BALL_X));
+						rb.velocity = new Vector2 (0, globals.s.CAMERA_SPEED);
+						moving = true;
+					} else if (moving == true && globals.s.BALL_Y < transform.position.y + QA.s.jokerf3) {
+						Debug.Log ("[cam] PAAAAAAUSE MOV DIF Y: " + (globals.s.BALL_Y - transform.position.y - QA.s.jokerf3) + " / DIF X : " + (globals.s.BALL_X));
+//						QA.s.TIMESCALE = 0.1f;
+						moving = false;
+						rb.velocity = new Vector2 (0,0);
+					}
+
+//					// ball is to high
+//					if (globals.s.GAME_STARTED && globals.s.BALL_FLOOR > 1 && globals.s.BALL_GROUNDED && globals.s.PW_SUPER_JUMP == false &&
+//						globals.s.BALL_Y > transform.position.y + globals.s.FLOOR_HEIGHT + 1.5f) { 
+//
+//						OnBallTooHigh();
+//					}
+//
+//					// stop camera if ball is too low
+//					else if (moving && globals.s.BALL_Y < transform.position.y - globals.s.FLOOR_HEIGHT && globals.s.BALL_GROUNDED == true) {
+//						Debug.Log ("[CAM] WOWWWWW!!!! BALL IS TOO LOW!! " + (globals.s.BALL_Y - transform.position.y));
+//						if(globals.s.BALL_Y < transform.position.y - globals.s.FLOOR_HEIGHT - 2)
+//							rb.velocity = new Vector2(0, - globals.s.CAMERA_SPEED);
+//						else
+//							rb.velocity = new Vector2(0, 0);
+//						moving = false;
+//					}
+//
+//					//make camera move normally
+//					else if (globals.s.BALL_Y > transform.position.y - globals.s.FLOOR_HEIGHT / 4 && globals.s.BALL_GROUNDED == true)//Debug.Log("MY Y POS: " + transform.position.y);  if (globals.s.BALL_Y > transform.position.y)
+//					{
+//						rb.velocity = new Vector2(0, globals.s.CAMERA_SPEED);
+//						moving = true;
+//					}
+				}
+			}
+			else
+			{
+				if(globals.s.GAME_OVER == 1)
+					rb.velocity = new Vector2(0, 0);
+				else
+					rb.velocity = new Vector2(0, -globals.s.CAMERA_SPEED);
+				moving = false;
+			}
+		}
+	}
+
+    void Update2() {
         
         //transform.position = new Vector3 (0, 0,0);
         if (pw_super_jump == false && globals.s.REVIVING == false && globals.s.GAME_STARTED == true)
@@ -142,14 +216,14 @@ public class main_camera : MonoBehaviour {
                 else
                 {
                     // ball is to high
-					if (globals.s.GAME_STARTED && globals.s.BALL_FLOOR > 1 && globals.s.BALL_GROUNDED && globals.s.PW_SUPER_JUMP == false && globals.s.BALL_Y > transform.position.y + globals.s.FLOOR_HEIGHT + 1.5f) { 
-                        OnBallTooHigh();
+					if (globals.s.GAME_STARTED && globals.s.BALL_FLOOR > 1 && globals.s.BALL_GROUNDED && globals.s.PW_SUPER_JUMP == false &&
+						globals.s.BALL_Y > transform.position.y + globals.s.FLOOR_HEIGHT + 1.5f) { 
+                       
+						OnBallTooHigh();
                     }
 
                     // stop camera
-                    else if (moving && globals.s.BALL_Y < transform.position.y - globals.s.FLOOR_HEIGHT && globals.s.BALL_GROUNDED == true)
-                    {
-                        
+                    else if (moving && globals.s.BALL_Y < transform.position.y - globals.s.FLOOR_HEIGHT && globals.s.BALL_GROUNDED == true) {
                         if(globals.s.BALL_Y < transform.position.y - globals.s.FLOOR_HEIGHT - 2)
                             rb.velocity = new Vector2(0, - globals.s.CAMERA_SPEED);
                         else
@@ -157,7 +231,7 @@ public class main_camera : MonoBehaviour {
                         moving = false;
                     }
 
-
+					//camera is moving normally
                     else if (globals.s.BALL_Y > transform.position.y - globals.s.FLOOR_HEIGHT / 4 && globals.s.BALL_GROUNDED == true)//Debug.Log("MY Y POS: " + transform.position.y);  if (globals.s.BALL_Y > transform.position.y)
                     {
                         rb.velocity = new Vector2(0, globals.s.CAMERA_SPEED);

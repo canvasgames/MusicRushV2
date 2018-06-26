@@ -14,14 +14,14 @@ public class PauseBT : MonoBehaviour
 
     public void PointerEnter()
     {
-        Debug.Log("aaaaaaaaaaaa");
+//        Debug.Log("aaaaaaaaaaaa");
         globals.s.CURSOR_IN_PAUSE_BT = true;
     }
 
 
     public void PointerExit()
     {
-        Debug.Log("ccccccccccccccc");
+//        Debug.Log("ccccccccccccccc");
 
         globals.s.CURSOR_IN_PAUSE_BT = false;
     }

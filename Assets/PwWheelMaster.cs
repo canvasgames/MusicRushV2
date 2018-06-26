@@ -11,14 +11,6 @@ public class PwWheelMaster : MonoBehaviour {
 	public Button myBack;
 	int rewardToGive = 0;
 	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     void OnEnable()
     {

@@ -704,6 +704,7 @@ public class ball_hero : MonoBehaviour
 		{
 			rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y);
 			my_skin.transform.localScale = new Vector2(-my_skin.transform.localScale.x, my_skin.transform.localScale.y);
+			globals.s.CUR_BALL_SPEED = rb.velocity.x;
 
 			if (myFollowers != null)
 				WallCollisionForMyFollowers ();

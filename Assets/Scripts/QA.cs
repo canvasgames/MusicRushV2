@@ -32,6 +32,9 @@ public class QA : MonoBehaviour {
 
 	public Ease ease1;
 
+	public bool DELTADNA_ON;
+	public bool FMOD_ON;
+
 	public GameObject SqBt, invButton;
 	// Use this for initialization
 	void Awake() {

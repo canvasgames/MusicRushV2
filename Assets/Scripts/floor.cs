@@ -47,6 +47,7 @@ public class floor : scenario_objects {
 					note.already_appeared = true;
 
 					note.mySR.enabled = true;
+					note.mySR.color = new Color (1, 1, 1, 0);
 					note.mySimpleAnimation.Rewind ();
 //					note.myAnimation.Rewind();
 //					note.myAnimation.Rewind. Play ();

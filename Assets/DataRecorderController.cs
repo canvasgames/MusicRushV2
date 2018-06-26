@@ -5,6 +5,7 @@ public class DataRecorderController : MonoBehaviour {
 	public int userSessionGames = 0;
 	public int userSessionHighscore = 0;
 	public int userSessionHighse = 0;
+	public int notesCollectedThisSession = 0;
 
 
 	public static DataRecorderController s;

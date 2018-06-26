@@ -6,11 +6,11 @@ public enum MusicStyle{
 	Rock = 1,
 	Pop= 2,
 	PopGaga = 3,
-	Reggae= 4,
-	Rap = 5,
-	Samba = 6,
-	Latina = 7,
-	Classic = 8,
+	Samba = 4,
+	Classic = 5,
+	Reggae= 6,
+	Rap = 7,
+	Latina = 8,
 	AnimeShounen = 9,
 //	DingoBells = 10,
 	Lenght = 10
@@ -80,47 +80,47 @@ public class GD : MonoBehaviour {
 		skins = new Skin[skinsArraySize]; // TBD REMOTE VARIABLE
 		Debug.Log(" SKINS: " + skins.Length);
 
-		// ELETRO SKINS
+		// ELETRO SKINS = 1
 		NewSkin("One More Try", MusicStyle.Eletro, 1); // 0
 		NewSkin("Electro Robot", MusicStyle.Eletro, 2); // 1
 		NewSkin("Interstella", MusicStyle.Eletro, 3, true, 4); // 2
 
-		// ROCK SKINS
+		// ROCK SKINS = 2
 		NewSkin("Guitar Solist", MusicStyle.Rock, 1); // 3
 		NewSkin("Rock'n'Roll", MusicStyle.Rock, 2); // 4
 		NewSkin("Rock Band", MusicStyle.Rock, 3, true, 3); // 5
 
-		// POP SKINS
+		// POP SKINS = 3
 		NewSkin("Thriller Man", MusicStyle.Pop, 1); // 7
 		NewSkin("Pop King", MusicStyle.Pop, 2); // 6
 		NewSkin("Disco", MusicStyle.Pop, 3, true, 5); // 8
 
-		// POPSTARS 
+		// POPSTARS = 4
 		NewSkin("Ela Ela Ela", MusicStyle.PopGaga, 1);
 		NewSkin("Classic Popstar", MusicStyle.PopGaga, 2);
 		NewSkin("Lady Pop", MusicStyle.PopGaga, 3, false, 0, true);
 
-		// SAMBA 
+		// SAMBA = 5
 		NewSkin("Carnaval", MusicStyle.Samba, 1);
 		NewSkin("Rei Momo", MusicStyle.Samba, 2);
 		NewSkin("Xaranga", MusicStyle.Samba, 3, true, 3);
 
-		// CLASSIC
+		// CLASSIC = 6
 		NewSkin("Maestro", MusicStyle.Classic, 1);
 		NewSkin("Sympohist", MusicStyle.Classic, 2);
 		NewSkin("Orquestra", MusicStyle.Classic, 3, true, 3);
 
-		// REGGAE
+		// REGGAE = 7
 		NewSkin("The Jammer", MusicStyle.Reggae, 1);
 		NewSkin("Rasta", MusicStyle.Reggae, 2);
 		NewSkin("Reggae Family", MusicStyle.Reggae, 3, true, 3);
 
-		// RAP
+		// RAP = 8
 		NewSkin("Jing Bling", MusicStyle.Rap, 1);
 		NewSkin("The Rhymer", MusicStyle.Rap, 2);
 		NewSkin("Ma Man", MusicStyle.Rap, 3, true, 3);
 
-		// LATINA
+		// LATINA = 9
 		NewSkin("Waka Waka", MusicStyle.Latina, 1);
 		NewSkin("La Vida Loka", MusicStyle.Latina, 2);
 		NewSkin("Muchachos", MusicStyle.Latina, 3, true, 3);
@@ -193,6 +193,32 @@ public class GD : MonoBehaviour {
 			return "Anime Shounen";
 //		else if (style == MusicStyle.DingoBells)
 //			return "Dingo Bells";
+		else return "";
+	}
+
+	public string GetMusicNameForFMOD(MusicStyle style){
+		if (style == MusicStyle.Classic)
+			return "music_classic";
+		else if (style == MusicStyle.Eletro)
+			return "music_electronic";
+		else if (style == MusicStyle.Latina)
+			return "music_latina";
+		else if (style == MusicStyle.Reggae)
+			return "music_reggae";
+		else if (style == MusicStyle.Pop)
+			return "music_pop";
+		else if (style == MusicStyle.Rap)
+			return "music_rap";
+		else if (style == MusicStyle.PopGaga)
+			return "music_modern_pop";
+		else if (style == MusicStyle.Rock)
+			return "music_rock";
+		else if (style == MusicStyle.Samba)
+			return "music_samba";
+		else if (style == MusicStyle.AnimeShounen)
+			return "music_anime_shounen";
+		//		else if (style == MusicStyle.DingoBells)
+		//			return "Dingo Bells";
 		else return "";
 	}
 

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Mask))]
 [RequireComponent(typeof(ScrollRect))]
 public class ScrollSnapRect : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler {
-
+	#region === Vars ===
     [Tooltip("Set starting page index - starting from 0")]
     public int startingPage = 0;
     [Tooltip("Threshold time for fast swipe in seconds")]
@@ -59,6 +59,7 @@ public class ScrollSnapRect : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
     // container with Image components - one Image for each page
     private List<Image> _pageSelectionImages;
     public Text charPrice;
+	#endregion
     //------------------------------------------------------------------------
     void Start() {
 //		Debug.Log("staaaaaaaaaaaaaaaart scrpççsasdl");
@@ -225,6 +226,8 @@ public class ScrollSnapRect : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
         _previousPageSelectionIndex = aPageIndex;
     }
 
+
+	#region === CHARACTER SELECTION ===
 	public void SetCurrentPage(int skinId){
 //		Debug.Log("lerp to page : " + (int)style);
 		LerpToPage(skinId);
@@ -262,7 +265,7 @@ public class ScrollSnapRect : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
             LerpToPage(_currentPage - 1);
         }
     }
-
+	#endregion
     //------------------------------------------------------------------------
     private int GetNearestPage() {
         // based on distance from current position, find nearest page

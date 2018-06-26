@@ -146,77 +146,7 @@ public class hud_controller : MonoBehaviour {
 		game_title_y = header.transform.position.y;
 		//Invoke ("GiftButtonClicked", 1f);
 
-        display_best(USER.s.BEST_SCORE);
-        display_notes(USER.s.NOTES);
-
-        //PlayerPrefs.DeleteAll();
-        PW_date = PlayerPrefs.GetString("PWDate2ChangeState");
-        roullete_date = PlayerPrefs.GetString("RouletteDate2ChangeState");
-        gift_date = PlayerPrefs.GetString("GiftDate2ChangeState");
-
-
-		if (USER.s.NEWBIE_PLAYER == 0 || QA.s.OLD_PLAYER) {
-//			activate_pw_bt.SetActive (true);
-//			jukeboxBtMainMenu.SetActive (true);
-//			handTapToPlay.SetActive (false);
-
-//			activate_pw_bt.GetComponent<activate_pw_button> ().HandTutLogic ();
-			//SETTING PW STATE
-			int temp_state = PlayerPrefs.GetInt ("PWState", 0);
-			if (temp_state == 1) {
-				globals.s.PW_ACTIVE = true;
-//				activate_pw_bt.GetComponent<Button> ().interactable = true;
-//				activate_pw_bt.GetComponent<activate_pw_button> ().SetCountownState ();
-			} else {
-				globals.s.PW_ACTIVE = false;
-//				activate_pw_bt.GetComponent<Button> ().interactable = false;
-
-//				activate_pw_bt.GetComponent<activate_pw_button> ().SetSPinNowState ();
-			}
-		} else {
-//			activate_pw_bt.SetActive (false);
-//			jukeboxBtMainMenu.SetActive (false);
-//			handTapToPlay.SetActive (true);
-
-		}
-
-
-        //Debug.Log(PW_date);
-        if (PW_date != "")
-        {
-            tempDate = Convert.ToDateTime(PW_date);
-        }
-
-        if(roullete_date != "")
-        {
-            tempDateRoulette = Convert.ToDateTime(roullete_date);
-            PlayerPrefs.SetString("RouletteDate2ChangeState", tempDateRoulette.ToString());
-            int canRotate = PlayerPrefs.GetInt("CanRotate", 1);
-            if (canRotate == 1)
-            {
-                CAN_ROTATE_ROULETTE = true;
-				if(activate_pw_bt.activeInHierarchy) activate_pw_bt.GetComponent<Button> ().interactable = true;
-
-                Debug.Log("HUD: CAN ROTATE");
-            }
-            else
-            {
-                CAN_ROTATE_ROULETTE = false;
-				if(activate_pw_bt.activeInHierarchy) activate_pw_bt.GetComponent<Button> ().interactable = false;
-
-                Debug.Log("HUD: NO ROTATE");
-
-            }
-        }
-        else
-        {
-            CAN_ROTATE_ROULETTE = true;
-            Debug.Log("HUD: vazio can rotate init");
-
-			if(activate_pw_bt.activeInHierarchy) activate_pw_bt.GetComponent<Button> ().interactable = true;
-
-        }
-
+		SpinDiskTimerLogic ();
 //
 //		if (USER.s.GIFT_INTRODUCED == 1 ||  QA.s.OLD_PLAYER) {
 ////			giftBt.SetActive (true);
@@ -262,6 +192,78 @@ public class hud_controller : MonoBehaviour {
     }
 
 
+	void SpinDiskTimerLogic(){
+
+		display_best(USER.s.BEST_SCORE);
+		display_notes(USER.s.NOTES);
+
+		//PlayerPrefs.DeleteAll();
+		PW_date = PlayerPrefs.GetString("PWDate2ChangeState");
+		roullete_date = PlayerPrefs.GetString("RouletteDate2ChangeState");
+		gift_date = PlayerPrefs.GetString("GiftDate2ChangeState");
+
+
+		if (USER.s.NEWBIE_PLAYER == 0 || QA.s.OLD_PLAYER) {
+			//			activate_pw_bt.SetActive (true);
+			//			jukeboxBtMainMenu.SetActive (true);
+			//			handTapToPlay.SetActive (false);
+
+			//			activate_pw_bt.GetComponent<activate_pw_button> ().HandTutLogic ();
+			//SETTING PW STATE
+			int temp_state = PlayerPrefs.GetInt ("PWState", 0);
+			if (temp_state == 1) {
+				globals.s.PW_ACTIVE = true;
+				//				activate_pw_bt.GetComponent<Button> ().interactable = true;
+				//				activate_pw_bt.GetComponent<activate_pw_button> ().SetCountownState ();
+			} else {
+				globals.s.PW_ACTIVE = false;
+				//				activate_pw_bt.GetComponent<Button> ().interactable = false;
+
+				//				activate_pw_bt.GetComponent<activate_pw_button> ().SetSPinNowState ();
+			}
+		} else {
+			//			activate_pw_bt.SetActive (false);
+			//			jukeboxBtMainMenu.SetActive (false);
+			//			handTapToPlay.SetActive (true);
+
+		}
+
+		//Debug.Log(PW_date);
+		if (PW_date != "")
+		{
+			tempDate = Convert.ToDateTime(PW_date);
+		}
+
+		if(roullete_date != "")
+		{
+			tempDateRoulette = Convert.ToDateTime(roullete_date);
+			PlayerPrefs.SetString("RouletteDate2ChangeState", tempDateRoulette.ToString());
+			int canRotate = PlayerPrefs.GetInt("CanRotate", 1);
+			if (canRotate == 1) {
+				CAN_ROTATE_ROULETTE = true;
+				if(activate_pw_bt.activeInHierarchy) activate_pw_bt.GetComponent<Button> ().interactable = true;
+
+				Debug.Log("HUD: CAN ROTATE");
+			}
+			else {
+				CAN_ROTATE_ROULETTE = false;
+				if(activate_pw_bt.activeInHierarchy) activate_pw_bt.GetComponent<Button> ().interactable = false;
+
+				Debug.Log("HUD: NO ROTATE");
+
+			}
+		}
+		else {
+			CAN_ROTATE_ROULETTE = true;
+			Debug.Log("HUD: vazio can rotate init");
+
+			if(activate_pw_bt.activeInHierarchy) activate_pw_bt.GetComponent<Button> ().interactable = true;
+		}
+
+		
+	}
+
+
 	public void start_game_coroutine(){
 		StartCoroutine (start_game ());
 	}
@@ -288,6 +290,8 @@ public class hud_controller : MonoBehaviour {
 			header.transform.DOLocalMoveY (game_title.transform.localPosition.y + 200
 				, 0.5f).SetEase (Ease.OutQuart);
 			yield return new WaitForSeconds (0.2f);
+
+			SpinDiskTimerLogic ();
 
 			hud_entrance ();
 
@@ -361,18 +365,20 @@ public class hud_controller : MonoBehaviour {
 			restartDiskGroup.transform.position.y);
 		
 		RestartSpinDiskEnter ();
+
+		restartScreen.GetComponent<RestartLoadingScreen> ().InitMe ();
 	}
 
 	void RestartSpinDiskEnter(){
 
 		restartDiskGroup.transform.DOMoveX (posX, 0.4f).SetEase(Ease.OutCubic);
 
-		float tempo = UnityEngine.Random.Range (2f, 2.6f);
-		float angle = UnityEngine.Random.Range  (-1, -360);
-		float force = UnityEngine.Random.Range (240,250);
-		angle = angle * (force);
-
-		restartDisk.transform.DORotate (new Vector3 (0, 0, angle), 4f, RotateMode.WorldAxisAdd);
+//		float tempo = UnityEngine.Random.Range (2f, 2.6f);
+//		float angle = UnityEngine.Random.Range  (-1, -360);
+//		float force = UnityEngine.Random.Range (240,250);
+//		angle = angle * (force);
+//
+//		restartDisk.transform.DORotate (new Vector3 (0, 0, angle), 4f, RotateMode.WorldAxisAdd);
 	}
 
 
@@ -414,8 +420,7 @@ public class hud_controller : MonoBehaviour {
 //		bottomLabel.transform.DOLocalMoveY (y_start, 0.3f).SetEase (Ease.OutQuad).OnComplete(() => restartScreen.SetActive(false));
 		bottomLabel.transform.DOLocalMoveY (y_start, 0.3f).SetEase (Ease.OutQuad);
 
-		handTapToPlay.SetActive (true);
-		Invoke ("DeactivateRestartScreen", 1.5f);
+		handTapToPlay.SetActive (true);		Invoke ("DeactivateRestartScreen", 0.3f);
 	}
 
 	void DeactivateRestartScreen(){

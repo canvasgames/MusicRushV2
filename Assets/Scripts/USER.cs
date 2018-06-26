@@ -10,6 +10,7 @@ public class USER : MonoBehaviour {
     [HideInInspector]   public int TOTAL_GAMES_WITH_TUTORIAL, TOTAL_GAMES, TOTAL_VIDEOS_WATCHED, TUTORIAL_GAMES;
     [HideInInspector]   public int FIRST_PW_CREATED, FIRST_HOLE_CREATED, FIRST_WALL_CREATED;
 	[HideInInspector]   public int NOTES, TOTAL_NOTES;
+	[HideInInspector]   public int DIAMONDS, TOTAL_DIAMONDS;
 //    [HideInInspector]   public int N_CHARS_PURCHASED;
     [HideInInspector]
     public int SOUND_MUTED;
@@ -27,6 +28,8 @@ public class USER : MonoBehaviour {
 
 		NOTES = PlayerPrefs.GetInt("notes", 0);
         TOTAL_NOTES = PlayerPrefs.GetInt("total_notes", 0);
+
+		DIAMONDS = PlayerPrefs.GetInt ("diamonds", 0);
 
         BEST_SCORE = PlayerPrefs.GetInt("best", 0);
         LAST_SCORE = PlayerPrefs.GetInt("last_score", 0);
@@ -54,11 +57,12 @@ public class USER : MonoBehaviour {
 		}
     } 
 
-
-	public void AddNotes(int value){
+	#region === COIN NOTES ===
+	public void AddNotes(int value, string source = ""){
 		Debug.Log ("::::::: USER ADD NOTES CALLED: " + value + " CURRENT NOTES BEFORE: "+ USER.s.NOTES);
 		USER.s.NOTES += value;
 		USER.s.TOTAL_NOTES += value;
+		DataRecorderController.s.notesCollectedThisSession += value;
 		hud_controller.si.display_notes(USER.s.NOTES);
 //		store_controller.s.UpdateUserNotes ();
 
@@ -68,12 +72,41 @@ public class USER : MonoBehaviour {
 //		if (GameOverController.s != null && globals.s.GAME_OVER == 1)
 //			GameOverController.s.Init ();
 	}
+	public void SpendUserNotes(int quantity, string source){
+		USER.s.NOTES -= quantity;
+		PlayerPrefs.SetInt("notes", USER.s.NOTES);
+	}
 
 	public void SaveUserNotes(){
 		PlayerPrefs.SetInt("notes", USER.s.NOTES);
 		PlayerPrefs.SetInt("total_notes", USER.s.TOTAL_NOTES);
 	}
 
+
+
+	#endregion
+	#region === DIAMONDS ===
+	public void AddDiamonds(int value, string source){
+		Debug.Log ("::::::: USER ADD DDDIAMONDS CALLED: " + value + " CURRENT NOTES BEFORE: "+ USER.s.NOTES);
+		USER.s.DIAMONDS += value;
+		USER.s.TOTAL_DIAMONDS += value;
+//		hud_controller.si.display_notes(USER.s.NOTES);
+
+		PlayerPrefs.SetInt("diamonds", USER.s.DIAMONDS);
+		PlayerPrefs.SetInt("total_diamonds", USER.s.TOTAL_DIAMONDS);
+
+	}
+	public void SpendDiamonds(int quantity, string orign){
+		USER.s.DIAMONDS -= quantity;
+		PlayerPrefs.SetInt("diamonds", USER.s.DIAMONDS);
+	}
+
+	public void SaveUserDiamonds(){
+		PlayerPrefs.SetInt("total_diamonds", USER.s.TOTAL_DIAMONDS);
+		PlayerPrefs.SetInt("diamonds", USER.s.DIAMONDS);
+	}
+
+	#endregion
 
 	public void SetCurrentSelectedMusic(MusicStyle style, int skinId){
 		PlayerPrefs.SetInt ("curStyle", (int)style);

@@ -129,7 +129,7 @@ public class game_controller : MonoBehaviour {
 	}
     void Start () {
 		Invoke ("Alert_unbug", 3f);
-		if(sound_controller.s != null && firstNewGame == true) sound_controller.s.play_music();
+//		if(sound_controller.s != null && firstNewGame == true) sound_controller.s.play_music();
         
 		ResetStuffForNewGame ();
 
@@ -284,7 +284,7 @@ public class game_controller : MonoBehaviour {
 
     #endregion
 
-    #region PAUSE
+    #region  === PAUSE === 
     void Update()
     {
         if (Input.GetKeyDown("p"))
@@ -306,6 +306,7 @@ public class game_controller : MonoBehaviour {
         Time.timeScale = 0;
         globals.s.GAME_PAUSED = true;
         hud_controller.si.OpenPauseMenu();
+		sound_controller.s.PauseAtGameplayEvent ();
     }
 
     public void UnPauseGame()
@@ -313,6 +314,7 @@ public class game_controller : MonoBehaviour {
         Time.timeScale = 1;
         globals.s.GAME_PAUSED = false;
         hud_controller.si.ClosePauseMenu();
+		sound_controller.s.ResumeFromPause();
     }
     #endregion
 
@@ -424,6 +426,7 @@ public class game_controller : MonoBehaviour {
 	}
 
 	public IEnumerator RewindStuff(){
+		Debug.Log ("SSSSSSSOUND CONTROLLER REWIND");
 		GameOverController.s.gameObject.SetActive (false);
 		hud_controller.si.DisplayRestartLoading ();
 		BallMaster.s.DeactivateBallsForRestart ();
@@ -682,9 +685,9 @@ public class game_controller : MonoBehaviour {
             count++;
 
             // ======== SORT INITIAL WAVES! ========
-            if(1==1)
+            if(1==2)
             {
-                wave_found = create_wave_saw(n_floor,1);
+                wave_found = create_wave_saw_far(n_floor,1);
             }
             else
 				if (n_floor-1 == GD.s.SCENERY_FLOOR_VALUES[0] 
