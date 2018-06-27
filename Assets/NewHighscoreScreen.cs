@@ -27,10 +27,9 @@ public class NewHighscoreScreen : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButton (0)) {
+		if (canClick && Input.GetMouseButton (0)) {
 			gameObject.SetActive (false);
 			hud_controller.si.appear_game_over ();
 		}
-	
 	}
 }

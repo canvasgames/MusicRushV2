@@ -38,7 +38,7 @@ public class RewardScreen : MonoBehaviour {
 
 	IEnumerator EnteringAnimationNotes(){
 		Color myColor = myImage.color;
-		int yadj = 100;
+		int yadj = 120;
 		mySparks.SetActive (false);
 //		myReward.transform.localScale = new Vector2 (0.84f, 0.84f);
 //		float y = myReward.transform.localPosition.y;

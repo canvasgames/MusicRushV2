@@ -61,6 +61,10 @@ public class PwWheelMaster : MonoBehaviour {
 		if (globals.s.GAME_OVER == 1 || globals.s.curGameScreen == GameScreen.LevelEnd) {
 			globals.s.NOTES_COLLECTED += rewardToGive;
 			globals.s.NOTES_COLLECTED_JUKEBOX += rewardToGive;
+			Debug.Log (" CLOSE REWARD MENU !!!! ");
+
+			if(FTUController.s.canIntroduceStore == 0) FTUController.s.AllowIntroduceStore ();
+
 			GameOverController.s.Init ();
 		} else {
 //			hud_controller.si.activate_pw_bt.GetComponent<Button> ().interactable = false;

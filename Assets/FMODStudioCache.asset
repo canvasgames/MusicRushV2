@@ -34,9 +34,22 @@ MonoBehaviour:
   - {fileID: 114508345373613262}
   - {fileID: 114846783134286850}
   - {fileID: 114103667231854230}
+  - {fileID: 114720244904884864}
+  - {fileID: 114615469032924020}
+  - {fileID: 114157053637283174}
+  - {fileID: 114551926000434738}
+  - {fileID: 114483271648401808}
+  - {fileID: 114894514420864566}
+  - {fileID: 114330977883738814}
+  - {fileID: 114510200117752344}
+  - {fileID: 114369513722712656}
+  - {fileID: 114988401531488074}
+  - {fileID: 114289055886044902}
+  - {fileID: 114195104352764292}
+  - {fileID: 114704358612307414}
   MasterBankRef: {fileID: 114115613712519722}
   StringsBankRef: {fileID: 114171918465980402}
-  stringsBankWriteTime: 636655889839535988
+  stringsBankWriteTime: 636656391390103856
   cacheVersion: 2
 --- !u!114 &11413294
 MonoBehaviour:
@@ -493,7 +506,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114760328600191060}
+  - {fileID: 114331792341947432}
   MinDistance: 0
   MaxDistance: 0
   Length: 7680
@@ -598,7 +611,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114264656609827408}
+  - {fileID: 114444261991620022}
   MinDistance: 0
   MaxDistance: 0
   Length: 15360
@@ -616,6 +629,21 @@ MonoBehaviour:
   Name: style
   Min: 1
   Max: 30
+  Default: 1
+--- !u!114 &114093972436930466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
   Default: 1
 --- !u!114 &114103667231854230
 MonoBehaviour:
@@ -638,7 +666,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
-  Length: 862
+  Length: 143
 --- !u!114 &114115613712519722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -651,7 +679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile\Master Bank.bank
-  lastModified: 636655889839525987
+  lastModified: 636656391390093855
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -728,10 +756,32 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114862207020927670}
+  - {fileID: 114275548607987304}
   MinDistance: 0
   MaxDistance: 0
   Length: 30720
+--- !u!114 &114157053637283174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Sfx/sfx_character_shield_break
+  guid: 21c3556642e9094980524e08495466f7
+  Banks:
+  - {fileID: 114222966619422218}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 862
 --- !u!114 &114170195413613058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -774,13 +824,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile\Master Bank.strings.bank
-  lastModified: 636655889839535988
+  lastModified: 636656391390103856
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 1588
+    Value: 2238
   - Name: Mobile
-    Value: 1588
+    Value: 2238
   Exists: 1
 --- !u!114 &114178401439142804
 MonoBehaviour:
@@ -797,6 +847,21 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114179878840543628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
 --- !u!114 &114182106205620046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -865,6 +930,28 @@ MonoBehaviour:
   Min: 1
   Max: 5
   Default: 1
+--- !u!114 &114195104352764292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Sfx/sfx_ui_spin_disk_reward
+  guid: f073a61659f21147a90ac72aa93026d5
+  Banks:
+  - {fileID: 114222966619422218}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 1175
 --- !u!114 &114204083344056424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -888,6 +975,21 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 17777
+--- !u!114 &114204228518563188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: style
+  Min: 1
+  Max: 30
+  Default: 1
 --- !u!114 &114222966619422218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -900,13 +1002,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile\SFX.bank
-  lastModified: 636655889843946240
+  lastModified: 636656391396014194
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 300000
+    Value: 362592
   - Name: Mobile
-    Value: 120768
+    Value: 151296
   Exists: 1
 --- !u!114 &114231379259618508
 MonoBehaviour:
@@ -942,7 +1044,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114912389082506324}
+  - {fileID: 114179878840543628}
   MinDistance: 0
   MaxDistance: 0
   Length: 9142
@@ -980,7 +1082,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114481957915152014}
+  - {fileID: 114644667006723196}
   MinDistance: 0
   MaxDistance: 0
   Length: 15360
@@ -1015,6 +1117,21 @@ MonoBehaviour:
   Max: 5
   Default: 1
 --- !u!114 &114274367804601798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
+--- !u!114 &114275548607987304
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1066,6 +1183,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &114289055886044902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Sfx/sfx_trap_hidden_hole_fall
+  guid: de560607dfd2c6408bb84e70c454ccd3
+  Banks:
+  - {fileID: 114222966619422218}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 862
 --- !u!114 &114295631564262448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1169,6 +1308,43 @@ MonoBehaviour:
   Min: 1
   Max: 5
   Default: 1
+--- !u!114 &114330977883738814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Sfx/sfx_ui_score_raising
+  guid: 8f0ec7621bcee34d986d26efe01444c4
+  Banks:
+  - {fileID: 114222966619422218}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 3552
+--- !u!114 &114331792341947432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
 --- !u!114 &114333543075430558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1233,7 +1409,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114019671081862062}
+  - {fileID: 114516554033929732}
   MinDistance: 0
   MaxDistance: 0
   Length: 15360
@@ -1317,6 +1493,28 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114369513722712656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Sfx/sfx_ui_revive_countdown
+  guid: bc74bf17d5f23147809db344f66ac94b
+  Banks:
+  - {fileID: 114222966619422218}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 3552
 --- !u!114 &114386116546585484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1449,6 +1647,21 @@ MonoBehaviour:
   Min: 1
   Max: 5
   Default: 1
+--- !u!114 &114444261991620022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
 --- !u!114 &114444566459858826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1464,6 +1677,21 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114448505666770112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
 --- !u!114 &114458833836334740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1584,6 +1812,28 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &114483271648401808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Sfx/sfx_trap_hidden_spike_appear
+  guid: 47885237854d3541a06a79428ca6e109
+  Banks:
+  - {fileID: 114222966619422218}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 862
 --- !u!114 &114486877506652574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1702,6 +1952,43 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 3552
+--- !u!114 &114510200117752344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Sfx/sfx_ui_button_pressed
+  guid: 99762f7b2f080842b3a4df87cac27b4e
+  Banks:
+  - {fileID: 114222966619422218}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 3552
+--- !u!114 &114516554033929732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
 --- !u!114 &114521166240970708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1767,6 +2054,28 @@ MonoBehaviour:
   - Name: Mobile
     Value: 3630752
   Exists: 1
+--- !u!114 &114551926000434738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Sfx/sfx_ui_jukebox_coin_falling
+  guid: 2b0c89fcbf4bf640829b698cb8bd4905
+  Banks:
+  - {fileID: 114222966619422218}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 3552
 --- !u!114 &114578965386969918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1786,7 +2095,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114859769173470748}
+  - {fileID: 114663383008171664}
   MinDistance: 0
   MaxDistance: 0
   Length: 12229
@@ -1809,7 +2118,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114657321038858608}
+  - {fileID: 114204228518563188}
   MinDistance: 0
   MaxDistance: 0
   Length: 2000
@@ -1899,10 +2208,32 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114934392173393752}
+  - {fileID: 114093972436930466}
   MinDistance: 0
   MaxDistance: 0
   Length: 17777
+--- !u!114 &114615469032924020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Sfx/sfx_trap_hidden_wall_appear
+  guid: 1ab22b1b5e7c60408e365c8f91cb342a
+  Banks:
+  - {fileID: 114222966619422218}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 862
 --- !u!114 &114617918482545880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2019,7 +2350,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114592275283849680}
+  - {fileID: 114448505666770112}
   MinDistance: 0
   MaxDistance: 0
   Length: 15360
@@ -2054,6 +2385,21 @@ MonoBehaviour:
   Max: 5
   Default: 1
 --- !u!114 &114644589289224470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
+--- !u!114 &114644667006723196
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -2113,6 +2459,21 @@ MonoBehaviour:
   Min: 1
   Max: 30
   Default: 1
+--- !u!114 &114663383008171664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
 --- !u!114 &114666152285918042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2132,7 +2493,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114587971474578486}
+  - {fileID: 114707560335623428}
   MinDistance: 0
   MaxDistance: 0
   Length: 9142
@@ -2197,6 +2558,43 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 15360
+--- !u!114 &114704358612307414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Sfx/sfx_ui_jukebox_sorting_character
+  guid: f925760adb1eba4c99629f15f88621c6
+  Banks:
+  - {fileID: 114222966619422218}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 3552
+--- !u!114 &114707560335623428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
 --- !u!114 &114717568987820782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2215,6 +2613,28 @@ MonoBehaviour:
   - Name: Desktop
     Value: 81184
   Exists: 1
+--- !u!114 &114720244904884864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Sfx/sfx_character_vision_ending_alert
+  guid: 0f8c22b524e09b4e8f72c873ee42ebbb
+  Banks:
+  - {fileID: 114222966619422218}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 862
 --- !u!114 &114721149130448038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2554,6 +2974,28 @@ MonoBehaviour:
   Min: 1
   Max: 5
   Default: 1
+--- !u!114 &114894514420864566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Sfx/sfx_trap_hidden_saw_appear
+  guid: 69fd57bb71a5784fb145c67b63fe5bc1
+  Banks:
+  - {fileID: 114222966619422218}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 862
 --- !u!114 &114903273000096188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2745,7 +3187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile\Soundtrack.bank
-  lastModified: 636655889843526216
+  lastModified: 636656391446307071
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -2783,3 +3225,25 @@ MonoBehaviour:
   Min: 1
   Max: 5
   Default: 1
+--- !u!114 &114988401531488074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/Sfx/sfx_character_super_jump
+  guid: be796172dd26684bb7c3d38bbf6b5cc3
+  Banks:
+  - {fileID: 114222966619422218}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 862

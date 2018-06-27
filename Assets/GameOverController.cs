@@ -40,6 +40,8 @@ public class GameOverController : MonoBehaviour {
 	// Use this for initialization
 	float noteBarXPos;
 	float yScorePos;
+	float yTitlePos;
+	float yReplayBtPos;
 	#endregion
 
 	#region === Init ===
@@ -48,7 +50,6 @@ public class GameOverController : MonoBehaviour {
 //		noteBarXPos = jukeboxNote.transform.localPosition.x;
 //		noteBarXPos = jukeboxNote.GetComponent<Rect>().rectTransform.anchoredPosition.x;
 		noteBarXPos = jukeboxNote.GetComponent<RectTransform> ().anchoredPosition.x;
-
 
 //
 //		globals.s.curGameScreen = GameScreen.LevelEnd;
@@ -59,14 +60,14 @@ public class GameOverController : MonoBehaviour {
 //		Invoke ("EnteringAnimations", 0.5f);
 		yTitlePos = careerOverTitle.transform.localPosition.y;
 		yScorePos = scorePanel.transform.localPosition.y;
+		yReplayBtPos = replayBt.transform.localPosition.y;
+
 //		Init (34, 50);
 //		USER.s.NOTES = 98;
 //		globals.s.NOTES_COLLECTED_JUKEBOX = 8 ;
 //		globals.s.NOTES_COLLECTED = 8 ;
 	}
 
-//	void
-	float yTitlePos;
 	public void Init(int curFloor = 0, int bestFloor = 0){
 		USER.s.SaveUserNotes ();
 		Debug.Log ("=============== GAME OVER START ============" );
@@ -76,63 +77,42 @@ public class GameOverController : MonoBehaviour {
 //			replayBt.transform.localPosition = new Vector2 (0, -157); 
 //		}
 
-		// Disk button logic
-		if (FTUController.s.diskIntroduced == 0) {
+		// Disk button logic - the player is a newbie yet
+		if (FTUController.s.canIntroduceDisk == 0) {
 			diskBt.SetActive (false);
 			jukeboxBt.SetActive (false);
-//			diskGroupBg.SetActive (false);
-//			storeGroupBg.SetActive (false);
-		} else {
-			SetDiskCountDownState();
-//			hud_controller.si.show_roullete_time_level_end ();
-//			if (hud_controller.si.CAN_ROTATE_ROULETTE == false) {
-//			} else {
-//				SpinDiskTryToStartAnimation ();
-//			}
-			//Jukebox Logic
-
-			if ((USER.s.NOTES - globals.s.NOTES_COLLECTED) < globals.s.JUKEBOX_CURRENT_PRICE) {
-				//			jukeboxIcon.GetComponent<Image> ().color = Color.gray;
-				SetJukeboxProgressState ();
-
-				//			noteXStart = jukeboxNote.transform.localPosition.x;
-				//			float xDif = noteXEnd - noteXStart;
-				//			Debug.Log ("NOTE X START: " + noteXStart + "  NOTE X END: " + noteXEnd + " NOTE DIF: " + xDif);
-				//			float xCurrent = (USER.s.NOTES - globals.s.NOTES_COLLECTED) * xDif / globals.s.JUKEBOX_CURRENT_PRICE;
-				//			xTarget = (USER.s.NOTES) * xDif / globals.s.JUKEBOX_CURRENT_PRICE;
-				//			jukeboxNote.transform.localPosition = new Vector2 (noteXStart + xCurrent, jukeboxNote.transform.localPosition.y);
-
-				DisplayJukeboxNotes (USER.s.NOTES - globals.s.NOTES_COLLECTED);
-
-				float fillDif = 1 - jukeboxBarInitialFill;
-				float fillCurrent = (USER.s.NOTES - globals.s.NOTES_COLLECTED) * fillDif / globals.s.JUKEBOX_CURRENT_PRICE;
-
-				jukeboxGreenBar.GetComponent<Image> ().fillAmount = fillCurrent + jukeboxBarInitialFill;
-				fillTarget = (USER.s.NOTES) * fillDif / globals.s.JUKEBOX_CURRENT_PRICE;
-			} else {
-				jukeboxBt.GetComponent<BtJukebox> ().ResetMyParticles ();
-				StartCoroutine (JukeboxGetNow (0));
-				//			jukeboxNote.transform.localPosition = new Vector2 (xCurrent, 0);
-
-				//			jukeboxGetNow.SetActive (true);
-				//			jukeboxPauta.SetActive(false);
-				//
-				//			BlinkGetNow ();
-				//
-				//			jukeboxNote.transform.localPosition = new Vector2 (noteXEnd, jukeboxNote.transform.localPosition.y);
-				//		
-				//			jukeboxGreenBar.GetComponent<Image> ().fillAmount = 1;
-				//
-				//			jukeboxIcon.GetComponent<Animator>().Play("jukebox icon animation");
+		} 
+		// DISK NOT INTRODUCED YET
+		else {
+			// Introduce the disk for the first time
+			if (FTUController.s.canIntroduceDisk == 1 && FTUController.s.canIntroduceStore == 0) {
+				diskBt.SetActive (true);
+//				SetDiskSpinNowState ();
 			}
+//			else
+			SetDiskCountDownState ();
 
-			StartCoroutine (EnteringAnimations (curFloor, bestFloor));
+			if (FTUController.s.canIntroduceStore == 1) {
+				// INIT JUKEBOX BT LOGIC - PROGRESS STATE
+				if ((USER.s.NOTES - globals.s.NOTES_COLLECTED) < globals.s.JUKEBOX_CURRENT_PRICE) {
+					SetJukeboxProgressState ();
+
+					DisplayJukeboxNotes (USER.s.NOTES - globals.s.NOTES_COLLECTED);
+
+					float fillDif = 1 - jukeboxBarInitialFill;
+					float fillCurrent = (USER.s.NOTES - globals.s.NOTES_COLLECTED) * fillDif / globals.s.JUKEBOX_CURRENT_PRICE;
+
+					jukeboxGreenBar.GetComponent<Image> ().fillAmount = fillCurrent + jukeboxBarInitialFill;
+					fillTarget = (USER.s.NOTES) * fillDif / globals.s.JUKEBOX_CURRENT_PRICE;
+				} 
+			// JUKEBOX GET NOW STATE
+				else {
+					jukeboxBt.GetComponent<BtJukebox> ().ResetMyParticles ();
+					StartCoroutine (JukeboxGetNow (0));
+				}
+			}
 		}
-	}
-
-	void InitJukeboxGroupInfo(){
-		if (globals.s.NOTES_COLLECTED > 0 && USER.s.NOTES - globals.s.NOTES_COLLECTED < globals.s.JUKEBOX_CURRENT_PRICE) 
-			StartCoroutine (NoteAnimation());
+		StartCoroutine (EnteringAnimations (curFloor, bestFloor));
 	}
 
 	public void Enterer(){
@@ -144,18 +124,20 @@ public class GameOverController : MonoBehaviour {
 
 	public IEnumerator EnteringAnimations(int curFloor = 0, int bestFloor = 0){
 //		Debug.Log ("x pos : "+  jukeboxGroup.transform.position +  " width "+ jukeboxGroup.GetComponent<RectTransform> ().rect.width);
+
+		// >>>> PLACE THE BUTTON OUTSIDE THE SCREEN
 		jukeboxGroup.GetComponent<RectTransform> ().position = new Vector2 (0 - jukeboxGroup.GetComponent<RectTransform> ().rect.width/100 , jukeboxGroup.GetComponent<RectTransform> ().position.y);
 		diskGroup.GetComponent<RectTransform> ().position = new Vector2 (0 - diskGroup.GetComponent<RectTransform> ().rect.width / 100, diskGroup.GetComponent<RectTransform> ().position.y);
-		float localY = replayBt.transform.localPosition.y;
 //		replayBt.transform.position = new Vector2 (replayBt.transform.position.x,  globals.s.CANVAS_Y_BOTTOM/100 - replayBt.GetComponent<RectTransform> ().rect.height/100); 
 		replayBt.transform.position = new Vector2 (replayBt.transform.position.x,  replayBt.transform.position.y + -3f); 
 
-		//TITLE ANIMATION
+		//  >>>>> TITLE ANIMATION
 		if (curFloor > 0) {
 			// reset positions
 			scorePanel.transform.localScale = Vector3.one;
 			scorePanel.transform.localPosition = new Vector2 (scorePanel.transform.localPosition.x, yScorePos + 1200);
 			scoreText.text = "0";
+			bestText.text = bestFloor.ToString();
 			careerOverTitle.transform.localPosition = new Vector2 (careerOverTitle.transform.localPosition.x, careerOverTitle.transform.localPosition.y + 450);
 
 			yield return new WaitForSeconds (0.05f); // init animations
@@ -180,22 +162,23 @@ public class GameOverController : MonoBehaviour {
 		}
 		//  >>>> BUTTONS ANIMATION
 
-		if (USER.s.NEWBIE_PLAYER == 0 || QA.s.OLD_PLAYER == true) {
+		if ((globals.s.FIRST_GAME == false && FTUController.s.canIntroduceStore == 1) && (USER.s.NEWBIE_PLAYER == 0 || QA.s.OLD_PLAYER == true)) {
 			jukeboxGroup.GetComponent<RectTransform> ().DOLocalMoveX (0, 0.5f).SetEase (Ease.OutCubic).OnComplete(InitJukeboxGroupInfo);
 			yield return new WaitForSeconds (0.45f);
 //		Debug.Log ("22 x pos : "+  jukeboxGroup.transform.position +  " width "+ jukeboxGroup.GetComponent<RectTransform> ().rect.width);
 		}
 
-		if (globals.s.FIRST_GAME == false && FTUController.s.diskIntroduced == 1 && (USER.s.NEWBIE_PLAYER == 0 || QA.s.OLD_PLAYER == true)) {
+		if (globals.s.FIRST_GAME == false && FTUController.s.canIntroduceDisk == 1 && (USER.s.NEWBIE_PLAYER == 0 || QA.s.OLD_PLAYER == true)) {
 			diskGroup.GetComponent<RectTransform> ().DOLocalMoveX (0, 0.5f).SetEase (Ease.OutCubic).OnComplete(SpinDiskTryToStartAnimation);
 			yield return new WaitForSeconds (0.25f);
-
-//			if (hud_controller.si.CAN_ROTATE_ROULETTE == false) {
-//			if(upda
 		}
-//		Debug.Log ("y bottom " + (globals.s.CANVAS_Y_BOTTOM) + " Y REPLAY POS: " + replayBt.transform.position.y);
-//		Debug.Log ("2222y bottom " + (globals.s.CANVAS_Y_BOTTOM) + " Y REPLAY POS: " + replayBt.transform.position.y + " FINAL: " + ((globals.s.CANVAS_Y_BOTTOM/100) - replayBt.GetComponent<RectTransform> ().rect.height/100) );
-		replayBt.transform.DOLocalMoveY(localY, 0.5f);
+
+		// >>>>> REPLAY BUTTON LOGIC 
+		if ( (FTUController.s.canIntroduceDisk == 1 && FTUController.s.canIntroduceStore == 0) ||
+			(FTUController.s.canIntroduceStore == 1 && FTUController.s.firstSongPurchased == 0)) {
+		} else {
+			replayBt.transform.DOLocalMoveY (yReplayBtPos, 0.5f);
+		}
 	}
 
 	IEnumerator CareerOverEAnimation(){
@@ -251,6 +234,11 @@ public class GameOverController : MonoBehaviour {
 	}
 
 	#region === Jukebox ===
+
+	void InitJukeboxGroupInfo(){
+		if (globals.s.NOTES_COLLECTED > 0 && USER.s.NOTES - globals.s.NOTES_COLLECTED < globals.s.JUKEBOX_CURRENT_PRICE) 
+			StartCoroutine (NoteAnimation());
+	}
 
 	public void UpdateJukeboxInformation(){
 
@@ -391,7 +379,6 @@ public class GameOverController : MonoBehaviour {
 
 	public void SetDiskSpinNowState(){
 		diskBarGreen.SetActive (true);
-		diskFreeSpinNowText.SetActive (true);
 		diskTimeLeft.SetActive (false);
 		diskFreeSpinText.SetActive (false);
 
@@ -412,27 +399,6 @@ public class GameOverController : MonoBehaviour {
 //			BlinkSpinNow ();
 //		}
 	}
-
-	void BlinkSpinNow(){
-		if (DiskSpinNowAnimationStarted == true) {
-			diskFreeSpinNowText.GetComponent<Text> ().color = Color.green;
-			diskBt.GetComponent<Image> ().color = new Color (0.4f, 1, 1);
-			//		jukeboxBtGlow.GetComponent<Image> ().color = new Color(0.4f, 1, 1);
-			Invoke ("BlinkSpinNow2", 0.2f);
-		}
-	}
-	void BlinkSpinNow2(){
-		if (DiskSpinNowAnimationStarted == true) {
-
-			diskFreeSpinNowText.GetComponent<Text> ().color = Color.white;
-			diskBt.GetComponent<Image> ().color = Color.white;
-			//		jukeboxBtGlow.GetComponent<Image> ().color = Color.white;
-
-			Invoke ("BlinkSpinNow", 0.2f);
-		}
-	}
+		
 	#endregion
-
-
-
 }

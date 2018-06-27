@@ -18,10 +18,10 @@ public class RestartRotatingDisks : MonoBehaviour {
 //		float force = UnityEngine.Random.Range (1,2);
 		float force = rotationForce;
 		angle = angle * (force);
-		if(justdisk)
-			transform.DORotate (new Vector3 (0, 0, angle), 4f, RotateMode.WorldAxisAdd);
-		else
-			transform.DORotate (new Vector3 ( angle,  angle, angle), 4f, RotateMode.FastBeyond360);
+		transform.DORotate (new Vector3 (0, 0, angle), 4f, RotateMode.LocalAxisAdd);
+//		if(justdisk)
+//		else
+//			transform.DORotate (new Vector3 ( angle, angle, angle), 4f, RotateMode.FastBeyond360);
 	}
 
 	// Update is called once per frame

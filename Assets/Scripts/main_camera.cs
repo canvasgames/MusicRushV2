@@ -171,7 +171,7 @@ public class main_camera : MonoBehaviour {
 						Debug.Log ("[cam stop] PAAAAAAUSE MOV DIF Y: " + (globals.s.BALL_CUR_FLOOR_Y - transform.position.y - QA.s.jokerf2) + " / DIF X : " + (globals.s.BALL_X - QA.s.jokerf3));
 //						QA.s.TIMESCALE = 0.1f;
 						if (moving == true) {
-							QA.s.TIMESCALE = 0;
+//							QA.s.TIMESCALE = 0;
 							moving = false;
 							Debug.Log ("XXXXXXXXXXXXXXXXX");
 							Debug.Log ("[XXXXXcam stop] PAAAAAAUSE MOV DIF Y: " + (globals.s.BALL_CUR_FLOOR_Y- transform.position.y - QA.s.jokerf));

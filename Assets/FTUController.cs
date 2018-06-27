@@ -5,14 +5,16 @@ using UnityEngine.UI;
 public class FTUController : MonoBehaviour {
 	public static FTUController s;
 
-	public int diskIntroduced = 0;
+	public int canIntroduceDisk = 0;
+	public int canIntroduceStore = 0;
 	public int firstSongPurchased = 0;
 
 	public GameObject spinDiskBt, jukeboxBt, handTut;
 
 	void Awake(){
 		s = this;
-		diskIntroduced = PlayerPrefs.GetInt ("diskIntroduced", 0);
+		canIntroduceDisk = PlayerPrefs.GetInt ("canIntroduceDisk", 0);
+		canIntroduceStore = PlayerPrefs.GetInt ("canIntroduceStore", 0);
 		firstSongPurchased = PlayerPrefs.GetInt ("firstSongPurchased", 0);
 	}
 
@@ -35,32 +37,20 @@ public class FTUController : MonoBehaviour {
 			globals.s.FIRST_GAME = false;
 		}
 			
-
 		// introduce spin disk for the first time)
-		if (USER.s.NEWBIE_PLAYER == 0 && diskIntroduced == 0) {
-//			hud_controller.si.RodaMenu ();
-			PlayerPrefs.SetInt ("diskIntroduced", 1);
-			diskIntroduced = 1;
-			StartCoroutine (OpenDiskMenu ());
+		if (USER.s.NEWBIE_PLAYER == 0 && canIntroduceDisk == 0) {
+			PlayerPrefs.SetInt ("canIntroduceDisk", 1);
+			canIntroduceDisk = 1;
 		}
-
-//		if (diskIntroduced == 0) {
-//			spinDiskBt.SetActive (false);
-//			jukeboxBt.SetActive (false);
-//		}
-//
-		if (USER.s.NEWBIE_PLAYER == 1 && QA.s.OLD_PLAYER == false ) {
-			spinDiskBt.SetActive (false);
-			jukeboxBt.SetActive (false);
-//			handTut.SetActive (true);
-
-		} else {
+			
+		if (firstSongPurchased == 1) {
 			spinDiskBt.SetActive (true);
 			jukeboxBt.SetActive (true);
-//			handTut.SetActive (false);
+		} else {
+			spinDiskBt.SetActive (false);
+			jukeboxBt.SetActive (false);
 		}
 	}
-
 
 	public void SetFirstSongPurchased(){
 		PlayerPrefs.SetInt ("firstSongPurchased", 1);
@@ -72,8 +62,11 @@ public class FTUController : MonoBehaviour {
 		yield return new WaitForSeconds (0.01f);
 //		hud_controller.si.RodaMenu ();
 	}
-	// Update is called once per frame
-	void Update () {
-	
+
+	public void AllowIntroduceStore(){
+		PlayerPrefs.SetInt ("canIntroduceStore", 1);
+		canIntroduceStore = 1;
+		GameOverController.s.jukeboxGroup.SetActive (true);
 	}
+
 }

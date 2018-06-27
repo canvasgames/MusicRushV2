@@ -128,8 +128,11 @@ public class BallMaster : MonoBehaviour {
 		}
 
 		balls.ToArray () [1].gameObject.SetActive(false);
+		balls.ToArray () [1].my_alert.SetActive (false);
 
 		balls.ToArray () [0].gameObject.SetActive(true);
+		balls.ToArray () [0].my_alert.SetActive (false);
+
 		balls.ToArray () [0].transform.position = new Vector2 (-4.57f, -6.53f); 
 		balls.ToArray () [0].UpdateMySkin();
 		balls.ToArray () [0].Init_first_ball ();

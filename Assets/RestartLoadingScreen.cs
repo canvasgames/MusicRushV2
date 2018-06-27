@@ -19,7 +19,6 @@ public class RestartLoadingScreen : MonoBehaviour {
 		loadingSymbol.transform.DORotate (new Vector3 (0, 0, angle), 4f, RotateMode.WorldAxisAdd);
 
 		DecidePhrase ();
-
 	}
 
 	void DecidePhrase(bool firstPhrase = false){
@@ -27,26 +26,43 @@ public class RestartLoadingScreen : MonoBehaviour {
 		string text = "";
 		string author = "";
 			
-
 		if (i == 1) {
-			text = "Get up! Stand up! Don't give up the fight!";
-			author = "Bob Marley";
+			text = "GET UP! STAND UP! DON'T GIVE UP THE FIGHT!";
+			author = "BOB MARLEY";
 		} else if (i == 2) {
-			text = "Never gonna give you up! Never gonna let you down!";
-			author = "ddd";
+			text = "NEVER GONNA GIVE YOU UP! NEVER GONNA LET YOU DOWN!";
+			author = "RICK ASTLEY";
 		} else if (i == 3) {
-			text = "I will survive! I will survive! Eh-he!";
-			author = "Gloria Gaynor";
+			text = "I WILL SURVIVE! I WILL SURVIVE! EH-HE!";
+			author = "GLORIA GAYNOR";
 		} else if (i == 4) {
-			text = "I will survive! I will survive! Eh-he!";
-			author = "Gloria Gaynor";
+			text = "IT'S MY LIFE! IT'S NOW OR NEVER!";
+			author = "BON JOVI";
 		} else if (i == 5) {
-			text = "Work it, make it do it, makes us harder, better, stronger";
-			author = "Daft Punkr";
+			text = "WORK IT, MAKE IT, DO IT, MAKE US HARDER, BETTER, STRONGER";
+			author = "DAFT PUNK";
 		}
 
 		motivationalPhrase.text = text;
 		movivationalPhraseAuthor.text = author;
+
+
+//		if (i == 1) {
+//			text = "Get up! Stand up! Don't give up the fight!";
+//			author = "Bob Marley";
+//		} else if (i == 2) {
+//			text = "Never gonna give you up! Never gonna let you down!";
+//			author = "ddd";
+//		} else if (i == 3) {
+//			text = "I will survive! I will survive! Eh-he!";
+//			author = "Gloria Gaynor";
+//		} else if (i == 4) {
+//			text = "I will survive! I will survive! Eh-he!";
+//			author = "Gloria Gaynor";
+//		} else if (i == 5) {
+//			text = "Work it, make it do it, makes us harder, better, stronger";
+//			author = "Daft Punkr";
+//		}
 	}
 
 }

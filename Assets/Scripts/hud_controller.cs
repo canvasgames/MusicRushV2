@@ -612,6 +612,8 @@ public class hud_controller : MonoBehaviour {
 
 	public void appear_game_over()
     {
+		Debug.Log (" APPEAR GAME OVER!!!! ");
+
         if(globals.s.GAME_OVER == 1)
         {
             //if (game_over_text.GetComponent<Text>().IsActive()) print(" IS GAME OVER ACTIVE ");
@@ -621,7 +623,6 @@ public class hud_controller : MonoBehaviour {
 			game_over_text.SetActive(true);
 			GameOverController.s.Init (temp_cur_floor, temp_best_floor);
         }
-
     }
 
     public void hide_game_over()
@@ -629,9 +630,6 @@ public class hud_controller : MonoBehaviour {
         globals.s.GAME_OVER = 0;
         game_over_text.SetActive(false);
     }
-
-
-
 
     #endregion
 

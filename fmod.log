@@ -8,7 +8,7 @@
 [LOG] Thread::initThread                       : Init FMOD stream thread. Priority: 2, Stack Size: 65536, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Priority: 3, Stack Size: 49152, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 000000005ABD66B8 isAsync 1 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 000000004A3CB7F8 isAsync 1 updatePeriod 0.02
 [LOG] Thread::initThread                       : Init FMOD Studio update thread. Priority: 0, Stack Size: 65536, Semaphore: No, Sleep Time: 1, Looping: No.
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
@@ -28,25 +28,280 @@
 [LOG] SystemI::createSound                     : filename = D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank : mode 02010082
 [LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
 [LOG] Thread::initThread                       : Init FMOD nonblocking thread (0). Priority: 1, Stack Size: 81920, Semaphore: Yes, Sleep Time: 0, Looping: Yes.
-[LOG] SystemI::createSound                     : setdata soundi = 0000000082F439E8 : node = 0000000019F92B80
-[LOG] SystemI::createSound                     : add node to async list : head = 000000004AF25FD8.  list count = 0
-[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000082F439E8
+[LOG] SystemI::createSound                     : setdata soundi = 000000001D4C58C8 : node = 000000004A134010
+[LOG] SystemI::createSound                     : add node to async list : head = 0000000049DCF9D8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000001D4C58C8
 [LOG] SystemI::createSoundInternal             :     Create name='D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank', mode=0x02010082
 [LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
 [LOG] SystemI::createSoundInternal             :     exinfo->length             = 14828416
 [LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 37280
 [LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
-[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 0000000019F92C98
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000004A134128
 [LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
 [LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
 [LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
-[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Kiss_2511_Lay1_Short', format=2, channels=2, frequency=24000, lengthbytes=338144, lengthpcm=368640, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999969.
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='music_classic_layer01_loop', format=2, channels=2, frequency=24000, lengthbytes=394720, lengthpcm=426667, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.632874.
 [LOG] Thread::initThread                       :     Init FMOD file thread. Priority: 1, Stack Size: 16384, Semaphore: No, Sleep Time: 10, Looping: Yes.
-[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000082F439E8
-[LOG] SoundI::getSubSound                      : sound 0000000082F439E8.  Subsound index 0 / 1
-[LOG] SoundI::release                          : Kiss_2511_Lay1_Short (0000000082F439E8)
-[LOG] SoundI::release                          :     Kiss_2511_Lay1_Short (000000004AF25CE8)
-[LOG] SoundI::release                          :     Kiss_2511_Lay1_Short (000000004AF88D98)
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000001D4C58C8
+[LOG] SoundI::getSubSound                      : sound 000000001D4C58C8.  Subsound index 0 / 1
+[LOG] SystemI::createSound                     : filename = D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 0000000049F18148 : node = 000000004A134160
+[LOG] SystemI::createSound                     : add node to async list : head = 0000000049DCF9D8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000049F18148
+[LOG] SystemI::createSoundInternal             :     Create name='D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 14828416
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 37280
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000004A134278
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='music_classic_layer01_loop', format=2, channels=2, frequency=24000, lengthbytes=394720, lengthpcm=426667, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.632874.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000049F18148
+[LOG] SoundI::getSubSound                      : sound 0000000049F18148.  Subsound index 0 / 1
+[LOG] SoundI::release                          : music_classic_layer01_loop (000000001D4C58C8)
+[LOG] SoundI::release                          :     music_classic_layer01_loop (0000000040D72908)
+[LOG] SoundI::release                          :     music_classic_layer01_loop (000000004A680BB8)
+[LOG] SystemI::createSound                     : filename = D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000000004A961508 : node = 000000004A134010
+[LOG] SystemI::createSound                     : add node to async list : head = 0000000049DCF9D8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000004A961508
+[LOG] SystemI::createSoundInternal             :     Create name='D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 14828416
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 37280
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000004A134128
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='music_classic_layer01_loop', format=2, channels=2, frequency=24000, lengthbytes=394720, lengthpcm=426667, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.632874.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000004A961508
+[LOG] SoundI::getSubSound                      : sound 000000004A961508.  Subsound index 0 / 1
+[LOG] SoundI::release                          : music_classic_layer01_loop (0000000049F18148)
+[LOG] SoundI::release                          :     music_classic_layer01_loop (000000004A846258)
+[LOG] SoundI::release                          :     music_classic_layer01_loop (000000004A6FBF78)
+[LOG] SystemI::createSound                     : filename = D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 0000000049F18148 : node = 000000004A134160
+[LOG] SystemI::createSound                     : add node to async list : head = 0000000049DCF9D8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 0000000049F18148
+[LOG] SystemI::createSoundInternal             :     Create name='D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 14828416
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 37280
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000004A134278
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='music_classic_layer01_loop', format=2, channels=2, frequency=24000, lengthbytes=394720, lengthpcm=426667, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.632874.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 0000000049F18148
+[LOG] SoundI::getSubSound                      : sound 0000000049F18148.  Subsound index 0 / 1
+[LOG] SoundI::release                          : music_classic_layer01_loop (000000004A961508)
+[LOG] SoundI::release                          :     music_classic_layer01_loop (000000004A8463F8)
+[LOG] SoundI::release                          :     music_classic_layer01_loop (000000004A9616B8)
+[LOG] SystemI::createSound                     : filename = D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000000004A961508 : node = 000000004A134010
+[LOG] SystemI::createSound                     : add node to async list : head = 0000000049DCF9D8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000004A961508
+[LOG] SystemI::createSoundInternal             :     Create name='D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 14828416
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 37280
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000004A134128
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='music_classic_layer01_loop', format=2, channels=2, frequency=24000, lengthbytes=394720, lengthpcm=426667, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.632874.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000004A961508
+[LOG] SoundI::getSubSound                      : sound 000000004A961508.  Subsound index 0 / 1
+[LOG] SoundI::release                          : music_classic_layer01_loop (0000000049F18148)
+[LOG] SoundI::release                          :     music_classic_layer01_loop (000000004A846258)
+[LOG] SoundI::release                          :     music_classic_layer01_loop (000000004A961868)
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 14828416
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 37280
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000004BF1F5FC
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 000007FED75CE4B0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 000007FED75CE480
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 000007FED75CE580
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 000007FED75CE640
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000004A185EC8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='PopLayer_4', format=2, channels=2, frequency=24000, lengthbytes=166848, lengthpcm=184320, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999969.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 14828416
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 37280
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000004BF1F5FC
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 000007FED75CE4B0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 000007FED75CE480
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 000007FED75CE580
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 000007FED75CE640
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000004A185EC8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Samba_LAYER_04_v04', format=2, channels=2, frequency=24000, lengthbytes=225280, lengthpcm=219428, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999054.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 14828416
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 37280
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 000000004BF1F5FC
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 000007FED75CE4B0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 000007FED75CE480
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 000007FED75CE580
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 000007FED75CE640
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000000004A185EC8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Reggae_4', format=2, channels=2, frequency=24000, lengthbytes=165824, lengthpcm=184320, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999969.
+[WRN] EventInstance::update                    : Event {534934f1-f642-4d0e-83e7-9c7b438c9e69} waited 90 milliseconds for sample data to load.  Preload sample data to avoid this delay.
+[LOG] SystemI::createSound                     : filename = D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000000004A9611A8 : node = 000000004A134160
+[LOG] SystemI::createSound                     : add node to async list : head = 0000000049DCF9D8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000004A9611A8
+[LOG] SystemI::createSoundInternal             :     Create name='D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 14828416
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 37280
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000004A134278
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='music_classic_layer04_loop', format=2, channels=2, frequency=24000, lengthbytes=425696, lengthpcm=426667, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.788025.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000004A9611A8
+[LOG] SoundI::getSubSound                      : sound 000000004A9611A8.  Subsound index 0 / 1
+[LOG] SoundI::release                          : music_classic_layer01_loop (000000004A961508)
+[LOG] SoundI::release                          :     music_classic_layer01_loop (000000004A8463F8)
+[LOG] SoundI::release                          :     music_classic_layer01_loop (000000004A9616B8)
+[LOG] SoundI::release                          : music_classic_layer04_loop (000000004A9611A8)
+[LOG] SoundI::release                          :     music_classic_layer04_loop (000000004A8468D8)
+[LOG] SoundI::release                          :     music_classic_layer04_loop (000000004A960E48)
+[LOG] SystemI::createSound                     : filename = D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000000004A9611A8 : node = 000000004A134010
+[LOG] SystemI::createSound                     : add node to async list : head = 0000000049DCF9D8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000004A9611A8
+[LOG] SystemI::createSoundInternal             :     Create name='D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 14828416
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 37280
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000004A134128
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Gaga_1111_Lay4', format=2, channels=2, frequency=24000, lengthbytes=323072, lengthpcm=368640, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999969.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000004A9611A8
+[LOG] SoundI::getSubSound                      : sound 000000004A9611A8.  Subsound index 0 / 1
+[LOG] SoundI::release                          : Gaga_1111_Lay4 (000000004A9611A8)
+[LOG] SoundI::release                          :     Gaga_1111_Lay4 (000000004A8468D8)
+[LOG] SoundI::release                          :     Gaga_1111_Lay4 (000000004A960E48)
+[LOG] SystemI::createSound                     : filename = D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000000004A9611A8 : node = 000000004A134010
+[LOG] SystemI::createSound                     : add node to async list : head = 0000000049DCF9D8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000004A9611A8
+[LOG] SystemI::createSoundInternal             :     Create name='D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 14828416
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 37280
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000004A134128
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Kiss_2511_Lay3_Short', format=2, channels=2, frequency=24000, lengthbytes=311072, lengthpcm=368640, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999969.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000004A9611A8
+[LOG] SoundI::getSubSound                      : sound 000000004A9611A8.  Subsound index 0 / 1
+[LOG] SystemI::createSound                     : filename = D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000000004A961508 : node = 000000004A134160
+[LOG] SystemI::createSound                     : add node to async list : head = 0000000049DCF9D8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000004A961508
+[LOG] SystemI::createSoundInternal             :     Create name='D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 14828416
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 37280
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000004A134278
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Daft_Loop_4', format=2, channels=2, frequency=24000, lengthbytes=327776, lengthpcm=368640, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999969.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000004A961508
+[LOG] SoundI::getSubSound                      : sound 000000004A961508.  Subsound index 0 / 1
+[LOG] SoundI::release                          : Kiss_2511_Lay3_Short (000000004A9611A8)
+[LOG] SoundI::release                          :     Kiss_2511_Lay3_Short (000000004A8468D8)
+[LOG] SoundI::release                          :     Kiss_2511_Lay3_Short (000000004A960E48)
+[LOG] SystemI::createSound                     : filename = D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000000004A9611A8 : node = 000000004A134010
+[LOG] SystemI::createSound                     : add node to async list : head = 0000000049DCF9D8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000004A9611A8
+[LOG] SystemI::createSoundInternal             :     Create name='D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 14828416
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 37280
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000004A134128
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Kiss_2511_Lay3_Short', format=2, channels=2, frequency=24000, lengthbytes=311072, lengthpcm=368640, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999969.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000004A9611A8
+[LOG] SoundI::getSubSound                      : sound 000000004A9611A8.  Subsound index 0 / 1
+[LOG] SoundI::release                          : Daft_Loop_4 (000000004A961508)
+[LOG] SoundI::release                          :     Daft_Loop_4 (000000004A8463F8)
+[LOG] SoundI::release                          :     Daft_Loop_4 (000000004A9616B8)
+[LOG] SoundI::release                          : Kiss_2511_Lay3_Short (000000004A9611A8)
+[LOG] SoundI::release                          :     Kiss_2511_Lay3_Short (000000004A8468D8)
+[LOG] SoundI::release                          :     Kiss_2511_Lay3_Short (000000004A960E48)
+[LOG] SystemI::createSound                     : filename = D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank : mode 02010082
+[LOG] SystemI::createSound                     : FMOD_NONBLOCKING specified.  Putting into queue to be opened asynchronously!
+[LOG] SystemI::createSound                     : setdata soundi = 000000004A9611A8 : node = 000000004A134010
+[LOG] SystemI::createSound                     : add node to async list : head = 0000000049DCF9D8.  list count = 0
+[LOG] AsyncThread::threadFunc                  : Starting Asynchronous operation on sound 000000004A9611A8
+[LOG] SystemI::createSoundInternal             :     Create name='D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile/Soundtrack.bank', mode=0x02010082
+[LOG] SystemI::createSoundInternal             :     exinfo->cbsize             = 232
+[LOG] SystemI::createSoundInternal             :     exinfo->length             = 14828416
+[LOG] SystemI::createSoundInternal             :     exinfo->fileoffset         = 37280
+[LOG] SystemI::createSoundInternal             :     exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlist      = 000000004A134128
+[LOG] SystemI::createSoundInternal             :     exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             :     exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             :     exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             :     Stream 0/1: name='Kiss_2511_Lay3_Short', format=2, channels=2, frequency=24000, lengthbytes=311072, lengthpcm=368640, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.999969.
+[LOG] AsyncThread::threadFunc                  : Finished Asynchronous operation on sound 000000004A9611A8
+[LOG] SoundI::getSubSound                      : sound 000000004A9611A8.  Subsound index 0 / 1
+[LOG] SoundI::release                          :  (000000000FC97FA8)
+[LOG] SoundI::release                          :     PopLayer_4 (000000004A846258)
+[LOG] SoundI::release                          : Kiss_2511_Lay3_Short (000000004A9611A8)
+[LOG] SoundI::release                          :     Kiss_2511_Lay3_Short (000000004A8468D8)
+[LOG] SoundI::release                          :     Kiss_2511_Lay3_Short (000000004A960E48)
+[LOG] SoundI::release                          :  (000000000FC98288)
+[LOG] SoundI::release                          :     Reggae_4 (000000004A846738)
+[LOG] SoundI::release                          :  (000000000FC98118)
+[LOG] SoundI::release                          :     Samba_LAYER_04_v04 (000000004A846598)
 [LOG] Thread::callback                         : FMOD Studio update thread finished.
 [LOG] Thread::callback                         : FMOD Studio bank load thread finished.
 [LOG] Profile::disconnectAll                   : Profiler disconnecting all clients

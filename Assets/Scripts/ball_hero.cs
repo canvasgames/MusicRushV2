@@ -726,7 +726,8 @@ public class ball_hero : MonoBehaviour
 			coll.GetComponent <note_behaviour> ().state = 0;
 			//Destroy(coll.gameObject);
 			//Debug.Log("COLLECTING NOTE !!!!!!! ");
-			if(sound_controller.s != null) sound_controller.s.special_event();
+//			if(sound_controller.s != null) sound_controller.s.special_event();
+			if(sound_controller.s != null) sound_controller.s.PlaySfxQuemQuerDinheiroooo();
 		}
 
 		else if (coll.gameObject.CompareTag("HoleFalling")) {
