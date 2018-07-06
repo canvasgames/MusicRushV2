@@ -124,7 +124,7 @@ public class main_camera : MonoBehaviour {
         }
     }
 
-	void Update() {
+	void Update2() {
 
 		//transform.position = new Vector3 (0, 0,0);
 		if (pw_super_jump == false && globals.s.REVIVING == false && globals.s.GAME_STARTED == true)
@@ -216,7 +216,7 @@ public class main_camera : MonoBehaviour {
 		}
 	}
 
-    void Update2() {
+    void Update() {
         
         //transform.position = new Vector3 (0, 0,0);
         if (pw_super_jump == false && globals.s.REVIVING == false && globals.s.GAME_STARTED == true)
@@ -242,8 +242,9 @@ public class main_camera : MonoBehaviour {
 
                     // stop camera
                     else if (moving && globals.s.BALL_Y < transform.position.y - globals.s.FLOOR_HEIGHT && globals.s.BALL_GROUNDED == true) {
-                        if(globals.s.BALL_Y < transform.position.y - globals.s.FLOOR_HEIGHT - 2)
-                            rb.velocity = new Vector2(0, - globals.s.CAMERA_SPEED);
+						if (globals.s.BALL_Y < transform.position.y - globals.s.FLOOR_HEIGHT - 2)
+							Debug.Log ("asas");
+//                            rb.velocity = new Vector2(0, - globals.s.CAMERA_SPEED);
                         else
                             rb.velocity = new Vector2(0, 0);
                         moving = false;
@@ -261,8 +262,6 @@ public class main_camera : MonoBehaviour {
             {
                if(globals.s.GAME_OVER == 1)
                     rb.velocity = new Vector2(0, 0);
-               else
-                    rb.velocity = new Vector2(0, -globals.s.CAMERA_SPEED);
                 moving = false;
             }
         }

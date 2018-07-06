@@ -145,7 +145,7 @@ public class GameOverController : MonoBehaviour {
 			careerOverTitle.transform.DOLocalMoveY (yTitlePos, 0.5f).SetEase (Ease.OutBounce);
 			careerOverTitle.transform.DOShakeRotation (0.5f, new Vector3 (0, 0, 80), 14, 94);
 
-			yield return new WaitForSeconds (0.6f);
+			yield return new WaitForSeconds (0.5f);
 
 			scorePanel.transform.DOLocalMoveY(yScorePos, 0.34f).SetEase(Ease.OutQuart);
 
@@ -153,7 +153,7 @@ public class GameOverController : MonoBehaviour {
 
 			StartCoroutine (RaiseNumbers (curFloor, bestFloor));
 
-			yield return new WaitForSeconds (0.75f);
+			yield return new WaitForSeconds (0.6f);
 			StartCoroutine (CareerOverEAnimation ());
 
 			scorePanel.transform.DOLocalMoveY (-182f, 0.2f);

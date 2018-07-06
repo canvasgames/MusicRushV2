@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 public class start_bt : MonoBehaviour {
@@ -18,7 +20,7 @@ public class start_bt : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		#if UNITY_EDITOR
-			GetComponent<Button>().interactable = false;
+//			GetComponent<Button>().interactable = false;
 		if (1==2 && canTap == true && Input.GetMouseButtonDown(0) && globals.s.GAME_STARTED == false && globals.s.MENU_OPEN == false)
 			{
 				globals.s.GAME_STARTED = true;
@@ -32,9 +34,9 @@ public class start_bt : MonoBehaviour {
 		#endif
 	}
 
+
     public void click()
     {
-
 		if (canTap == true && globals.s.curGameScreen == GameScreen.MainMenu && globals.s.GAME_STARTED == false && globals.s.MENU_OPEN == false && globals.s.GIFT_ANIMATION == false)
         {
 			if (BallMaster.s.CheckIfBallAreGrounded ()) {
@@ -42,8 +44,13 @@ public class start_bt : MonoBehaviour {
 				globals.s.GAME_STARTED = true;
 				hud_controller.si.start_game_coroutine ();
 				BallMaster.s.BallFirstJump ();
+			} else {
+				Debug.Log ("START BT: BALL IS NOT GROUNDED");
 			}
-        }
+		}
+		else{
+			Debug.Log ("CAN TAP " + canTap   );
+		}
 
     }
 }

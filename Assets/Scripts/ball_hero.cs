@@ -312,10 +312,8 @@ public class ball_hero : MonoBehaviour
 		if (globals.s.GAME_STARTED == true && globals.s.CURSOR_IN_PAUSE_BT == false) {
 			if ((Input.GetMouseButtonDown (0) || Input.GetKey ("space")) && globals.s.GAME_STARTED == true) {
 				StartCoroutine (Jump ());
-                Debug.Log ("1JJJJJJJUMP! " + Input.mousePosition.y );
+//                Debug.Log ("1JJJJJJJUMP! " + Input.mousePosition.y );
 //				Debug.Log ("GAME ALREADY STARTED, JUST JUMP!!!");
-
-
 			} 
 //			else if (Input.GetMouseButtonUp (0) && hud_controller.si.HUD_BUTTON_CLICKED == false) {
 //				StartCoroutine (Jump ());
@@ -324,7 +322,7 @@ public class ball_hero : MonoBehaviour
 //			}
 		} else {
 			if (QA.s.DONT_START_THE_GAME == false && globals.s.MENU_OPEN == false && globals.s.curGameScreen == GameScreen.MainMenu && 
-				(Input.GetMouseButtonDown (0) || Input.GetKey ("space")) && Input.mousePosition.y < 430) {
+				(Input.GetMouseButtonDown (0) || Input.GetKey ("space"))) {
 //				&& Input.mousePosition.y > -7.3f && Input.mousePosition.y < 1.3f
 //				Debug.Log ("GAME NOT STARTED YET! MENU: " + globals.s.GIFT_ANIMATION);
 //				Debug.Log ("0JJJJJJJUMP! " + Input.mousePosition.y );

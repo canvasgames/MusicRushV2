@@ -145,6 +145,7 @@ public class store_controller : MonoBehaviour {
 	public void OpenStore(){
 		Invoke ("OpenStore2", 0.1f);
 		if (globals.s.NOTES_COLLECTED_JUKEBOX > 0) {
+			Debug.Log (" OPEN NOTES COLLECTED : " + globals.s.NOTES_COLLECTED_JUKEBOX);
 			StartCoroutine (InitCoinFallingAnimation (globals.s.NOTES_COLLECTED_JUKEBOX));
 		} else {
 //			myCoinsFalling.GetComponent<Animator> ().enabled = false;
@@ -312,11 +313,13 @@ public class store_controller : MonoBehaviour {
 			equipButton.GetComponent<Button> ().interactable = false;
 			myBgLights.SetActive (false);
 			myLockedBg.SetActive (true);
+			buyButton.SetActive (true);
 		}
 		else {
 			equipButton.GetComponent<Button> ().interactable = true;
 			myLockedBg.SetActive (false);
 			myBgLights.SetActive (true);
+			buyButton.SetActive (false);
 		}
 //		changeAnimationEquipButtonNew(style);
 	}
@@ -615,6 +618,20 @@ public class store_controller : MonoBehaviour {
 		
 			StartCoroutine (InitCoinFallingAnimation (USER.s.NOTES));
 		}
+	}
+
+	public void OnGemsPurchaseComplete(){
+		equipCharacterNew(true);
+		PlayerPrefs.SetInt (GD.s.skins[actualCharInScreen].skinName + "AlreadyBuyed", 1);
+		alreadyBuyed [actualCharInScreen] = 1;
+		nCharsBuyed++;
+
+		myLockedBg.SetActive (false);
+		myBgLights.SetActive (true);
+		equipButton.GetComponent<Button> ().interactable = true;
+		buyButton.SetActive (false);
+
+
 	}
 
 	#endregion
