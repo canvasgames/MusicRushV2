@@ -238,6 +238,7 @@ public class sound_controller : MonoBehaviour
 	public void RestartLogicForMusic() {
 		if (QA.s.FMOD_ON == true) {
 			if (music_playing > 1) {
+				music_playing = 1;
 				curFmodMusic.setParameterValue ("layer", 1);
 			}
 			curFmodMusic.setVolume (1f);

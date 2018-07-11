@@ -318,7 +318,7 @@ public class game_controller : MonoBehaviour {
 
     bool revive_logic() {
         globals.s.CAN_REVIVE = false;
-        there_was_revive = PlayerPrefs.GetInt("there_was_revive", 0); 
+        there_was_revive = PlayerPrefs.GetInt("there_was_revive", 0);
         n_games_without_revive = PlayerPrefs.GetInt("n_games_without_revive", 0);
         if ( USER.s.DAY_SCORE > 6 && globals.s.BALL_FLOOR > 6 && ( n_floor > 20 || globals.s.BALL_FLOOR > USER.s.DAY_SCORE - 5)  && there_was_revive == 0) {
 
@@ -368,7 +368,7 @@ public class game_controller : MonoBehaviour {
         {
             revive_logic();
 //			globals.s.CAN_REVIVE = true;
-            if (globals.s.CAN_REVIVE == true)
+            if (1==1 || globals.s.CAN_REVIVE == true)
             {
                 hud_controller.si.show_revive_menu();
                 globals.s.CAN_REVIVE = false;

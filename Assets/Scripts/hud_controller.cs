@@ -938,11 +938,15 @@ public class hud_controller : MonoBehaviour {
     #region =========== REVIVE ================
     public void show_revive_menu()
     {
+		Debug.Log ("[HUD] REVIVE MENU OPENING");
         revive.SetActive(true);
+		revive.GetComponent<Revive_menu_ctrl> ().Init ();
     }
 
     public void close_revive_menu()
     {
+		Debug.Log ("[HUD] CLOSING REVIVE MENU");
+
         revive.SetActive(false);
         AnalyticController.s.ReportRevive(false);
 
@@ -1010,6 +1014,11 @@ public class hud_controller : MonoBehaviour {
     {
         globals.s.MENU_OPEN = false;
         globals.s.CAN_RESTART = true;
+
+		game_controller.s.game_over_for_real(true);
+
+//		hud_controller.si.show_game_over(cur_floor + 1, temp_flag_high_score_game_over);
+//		game_over_for_real();
     }
 
     #endregion
