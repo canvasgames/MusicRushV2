@@ -17,7 +17,8 @@ public class QA : MonoBehaviour {
 	public bool ALL_UNLOCKED;
 	bool sqMode = true;
     public bool INVENCIBLE ;
-    public float TIMESCALE = 1;
+	public float TIMESCALE = 1;
+	public bool ALWAYS_REVIVE = false;
     public float TRACE_PROFUNDITY = 1;
 
     // 1 = Just Main info

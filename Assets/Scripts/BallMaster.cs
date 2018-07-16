@@ -115,6 +115,7 @@ public class BallMaster : MonoBehaviour {
 		foreach(ball_hero b in balls.ToArray()){
 			b.grounded = false;
 			b.son_created = false;
+			b.my_floor = 0;
 		}
 		currentBall = 0;
 
@@ -156,7 +157,6 @@ public class BallMaster : MonoBehaviour {
 
 
 	#endregion
-
 
 	public GameObject ReturnInactiveBall(){
 

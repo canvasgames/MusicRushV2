@@ -101,21 +101,23 @@ public class objects_pool_controller : MonoBehaviour {
 //		FloorLastScoreObj.SetActive (false);
 //		FloorDailyBestObj.SetActive (false);
 
-		for(i=0; i<floor_pool_size; i++){
+		for (i = 0; i < floor_pool_size; i++) {
 			//			floor_pool [i].SetActive (false);
-			floor_pool [i].SetActive(true);
-			floor_pool [i].GetComponent<floor>().clear_flags_reposite();
-			floor_pool [i].transform.position = new Vector2(-1000,-1000);
+			floor_pool [i].SetActive (true);
+			floor_pool [i].GetComponent<floor> ().clear_flags_reposite ();
+			floor_pool [i].transform.position = new Vector2 (-1000, -1000);
 		}
 		floor_pool_actual_i = 0;
 
-		for(i=0; i<note_pool_size; i++){
-			note_pool[i].transform.position = new Vector2(-1000,-1000);
+		for (i = 0; i < note_pool_size; i++) {
+			note_pool [i].transform.position = new Vector2 (-1000, -1000);
 		}
 		note_pool_actual_i = 0;
 
-		for(i=0; i<note_trail_pool_size; i++){
-			note_trail_pool[i].transform.position = new Vector2(-1000,-1000);
+		if (QA.s.CREATE_NOTE_TRAIL) {
+			for (i = 0; i < note_trail_pool_size; i++) {
+				note_trail_pool [i].transform.position = new Vector2 (-1000, -1000);
+			}
 		}
 		note_trail_pool_actual_i = 0;
 
@@ -165,6 +167,7 @@ public class objects_pool_controller : MonoBehaviour {
     {
         s = this;
 		floor_pool = new GameObject[floor_pool_size];
+		floor_scripts = new floor[floor_pool_size];
 		note_pool = new GameObject[note_pool_size];
         note_trail_pool = new GameObject[note_trail_pool_size];
         double_spikes_pool = new GameObject[double_spikes_pool_size];
@@ -180,9 +183,9 @@ public class objects_pool_controller : MonoBehaviour {
 	void Start () {
         
         //floor_skin_bg_glow();
-		floor_scripts = GameObject.FindObjectsOfType(typeof(floor)) as floor[];
+//		floor_scripts = GameObject.FindObjectsOfType(typeof(floor)) as floor[];
 		squares_floor_scripts = GameObject.FindObjectsOfType (typeof(floor_square_pw_destruct)) as floor_square_pw_destruct[];
-		spikes_scripts=  GameObject.FindObjectsOfType(typeof(spike)) as spike[];
+		spikes_scripts =  GameObject.FindObjectsOfType(typeof(spike)) as spike[];
 		pw_scripts = GameObject.FindObjectsOfType(typeof(PW_Collect)) as PW_Collect[];
 		Debug.Log ("floorSripts size: " + floor_scripts.Length);
 
@@ -191,9 +194,10 @@ public class objects_pool_controller : MonoBehaviour {
 	}
 
 	void DestroyUnnusedObjects(){
+		int camDist = 14;
 		if (!globals.s.PW_SUPER_JUMP) {
 			foreach(GameObject bg in bgs1_pool){
-				if (bg !=null && bg.transform.position.x == 0 && bg.transform.position.y < main_camera.s.transform.position.y - 14f) {
+				if (bg !=null && bg.gameObject.activeInHierarchy && bg.transform.position.x == 0 && bg.transform.position.y < main_camera.s.transform.position.y - camDist) {
 //					Destroy(bg);
 					bg.SetActive(false);
 					//Debug.Log ("DESTROYING BG 1 =) ... My pos: "+ bg.transform.position.y + "  CAMERA POS: " +main_camera.s.transform.position.y );
@@ -201,12 +205,23 @@ public class objects_pool_controller : MonoBehaviour {
 			}
 
 			foreach(GameObject bg in bgs2_pool){
-				if (bg !=null && bg.transform.position.x == 0 && bg.transform.position.y < main_camera.s.transform.position.y - 14f) {
+				if (bg !=null && bg.gameObject.activeInHierarchy && bg.transform.position.x == 0 && bg.transform.position.y < main_camera.s.transform.position.y - camDist) {
 					bg.SetActive(false);
-//					Destroy(bg);
-					//Debug.Log ("DESTROYING BG 2 =) ... My pos: "+ bg.transform.position.y + "  CAMERA POS: " +main_camera.s.transform.position.y );
 				}
 			}
+
+			foreach(GameObject bg in bgs3_pool){
+				if (bg !=null && bg.gameObject.activeInHierarchy && bg.transform.position.x == 0 && bg.transform.position.y < main_camera.s.transform.position.y - camDist) {
+					bg.SetActive(false);
+				}
+			}
+
+			foreach(GameObject bg in bgs4_pool){
+				if (bg !=null && bg.gameObject.activeInHierarchy && bg.transform.position.x == 0 && bg.transform.position.y < main_camera.s.transform.position.y - camDist) {
+					bg.SetActive(false);
+				}
+			}
+
 		}
 
 		Invoke ("DestroyUnnusedObjects", 3f);
@@ -222,15 +237,18 @@ public class objects_pool_controller : MonoBehaviour {
 		for(i=0; i<floor_pool_size; i++)
 		{
 			floor_pool[i] =  (GameObject)Instantiate(floor_prefab, new Vector3(55, 0, 0), transform.rotation);
+			floor_scripts[i] = floor_pool[i].GetComponent<floor>();
+
 		}
 		for(i=0; i<note_pool_size; i++)
 		{
 			note_pool[i] =  (GameObject)Instantiate(note_prefab, new Vector3(55, 0, 0), transform.rotation);
 		}
 
-		for(i=0; i<note_trail_pool_size; i++)
-		{
-			note_trail_pool[i] =  (GameObject)Instantiate(note_trail_prefab, new Vector3(55, 0, 0), transform.rotation);
+		if (QA.s.CREATE_NOTE_TRAIL == true) {
+			for (i = 0; i < note_trail_pool_size; i++) {
+				note_trail_pool [i] = (GameObject)Instantiate (note_trail_prefab, new Vector3 (55, 0, 0), transform.rotation);
+			}
 		}
 
 		for (i = 0; i < double_spikes_pool_size; i++)
@@ -375,7 +393,6 @@ public class objects_pool_controller : MonoBehaviour {
             floor_pool_actual_i = 0;
         }
 
-        
         return repositing_floor;
     }
 

@@ -277,7 +277,7 @@ public class ball_hero : MonoBehaviour
 		init_my_skin ();
 	}
 
-	float nextTargetSuperJumpY=0;
+	float nextTargetSuperJumpY = 0;
 
     void Update()
     {
@@ -288,9 +288,10 @@ public class ball_hero : MonoBehaviour
 
 			my_floor++;
 			nextTargetSuperJumpY += globals.s.FLOOR_HEIGHT;
-			foreach( floor andar in objects_pool_controller.s.floor_scripts){
+			foreach(floor andar in objects_pool_controller.s.floor_scripts){
+				Debug.Log ("[sp] are you ...  " + andar.my_floor );
 
-				if (andar.my_floor == my_floor+1) {
+				if (andar.isActiveAndEnabled && andar.my_floor == my_floor+1) {
 					Debug.Log ("FLOOR FOFFFOUNDO floor!!! N: " + andar.my_floor );
 					andar.colidded_super_pw ();
 					//Debug.Log ("PW TRIGGER!! MY FLOOR: " + my_floor);
@@ -748,7 +749,6 @@ public class ball_hero : MonoBehaviour
     {
         //Debug.Log("xxxxxxxxxxxxxxxxxxxxx COLLIDING WITH SOMETHING!");
 
-
         if (coll.gameObject.CompareTag("Floor")) {
             
 			if (coll.transform.position.y + coll.transform.GetComponent<floor>().my_skin.GetComponent<SpriteRenderer>().bounds.size.y / 2 <= transform.position.y - globals.s.BALL_R + 1f) {
@@ -935,7 +935,7 @@ public class ball_hero : MonoBehaviour
         }
     }
 
-    #region ==== POWER UP -> GO UP ====
+    #region === POWER UP -> GO UP ===
     void go_up_pw_start()
     {
 		if(QA.s.TRACE_PROFUNDITY >=2) Debug.Log ("PW GO UP START!! MY FLOOR: " + my_floor);
@@ -949,7 +949,7 @@ public class ball_hero : MonoBehaviour
         rb.gravityScale = 0;
         rb.isKinematic = true;
 
-		nextTargetSuperJumpY = ((globals.s.BASE_Y + ((my_floor+2) * globals.s.FLOOR_HEIGHT) - 0.7f));
+		nextTargetSuperJumpY = ((globals.s.BASE_Y + ((my_floor+2) * globals.s.FLOOR_HEIGHT) - 0.7f)); // define the target y for Floor creation
 		float pos = ((globals.s.BASE_Y + ((my_floor+1) * globals.s.FLOOR_HEIGHT) +  (5* globals.s.FLOOR_HEIGHT) + globals.s.FLOOR_HEIGHT / 2 ));
 		main_camera.s.init_PW_super_jump( pos,  (pos-transform.position.y)/20  + 0.5f);
 		target_y = (globals.s.BASE_Y + ((my_floor) * globals.s.FLOOR_HEIGHT) +  (5* globals.s.FLOOR_HEIGHT) + globals.s.FLOOR_HEIGHT / 2 - 0.6f );
@@ -993,8 +993,7 @@ public class ball_hero : MonoBehaviour
 
     }
 
-    void stop_go_up_PW()
-    {
+    void stop_go_up_PW() {
 		if(QA.s.TRACE_PROFUNDITY >=2)  Debug.Log("[GOUPPW] FINISHED GOING UP ! MY Y: " + transform.position.y);
         rb.velocity = new Vector2(0.3f, globals.s.BALL_SPEED_Y/2);
         rb.gravityScale = 0.5f;
@@ -1021,7 +1020,6 @@ public class ball_hero : MonoBehaviour
         floor.transform.DOMoveX(0, 0.3f);//.OnComplete(pw_super_end);
 
 		superJumpEffect.SetActive (false);
-
     }
 
    void pw_super_end_for_real() {

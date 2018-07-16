@@ -23,7 +23,7 @@ public class pizza_char : MonoBehaviour
     {
         define_percentages(12.5f, 12.5f, 12.5f, 12.5f, 12.5f, 12.5f, 12.5f, 12.5f);
 		//define_rewards(2, 7, 3, 5, 2, 10, 3, 5); // sentido horario, partindo do meio-topo
-        define_rewards(5, 10, 5, 20, 10, 5, 10, 30); // sentido horario, partindo do meio-topo
+        define_rewards(5, 10, 5, 20, -1, 5, 10, 30); // sentido horario, partindo do meio-topo
 
 //		transform.DORotate (new Vector3 (0, 0, transform.localRotation.z -40), 0.8f, RotateMode.WorldAxisAdd).SetEase (Ease.OutQuart).OnComplete (rotate2);
 		hud_controller.si.CAN_ROTATE_ROULETTE = true;

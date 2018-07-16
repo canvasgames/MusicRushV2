@@ -96,6 +96,7 @@ public class USER : MonoBehaviour {
 		PlayerPrefs.SetInt("total_diamonds", USER.s.TOTAL_DIAMONDS);
 
 	}
+
 	public void SpendDiamonds(int quantity, string orign){
 		USER.s.DIAMONDS -= quantity;
 		PlayerPrefs.SetInt("diamonds", USER.s.DIAMONDS);

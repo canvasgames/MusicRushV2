@@ -39,22 +39,35 @@ public class PwWheelMaster : MonoBehaviour {
     void realOpen()
     {
 //        tampa.transform.DOLocalMoveY(-436, 2).OnComplete(canRotate);
-
-
     }
-    public void openRewardMenu(float value)
-    {
+
+	public void openRewardMenu(float value)
+	{
 		globals.s.curGameScreen = GameScreen.RewardNotes;
 		rewardToGive = (int)value;
 
-        youNowHaveMenu.SetActive(true);
-        youNowHaveText.text = value.ToString();
-    }
+		youNowHaveMenu.SetActive (true);
+		if (value > 0) {
+			youNowHaveText.gameObject.SetActive (true);
+			youNowHaveMenu.GetComponent<RewardScreen> ().myNotesRewardIcon.gameObject.SetActive (true);
+			youNowHaveText.text = value.ToString ();
+			youNowHaveMenu.GetComponent<RewardScreen> ().myDiamond.SetActive (false);
+
+		} else {
+			youNowHaveMenu.GetComponent<RewardScreen> ().myNotesRewardIcon.gameObject.SetActive (false);
+			youNowHaveMenu.GetComponent<RewardScreen> ().myDiamond.SetActive (true);
+			youNowHaveText.gameObject.SetActive (false);
+		}
+	}
+
     public void closeRewardMenu()
     {
         youNowHaveMenu.SetActive(false);
 
-		USER.s.AddNotes (rewardToGive);
+		if(rewardToGive > 0)
+			USER.s.AddNotes (rewardToGive);
+		else
+			USER.s.AddDiamonds (1, "SpinDisk");
 
 		hud_controller.si.PowerUpsMenuClose ();
 

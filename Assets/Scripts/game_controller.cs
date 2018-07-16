@@ -243,7 +243,8 @@ public class game_controller : MonoBehaviour {
                 }
             }
 
-			if ( n_floor >= 2  && USER.s.TOTAL_GAMES_WITH_TUTORIAL >= 2  && USER.s.NEWBIE_PLAYER == 0 /* && globals.s.PW_ACTIVE*/) {
+//			if ( n_floor >= 2  && USER.s.TOTAL_GAMES_WITH_TUTORIAL >= 2  && USER.s.NEWBIE_PLAYER == 0 /* && globals.s.PW_ACTIVE*/) {
+			if ( n_floor >= 2  && USER.s.NEWBIE_PLAYER == 0 /* && globals.s.PW_ACTIVE*/) {
                 //Debug.Log(" n floor: " + n_floor + " CREATE PW!! ");
                 create_power_up_logic();
 				//
@@ -368,7 +369,7 @@ public class game_controller : MonoBehaviour {
         {
             revive_logic();
 //			globals.s.CAN_REVIVE = true;
-            if (1==1 || globals.s.CAN_REVIVE == true)
+			if (QA.s.ALWAYS_REVIVE == true || globals.s.CAN_REVIVE == true)
             {
                 hud_controller.si.show_revive_menu();
                 globals.s.CAN_REVIVE = false;
@@ -559,15 +560,24 @@ public class game_controller : MonoBehaviour {
 			rand = Random.Range(0, 60);
 		else
 			rand = Random.Range(0, 100);
+
+//		rand = 5;
+
         //rand = Random.Range(0, 10);
         // create chance check
-//        Debug.Log(" CREATE POWER UPS CHANCE: " + rand + " .. CONDITION: " + ((pw_floors_not_created - pw_dont_create_for_n_floors) * 7));
+		Debug.Log("FIRST PW CREATED " + USER.s.FIRST_PW_CREATED + " .. CREATE POWER UPS CHANCE: " + rand + " .. CONDITION: " + ((pw_floors_not_created - pw_dont_create_for_n_floors) * 7));
         // if (!QA.s.NO_PWS && pw_floors_not_created > pw_dont_create_for_n_floors && rand <= 15 && globals.s.PW_ACTIVE == true) {
-		if (!QA.s.NO_PWS && USER.s.TOTAL_GAMES_WITH_TUTORIAL >= 2 && USER.s.NEWBIE_PLAYER == 0 && ((pw_floors_not_created > pw_dont_create_for_n_floors &&
-            rand <= (pw_floors_not_created - pw_dont_create_for_n_floors) * 7) || (USER.s.FIRST_PW_CREATED == 0 && !first_pw_created))) {
+//		if (!QA.s.NO_PWS && USER.s.TOTAL_GAMES_WITH_TUTORIAL >= 1 && USER.s.NEWBIE_PLAYER == 0 && (
+		if (!QA.s.NO_PWS && USER.s.NEWBIE_PLAYER == 0 && (
+			(USER.s.FIRST_PW_CREATED == 1 && pw_floors_not_created > pw_dont_create_for_n_floors && rand <= (pw_floors_not_created - pw_dont_create_for_n_floors) * 7) 
+			|| 
+			(USER.s.FIRST_PW_CREATED == 0 && !first_pw_created)
+			))
+		{
 
             int my_type = 0;
-            rand = Random.Range(0, 100);
+			rand = Random.Range(0, 100);
+//			rand = 1;
 			if ( rand < 20 || (USER.s.FIRST_PW_CREATED == 0 && !first_pw_created)) {
 				my_type = (int)PW_Types.Super;
 			} else if (rand < 60 && n_floor > 5) {
@@ -575,9 +585,11 @@ public class game_controller : MonoBehaviour {
 			} else {
 				my_type = (int)PW_Types.Invencible;
 			}
+			Debug.Log ("---------- cREATE PW !! TYPE: " + my_type + " FIRST PW CREATED " + USER.s.FIRST_PW_CREATED);
 
-			//Debug.Log(globals.s.PW_ACTIVE + "  pw created RAND " + rand + " type: " + my_type);
-            first_pw_created = true;
+			first_pw_created = true;
+//			Debug.Log(globals.s.PW_ACTIVE + "  pw created RAND " + rand + " type: " + my_type);
+            
 			hud_controller.si.ActivateFirstPw ();
             // int my_type = Random.Range((int)PW_Types.Invencible, (int)PW_Types.Sight + 1);
 			if (QA.s.TRACE_PROFUNDITY > 0) Debug.Log ("---------- cREATE PW !! TYPE: " + my_type + " FIRST PW CREATED " + USER.s.FIRST_PW_CREATED);
@@ -618,7 +630,6 @@ public class game_controller : MonoBehaviour {
 			if (USER.s.NEWBIE_PLAYER == 1 && cur_floor >= GD.s.FTU_NEWBIE_SCORE) {
 				USER.s.SetNotNewbiePlayer ();
 			}
-
 			// NEW STAGE WARNING
 			if (globals.s.PW_SUPER_JUMP == false) {
 				for (int k = 0; k < GD.s.SCENERY_FLOOR_VALUES.Length ; k++) {
@@ -672,7 +683,7 @@ public class game_controller : MonoBehaviour {
         wave_found = false;
 
         //PW Creation
-        if(/*globals.s.PW_ACTIVE == true &&*/ globals.s.PW_SUPER_JUMP == false){
+		if(/*globals.s.PW_ACTIVE == true &&*/ globals.s.PW_SUPER_JUMP == false && USER.s.FIRST_PW_CREATED == 1){
             create_power_up_logic();
         }
        

@@ -206,7 +206,6 @@ public class GameOverController : MonoBehaviour {
 		for (int i = 0; i < 15 && value < curScore; i++) {
 			yield return new WaitForSeconds (0.035f);
 			value += inc;
-//			value += 1;
 			scoreText.text = value.ToString();
 		}
 		scoreText.text = curScore.ToString();

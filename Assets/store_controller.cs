@@ -6,6 +6,10 @@ public class store_controller : MonoBehaviour {
 	#region === Vars ===
     public static store_controller s;
 
+	[Header ("Gems")]
+	[SerializeField] Text myGemsPrice;
+
+
 	[Header ("Bottom Coins")]
 
 	public Animator myCoinsFullAnimator;
@@ -314,6 +318,11 @@ public class store_controller : MonoBehaviour {
 			myBgLights.SetActive (false);
 			myLockedBg.SetActive (true);
 			buyButton.SetActive (true);
+
+			if(GD.s.skins[skinId].isBand || GD.s.skins[skinId].isClothChanger)
+				myGemsPrice.text = "30";
+			else
+				myGemsPrice.text = "10";
 		}
 		else {
 			equipButton.GetComponent<Button> ().interactable = true;

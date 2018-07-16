@@ -51,7 +51,7 @@ public class RythmController : MonoBehaviour {
 		next_step_time = 0;
 		current_step_time = step_time / total_steps;
 
-		RythmScenarioBehaviour[] stages= GameObject.FindObjectsOfType(typeof(RythmScenarioBehaviour)) as RythmScenarioBehaviour[];
+		RythmScenarioBehaviour[] stages = GameObject.FindObjectsOfType(typeof(RythmScenarioBehaviour)) as RythmScenarioBehaviour[];
 		for (int i = 0; i < stages.Length; i++)
 		{
 			stages[i].RestartMusic();

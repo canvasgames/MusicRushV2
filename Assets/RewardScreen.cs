@@ -6,12 +6,13 @@ using DG.Tweening;
 public class RewardScreen : MonoBehaviour {
 
 	public bool NotesReward;
+	public GameObject myDiamond;
 	[SerializeField] GameObject[] lightsTopLine, lightsBottomtLine, lightsTopLineOff, lightsBottomtLineOff;
 	[SerializeField] GameObject[] myCornerDarks;
 	[SerializeField] GameObject[] myButtons;
 	[SerializeField] GameObject mySparks;
 	[SerializeField] Text myNotesRewardText;
-	[SerializeField] Image myNotesRewardIcon;
+	public Image myNotesRewardIcon;
 	public GameObject myReward, myYouJustGot;	// Use this for initialization
 	public Text myRewardName;
 	Image myImage;
@@ -20,11 +21,7 @@ public class RewardScreen : MonoBehaviour {
 	void Awake () {
 		myImage = GetComponent<Image> ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 
 	void OnEnable(){
 //		StartCoroutine (LightAnimations());

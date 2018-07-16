@@ -20,7 +20,7 @@ public class RewardSparkleBehaviour : MonoBehaviour {
 
 	void StartAnimation(){
 //		myAnimator.Play ("RewardSparkAnim");
-		StartCoroutine (ChangePosition ());
+		if(isActiveAndEnabled) StartCoroutine (ChangePosition ());
 
 	}
 

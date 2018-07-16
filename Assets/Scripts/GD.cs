@@ -96,7 +96,7 @@ public class GD : MonoBehaviour {
 		NewSkin("Disco", MusicStyle.Pop, 3, true, 5); // 8
 
 		// POPSTARS = 4
-		NewSkin("Ela Ela Ela", MusicStyle.PopGaga, 1);
+		NewSkin("Umbrella", MusicStyle.PopGaga, 1);
 		NewSkin("Classic Popstar", MusicStyle.PopGaga, 2);
 		NewSkin("Lady Pop", MusicStyle.PopGaga, 3, false, 0, true);
 
@@ -124,6 +124,7 @@ public class GD : MonoBehaviour {
 		NewSkin("Waka Waka", MusicStyle.Latina, 1);
 		NewSkin("La Vida Loka", MusicStyle.Latina, 2);
 		NewSkin("Muchachos", MusicStyle.Latina, 3, true, 3);
+
 
 
 //		for (int i = 0; i < MusicStyle.Lenght; i++) {
