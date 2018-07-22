@@ -2,6 +2,8 @@
 using System.Collections;
 using DG.Tweening;
 using FMODUnity;
+using System.Collections.Generic;
+
 public class ball_hero : MonoBehaviour
 {
     #region ==== Variables Declaration =====
@@ -431,14 +433,14 @@ public class ball_hero : MonoBehaviour
 			if (hitted_wall)
 				main_camera.s.hitted_on_wall = false;
 
-			// MAKE WALLS POSITION THEMSELVES
-			wall[] paredez = GameObject.FindObjectsOfType (typeof(wall)) as wall[]; // TBD
+            // MAKE WALLS POSITION THEMSELVES
+            List<wall> paredez = wall.All;// TBD
 			foreach (wall p in paredez) {
 				p.place_me_at_the_other_corner (-my_son.transform.position.x, my_floor + 2);
 			}
 
             // MAKE SAWS POSITION THEMSELVES
-            saw[] saws = GameObject.FindObjectsOfType(typeof(saw)) as saw[]; // TBD
+            List<saw> saws = saw.All; // TBD
             foreach (saw p in saws)
             {
                 p.place_me_at_the_other_corner(-my_son.transform.position.x, my_floor + 2);
@@ -450,12 +452,12 @@ public class ball_hero : MonoBehaviour
 //					p.reposite_me_at_the_other_corner(-my_son.transform.position.x, my_floor + 2);
 //				}
 
-				hole_behaviour[] holes = GameObject.FindObjectsOfType (typeof(hole_behaviour)) as hole_behaviour[];
+				List<hole_behaviour> holes = hole_behaviour.All;
 				foreach (hole_behaviour p in holes) {
 					p.reposite_me_at_the_other_corner (-my_son.transform.position.x, my_floor + 3);
 				}
 
-				spike[] spks = GameObject.FindObjectsOfType (typeof(spike)) as spike[];
+				List<spike> spks = spike.All;
 				foreach (spike p in spks) {
 					p.reposite_me_for_FTU (-my_son.transform.position.x, my_floor + 3);
 				}
@@ -977,6 +979,7 @@ public class ball_hero : MonoBehaviour
         //globals.s.PW_SUPER_JUMP = true;
         desactivate_pws_super();
 		superJumpEffect.SetActive (true);
+        GetComponent<Collider2D>().enabled = false;
 
         int ball_speed = 20;
         target_y_reached = false;
@@ -998,6 +1001,7 @@ public class ball_hero : MonoBehaviour
         rb.velocity = new Vector2(0.3f, globals.s.BALL_SPEED_Y/2);
         rb.gravityScale = 0.5f;
         rb.isKinematic = false;
+        GetComponent<Collider2D>().enabled = true;
         target_y = 0;
 
         target_y_reached = true; // bla
@@ -1060,17 +1064,17 @@ public class ball_hero : MonoBehaviour
 			//Debug.Log ("game object is active: " + floors [i].isActiveAndEnabled);
 		}
 
-		hole_behaviour[] holes = GameObject.FindObjectsOfType(typeof(hole_behaviour)) as hole_behaviour[];
+		List<hole_behaviour> holes = hole_behaviour.All;
        // hole_behaviour[] holes = GameObject.FindObjectsOfType(typeof(hole_behaviour)) as hole_behaviour[];
 
-        for (i = 0; i < holes.Length; i++)
+        for (i = 0; i < holes.Count; i++)
         {
             holes[i].activate_squares();
         }
 
-        wall[] walls = GameObject.FindObjectsOfType(typeof(wall)) as wall[];
+        List<wall> walls = wall.All;
 
-        for (i = 0; i < walls.Length; i++)
+        for (i = 0; i < walls.Count; i++)
         {
             walls[i].destroy_me_PW_super();
         }

@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using System.Collections.Generic;
 
 public class wall : MonoBehaviour
 {
+    public static readonly List<wall> All = new List<wall>();
+
 	public GameObject my_vision_effect;
     bool already_appeared = false;
     public bool spike_trigger = false;
@@ -17,6 +20,16 @@ public class wall : MonoBehaviour
     public bool wall_trigger = false;
     public bool trigger_back = false;
     bool already_alerted = false;
+
+    void OnEnable()
+    {
+        All.Add(this);
+    }
+
+    void OnDisable()
+    {
+        All.Remove(this);
+    }
 
     void Start()
     {

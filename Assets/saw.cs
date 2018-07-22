@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using System.Collections.Generic;
 
 public class saw : scenario_objects
 {
+    public static readonly List<saw> All = new List<saw>();
+
     public GameObject my_vision_effect;
     public GameObject my_skin;
 
@@ -18,6 +21,16 @@ public class saw : scenario_objects
     float timer = 0;
     internal string wave_name;
     public float distance2Appear = 0;
+
+    private void OnEnable()
+    {
+        All.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        All.Remove(this);
+    }
     // Use this for initialization
     void Start () {
         //my_skin.transform.localScale = new Vector3(1, 0, 0);

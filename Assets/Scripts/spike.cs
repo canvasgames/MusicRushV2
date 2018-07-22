@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using System.Collections.Generic;
 
 public class spike : scenario_objects {
+
+    public static readonly List<spike> All = new List<spike>();
 
 	public GameObject my_vision_effect;
     public string wave_name;
@@ -21,8 +24,18 @@ public class spike : scenario_objects {
     float timer = 0;
     float target_y;
     [HideInInspector] public PolygonCollider2D my_collider;
-  
-	// Use this for initialization
+
+    private void OnEnable()
+    {
+        All.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        All.Remove(this);
+    }
+
+    // Use this for initialization
     void Awake()
     {
         my_collider = GetComponent<PolygonCollider2D>();

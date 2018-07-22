@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using System.Collections.Generic;
 
 public class hole_behaviour : MonoBehaviour
 {
+    public static readonly List<hole_behaviour> All = new List<hole_behaviour>();
     public GameObject my_skin;
 	public SpriteRenderer my_skin_sprite;
     public int my_floor;
@@ -16,6 +18,17 @@ public class hole_behaviour : MonoBehaviour
 	public GameObject floor_left, floor_right;
 	public GameObject my_vision_effect;
 	bool already_fallen = false;
+
+    void OnEnable()
+    {
+        All.Add(this);
+    }
+
+    void OnDisable()
+    {
+        All.Remove(this);
+    }
+
     // Use this for initialization
     void Start()
     {

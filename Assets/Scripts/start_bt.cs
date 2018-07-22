@@ -27,11 +27,6 @@ public class start_bt : MonoBehaviour {
 				hud_controller.si.start_game();
 			}
 		#endif
-
-		#if UNITY_WEBPLAYER || UNITY_IPHONE || UNITY_ANDROID
-
-			GetComponent<Button>().interactable = true;
-		#endif
 	}
 
 
