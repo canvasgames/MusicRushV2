@@ -18,16 +18,16 @@ public class start_bt : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		#if UNITY_EDITOR
-//			GetComponent<Button>().interactable = false;
-		if (1==2 && canTap == true && Input.GetMouseButtonDown(0) && globals.s.GAME_STARTED == false && globals.s.MENU_OPEN == false)
-			{
-				globals.s.GAME_STARTED = true;
-				hud_controller.si.start_game();
-			}
-		#endif
-	}
+//	void Update () {
+//		#if UNITY_EDITOR
+////			GetComponent<Button>().interactable = false;
+//		if (1==2 && canTap == true && Input.GetMouseButtonDown(0) && globals.s.GAME_STARTED == false && globals.s.MENU_OPEN == false)
+//			{
+//				globals.s.GAME_STARTED = true;
+//				hud_controller.si.start_game();
+//			}
+//		#endif
+//	}
 
 
     public void click()

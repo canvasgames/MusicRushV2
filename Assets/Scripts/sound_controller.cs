@@ -307,14 +307,19 @@ public class sound_controller : MonoBehaviour
 
 	public void PlayJump()
 	{
-		if (efxSource.volume > 0 && can_play_jump == true)
-		{
-			can_play_jump = false;
-//			Debug.Log ("PLAY JUMP");
-
-			PlaySingle(Jump);
-			//PlaySingle(Jumps[Random.Range(0,7)]);
-			Invoke("can_play_jump_again", 0.3f);
+		if (soundMuted == false) {
+			if (QA.s.FMOD_ON)
+				FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_jump");
+			else {
+				if (efxSource.volume > 0 && can_play_jump == true)
+				{
+					can_play_jump = false;
+					//			Debug.Log ("PLAY JUMP");
+					PlaySingle(Jump);
+					//PlaySingle(Jumps[Random.Range(0,7)]);
+					Invoke("can_play_jump_again", 0.3f);
+				}
+			}
 		}
 	}
 

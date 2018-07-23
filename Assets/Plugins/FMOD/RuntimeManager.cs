@@ -398,7 +398,7 @@ retry:
         {
             if (studioSystem.isValid() && Settings.Instance.IsOverlayEnabled(fmodPlatform))
             {
-                windowRect = GUI.Window(0, windowRect, DrawDebugOverlay, "FMOD Studio Debug");
+//                windowRect = GUI.Window(0, windowRect, DrawDebugOverlay, "FMOD Studio Debug");
             }
         }
 

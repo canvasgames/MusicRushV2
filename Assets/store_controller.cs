@@ -137,7 +137,7 @@ public class store_controller : MonoBehaviour {
 			equipCharacterNew ();
 		}
 
-		StartCoroutine (LightAnimations ());
+//		StartCoroutine (LightAnimations ());
     }
 
 	void DefineActualCharOnTheScreenNew(){
