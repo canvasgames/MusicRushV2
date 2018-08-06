@@ -26,7 +26,7 @@ public class sound_controller : MonoBehaviour
 
     int music_playing = 1;
 
-	FMOD.Studio.EventInstance curFmodMusic;
+	FMOD.Studio.EventInstance curFmodMusic, curFmodEffect;
 
 	public bool soundMuted = false;
 
@@ -65,6 +65,9 @@ public class sound_controller : MonoBehaviour
 			muteMusic ();
 
 		RythmController.s.OnMusicStarted ();
+
+		Invoke ("PlayIntroMusicRush", 0.15f);
+
 //		FMODUnity.RuntimeManager.PlayOneShot("event:Soundtrack/music_classic");
 //		FMODUnity.RuntimeManager.CreateInstance("event:Soundtrack/music_classic").start();
 
@@ -81,7 +84,9 @@ public class sound_controller : MonoBehaviour
 //		if( globals.s.ACTUAL_CHAR == "rap")  change_music (MusicStyle.Rap);
     }
 
-    // Update is called once per frame
+	void PlayIntroMusicRush(){
+		PlaySfxUIIntroMusicRush ();
+	}
 
     void Update()
     {
@@ -125,7 +130,6 @@ public class sound_controller : MonoBehaviour
 	#region ===== Music Change =====
 	public void SoltaOSomAeDJAndreMarques(MusicStyle style){
 		jukeboxMusicIsPlaying = false;
-//		FMODUnity.RuntimeManager.PlayOneShot("event:Sountrack/music_classic");
 		if (curFmodMusic.isValid()) {
 			curFmodMusic.stop (FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 			curFmodMusic.release ();
@@ -248,7 +252,7 @@ public class sound_controller : MonoBehaviour
 				curFadeIn = musicSource;
 				curFadeIn.volume = 0;
 				//TBD CUIDAR A LOJA
-				Debug.Log ("[SOUND CONTROLLER RESTART MUSIC2!!!!! MUSIC PLAYING: " + music_playing);
+				Debug.Log ("SOUND CONTROLLER RESTART MUSIC2!!!!! MUSIC PLAYING: " + music_playing);
 				if (music_playing == 2) {
 					curFadeOut = musicSource2;
 				} else if (music_playing == 3) {
@@ -293,7 +297,7 @@ public class sound_controller : MonoBehaviour
 
 	}
 
-	public void PlaySfxQuemQuerDinheiroooo() {
+	public void PlaySfxQuemQuerDinheiroooo() { // coin collected
 		if(soundMuted == false)
 			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_collect_coin");
 	}
@@ -329,10 +333,112 @@ public class sound_controller : MonoBehaviour
 
 	public void PlaySfxCharacterExplosion()	{
 		if (soundMuted == false) {
-
 			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_explosion");
 		}
 	}
+
+	public void PlaySfxShieldBreak()	{
+		if (soundMuted == false) {
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_shield_break");
+		}
+	}
+
+	public void PlaySfxCharacterSuperJumpEffect()	{
+		if (soundMuted == false) {
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_super_jump");
+		}
+	}
+
+	public void PlaySfxCharacterVisionEndingAlert()	{ 
+		if (soundMuted == false) {
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_vision_ending_alert");
+		}
+	}
+
+	public void PlaySfxTrapHiddenHoleFall()	{ 
+		if (soundMuted == false) {
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_trap_hidden_hole_fall");
+		}
+	}
+
+	public void PlaySfxTrapHiddenSawAppear() {
+		if (soundMuted == false) {
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_trap_hidden_saw_appear");
+		}
+	}
+
+	public void PlaySfxTrapHiddenSpikeAppear()	{ 
+		if (soundMuted == false) {
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_trap_hidden_spike_appear");
+		}
+	}
+
+	public void PlaySfxTrapHiddenWallAppear()	{
+		if (soundMuted == false) {
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_trap_hidden_wall_appear");
+		}
+	}
+
+	public void PlaySfxCharacterWallCollided()	{ 
+		if (soundMuted == false) {
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_wall_collided");
+		}
+	}
+
+	public void PlayUIButtonPressed()	{ // tbd
+		if (soundMuted == false) {
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_ui_button_pressed");
+		}
+	}
+
+	public void PlaySfxUIIntroMusicRush()	{
+		if (soundMuted == false) {
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_ui_intro_music_rush");
+		}
+	}
+
+	public void PlaySfxUIJukeboxCoinFalling()	{ 
+		if (soundMuted == false) {
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_ui_jukebox_coin_falling");
+		}
+	}
+
+	public void PlaySfxUIJukeboxSortingCharacter()	{ 
+		if (soundMuted == false) {
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_ui_jukebox_sorting_character");
+		}
+	}
+
+	public void PlaySfxUINewHighscore()	{
+		if (soundMuted == false) {
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_ui_new_highscore");
+		}
+	}
+
+	public void PlaySfxUIReviveCountdown()	{ // ?tbd?
+		if (soundMuted == false) {
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_ui_revive_countdown");
+		}
+	}
+
+	public void PlaySfxUIGameOverScoreRaisingWhichIsBasicallyTheSoundOfALoser()	{ // tbd
+		if (soundMuted == false) {
+			curFmodEffect = FMODUnity.RuntimeManager.CreateInstance ("event:/Sfx/sfx_ui_game_over_score_raising");
+			curFmodEffect.start ();
+		}
+	}
+
+	public void StopSfxEffect(FMOD.Studio.STOP_MODE stopMode = FMOD.Studio.STOP_MODE.IMMEDIATE){
+		curFmodMusic.stop (stopMode);
+		curFmodMusic.release ();
+	}
+
+	public void PlaySfxUISpinDiskReward()	{ // tbd
+		if (soundMuted == false) {
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_ui_spin_disk_reward");
+		}
+	}
+
 	#endregion
   
 	#region ==== Technical Stuff =====

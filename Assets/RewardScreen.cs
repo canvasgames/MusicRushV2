@@ -22,7 +22,6 @@ public class RewardScreen : MonoBehaviour {
 		myImage = GetComponent<Image> ();
 	}
 
-
 	void OnEnable(){
 //		StartCoroutine (LightAnimations());
 		if( NotesReward == false) StartCoroutine( EnteringAnimationCharacter ());
@@ -161,6 +160,9 @@ public class RewardScreen : MonoBehaviour {
 	}
 
 	IEnumerator EnteringAnimationCharacter(){
+
+		sound_controller.s.PlaySfxUISpinDiskReward ();
+
 		Color myColor = myImage.color;
 
 		mySparks.SetActive (false);

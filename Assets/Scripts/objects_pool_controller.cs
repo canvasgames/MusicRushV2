@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 public enum PW_Types
 {
@@ -38,7 +39,7 @@ public class objects_pool_controller : MonoBehaviour {
     int floor_pool_actual_i = 0;
 
 	[HideInInspector]public GameObject[] double_spikes_pool;
-	[HideInInspector]public spike[] spikes_scripts;
+	[HideInInspector]public List<spike> spikes_scripts;
     int double_spikes_pool_size = 20;
     int double_spikes_pool_actual_i = 0;
 
@@ -48,8 +49,7 @@ public class objects_pool_controller : MonoBehaviour {
 
     [HideInInspector]
     public GameObject[] saw_pool;
-    [HideInInspector]
-    public saw[] saw_scripts;
+    [HideInInspector]  public saw[] saw_scripts;
     int saw_pool_size = 20;
     int saw_pool_actual_i = 0;
 
@@ -175,7 +175,12 @@ public class objects_pool_controller : MonoBehaviour {
         squares_floor_pool = new GameObject[squares_floor_pool_size];
         scores_floor_pool = new GameObject[scores_floor_pool_size];
 		power_ups_pool = new GameObject[power_ups_pool_size];
-        saw_pool = new GameObject[saw_pool_size];
+		saw_pool = new GameObject[saw_pool_size];
+
+		spikes_scripts = new List<spike> ();
+		saw_scripts = new saw[saw_pool_size];
+		pw_scripts = new PW_Collect[power_ups_pool_size];
+		squares_floor_scripts = new floor_square_pw_destruct[squares_floor_pool_size];
 
         create_initial_tudo();
     }
@@ -184,9 +189,6 @@ public class objects_pool_controller : MonoBehaviour {
         
         //floor_skin_bg_glow();
 //		floor_scripts = GameObject.FindObjectsOfType(typeof(floor)) as floor[];
-		squares_floor_scripts = GameObject.FindObjectsOfType (typeof(floor_square_pw_destruct)) as floor_square_pw_destruct[];
-		spikes_scripts =  GameObject.FindObjectsOfType(typeof(spike)) as spike[];
-		pw_scripts = GameObject.FindObjectsOfType(typeof(PW_Collect)) as PW_Collect[];
 		Debug.Log ("floorSripts size: " + floor_scripts.Length);
 
 		//DestroyUnnusedObjects ();
@@ -254,27 +256,33 @@ public class objects_pool_controller : MonoBehaviour {
 		for (i = 0; i < double_spikes_pool_size; i++)
 		{
 			double_spikes_pool[i] = (GameObject)Instantiate(double_spike_prefab, new Vector3(55, 0, 0), transform.rotation);
+			spikes_scripts.Add(double_spikes_pool[i].GetComponent<spike>());
 		}
 		for (i = 0; i < triple_spikes_pool_size; i++)
 		{
 			triple_spikes_pool[i] = (GameObject)Instantiate(triple_spike_prefab, new Vector3(55, 0, 0), transform.rotation);
+			spikes_scripts.Add(triple_spikes_pool[i].GetComponent<spike>());
 		}
         for (i = 0; i < saw_pool_size; i++)
         {
             saw_pool[i] = (GameObject)Instantiate(saw_prefab, new Vector3(55, 0, 0), transform.rotation);
+			saw_scripts [i] = saw_pool [i].GetComponent<saw> ();
         }
         for (i = 0; i < squares_floor_pool_size; i++)
 		{
 			squares_floor_pool[i] = (GameObject)Instantiate(squares_floor_prefab, new Vector3(105, 10*i, 0), transform.rotation);
+//			squares_floor_scripts [i] = squares_floor_pool [i].GetComponent<floor_square_pw_destruct> ();
 		}
 
-		for (i = 0; i < scores_floor_pool_size; i++)
-		{
-			scores_floor_pool[i] = (GameObject)Instantiate(scores_floor_prefab, new Vector3(105, 10 * i, 0), transform.rotation);
-		}
+//		for (i = 0; i < scores_floor_pool_size; i++)
+//		{
+//			scores_floor_pool[i] = (GameObject)Instantiate(scores_floor_prefab, new Vector3(105, 10 * i, 0), transform.rotation);
+//		}
+//
 		for (i = 0; i < power_ups_pool_size; i++)
 		{
 			power_ups_pool[i] = (GameObject)Instantiate(power_ups_prefab, new Vector3(105, 10 * i, 0), transform.rotation);
+			pw_scripts [i] = power_ups_pool [i].GetComponent<PW_Collect> ();
 		}
 	}
 

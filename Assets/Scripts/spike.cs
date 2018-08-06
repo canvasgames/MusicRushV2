@@ -86,6 +86,7 @@ public class spike : scenario_objects {
     void show_me()
     {
         Debug.Log("[SPK HIDDEN] show me called !!!! ");
+		sound_controller.s.PlaySfxTrapHiddenSpikeAppear ();
         //transform.GetComponent<SpriteRenderer>().color = Color.white;
         //transform.GetComponent<SpriteRenderer>().color = Color.black;
         //target_y = transform.position.y + transform.GetComponent<SpriteRenderer>().bounds.size.y;
@@ -153,10 +154,12 @@ public class spike : scenario_objects {
     }
 
 
-    public void destroy_throwed_spikes(float y_pos_ball)
+	public void destroy_throwed_spikes (float y_pos_ball, float y_screen_limit)
     {
-        if( y_pos_ball > transform.position.y)
+//		Debug.Log (" TRYING TO DESTROY SPIKE: " + y_pos_ball + " MY POS " + transform.position.y);
+		if( y_pos_ball > transform.position.y && y_screen_limit < transform.position.y)
         {
+//			Debug.Log (" DESTROY SUCCESS !!: " + y_pos_ball + " MY POS " + transform.position.y);
             /// transform.DOScale(0, 0.3f);//.OnComplete(destroy_me_baby);
             transform.position = new Vector3(transform.position.x - Random.Range(50,150), transform.position.y - Random.Range(50, 150), transform.position.z);
         }

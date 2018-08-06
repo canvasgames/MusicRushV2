@@ -182,10 +182,10 @@ public class game_controller : MonoBehaviour {
 						create_spike (Random.Range (-0.5f, +0.5f), globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * i, i);
 					else {
 
-						if (BlocksMaster.s.debugInitialBlock == Block.None)
+						if (BlockMaster.s.debugInitialBlock == BlockDifficulty.None)
 							create_spike (Random.Range (-mid_area, mid_area), globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * i, i);
 						else
-							wave_found = BlocksMaster.s.CreateBlockByDifficulty (BlocksMaster.s.debugInitialBlock, i);
+							wave_found = BlockMaster.s.CreateBlockByDifficulty (BlockMaster.s.debugInitialBlock, i);
 					}
 
 					//create_hidden_spike(0, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * i, i);
@@ -226,10 +226,10 @@ public class game_controller : MonoBehaviour {
 						wave_found = true;
 
 					} else {
-						if (BlocksMaster.s.debugInitialBlock == Block.None)
+						if (BlockMaster.s.debugInitialBlock == BlockDifficulty.None)
 							wave_found = create_wave_super_easy (i);
 						else
-							wave_found = BlocksMaster.s.CreateBlockByDifficulty (BlocksMaster.s.debugInitialBlock, i);
+							wave_found = BlockMaster.s.CreateBlockByDifficulty (BlockMaster.s.debugInitialBlock, i);
 					}
 					break;
 				case 5:
@@ -238,10 +238,10 @@ public class game_controller : MonoBehaviour {
 						wave_found = create_hole (i, false, 0, true, ftu_spk_pos + globals.s.HOLE_SPK_DIST+ 0.3f);
 						//create_spike (ftu_spk_pos, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * i, i, false, true);
 					} else
-						if (BlocksMaster.s.debugInitialBlock == Block.None)
+						if (BlockMaster.s.debugInitialBlock == BlockDifficulty.None)
 							wave_found = create_wave_super_easy (i);
 						else
-							wave_found = BlocksMaster.s.CreateBlockByDifficulty (BlocksMaster.s.debugInitialBlock, i);
+							wave_found = BlockMaster.s.CreateBlockByDifficulty (BlockMaster.s.debugInitialBlock, i);
 					break;
 
                 default:
@@ -712,10 +712,14 @@ public class game_controller : MonoBehaviour {
 				wave_found = true;
 				create_floor (0, n_floor);
 			} else {
-				if(BlocksMaster.s.debugAllBlocks != Block.None)
-					wave_found = BlocksMaster.s.CreateBlockLogic (n_floor);
+				if (BlockMaster.s.debugAllBlocks == BlockDifficulty.None) {
+					if(BlockMaster.s.NewCreationLogic == true)
+						wave_found = BlockMaster.s.CreateBlockLogicNEW (n_floor);
+					else
+						wave_found = BlockMaster.s.CreateBlockLogic (n_floor);
+				}
 				else
-					wave_found = BlocksMaster.s.CreateBlockByDifficulty (BlocksMaster.s.debugAllBlocks, n_floor);
+					wave_found = BlockMaster.s.CreateBlockByDifficulty (BlockMaster.s.debugAllBlocks, n_floor);
 			}
         }
 
@@ -2183,13 +2187,13 @@ public class game_controller : MonoBehaviour {
 
     #region ======== WAVE ELEMENTS =======
 
-    void create_wall(float x, int n)
+    public void create_wall(float x, int n)
     {
         GameObject obj = (GameObject)Instantiate(wall_type, new Vector3(x, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n +  globals.s.SLOT/2, 0), transform.rotation);
         obj.GetComponent<wall>().my_floor = n;
     }
 
-    wall create_wall_corner(int n, bool spk_trigger = false){
+    public wall create_wall_corner(int n, bool spk_trigger = false){
         GameObject obj = (GameObject)Instantiate(wall_type, new Vector3(corner_right, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n  + globals.s.SLOT / 2, 0), transform.rotation);
         wall temp_wall = obj.GetComponent<wall>();
         temp_wall.my_floor = n;
@@ -2200,7 +2204,7 @@ public class game_controller : MonoBehaviour {
         return obj.GetComponent<wall>();
     }
 
-	void create_spike(float x, float y, int n, bool corner_repositionable = false, bool repositionable = false)
+	public void create_spike(float x, float y, int n, bool corner_repositionable = false, bool repositionable = false)
     {
 
         //GameObject obj = (GameObject)Instantiate(spike_type, new Vector3(x, y + globals.s.SLOT/2, 0), transform.rotation);
@@ -2227,7 +2231,7 @@ public class game_controller : MonoBehaviour {
         }
     }
 
-    void create_hidden_spike(float x, float y, int n, bool manual_trigger = false, bool corner_repositionable = false)
+	public void create_hidden_spike(float x, float y, int n, bool manual_trigger = false, bool corner_repositionable = false)
     {
         //GameObject obj = (GameObject)Instantiate(spike_type, new Vector3(x, y + globals.s.SLOT/2 - spike_type.transform.GetComponent<SpriteRenderer>().bounds.size.y, 0), transform.rotation);
         //GameObject obj = objects_pool_controller.s.reposite_double_spikes(x, y + globals.s.SLOT / 2 - spike_type.transform.GetComponent<SpriteRenderer>().bounds.size.y);
@@ -2257,7 +2261,7 @@ public class game_controller : MonoBehaviour {
         }
     }
 
-    void create_triple_spike(float x, float y, int n)
+	public void create_triple_spike(float x, float y, int n)
     {
 
        // GameObject obj = (GameObject)Instantiate(triple_spike_type, new Vector3(x, y + globals.s.SLOT / 2, 0), transform.rotation);
@@ -2271,7 +2275,7 @@ public class game_controller : MonoBehaviour {
         }
     }
 
-    void create_triple_hidden_spike(float x, float y, int n, bool manual_trigger = false)
+	public void create_triple_hidden_spike(float x, float y, int n, bool manual_trigger = false)
     {
        // GameObject obj = (GameObject)Instantiate(triple_spike_type, new Vector3(x, y + globals.s.SLOT / 2 - triple_spike_type.transform.GetComponent<SpriteRenderer>().bounds.size.y, 0), transform.rotation);
         //GameObject obj = objects_pool_controller.s.reposite_triple_spikes(x, y + globals.s.SLOT / 2 - triple_spike_type.transform.GetComponent<SpriteRenderer>().bounds.size.y);
@@ -2297,7 +2301,7 @@ public class game_controller : MonoBehaviour {
         }
     }
 
-    void create_saw(float x, float y, int n, bool corner_repositionable = false, bool repositionable = false, float distanceAppear = 12)
+	public void create_saw(float x, float y, int n, bool corner_repositionable = false, bool repositionable = false, float distanceAppear = 12)
     {
         GameObject obj = objects_pool_controller.s.reposite_saw(x, y + globals.s.SLOT / 2);
         saw saw = obj.GetComponent<saw>();
@@ -2383,7 +2387,7 @@ GameObject instance = Instantiate(Resources.Load("Prefabs/Bgs/Scenario2/bg_"+ran
 
     }
 
-	bool create_hole(int n, bool not_hidden = false, float custom_rand = 0, bool repositionable = false, float custom_position = -999)
+	public bool create_hole(int n, bool not_hidden = false, float custom_rand = 0, bool repositionable = false, float custom_position = -999)
     {
 //		return false;
         // Debug.Log("tttttttttttttttttttttt TRYING TO CREATE HOLE AT FLOOR: " + n);
@@ -2488,7 +2492,7 @@ GameObject instance = Instantiate(Resources.Load("Prefabs/Bgs/Scenario2/bg_"+ran
         }
     }
 
-    bool create_just_hole(int n, float x)
+	public bool create_just_hole(int n, float x)
     {
         //GameObject obj = (GameObject)Instantiate(floor_type, new Vector3(x - hole_size / 2 - floor_type.transform.GetComponent<SpriteRenderer>().bounds.size.x / 2, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n, 0), transform.rotation);
 		GameObject obj = objects_pool_controller.s.reposite_floor(x - hole_size / 2 - floor_type.GetComponent<floor>().my_skin.GetComponent<SpriteRenderer>().bounds.size.x / 2, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n);
@@ -2504,7 +2508,7 @@ GameObject instance = Instantiate(Resources.Load("Prefabs/Bgs/Scenario2/bg_"+ran
     }
 #endregion
 
-	int SortSign(){
+	public int SortSign(){
 		int a = Random.Range (0, 2);
 		if (a == 0)
 			return -1;
@@ -2512,7 +2516,7 @@ GameObject instance = Instantiate(Resources.Load("Prefabs/Bgs/Scenario2/bg_"+ran
 			return 1;
 	}
 
-    void create_wave_name(float x_pos, float y_pos, string wave_name)
+    public void create_wave_name(float x_pos, float y_pos, string wave_name)
     {
         GameObject my_qa_wave;
         my_qa_wave = (GameObject)Instantiate(QA_wave_name, new Vector3(0, y_pos - 0.6f, transform.position.z), transform.rotation);

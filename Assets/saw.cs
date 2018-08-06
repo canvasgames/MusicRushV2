@@ -82,6 +82,8 @@ public class saw : scenario_objects
 
     void show_me()
     {
+		sound_controller.s.PlaySfxTrapHiddenSawAppear ();
+
         already_appeared = true;
         transform.GetComponent<CircleCollider2D>().enabled = true;
         back_original_color_pw_sight();

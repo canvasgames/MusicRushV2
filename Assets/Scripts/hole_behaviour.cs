@@ -77,6 +77,7 @@ public class hole_behaviour : MonoBehaviour
 		my_vision_effect.GetComponent<SpriteRenderer> ().DOFade (0, 0.35f).OnComplete(() => my_vision_effect.SetActive (false));
 		//my_vision_effect
 
+		sound_controller.s.PlaySfxTrapHiddenHoleFall ();
 //		my_vision_effect.SetActive (false);
     }
 

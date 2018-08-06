@@ -291,7 +291,7 @@ public class ball_hero : MonoBehaviour
 			my_floor++;
 			nextTargetSuperJumpY += globals.s.FLOOR_HEIGHT;
 			foreach(floor andar in objects_pool_controller.s.floor_scripts){
-				Debug.Log ("[sp] are you ...  " + andar.my_floor );
+				//Debug.Log ("[sp] are you ...  " + andar.my_floor );
 
 				if (andar.isActiveAndEnabled && andar.my_floor == my_floor+1) {
 					Debug.Log ("FLOOR FOFFFOUNDO floor!!! N: " + andar.my_floor );
@@ -659,10 +659,10 @@ public class ball_hero : MonoBehaviour
 		
 	#endregion
 
-	#region ============ COLLISIONS ================
+	#region ===== COLLISIONS =======
 
 
-	void OnTriggerEnter2D(Collider2D coll){
+		void OnTriggerEnter2D(Collider2D coll){
 		//Debug.Log ("kkkkkkkkkkkkkkkkkCOLLISION IS HAPPENING!! ");
 		if (coll.gameObject.CompareTag ("PW")) {
 			
@@ -681,6 +681,7 @@ public class ball_hero : MonoBehaviour
 					Instantiate (spike_explosion, new Vector3 (coll.transform.position.x, coll.transform.position.y, coll.transform.position.z), transform.rotation);
 					PW_controller.s.invencible_end ();
 					coll.gameObject.transform.position = new Vector3 (coll.gameObject.transform.position.x + 50, coll.gameObject.transform.position.y, coll.gameObject.transform.position.z);
+					sound_controller.s.PlaySfxShieldBreak ();
 				}
 			}
 		}
@@ -698,6 +699,7 @@ public class ball_hero : MonoBehaviour
                     Instantiate(spike_explosion, new Vector3(coll.transform.position.x, coll.transform.position.y, coll.transform.position.z), transform.rotation);
                     PW_controller.s.invencible_end();
                     coll.gameObject.transform.position = new Vector3(coll.gameObject.transform.position.x + 50, coll.gameObject.transform.position.y, coll.gameObject.transform.position.z);
+					sound_controller.s.PlaySfxShieldBreak ();
                 }
             }
         }
@@ -713,7 +715,9 @@ public class ball_hero : MonoBehaviour
 			if (transform.position.y < main_camera.s.transform.position.y - 10f) {
 				hitted_wall = true;
 				main_camera.s.hitted_on_wall = true;
-			}   
+			}
+
+			sound_controller.s.PlaySfxCharacterWallCollided ();
 		}
 
 		else if (coll.gameObject.CompareTag("Note")) {
@@ -975,6 +979,8 @@ public class ball_hero : MonoBehaviour
     }
 
     void go_up_PW() {
+		sound_controller.s.PlaySfxCharacterSuperJumpEffect ();
+
 		if(QA.s.TRACE_PROFUNDITY >=2) Debug.Log ("PW GO UP START STEP 2!! MY FLOOR START:  " + my_floor);
         //globals.s.PW_SUPER_JUMP = true;
         desactivate_pws_super();
@@ -994,6 +1000,7 @@ public class ball_hero : MonoBehaviour
         //transform.DOMoveY(target_y, 1.1f).SetEase(Ease.Linear).OnComplete(()=> stop_go_up_PW());
 		if(QA.s.TRACE_PROFUNDITY >=2) Debug.Log ("PW GO UP START STEP 2!! MY FLOOR end:  " + my_floor);
 
+		destroy_spikes(transform.position.y + 5* globals.s.FLOOR_HEIGHT + (globals.s.FLOOR_HEIGHT/2));
     }
 
     void stop_go_up_PW() {
@@ -1019,7 +1026,9 @@ public class ball_hero : MonoBehaviour
         appear_floors();
 		if(QA.s.TRACE_PROFUNDITY >=2) Debug.Log ("TIME TO CREATE FLOOR FOR LANDING! !! ");
 		GameObject floor = game_controller.s.create_floor(12, my_floor+1, false, true);
-        destroy_spikes();
+
+//		game_controller.s.PauseGame ();
+        
 		floor.GetComponent<floor> ().pauta.SetActive (false);
         floor.transform.DOMoveX(0, 0.3f);//.OnComplete(pw_super_end);
 
@@ -1043,7 +1052,7 @@ public class ball_hero : MonoBehaviour
     }
 
     void activate_particles_floor() {  
-        int i=0;
+        int i = 0;
     	floor[] floors = null;
        	//floors = GameObject.FindObjectsOfType(typeof(floor)) as floor[];
 		floors = objects_pool_controller.s.floor_scripts;
@@ -1054,8 +1063,10 @@ public class ball_hero : MonoBehaviour
 				//Debug.Log ("game object is active: " + floors [i].isActiveAndEnabled);
           }
 
+		#if FLOOR_SQUARES_LOGIC
 		floor_square_pw_destruct[] squares = null;
 		//floors = GameObject.FindObjectsOfType(typeof(floor)) as floor[];
+
 		squares = objects_pool_controller.s.squares_floor_scripts;
 		for (i = 0; i < squares.Length; i++)
 		{
@@ -1063,6 +1074,7 @@ public class ball_hero : MonoBehaviour
 				squares [i].DisappearSoon ();
 			//Debug.Log ("game object is active: " + floors [i].isActiveAndEnabled);
 		}
+		#endif
 
 		List<hole_behaviour> holes = hole_behaviour.All;
        // hole_behaviour[] holes = GameObject.FindObjectsOfType(typeof(hole_behaviour)) as hole_behaviour[];
@@ -1123,24 +1135,22 @@ public class ball_hero : MonoBehaviour
     {
         int i;
 
-		floor_square_pw_destruct[] squares = objects_pool_controller.s.squares_floor_scripts;
+//		floor_square_pw_destruct[] squares = objects_pool_controller.s.squares_floor_scripts;
        // floor_square_pw_destruct[] squares = GameObject.FindObjectsOfType(typeof(floor_square_pw_destruct)) as floor_square_pw_destruct[];
-        for (i = 0; i < squares.Length; i++)
-        {
-            squares[i].scale_down_to_dessapear();
-        }
+//        for (i = 0; i < squares.Length; i++)
+//        {
+//			if(squares[i].isActiveAndEnabled) squares[i].scale_down_to_dessapear();
+//        }
 
        objects_pool_controller.s.clear_squares_floor_particle();
     }
 
 
-    void destroy_spikes()
+	void destroy_spikes(float yTarget)
     {
-        int i;
-		spike[] spikes = objects_pool_controller.s.spikes_scripts;
-        for (i = 0; i < spikes.Length; i++)
+		foreach (spike spikes in objects_pool_controller.s.spikes_scripts)
         {
-			if(spikes[i] !=null)  spikes[i].destroy_throwed_spikes(transform.position.y);
+			if(spikes !=null)  spikes.destroy_throwed_spikes(yTarget, transform.position.y + globals.s.FLOOR_HEIGHT * 3);
         }
     }
 

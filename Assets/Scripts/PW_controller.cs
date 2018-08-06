@@ -40,6 +40,7 @@ public class PW_controller : MonoBehaviour
     //Called by invoke
     public void pw_ending()
     {
+		sound_controller.s.PlaySfxCharacterVisionEndingAlert ();
         temp_alpha = 0;
         previous_time = Time.time;
         globals.s.PW_ENDING = true;

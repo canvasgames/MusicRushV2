@@ -133,6 +133,8 @@ public class wall : MonoBehaviour
         already_appeared = true;
         my_skin.transform.DOScaleY(1f, 0.2f);
 
+		sound_controller.s.PlaySfxTrapHiddenWallAppear ();
+
         if (spike_trigger)
         {
             spike[] spks = FindObjectsOfType(typeof(spike)) as spike[];

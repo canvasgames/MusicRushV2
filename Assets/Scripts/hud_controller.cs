@@ -192,7 +192,6 @@ public class hud_controller : MonoBehaviour {
 //        }
     }
 
-
 	void SpinDiskTimerLogic(){
 
 		display_best(USER.s.BEST_SCORE);
@@ -577,7 +576,7 @@ public class hud_controller : MonoBehaviour {
 
 	#endregion
 
-    #region ============== GAME OVER ================
+    #region === GAME OVER ===
 
 	public void show_game_over(int currentFloor, bool fromRevive = false)
     {
@@ -608,6 +607,7 @@ public class hud_controller : MonoBehaviour {
 	void ShowNewHighscoreScreen(){
 		myNewHighscoreScreen.gameObject.SetActive (true);
 		myNewHighscoreScreen.Init ();
+		sound_controller.s.PlaySfxUINewHighscore ();
 	}
 
 	public void appear_game_over()
@@ -633,7 +633,7 @@ public class hud_controller : MonoBehaviour {
 
     #endregion
 
-    #region ================== PLAYER PREFS ============================
+    #region === PLAYER PREFS ===
     int get_and_set_best_score(int cur_floor)
     {
         int cur_best = PlayerPrefs.GetInt("best", 0);
@@ -711,7 +711,7 @@ public class hud_controller : MonoBehaviour {
         return false;
     }
 
-    #region ========= LIFE SYSTEM ============
+    #region === LIFE SYSTEM ===
 
 	public void show_pw_time() // atualiza o tempo do power ups
     {

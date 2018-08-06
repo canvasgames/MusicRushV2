@@ -330,17 +330,19 @@ public class GameOverController : MonoBehaviour {
 		} else {
 			jukeboxGreenBar.GetComponent<Image> ().DOFillAmount (jukeboxBarInitialFill + fillTarget, 0.5f).SetEase (Ease.InOutCubic);
 		}
-
 	}
-
 
 	IEnumerator IncreaseNoteNumbers(float time){
 		float dif = globals.s.NOTES_COLLECTED ;
+		sound_controller.s.PlaySfxUIGameOverScoreRaisingWhichIsBasicallyTheSoundOfALoser ();
+
 		for (int i = 1; i <= dif ; i++) {
 			DisplayJukeboxNotes (USER.s.NOTES - globals.s.NOTES_COLLECTED + i);
 			yield return new WaitForSeconds (time / dif);
-			Debug.Log ("DIF: " + dif + " INCREASING!! " + (dif + i));
+//			Debug.Log ("DIF: " + dif + " INCREASING!! " + (dif + i));
 		}
+
+		sound_controller.s.StopSfxEffect ();
 
 		yield return new WaitForSeconds (1f);
 

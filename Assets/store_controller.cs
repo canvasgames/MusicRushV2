@@ -7,6 +7,11 @@ public class store_controller : MonoBehaviour {
     public static store_controller s;
 
 	[Header ("Gems")]
+	public GameObject mainCategory;
+	public GameObject[] promoCategories;
+	Categories curCategory = Categories.Main;
+
+	[Header ("Gems")]
 	[SerializeField] Text myGemsPrice;
 
 
@@ -29,6 +34,7 @@ public class store_controller : MonoBehaviour {
 	public int jukeboxCurrentPrice;
 
 	[SerializeField] GameObject[] myChars;
+	GameObject lastChar;
 
 	public GameObject[] lightLeftLines, lighttRightLines;
 	public ScrollSnapRect ScrollSnap;
@@ -219,6 +225,26 @@ public class store_controller : MonoBehaviour {
 
 	#endregion
 
+	#region === CATEGORIES ===
+
+	public void OnButtonSpecialOfferPressed(){
+		ChangeCategoryTo (Categories.Promo1);
+	}
+	public enum Categories{Main = -1, Promo1 = 0, Promo2 = 1, Promo3 = 2, Promo4 = 3}
+
+	void ChangeCategoryTo(Categories categTochange){
+		if (curCategory != categTochange) {
+			if (curCategory == Categories.Main)
+				mainCategory.SetActive (false);
+			else
+				promoCategories [(int)curCategory].SetActive (false);
+			promoCategories [(int)categTochange].SetActive (true);
+			curCategory = categTochange;
+		}
+	}
+
+	#endregion
+
     #region === CHAR ===
 	public bool CheckIfCharacterIsAlreadyPurchasedNew(int skinId){
 		if (alreadyBuyed [skinId] == 1)
@@ -299,7 +325,10 @@ public class store_controller : MonoBehaviour {
 
 	public void OnCharacterChangedNew(int skinId, bool dontPlayMusic = false) {
 		MusicStyle style = GD.s.skins [skinId].musicStyle;
+		if(lastChar != null) StartCoroutine(DeactivateLastChar(lastChar));
 		myChars [skinId].SetActive (true);
+		lastChar = myChars [skinId];
+
 //		Debug.Log ("[JUKEBOX] Character changed new: " + style.ToString());
 		Debug.Log ("[JUKEBOX] Character changed new: " + GD.s.skins[skinId].skinName);
 		actualCharInScreen = skinId;
@@ -331,6 +360,11 @@ public class store_controller : MonoBehaviour {
 			buyButton.SetActive (false);
 		}
 //		changeAnimationEquipButtonNew(style);
+	}
+
+	IEnumerator DeactivateLastChar(GameObject character){
+		yield return new WaitForSeconds (0.3f);
+		character.SetActive (false);
 	}
 
 
@@ -434,6 +468,9 @@ public class store_controller : MonoBehaviour {
 			myCoinsQuantity.text = initialCoins + i + "/"+globals.s.JUKEBOX_CURRENT_PRICE;
 			Debug.Log ("CCCCCCCC COINS: " + (initialCoins + i));
 			yield return new WaitForSeconds (0.14f);
+
+			if(i % 2 == 0)
+				sound_controller.s.PlaySfxUIJukeboxCoinFalling ();
 		}
 
 		myCoinsFalling.SetActive (false);
@@ -525,13 +562,18 @@ public class store_controller : MonoBehaviour {
 		mYTitle.GetComponent<Animator>().speed = 3f;
 		myBgLights.GetComponent<Animator>().speed = 3f;
 
+		int k = 0;
 		do { // FAZER UM MINIMO 
 			for (int i = 0; i < rand; i++) {
 				//logica de não repetir
 				ScrollSnap.NextScreen ();
 				yield return new WaitForSeconds (0.1f);
 				//		scrol
+				if( k % 5 == 0 ) sound_controller.s.PlaySfxUIJukeboxSortingCharacter();
 			}
+
+
+
 			rand = Random.Range (1, 3);
 //			Debug.Log("STYLE FOUND: "+ (MusicStyle)actualStyle + " have " +CheckIfCharacterIsAlreadyPurchasedNew(skinId) );
 //		} while (alreadyBuyed [(int)actualStyle] == 0);
