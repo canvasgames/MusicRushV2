@@ -27,11 +27,11 @@ public class BlockMasterEditor : Editor {
 		//EditorGUILayout.prop
 		serializedObject.ApplyModifiedProperties();
 		*/
-//		BlockMaster myScript = (BlockMaster)target;
 //		var serializedObject = new SerializedObject(target);
 //		List<Block> property = serializedObject.FindProperty("BlocksSuperEasy");
 
-	
+//		BlockMaster myScript = (BlockMaster)target;
+//	
 //		//new code from here
 //		List<Block> property = myScript.BlocksSuperEasy;
 //
