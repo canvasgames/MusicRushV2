@@ -3,11 +3,11 @@ using System.Collections;
 using System;
 
 [Serializable]
-public enum TrapType {spk, tripleSpk, hole}
+public enum ObstacleType {spk, tripleSpk, hiddenSpk, hiddenTripleSpk, saw, hole, hiddenHole, wallCorner, wallCenter, }
 [Serializable]
-public class Trap{
-	public TrapType myTrap;
-	float xInit, xEnd;
+public class Obstacle{
+	public ObstacleType myType;
+	public float xInit, xEnd;
 }
 [Serializable]
 public class Block  {
@@ -15,7 +15,8 @@ public class Block  {
 	public int chance;
 	public BlockType type;
 	public DenyCondition[] denyConditions;
-	public Trap[] traps; 
+	public Obstacle[] obstacles; 
+	public Obstacle[] obstaclesFloor2; 
 
 	public Block(string name){
 		this.name = name;

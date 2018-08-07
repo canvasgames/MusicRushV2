@@ -51,8 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dea727388cc364418dd650933772ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NewCreationLogic: 0
-  superEasy: 5
+  NewCreationLogic: 1
+  superEasy: 50
   easy: 10
   medium: 20
   hard: 30
@@ -60,33 +60,111 @@ MonoBehaviour:
   debugInitialBlock: 6
   debugAllBlocks: 6
   BlocksSuperEasy:
-  - name: SpkMid_30
+  - name: CustomBlock_30
     chance: 30
-    type: 0
+    type: 6
     denyConditions: 
+    obstacles:
+    - myType: 1
+      xInit: 2.1
+      xEnd: 0
+    - myType: 2
+      xInit: -1.4
+      xEnd: -0.1
+    obstaclesFloor2: []
   - name: SpkNotMid_30
     chance: 30
     type: 1
     denyConditions: 
-  - name: TripleSpkMid_30
-    chance: 30
-    type: 2
+    obstacles: []
+    obstaclesFloor2: []
+  - name: TwoSpikesAtCorner_15
+    chance: 15
+    type: 5
     denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  - name: Custom2Blocks_15
+    chance: 15
+    type: 7
+    denyConditions: 
+    obstacles:
+    - myType: 0
+      xInit: 0
+      xEnd: 0
+    obstaclesFloor2:
+    - myType: 6
+      xInit: -1.4
+      xEnd: 1.4
+  - name: Custom2Blocks_40
+    chance: 40
+    type: 7
+    denyConditions: 
+    obstacles:
+    - myType: 7
+      xInit: 0
+      xEnd: 0
+    - myType: 0
+      xInit: 0
+      xEnd: 0
+    obstaclesFloor2:
+    - myType: 6
+      xInit: -1.4
+      xEnd: 0
+    - myType: 3
+      xInit: 2
+      xEnd: 0
   BlocksEasy:
   - name: TwoSpikesAtCorner_50
     chance: 50
     type: 5
     denyConditions: 0000000001000000
+    obstacles: []
+    obstaclesFloor2: []
   - name: SpkMid_10
     chance: 10
     type: 0
     denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
   - name: SpkNotMid_10
     chance: 10
     type: 1
     denyConditions: 
-  BlocksMedium: []
-  BlocksHard: []
-  BlocksVeryHard: []
+    obstacles: []
+    obstaclesFloor2: []
+  BlocksMedium:
+  - name: SpkMid_0
+    chance: 0
+    type: 0
+    denyConditions: 0000000001000000020000000000000000000000
+    obstacles: []
+    obstaclesFloor2: []
+  BlocksHard:
+  - name: SpkMid_0
+    chance: 0
+    type: 0
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  BlocksVeryHard:
+  - name: TripleSpkMid_40
+    chance: 40
+    type: 2
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  - name: SpkMid_0
+    chance: 0
+    type: 0
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  - name: SpkMid_0
+    chance: 0
+    type: 0
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
   BlocksSuperHard: []
   hole_size: 0

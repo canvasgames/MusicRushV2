@@ -8,16 +8,17 @@ public enum BlockDifficulty{
 }
 
 public enum BlockType{
-	SpkMid, SpkNotMid, TripleSpkMid, TwoSpksMid, WallAndSpikeAtMid, TwoSpikesAtCorner
+	SpkMid, SpkNotMid, TripleSpkMid, TwoSpksMid, WallAndSpikeAtMid, TwoSpikesAtCorner, CustomBlock, Custom2Blocks,
 }
 
-public enum DenyCondition{SpikeLeft, SpikeRight, Wall, Hole, Saw}
+public enum DenyCondition{ SpikeLeft, SpikeRight, Wall, Hole, Saw }
 
 public class BlockMaster : MonoBehaviour {
 	#region === Vars ===
 	public static BlockMaster s;
 
 //	public InputField iField;
+	Obstacle[] nextBlock;
 	public bool NewCreationLogic;
 	[Space (5)]
 	[Header ("Block Difficulties")]
@@ -61,6 +62,11 @@ public class BlockMaster : MonoBehaviour {
 		s = this;
 		justCreatedBlockTypes = new List<BlockType> ();
 	}
+
+	public void Init(){
+		floor2IsNext = false;
+		nextBlock = null;
+	}
 	#endregion
 
 	void CreateNormalFloor(string name, int n){
@@ -68,6 +74,83 @@ public class BlockMaster : MonoBehaviour {
 		if (QA.s.SHOW_WAVE_TYPE == true) game_controller.s.create_wave_name(0, actual_y, wave_name);
 		game_controller.s.create_floor(0, n);
 	}
+
+	#region === Custom Blocks ===
+	bool B_CustomBlock(Obstacle[] obsts, int n){
+		float xPos = 0;
+		bool thereIsHole = false;
+		string name = "C..";
+		foreach (Obstacle ob in obsts) {
+			if (ob.xEnd == 0)
+				xPos = ob.xInit;
+			else {
+				if(ob.xInit < ob.xEnd) xPos = Random.Range (ob.xInit, ob.xEnd);
+				else xPos = Random.Range (ob.xEnd, ob.xInit);
+			}
+			name += ob.myType.ToString () + "_" + xPos.ToString ("0.00")+" & ";
+			CreateCustomObstacleByType (ob.myType, xPos, actual_y, n, false);
+			if (ob.myType == ObstacleType.hole || ob.myType == ObstacleType.hiddenHole)
+				thereIsHole = true;
+		}
+
+		if(thereIsHole == false) 
+			CreateNormalFloor(name, n);
+
+		return true;
+	}
+
+	bool floor2IsNext = false;
+
+	bool B_Custom2FloorsBlock(Obstacle[] obsts, int n, bool firstTime = true){
+		float xPos = 0;
+		bool thereIsHole = false;
+		string name = "";
+		if (floor2IsNext == false)
+			name = "C2.1..";
+		else
+			name = "C2.2..";
+		
+		foreach (Obstacle ob in obsts) {
+			if (ob.xEnd == 0)
+				xPos = ob.xInit;
+			else {
+				if(ob.xInit < ob.xEnd) xPos = Random.Range (ob.xInit, ob.xEnd);
+				else xPos = Random.Range (ob.xEnd, ob.xInit);
+			}
+			name += ob.myType.ToString () + "_" + xPos.ToString ("0.00")+" & ";
+
+			CreateCustomObstacleByType (ob.myType, xPos, actual_y, n, false);
+
+			if (ob.myType == ObstacleType.hole || ob.myType == ObstacleType.hiddenHole)
+				thereIsHole = true;
+		}
+
+		if(thereIsHole == false) 
+			CreateNormalFloor(name, n);
+		else
+			if (QA.s.SHOW_WAVE_TYPE == true) game_controller.s.create_wave_name(0, actual_y, name);
+
+		if (floor2IsNext == false)
+			floor2IsNext = true;
+		else
+			floor2IsNext = false;
+
+//		// SECOND FLOOR
+//		name = "";
+//		foreach (Obstacle ob in obstsFloor2) {
+//			if (ob.xEnd == 0)
+//				xPos = 0;
+//			else
+//				xPos = Random.Range (ob.xInit, ob.xEnd);
+//			name += ob.myType.ToString () + "_" + xPos.ToString ()+"&";
+//			CreateCustomObstacleByType (ob.myType, xPos, actual_y+globals.s.FLOOR_HEIGHT, n+1, false);
+//		}
+//		game_controller.s.IncreaseNFloor ();
+
+		return true;
+	}
+
+	#endregion
 
 	#region === Super Easy Blocks ===
 
@@ -157,6 +240,7 @@ public class BlockMaster : MonoBehaviour {
 
 	#endregion
 
+	#region === Old Logic ===
 	public bool CreateBlockLogic(int n_floor) {
 		bool wave_found = false;
 		int rand = 0;
@@ -230,28 +314,42 @@ public class BlockMaster : MonoBehaviour {
 		return true;
 	}
 
+	#endregion
+
 	#region === New Creation Logic ===
-	bool CreateBlockByType(BlockType block, int n){
+	bool CreateBlockByType(Block block, int n){
 		last_spike_right = false;
 		last_spike_left = false;
 		last_hole = false;
 		last_wall = false;
 		last_saw = false;
+		BlockType blockType = block.type;
 
 		actual_y = globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n;
 
 		bool createSucess = false;
 
-		if (block == BlockType.SpkMid) 
+		if (blockType == BlockType.SpkMid)
 			createSucess =	B_SpkMid (n);
-		else if (block == BlockType.SpkNotMid)
+		else if (blockType == BlockType.SpkNotMid)
 			createSucess =	B_SpkNotSoMid (n);
-		else if (block == BlockType.TripleSpkMid)
+		else if (blockType == BlockType.TripleSpkMid)
 			createSucess =	B_TripleSpkMid (n);
-		else if (block == BlockType.TwoSpikesAtCorner)
+		else if (blockType == BlockType.TwoSpikesAtCorner)
 			createSucess =	B_2SpksAtEachCorner (n);
-		else if (block == BlockType.TwoSpksMid)
+		else if (blockType == BlockType.TwoSpksMid)
 			createSucess =	B_2SpksMid (n);
+		else if (blockType == BlockType.CustomBlock)
+			createSucess = B_CustomBlock (block.obstacles, n);
+		else if (blockType == BlockType.Custom2Blocks) {
+			if (floor2IsNext == false) {
+				createSucess = B_Custom2FloorsBlock (block.obstacles, n);
+				nextBlock = block.obstaclesFloor2;
+			}
+			else
+				createSucess = B_Custom2FloorsBlock (block.obstaclesFloor2, n);
+
+		}
 
 //		string methodName = "hello";
 
@@ -318,77 +416,84 @@ public class BlockMaster : MonoBehaviour {
 	}
 	
 	public bool CreateBlockLogicNEW(int n_floor){
-		
-		if (n_floor <= superEasy)
-			BlockList = BlocksSuperEasy;
-		else if (n_floor <= easy)
-			BlockList = BlocksEasy;
-		else if (n_floor <= medium)
-			BlockList = BlocksMedium;
-		else if (n_floor <= hard)
-			BlockList = BlocksHard;
-		else if (n_floor <= veryHard)
-			BlockList = BlocksVeryHard;
-		else
-			BlockList = BlocksSuperHard;
+		if (floor2IsNext == false) {
+			if (n_floor <= superEasy)
+				BlockList = BlocksSuperEasy;
+			else if (n_floor <= easy)
+				BlockList = BlocksEasy;
+			else if (n_floor <= medium)
+				BlockList = BlocksMedium;
+			else if (n_floor <= hard)
+				BlockList = BlocksHard;
+			else if (n_floor <= veryHard)
+				BlockList = BlocksVeryHard;
+			else
+				BlockList = BlocksSuperHard;
 
-        //------------ Sort Block Logic -------------- //
-        //if (justCreatedPowerUp.Contains ((PowerUpTypes)type))
-        int max = 0;
-        foreach (Block b in BlockList)
-            max += b.chance;
+			//------------ Sort Block Logic -------------- //
+			//if (justCreatedPowerUp.Contains ((PowerUpTypes)type))
+			int max = 0;
+			foreach (Block b in BlockList)
+				max += b.chance;
 
-		//inital declarations for the while loop
-        bool blockfound = false;
-        int count = 0;
-		BlockType blockType = BlockType.SpkMid;
-		int last=0;
+			//inital declarations for the while loop
+			bool blockfound = false;
+			int count = 0;
+			BlockType blockType = BlockType.SpkMid;
+			int last = 0;
 
-        while (blockfound == false && count < 3) {
-           	count++;
-            int rand = Random.Range(0, max);
-			last = 0;
-			Debug.Log(count+" RAND: "+ rand + " MAX CHANCE "+ max);
-            foreach (Block block in BlockList) {
-                blockType = block.type;
-                last = last + GetBlockChance(blockType);
-				Debug.Log (count + " MY TIME: " + blockType.ToString () + " MY CHANCE: "+ block.chance.ToString());
+			while (blockfound == false && count < 3) {
+				count++;
+				int rand = Random.Range (0, max);
+				last = 0;
+				Debug.Log (count + " RAND: " + rand + " MAX CHANCE " + max);
+				foreach (Block block in BlockList) {
+					blockType = block.type;
+					last = last + GetBlockChance (blockType);
+					Debug.Log (count + " MY TIME: " + blockType.ToString () + " MY CHANCE: " + block.chance.ToString ());
 
-				if (blockfound == false && rand < last) {
+					if (blockfound == false && rand < last) {
 //					if ( AllowCreationByDenyConditions (block) && CreateBlockByType (blockType, n_floor)) {
-					if (!justCreatedBlockTypes.Contains (blockType) && AllowCreationByDenyConditions (block) && CreateBlockByType (blockType, n_floor)) {
-						Debug.Log (count + " bbbbbbbbb BLOCK FOUND! " + blockType);
-						justCreatedBlockTypes.Add (blockType);
-						blockfound = true;
-						break;
-					} else {
-						blockfound = false;
+						if (!justCreatedBlockTypes.Contains (blockType) && AllowCreationByDenyConditions (block) && CreateBlockByType (block, n_floor)) {
+							Debug.Log (count + " bbbbbbbbb BLOCK FOUND! " + blockType);
+							if (blockType != BlockType.CustomBlock && blockType != BlockType.Custom2Blocks) justCreatedBlockTypes.Add (blockType);
+							blockfound = true;
+							break;
+						} else {
+							blockfound = false;
 //						Debug.Log (count+" bbbbbbb Block can't be created ... " + blockType+ " Contains? "+ justCreatedBlocks.Contains (blockType) + " Deny Size? "+ block.denyConditions.Length);
-						Debug.Log (count + " bbbbbbb Block can't be created ... " + blockType + " Contains? " + justCreatedBlockTypes.Contains (blockType) + " Deny Size? " + block.denyConditions.Length);
-						break;
-					}
-				} else
-					Debug.Log (count + " ERROR SEARCHING FOR BLOCK");
-            }
-        }
+							Debug.Log (count + " bbbbbbb Block can't be created ... " + blockType + " Contains? " + justCreatedBlockTypes.Contains (blockType) + " Deny Size? " + block.denyConditions.Length);
+							break;
+						}
+					} else
+						Debug.Log (count + " ERROR SEARCHING FOR BLOCK");
+				}
+			}
 
-        //increase counters
-        if (blockfound == true)
-        {
-            lastCreatedBlock = blockType;
+			//increase counters
+			if (blockfound == true && blockType != BlockType.CustomBlock && blockType != BlockType.Custom2Blocks) {
+				lastCreatedBlock = blockType;
 
-            nCreatedBlocks++;
-            totalCreatedBlocks++;
-            if (nCreatedBlocks > 2 && justCreatedBlockTypes.Count > 0)
-            {
-                //Debug.Log("REMOVING AT 0! 
-                justCreatedBlockTypes.RemoveAt(0);
-                nCreatedBlocks--;
-            }
-        }
+				nCreatedBlocks++;
+				totalCreatedBlocks++;
+				if (nCreatedBlocks > 1 && justCreatedBlockTypes.Count > 0) {
+					//Debug.Log("REMOVING AT 0! 
+					justCreatedBlockTypes.RemoveAt (0);
+					nCreatedBlocks--;
+				}
+			}
 
-		return blockfound;
-    }
+			return blockfound;
+		} else {
+//			B_Custom2FloorsBlock (nextBlock, n);,
+			actual_y = globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n_floor;
+			Debug.Log("2ND FLOOR TIME!!!!!!!");
+			B_Custom2FloorsBlock (nextBlock, n_floor);
+			floor2IsNext = false;
+			nextBlock = null;
+			return true;
+		}
+	}
 	
 	int GetBlockChance(BlockType type){
 		foreach (Block b in BlockList) {
@@ -398,5 +503,29 @@ public class BlockMaster : MonoBehaviour {
 		}
 		return 0;
 	}
+
+	void CreateCustomObstacleByType(ObstacleType obstType, float xPos, float yPos, int n, bool isManualTriggered = false){
+		if (obstType == ObstacleType.spk)
+			game_controller.s.create_spike (xPos, yPos, n);
+		else if (obstType == ObstacleType.tripleSpk)
+			game_controller.s.create_triple_spike (xPos, yPos, n);
+		else if (obstType == ObstacleType.hiddenSpk)
+			game_controller.s.create_hidden_spike (xPos, yPos, n, isManualTriggered);
+		else if (obstType == ObstacleType.hiddenTripleSpk)
+			game_controller.s.create_triple_hidden_spike (xPos, yPos, n, isManualTriggered);
+		else if (obstType == ObstacleType.hole)
+			game_controller.s.create_just_hole (n, xPos);
+		else if (obstType == ObstacleType.hiddenHole)
+			game_controller.s.CreateHiddenHoleFixed (n, xPos, false);
+		else if (obstType == ObstacleType.saw)
+			game_controller.s.create_saw (xPos, yPos, n);
+		else if (obstType == ObstacleType.wallCorner)
+			game_controller.s.create_wall_corner(n);
+		else if (obstType == ObstacleType.wallCenter)
+			game_controller.s.create_wall(xPos, 0);
+	}
+
+//	void CreateCustomObstacleB
+
 	#endregion
 }

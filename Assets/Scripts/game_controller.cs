@@ -475,6 +475,8 @@ public class game_controller : MonoBehaviour {
 		n_floor = 0;
 		musicLayerN = 0;
 
+		BlockMaster.s.Init ();
+
 		globals.s.FIRST_GAME = false;
 
 		globals.s.GAME_OVER = 0;
@@ -733,6 +735,9 @@ public class game_controller : MonoBehaviour {
 
     }
 
+	public void IncreaseNFloor(){
+		n_floor++;
+	}
     #endregion
 
     #region ===== WAVES CREATION LOGIC =====
@@ -2506,6 +2511,38 @@ GameObject instance = Instantiate(Resources.Load("Prefabs/Bgs/Scenario2/bg_"+ran
         create_bg(n);
         return true;
     }
+
+	public bool CreateHiddenHoleFixed(int n, float xPos, bool repositionable)
+	{
+		GameObject floor_left = objects_pool_controller.s.reposite_floor(xPos - hole_size / 2 - floor_type.transform.GetComponent<SpriteRenderer>().bounds.size.x / 2, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n);
+		floor_left.GetComponent<floor>().my_floor = n;
+		floor_left.GetComponent<floor>().check_if_have_score();
+		floor_left.GetComponent<floor>().repositionable = repositionable;
+
+		//obj = (GameObject)Instantiate(floor_type, new Vector3(rand + hole_size / 2 + floor_type.transform.GetComponent<SpriteRenderer>().bounds.size.x / 2, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n, 0), transform.rotation);
+		GameObject floor_right = objects_pool_controller.s.reposite_floor(xPos + hole_size / 2 + floor_type.transform.GetComponent<SpriteRenderer>().bounds.size.x / 2, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n);
+		floor_right.GetComponent<floor>().my_floor = n;
+		floor_right.GetComponent<floor>().repositionable = repositionable;
+
+		GameObject hole;
+		hole = (GameObject)Instantiate(hole_type, new Vector3(xPos, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n, 0), transform.rotation);
+		hole.GetComponent<hole_behaviour>().my_floor = n;
+		hole.GetComponent<hole_behaviour> ().repositionable = repositionable;
+		hole.GetComponent<hole_behaviour> ().floor_left = floor_left;
+		hole.GetComponent<hole_behaviour> ().floor_right = floor_right;
+		floor_left.GetComponent<floor> ().my_hole = hole.GetComponent<hole_behaviour> ();
+
+		//return obj;
+		last_hole_x = xPos;
+
+		if (USER.s.FIRST_HOLE_CREATED == 0) {
+			USER.s.FIRST_HOLE_CREATED = 1;
+			PlayerPrefs.SetInt("first_hole_created", 1);
+		}
+
+		create_bg(n);
+		return true;
+	}
 #endregion
 
 	public int SortSign(){

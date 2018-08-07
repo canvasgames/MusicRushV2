@@ -107,11 +107,11 @@ public class wall : MonoBehaviour
 
             if (!wall_triggered_by_wall) { 
                 // Deactivate the manual trigger from spikes that are at the same side as I am
-                spike[] spks = FindObjectsOfType(typeof(spike)) as spike[];
+				spike[] spks = objects_pool_controller.s.spikes_scripts.ToArray();
 
                 foreach (spike spk in spks) {
                     //spk.manual_trigger_cancel(transform.position.x, my_floor);
-                    spk.reposite_me_at_the_other_corner(transform.position.x, my_floor);
+					if(spk.isActiveAndEnabled) spk.reposite_me_at_the_other_corner(transform.position.x, my_floor);
                 }
             }
         }
