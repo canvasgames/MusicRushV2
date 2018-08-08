@@ -279,6 +279,18 @@ public class sound_controller : MonoBehaviour
 			curFmodMusic.setVolume (1f);
 	}
 
+	public void SpinDiskStart(){
+		if (QA.s.FMOD_ON == true) {
+			curFmodMusic.setParameterValue ("spin", 1);
+		}
+	}
+
+	public void SpinDiskEnd(){
+		if (QA.s.FMOD_ON == true) {
+			curFmodMusic.setParameterValue ("spin", 0);
+		}
+	}
+
 	#endregion
 
 	#region ====== SFX ======

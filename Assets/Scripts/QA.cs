@@ -9,6 +9,10 @@ public class QA : MonoBehaviour {
 
     public static QA s;
 
+	public bool INVENCIBLE ;
+	public float TIMESCALE = 1;
+
+	public bool SPIN_INFINITE = false;
 	public bool DONT_START_THE_GAME = false;
     public bool DELTADNA_ON = false;
 
@@ -16,8 +20,6 @@ public class QA : MonoBehaviour {
 
 	public bool ALL_UNLOCKED;
 	bool sqMode = true;
-    public bool INVENCIBLE ;
-	public float TIMESCALE = 1;
 	public bool ALWAYS_REVIVE = false;
     public float TRACE_PROFUNDITY = 1;
 
@@ -33,7 +35,6 @@ public class QA : MonoBehaviour {
 	public int jokeri = 0, jokeri2, jokeri3;
 
 	public Ease ease1;
-
 
 	public bool FMOD_ON;
 

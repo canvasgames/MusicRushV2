@@ -2227,7 +2227,7 @@ public class game_controller : MonoBehaviour {
         ///////////////////////// CREATE NOTES OR NOT
 
         int rand = Random.Range(1,100);
-        if(rand <= 25) {
+		if(rand <= GD.s.GD_COIN_CHANCE) {
             //GameObject instance = Instantiate(Resources.Load("Prefabs/Note",
             //typeof(GameObject)), new Vector3(x, y + globals.s.SLOT / 2 + 1.85f), transform.rotation) as GameObject;
 
@@ -2325,9 +2325,6 @@ public class game_controller : MonoBehaviour {
         int rand = Random.Range(1, 100);
         if (rand <= 25)
         {
-            //GameObject instance = Instantiate(Resources.Load("Prefabs/Note",
-            //typeof(GameObject)), new Vector3(x, y + globals.s.SLOT / 2 + 1.85f), transform.rotation) as GameObject;
-
             GameObject objj = objects_pool_controller.s.reposite_note(x + Random.Range(-0.05f, 0.05f), y + globals.s.SLOT / 2 + 1.85f);
 
         }

@@ -927,7 +927,10 @@ public class hud_controller : MonoBehaviour {
         //Debug.Log("rodou efalsificou");
         CAN_ROTATE_ROULETTE = false;
         tempDateRoulette = System.DateTime.Now;
+		if(QA.s.SPIN_INFINITE == false)
         tempDateRoulette = tempDateRoulette.AddMinutes(GD.s.GD_ROULLETE_WAIT_MINUTES);
+		else
+			tempDateRoulette = tempDateRoulette.AddSeconds(3);
         roullete_date = tempDateRoulette.ToString();
 
         PlayerPrefs.SetString("RouletteDate2ChangeState", roullete_date);

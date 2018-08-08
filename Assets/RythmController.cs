@@ -88,7 +88,7 @@ public class RythmController : MonoBehaviour {
 	}
 		
 	// Update is called once per frame
-	void aFixedUpdate () {
+	void FixedUpdate () {
 		if (music_started == true) {
 			if (already_started == false) {
 				already_started = true;

@@ -167,15 +167,19 @@ public class pizza_char : MonoBehaviour
 //			float clampdistance = Mathf.Clamp (distance, 35, 300);
 //			float clampTime = Mathf.Clamp (distance, 0.1f, 0.6f);
 //			float force = clampdistance / clampTime;
-			float force = Random.Range(200,250);
+			float force = Random.Range(210,250);
 //			Debug.Log ("force: " + force);
 			angle = angle * (force);
 
 			//Debug.Log(force + " " + angle);
-			float tempo = Random.Range (2f, 2.6f);
-			transform.DORotate (new Vector3 (0, 0, angle), tempo, RotateMode.WorldAxisAdd).SetEase (Ease.OutQuart).OnComplete (give_reward);
+			float tempo = Random.Range (3f, 3.2f);
+			transform.DORotate (new Vector3 (0, 0, angle), tempo, RotateMode.WorldAxisAdd).SetEase (Ease.OutQuad).OnComplete (give_reward);
 			hud_controller.si.addRoulleteTime ();
 //			haste.transform.DOShakePosition (tempo, 1, 10, 90, false);
+
+			sound_controller.s.SpinDiskStart ();
+
+			Invoke ("RoulleteSoundStop", tempo - 1.7f);
 		} 
 
 		else {
@@ -185,6 +189,10 @@ public class pizza_char : MonoBehaviour
 
 	void haste_animation(){
 		
+	}
+
+	void RoulleteSoundStop(){
+		sound_controller.s.SpinDiskEnd ();
 	}
 
     void give_reward()

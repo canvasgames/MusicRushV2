@@ -29,6 +29,14 @@ public struct Skin{
 public class GD : MonoBehaviour {
 
     public static GD s;
+	[Header ("MAIN VARS")]
+	public int GD_PW_SIGHT_TIME;
+	public int GD_PW_HEARTH_TIME;
+	public int GD_ROULLETE_WAIT_MINUTES;
+	public int GD_COIN_CHANCE = 25;
+
+	[Space (10)]
+
 
 	public float FOLLOWER_DELAY = 0.7f, FOLLOWER_DELAY_BASE = 0.1f;
 
@@ -41,15 +49,12 @@ public class GD : MonoBehaviour {
 	public int FTU_MATCHES_TO_UNLOCK_GIFT = 4;
 	public int CUR_MATCHES_TO_UNLOCK_STUFF = 0;
 
-    public int GD_PW_SIGHT_TIME;
-    public int GD_PW_HEARTH_TIME;
 
     public int GD_WITH_PW_TIME;
     public int GD_WITHOUT_PW_TIME;
 
     public int GD_JUMPS_PW_BAR_FULL;
 
-    public int GD_ROULLETE_WAIT_MINUTES;
     public int GD_GIFT_WAIT_MINUTES;
 
     public float GlowInTime = 0.15f;

@@ -82,7 +82,7 @@ public class PwWheelMaster : MonoBehaviour {
 		} else {
 //			hud_controller.si.activate_pw_bt.GetComponent<Button> ().interactable = false;
 		}
-		hud_controller.si.activate_pw_bt.GetComponent<Button> ().interactable = false;
+		if(QA.s.SPIN_INFINITE == false) hud_controller.si.activate_pw_bt.GetComponent<Button> ().interactable = false;
 
 //        Invoke("closeTampa",0.3f);
     }

@@ -41,6 +41,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 985993db901426043868e4fe36d016ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GD_PW_SIGHT_TIME: 15
+  GD_PW_HEARTH_TIME: 15
+  GD_ROULLETE_WAIT_MINUTES: 15
+  GD_COIN_CHANCE: 25
   FOLLOWER_DELAY: 0.25
   FOLLOWER_DELAY_BASE: 0
   JUKEBOX_PRICE: 100
@@ -50,19 +54,16 @@ MonoBehaviour:
   FTU_MATCHES_TO_UNLOCK_PW: 2
   FTU_MATCHES_TO_UNLOCK_GIFT: 4
   CUR_MATCHES_TO_UNLOCK_STUFF: 0
-  GD_PW_SIGHT_TIME: 15
-  GD_PW_HEARTH_TIME: 15
   GD_WITH_PW_TIME: 5
   GD_WITHOUT_PW_TIME: 15
   GD_JUMPS_PW_BAR_FULL: 15
-  GD_ROULLETE_WAIT_MINUTES: 15
   GD_GIFT_WAIT_MINUTES: 24
   GlowInTime: 0.12
   GlowStaticTime: 0.12
   GlowOutTime: 0.72
   AnalyticsLive: 0
   N_MUSIC: 9
-  N_SKINS: 18
+  N_SKINS: 27
   SKINS_PER_MUSIC: 3
   musicStyleAllowed: 
 --- !u!114 &11488674
@@ -77,24 +78,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Phrase: 
+  INVENCIBLE: 1
+  TIMESCALE: 1
+  SPIN_INFINITE: 0
   DONT_START_THE_GAME: 1
+  DELTADNA_ON: 0
   OLD_PLAYER: 0
   ALL_UNLOCKED: 0
-  INVENCIBLE: 0
-  TIMESCALE: 1
+  ALWAYS_REVIVE: 0
   TRACE_PROFUNDITY: 0
   NO_PWS: 0
   SHOW_WAVE_TYPE: 0
   CREATE_NOTE_TRAIL: 0
   NO_MUSIC: 0
-  jokerf: 1.8
-  jokerf2: 0.7
-  jokerf3: 0
+  jokerf: -3.21
+  jokerf2: -4.54
+  jokerf3: -0.5
   jokeri: 50
   jokeri2: 10
   jokeri3: 90
   ease1: 9
-  DELTADNA_ON: 0
   FMOD_ON: 1
   SqBt: {fileID: 0}
   invButton: {fileID: 0}

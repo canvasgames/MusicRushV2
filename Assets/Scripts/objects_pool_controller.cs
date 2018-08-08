@@ -106,6 +106,7 @@ public class objects_pool_controller : MonoBehaviour {
 			floor_pool [i].SetActive (true);
 			floor_pool [i].GetComponent<floor> ().clear_flags_reposite ();
 			floor_pool [i].transform.position = new Vector2 (-1000, -1000);
+			floor_pool [i].SetActive (false);
 		}
 		floor_pool_actual_i = 0;
 
@@ -240,6 +241,7 @@ public class objects_pool_controller : MonoBehaviour {
 		{
 			floor_pool[i] =  (GameObject)Instantiate(floor_prefab, new Vector3(55, 0, 0), transform.rotation);
 			floor_scripts[i] = floor_pool[i].GetComponent<floor>();
+//			floor_pool [i].SetActive (false);
 
 		}
 		for(i=0; i<note_pool_size; i++)
