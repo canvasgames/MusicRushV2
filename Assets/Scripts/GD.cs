@@ -37,12 +37,15 @@ public class GD : MonoBehaviour {
 
 	[Space (10)]
 
-
-	public float FOLLOWER_DELAY = 0.7f, FOLLOWER_DELAY_BASE = 0.1f;
-
 	public int JUKEBOX_PRICE = 50, JUKEBOX_FTU_PRICE = 5;
 
 	public int[] SCENERY_FLOOR_VALUES;
+
+	[Space (10)]
+
+	public float FOLLOWER_DELAY = 0.7f, FOLLOWER_DELAY_BASE = 0.1f;
+
+
 
 	public int FTU_NEWBIE_SCORE = 5;
 	public int FTU_MATCHES_TO_UNLOCK_PW = 2;

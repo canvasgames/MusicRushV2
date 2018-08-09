@@ -13906,18 +13906,13 @@ Prefab:
     m_Modifications:
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksHard.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
-        type: 2}
-      propertyPath: BlocksHard.Array.data[1].obstacles.Array.size
+      propertyPath: BlocksSuperEasy.Array.data[3].obstacles.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksHard.Array.data[1].denyConditions.Array.size
-      value: 2
+      propertyPath: BlocksSuperEasy.Array.data[3].obstaclesFloor2.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4523238864494732, guid: 512cb4b6c2f4d4a4985df174031ee41d, type: 2}
       propertyPath: m_LocalPosition.x
@@ -13953,48 +13948,63 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksHard.Array.data[1].name
-      value: Custom2Blocks_30
+      propertyPath: BlocksSuperEasy.Array.data[3].name
+      value: CustomBlock_15
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksHard.Array.data[2].name
-      value: SpkMid_0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
-        type: 2}
-      propertyPath: BlocksHard.Array.data[1].type
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
-        type: 2}
-      propertyPath: BlocksHard.Array.data[1].chance
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
-        type: 2}
-      propertyPath: BlocksHard.Array.data[1].denyConditions.Array.data[0]
+      propertyPath: BlocksSuperEasy.Array.data[3].type
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksHard.Array.data[1].denyConditions.Array.data[2]
-      value: 3
+      propertyPath: BlocksSuperEasy.Array.data[3].obstaclesFloor2.Array.data[0].name
+      value: hiddenHole_[-1.4, 1.4]
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksHard.Array.data[1].denyConditions.Array.data[1]
-      value: 1
+      propertyPath: BlocksSuperEasy.Array.data[3].obstaclesFloor2.Array.data[0].myType
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksHard.Array.data[1].obstacles.Array.data[0].xInit
-      value: 5
+      propertyPath: BlocksSuperEasy.Array.data[3].obstaclesFloor2.Array.data[0].xInit
+      value: -1.4
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksHard.Array.data[1].obstacles.Array.data[0].myType
+      propertyPath: BlocksSuperEasy.Array.data[3].obstaclesFloor2.Array.data[0].xEnd
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[3].obstacles.Array.data[0].name
+      value: saw_-2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[3].obstacles.Array.data[0].myType
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[3].obstacles.Array.data[0].xInit
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[3].obstacles.Array.data[1].name
+      value: hiddenSpk_-2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[3].obstacles.Array.data[1].myType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[3].obstacles.Array.data[1].xInit
+      value: -2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 512cb4b6c2f4d4a4985df174031ee41d, type: 2}
@@ -29452,40 +29462,12 @@ Prefab:
       value: QA_GD
       objectReference: {fileID: 0}
     - target: {fileID: 11488674, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
-      propertyPath: INVENCIBLE
+      propertyPath: SHOW_WAVE_TYPE
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11488674, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
-      propertyPath: jokerf
-      value: -3.21
-      objectReference: {fileID: 0}
-    - target: {fileID: 11488674, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
-      propertyPath: jokerf2
-      value: -4.54
-      objectReference: {fileID: 0}
-    - target: {fileID: 11488674, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
-      propertyPath: jokerf3
-      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 11488674, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
       propertyPath: TIMESCALE
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11422754, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
-      propertyPath: N_SKINS
-      value: 27
-      objectReference: {fileID: 0}
-    - target: {fileID: 11488674, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
-      propertyPath: ALWAYS_REVIVE
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11488674, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
-      propertyPath: SHOW_WAVE_TYPE
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11488674, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
-      propertyPath: SPIN_INFINITE
-      value: 1
+      value: 1.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}

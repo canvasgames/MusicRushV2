@@ -8,7 +8,13 @@ public enum BlockDifficulty{
 }
 
 public enum BlockType{
-	SpkMid, SpkNotMid, TripleSpkMid, TwoSpksMid, WallAndSpikeAtMid, TwoSpikesAtCorner, CustomBlock, Custom2Blocks,
+	CustomBlock, Custom2Blocks, SpkMid, SpkNotMid, TripleSpkMid, TwoSpksMid, 
+	WallAndSpkAtCenter, WallAndHiddenSpkAtCenter, WallAndHiddenManualSpkAtCenter,
+	TwoSpikesAtCorner, SpkMidAndSpkCornerLeft, SpkMidAndSpkCornerRandom, SpkMidAndSpkCornerRight, MediumTwoSpikesMid,
+	OneHiddenSpk, TwoHiddenSpkMid, HiddenSpkAndSpkMid,
+	ThreeSpks, TwoTripleSpksMid,
+	WallNotCorner, 
+	HoleAbove,
 }
 
 public enum DenyCondition{ SpikeLeft, SpikeRight, Wall, Hole, Saw }
@@ -47,8 +53,9 @@ public class BlockMaster : MonoBehaviour {
 	float center_mid_area = 1f;
 	float min_spk_dist = 2.5f;
 
-	float corner_limit_right = 2.7f;
-	float corner_limit_left = -2.7f;
+	[Header ("CORNER LIMITS")]
+	public float corner_limit_right = 2.7f;
+	public float corner_limit_left = -2.7f;
 
 	bool last_spike_left;
 	bool last_spike_right;
@@ -68,12 +75,6 @@ public class BlockMaster : MonoBehaviour {
 		nextBlock = null;
 	}
 	#endregion
-
-	void CreateNormalFloor(string name, int n){
-		wave_name = name;
-		if (QA.s.SHOW_WAVE_TYPE == true) game_controller.s.create_wave_name(0, actual_y, wave_name);
-		game_controller.s.create_floor(0, n);
-	}
 
 	#region === Custom Blocks ===
 	bool B_CustomBlock(Obstacle[] obsts, int n){
@@ -114,7 +115,7 @@ public class BlockMaster : MonoBehaviour {
 			if (ob.xEnd == 0)
 				xPos = ob.xInit;
 			else {
-				if(ob.xInit < ob.xEnd) xPos = Random.Range (ob.xInit, ob.xEnd);
+				if(ob.xInit < ob.xEnd) xPos = Random.Range (ob.xInit, ob.xEnd); // sort the x pos
 				else xPos = Random.Range (ob.xEnd, ob.xInit);
 			}
 			name += ob.myType.ToString () + "_" + xPos.ToString ("0.00")+" & ";
@@ -150,6 +151,68 @@ public class BlockMaster : MonoBehaviour {
 		return true;
 	}
 
+	bool B_HoleAbove(Obstacle[] obsts, int n, float holeAboveX, bool firstTime = true){
+		if (!last_hole) {
+			Debug.Log (" B_ HOLE ABOVE!!!!!! FIRST TIME");
+			float xPos = 0;
+			bool thereIsHole = false;
+			string name = "";
+			if (floor2IsNext == false)
+				name = "C2.1..";
+			else
+				name = "C2.2..";
+
+			foreach (Obstacle ob in obsts) {
+				if (ob.xEnd == 0)
+					xPos = ob.xInit;
+				else {
+					if (ob.xInit < ob.xEnd)
+						xPos = Random.Range (ob.xInit, ob.xEnd);
+					else
+						xPos = Random.Range (ob.xEnd, ob.xInit);
+				}
+				name += ob.myType.ToString () + "_" + xPos.ToString ("0.00") + " & ";
+
+
+
+				if (ob.myType == ObstacleType.spk || ob.myType == ObstacleType.tripleSpk 
+					|| ob.myType == ObstacleType.hiddenSpk || ob.myType == ObstacleType.hiddenTripleSpk) 
+					game_controller.s.CreateSpikeForHoleAbove (n, holeAboveX, ob.xInit, ob.xEnd, ob.myType);
+				else
+					CreateCustomObstacleByType (ob.myType, xPos, actual_y, n, false);
+
+				if (ob.myType == ObstacleType.hole || ob.myType == ObstacleType.hiddenHole)
+					thereIsHole = true;
+			}
+
+			if (thereIsHole == false)
+				CreateNormalFloor (name, n);
+			else if (QA.s.SHOW_WAVE_TYPE == true)
+				game_controller.s.create_wave_name (0, actual_y, name);
+
+			if (floor2IsNext == false)
+				floor2IsNext = true;
+			else
+				floor2IsNext = false;
+
+			//		// SECOND FLOOR
+			//		name = "";
+			//		foreach (Obstacle ob in obstsFloor2) {
+			//			if (ob.xEnd == 0)
+			//				xPos = 0;
+			//			else
+			//				xPos = Random.Range (ob.xInit, ob.xEnd);
+			//			name += ob.myType.ToString () + "_" + xPos.ToString ()+"&";
+			//			CreateCustomObstacleByType (ob.myType, xPos, actual_y+globals.s.FLOOR_HEIGHT, n+1, false);
+			//		}
+			//		game_controller.s.IncreaseNFloor ();
+
+			return true;
+		} else
+			return false;
+	}
+
+
 	#endregion
 
 	#region === Super Easy Blocks ===
@@ -182,6 +245,7 @@ public class BlockMaster : MonoBehaviour {
 		CreateNormalFloor("2_spks_mid", n);
 
 		float rand_x = Random.Range(-screen_w / 4, 0 - 1f);
+		ClearDenys();
 		//first spike
 		game_controller.s.create_spike(rand_x, actual_y, n);
 		if (rand_x <= corner_limit_left) last_spike_left = true;
@@ -198,43 +262,254 @@ public class BlockMaster : MonoBehaviour {
 
 	#region === Medium Blocks === 
 
-	bool B_WallAndSpikeAtCenter(int n){
+	bool B_WallAndSpkAtCenter(int n){
 		if (!last_wall) {
-			CreateNormalFloor ("medium_wall_corner_1_spk", n);
-
-			// Sort between normal spike, hidden spike or manual hidden spike
-			// float rand_x = Random.Range(-mid_area + 0.5f, mid_area - 0.5f);
+			CreateNormalFloor ("wallCorner_1_spk", n);
 			float rand_x = Random.Range (-0.35f, 0.35f);
-			int rand = Random.Range (1, 100);
-
-			if (rand < 60) { // Normal spike
-				game_controller.s.create_wall_corner (n);
-				game_controller.s.create_spike (rand_x, actual_y, n);
-			} else if (rand < 80) { // Hidden Spike
-				game_controller.s.create_wall_corner (n);
-				game_controller.s.create_hidden_spike (rand_x, actual_y, n);
-			} else { // Hidden spike manual trigger
-				game_controller.s.create_wall_corner (n, true);
-				game_controller.s.create_hidden_spike (rand_x, actual_y, n, true);
-			}
-
-			last_wall = true;
+			game_controller.s.create_wall_corner (n);
+			game_controller.s.create_spike (rand_x, actual_y, n);
+			ClearDenys(); last_wall = true;
 			return true;
 		} else {
 			return false;
 		}
 	}
 
+	bool B_WallAndHiddenSpkAtCenter(int n){
+		if (!last_wall) {
+			CreateNormalFloor ("wallCorner_1_hiddenSpk", n);
+			float rand_x = Random.Range (-0.35f, 0.35f);
 
-	bool B_2SpksAtEachCorner(int n) {
+			game_controller.s.create_wall_corner (n);
+			game_controller.s.create_hidden_spike (rand_x, actual_y, n);
+
+			ClearDenys();last_wall = true;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	bool B_WallAndHiddenManualSpkAtCenter(int n){
+		if (!last_wall) {
+			CreateNormalFloor ("wallCorner_1_manualHiddenSpk", n);
+			float rand_x = Random.Range (-0.35f, 0.35f);
+			game_controller.s.create_wall_corner (n, true);
+			game_controller.s.create_hidden_spike (rand_x, actual_y, n, true);
+			
+			ClearDenys(); last_wall = true;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	bool B_TwoSpksAtEachCorner(int n) {
 		
-		CreateNormalFloor("medium_2_spks_corners", n);
+		CreateNormalFloor("2_spks_corners", n);
 
 		game_controller.s.create_spike(corner_left, actual_y, n);
 		game_controller.s.create_spike(corner_right, actual_y, n);
-		last_spike_right = true;
+		ClearDenys(); last_spike_right = true;
 		last_spike_left = true;
 
+		return true;
+	}
+
+	bool B_SpkMidAndSpkCornerRandom(int n){
+		if (SortChance ()) {
+			if (last_spike_left == false) {
+				CreateNormalFloor ("1_spk_mid_1_spk_corner", n);
+
+				game_controller.s.create_spike (corner_left, actual_y, n);
+				game_controller.s.create_spike (Random.Range (-mid_area + 0.30f, mid_area - 0.30f), actual_y, n);
+				ClearDenys(); last_spike_left = true;
+				return true;
+			} else
+				return false;
+		} else {
+			if (last_spike_right == false) {
+				CreateNormalFloor ("1_spk_mid_1_spk_corner", n);
+
+				game_controller.s.create_spike (corner_right, actual_y, n);
+				game_controller.s.create_spike (Random.Range (-mid_area + 0.30f, mid_area - 0.30f), actual_y, n);
+				ClearDenys(); last_spike_left = true;
+				return true;
+			} else
+				return false;
+		}
+	}
+
+	bool B_SpkMidAndSpkCornerLeft(int n){
+		if (last_spike_left == false) {
+			CreateNormalFloor ("1_spk_mid_1_spk_corner", n);
+
+			game_controller.s.create_spike (corner_left, actual_y, n);
+			game_controller.s.create_spike (Random.Range (-mid_area + 0.30f, mid_area - 0.30f), actual_y, n);
+			ClearDenys(); last_spike_left = true;
+			return true;
+		} else
+			return false;
+	}
+
+	bool B_SpkMidAndSpkCornerRight(int n){
+		if (last_spike_right == false) {
+			CreateNormalFloor ("1_spk_mid_1_spk_corner", n);
+
+			game_controller.s.create_spike (corner_right, actual_y, n);
+			game_controller.s.create_spike (Random.Range (-mid_area + 0.30f, mid_area - 0.30f), actual_y, n);
+			ClearDenys(); last_spike_left = true;
+			return true;
+		} else
+			return false;
+	}
+
+	bool B_Medium2SpikesMid (int n){
+		CreateNormalFloor ("medium_2_spks_mid", n);
+
+		float rand_x = Random.Range(-screen_w / 4, 0 - 1f);
+		//first spike
+		ClearDenys();
+		game_controller.s.create_spike(rand_x, actual_y, n);
+		if (rand_x <= corner_limit_left) last_spike_left = true;
+		else last_spike_left = false;
+
+		//second spike
+		rand_x = Random.Range(rand_x + min_spk_dist + 0.5f, rand_x + min_spk_dist + 1.5f);
+		game_controller.s.create_spike(rand_x, actual_y, n);
+		if (rand_x <= corner_limit_right) last_spike_right = true;
+		else last_spike_right = false;
+
+		return true;
+	}
+
+	bool B_OneHiddenSpk(int n){
+		CreateNormalFloor ("hiddenSPk_mid", n);
+		game_controller.s.create_hidden_spike(Random.Range(-mid_area + 0.2f, mid_area - 0.2f), actual_y, n);
+		ClearDenys();
+		return true;
+	}
+
+	#endregion
+
+	#region === Hard Blocks ===
+	bool B_ThreeSpks(int n) {
+		if(!last_spike_right && !last_spike_left) {
+			CreateNormalFloor ("3_spikes", n);
+			
+			//first spike
+			game_controller.s.create_spike(corner_left, actual_y, n);
+			game_controller.s.create_spike(corner_right, actual_y, n);
+			game_controller.s.create_spike(Random.Range(-mid_area + 0.35f, mid_area - 0.35f), actual_y, n);
+
+			ClearDenys();	last_spike_right = true;
+			last_spike_left = true;
+
+			return true;
+		}
+		else return false;
+	}
+
+	bool B_HiddenSpkAndSpkMid(int n){
+
+		CreateNormalFloor ("hard_1_hiddenSpk_1_spkMid", n);
+
+		int is_left = Random.Range(0, 2);
+		float rand_x = Random.Range(-0.5f, 0.5f);
+		float dist = Random.Range(min_spk_dist/2 + 0.2f, min_spk_dist/2 + 0.45f);
+		ClearDenys();
+		if (is_left == 1) {
+			//first spike
+			game_controller.s.create_hidden_spike(rand_x - dist, actual_y, n);
+			game_controller.s.create_spike(rand_x + dist, actual_y, n);
+		}
+		else {
+			game_controller.s.create_spike(rand_x - dist, actual_y, n);
+			game_controller.s.create_hidden_spike(rand_x + dist, actual_y, n);
+		}
+
+		return true;
+	}
+
+	bool B_WallNotCorner(int n){
+			if (SortChance ()) {
+			if (!last_wall && !last_spike_left) {
+				CreateNormalFloor ("hard_wallMid", n);
+
+				float wall_pos = Random.Range (-screen_w / 4 + 0.5f, 0 - 0.5f);
+				float spk_pos = Random.Range (wall_pos + min_spk_dist + 1.1f, corner_right);
+
+				if (spk_pos >= corner_limit_right && last_spike_right)
+					return false;
+				else {
+					game_controller.s.create_floor (0, n);
+					game_controller.s.create_wall (wall_pos, n);
+					game_controller.s.create_spike (spk_pos, actual_y, n);
+					ClearDenys();
+					if (spk_pos >= corner_limit_right)
+						last_spike_right = true;
+					else
+						last_spike_right = false;
+					last_spike_left = false;
+					last_wall = true;
+					last_hole = false;
+					return true;
+				}
+			}
+			else
+				return false;
+			} else {
+			if (!last_wall && !last_spike_right) {
+				CreateNormalFloor ("hard_wallMid", n);
+
+				float wall_pos = Random.Range (0 + 0.5f, screen_w / 4 - 0.5f);
+				float spk_pos = Random.Range (corner_left, wall_pos - min_spk_dist - 1.1f);
+
+				if (spk_pos <= corner_limit_left && last_spike_left)
+					return false;
+				else {
+					game_controller.s.create_floor (0, n);
+					game_controller.s.create_wall (wall_pos, n);
+					game_controller.s.create_spike (spk_pos, actual_y, n);
+					ClearDenys();
+					last_spike_right = false;
+					if (spk_pos <= corner_limit_left)
+						last_spike_left = true;
+					else
+						last_spike_left = false;
+					last_wall = true;
+					last_hole = false;
+					return true;
+				}
+			}
+			else
+				return false;
+		}
+	}
+
+	bool B_TwoHiddenSpkMid (int n){
+
+		CreateNormalFloor ("2_hiddenSpk_mid", n);
+
+		//float rand_x = Random.Range(-screen_w / 4+0.2f, 0 - 1.00f);
+		float dist = Random.Range(min_spk_dist/2 + 0.2f, min_spk_dist/2 + 0.4f);
+		float rand_x = Random.Range(-0.5f, 0.5f);
+		//first spike
+		game_controller.s.create_hidden_spike(rand_x - dist, actual_y, n);
+		game_controller.s.create_hidden_spike(rand_x + dist, actual_y, n);
+		ClearDenys();
+		return true;
+	}
+
+	bool B_TwoTripleSpkMid(int n){
+		CreateNormalFloor ("2_tripleSpks_mid", n);
+	
+		float dist = Random.Range(min_spk_dist/2 + 0.2f, min_spk_dist/2 + 0.4f);
+		float rand_x = Random.Range(-0.5f, 0.5f);
+		//first spike
+		game_controller.s.create_triple_spike(rand_x - dist, actual_y, n);
+		game_controller.s.create_triple_spike(rand_x + dist, actual_y, n);
+		ClearDenys();
 		return true;
 	}
 
@@ -318,11 +593,7 @@ public class BlockMaster : MonoBehaviour {
 
 	#region === New Creation Logic ===
 	bool CreateBlockByType(Block block, int n){
-		last_spike_right = false;
-		last_spike_left = false;
-		last_hole = false;
-		last_wall = false;
-		last_saw = false;
+
 		BlockType blockType = block.type;
 
 		actual_y = globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n;
@@ -336,7 +607,7 @@ public class BlockMaster : MonoBehaviour {
 		else if (blockType == BlockType.TripleSpkMid)
 			createSucess =	B_TripleSpkMid (n);
 		else if (blockType == BlockType.TwoSpikesAtCorner)
-			createSucess =	B_2SpksAtEachCorner (n);
+			createSucess =	B_TwoSpksAtEachCorner (n);
 		else if (blockType == BlockType.TwoSpksMid)
 			createSucess =	B_2SpksMid (n);
 		else if (blockType == BlockType.CustomBlock)
@@ -345,12 +616,45 @@ public class BlockMaster : MonoBehaviour {
 			if (floor2IsNext == false) {
 				createSucess = B_Custom2FloorsBlock (block.obstacles, n);
 				nextBlock = block.obstaclesFloor2;
-			}
-			else
+			} else
 				createSucess = B_Custom2FloorsBlock (block.obstaclesFloor2, n);
-
+		} else if (blockType == BlockType.HoleAbove) {
+			if (floor2IsNext == false) {
+				nextBlock = block.obstaclesFloor2;
+//				float x = block.obstacles[0].xInit;
+				createSucess = B_HoleAbove(block.obstacles, n, block.obstaclesFloor2[0].xInit);
+			}
+		} 
+		else if (blockType == BlockType.WallAndSpkAtCenter) {
+			createSucess = B_WallAndSpkAtCenter (n);
+		} else if (blockType == BlockType.WallAndHiddenManualSpkAtCenter) {
+			createSucess = B_WallAndHiddenManualSpkAtCenter (n);
+		} else if (blockType == BlockType.WallAndHiddenSpkAtCenter) {
+			createSucess = B_WallAndHiddenSpkAtCenter (n);
+		} else if (blockType == BlockType.TwoSpikesAtCorner) {
+			createSucess = B_TwoSpksAtEachCorner (n);
+		} else if (blockType == BlockType.SpkMidAndSpkCornerLeft) {
+			createSucess = B_SpkMidAndSpkCornerLeft (n);
+		} else if (blockType == BlockType.SpkMidAndSpkCornerRandom) {
+			createSucess = B_SpkMidAndSpkCornerRandom (n);
+		} else if (blockType == BlockType.SpkMidAndSpkCornerRight) {
+			createSucess = B_SpkMidAndSpkCornerRight (n);
+		} else if (blockType == BlockType.MediumTwoSpikesMid) {
+			createSucess = B_Medium2SpikesMid (n);
+		} else if (blockType == BlockType.OneHiddenSpk) {
+			createSucess = B_OneHiddenSpk (n);
+		} else if (blockType == BlockType.TwoHiddenSpkMid) {
+			createSucess = B_TwoHiddenSpkMid (n);
+		} else if (blockType == BlockType.HiddenSpkAndSpkMid) {
+			createSucess = B_HiddenSpkAndSpkMid (n);
+		} else if (blockType == BlockType.ThreeSpks) {
+			createSucess = B_ThreeSpks (n);
+		} else if (blockType == BlockType.TwoTripleSpksMid) {
+			createSucess = B_TwoTripleSpkMid (n);
+		} else if (blockType == BlockType.WallNotCorner) {
+			createSucess = B_WallNotCorner (n);
 		}
-
+			
 //		string methodName = "hello";
 
 //
@@ -373,30 +677,15 @@ public class BlockMaster : MonoBehaviour {
 		return createSucess;
 	}
 	
-	void OnValidate(){
-		UpdateBlockListName ();
+	void ClearDenys(){
+		last_spike_left = false;
+		last_spike_right = false;
+		last_hole = false;
+		last_wall = false;
+		last_saw = false;
 	}
 
-	public void UpdateBlockListName(){
-		foreach (Block b in BlocksSuperEasy) {
-			b.UpdateName ();
-		}
-		foreach (Block b in BlocksEasy) {
-			b.UpdateName ();
-		}
-		foreach (Block b in BlocksHard) {
-			b.UpdateName ();
-		}
-		foreach (Block b in BlocksMedium) {
-			b.UpdateName ();
-		}
-		foreach (Block b in BlocksSuperHard) {
-			b.UpdateName ();
-		}
-		foreach (Block b in BlocksVeryHard) {
-			b.UpdateName ();
-		}
-	}
+
 
 	bool AllowCreationByDenyConditions(Block b){
 		foreach (DenyCondition cond in b.denyConditions) {
@@ -488,6 +777,8 @@ public class BlockMaster : MonoBehaviour {
 //			B_Custom2FloorsBlock (nextBlock, n);,
 			actual_y = globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n_floor;
 			Debug.Log("2ND FLOOR TIME!!!!!!!");
+			ClearDenys ();
+
 			B_Custom2FloorsBlock (nextBlock, n_floor);
 			floor2IsNext = false;
 			nextBlock = null;
@@ -523,9 +814,129 @@ public class BlockMaster : MonoBehaviour {
 			game_controller.s.create_wall_corner(n);
 		else if (obstType == ObstacleType.wallCenter)
 			game_controller.s.create_wall(xPos, 0);
+
+
+		if (obstType == ObstacleType.spk || obstType == ObstacleType.tripleSpk 
+			|| obstType == ObstacleType.hiddenSpk || obstType == ObstacleType.hiddenTripleSpk) {
+			if (xPos > corner_limit_right)
+				last_spike_right = true;
+			else if (xPos < corner_limit_left)
+				last_spike_left = true;
+		}
+		if (obstType == ObstacleType.hole) {
+			last_hole = true;
+		}
+		if (obstType == ObstacleType.saw) {
+			last_saw = true;
+		}
+		if (obstType == ObstacleType.wallCenter || obstType == ObstacleType.wallCorner) {
+			last_wall = true;
+		}
+
 	}
 
 //	void CreateCustomObstacleB
 
 	#endregion
+
+	bool SortChance(int custom = 50){
+		int k = Random.Range (1, 100);
+		if (k > custom)
+			return true;
+		else
+			return false;
+	}
+
+	void CreateNormalFloor(string name, int n){
+		wave_name = name;
+		if (QA.s.SHOW_WAVE_TYPE == true) game_controller.s.create_wave_name(0, actual_y, wave_name);
+		game_controller.s.create_floor(0, n);
+	}
+
+
+
+	void OnValidate(){
+		UpdateBlockListName ();
+	}
+
+	public void UpdateBlockListName(){
+		foreach (Block b in BlocksSuperEasy) {
+			b.UpdateName ();
+			if (b.type == BlockType.CustomBlock || b.type == BlockType.Custom2Blocks  || b.type == BlockType.HoleAbove) {
+				foreach (Obstacle ob in b.obstacles) {
+					ob.UpdateName ();
+				}
+			}
+			if (b.type == BlockType.Custom2Blocks|| b.type == BlockType.HoleAbove) {
+				foreach (Obstacle ob in b.obstaclesFloor2) {
+					ob.UpdateName ();
+				}
+			}
+		}
+		foreach (Block b in BlocksEasy) {
+			b.UpdateName ();
+			if (b.type == BlockType.CustomBlock || b.type == BlockType.Custom2Blocks|| b.type == BlockType.HoleAbove ) {
+				foreach (Obstacle ob in b.obstacles) {
+					ob.UpdateName ();
+				}
+			}
+			if (b.type == BlockType.Custom2Blocks|| b.type == BlockType.HoleAbove) {
+				foreach (Obstacle ob in b.obstaclesFloor2) {
+					ob.UpdateName ();
+				}
+			}
+		}
+		foreach (Block b in BlocksHard) {
+			b.UpdateName ();
+			if (b.type == BlockType.CustomBlock || b.type == BlockType.Custom2Blocks|| b.type == BlockType.HoleAbove ) {
+				foreach (Obstacle ob in b.obstacles) {
+					ob.UpdateName ();
+				}
+			}
+			if (b.type == BlockType.Custom2Blocks|| b.type == BlockType.HoleAbove) {
+				foreach (Obstacle ob in b.obstaclesFloor2) {
+					ob.UpdateName ();
+				}
+			}
+		}
+		foreach (Block b in BlocksMedium) {
+			b.UpdateName ();
+			if (b.type == BlockType.CustomBlock || b.type == BlockType.Custom2Blocks|| b.type == BlockType.HoleAbove ) {
+				foreach (Obstacle ob in b.obstacles) {
+					ob.UpdateName ();
+				}
+			}
+			if (b.type == BlockType.Custom2Blocks|| b.type == BlockType.HoleAbove) {
+				foreach (Obstacle ob in b.obstaclesFloor2) {
+					ob.UpdateName ();
+				}
+			}
+		}
+		foreach (Block b in BlocksSuperHard) {
+			b.UpdateName ();
+			if (b.type == BlockType.CustomBlock || b.type == BlockType.Custom2Blocks|| b.type == BlockType.HoleAbove ) {
+				foreach (Obstacle ob in b.obstacles) {
+					ob.UpdateName ();
+				}
+			}
+			if (b.type == BlockType.Custom2Blocks|| b.type == BlockType.HoleAbove) {
+				foreach (Obstacle ob in b.obstaclesFloor2) {
+					ob.UpdateName ();
+				}
+			}
+		}
+		foreach (Block b in BlocksVeryHard) {
+			b.UpdateName ();
+			if (b.type == BlockType.CustomBlock || b.type == BlockType.Custom2Blocks|| b.type == BlockType.HoleAbove ) {
+				foreach (Obstacle ob in b.obstacles) {
+					ob.UpdateName ();
+				}
+			}
+			if (b.type == BlockType.Custom2Blocks|| b.type == BlockType.HoleAbove) {
+				foreach (Obstacle ob in b.obstaclesFloor2) {
+					ob.UpdateName ();
+				}
+			}
+		}
+	}
 }

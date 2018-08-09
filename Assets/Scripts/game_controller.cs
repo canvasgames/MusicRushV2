@@ -14,6 +14,7 @@ public class game_controller : MonoBehaviour {
 
 	public GameObject visionMask;
     float starting_time, match_time;
+	List<GameObject> QAWaveNames;
 
     // TYPES
     [HideInInspector] public GameObject floor;
@@ -85,7 +86,7 @@ public class game_controller : MonoBehaviour {
 
 
     void Awake (){
-        
+		QAWaveNames = new List<GameObject> ();
         s = this;
 
 		if (DataRecorderController.s == null) {
@@ -471,6 +472,15 @@ public class game_controller : MonoBehaviour {
 	}
 
 	void ResetStuffForNewGame(){
+		
+
+		if (QA.s.SHOW_WAVE_TYPE) {
+			foreach (GameObject qa in QAWaveNames)
+				qa.SetActive (false);
+		}
+//			wave[] Score_txt = GameObject.FindObjectsOfType(typeof(Score_floor_txt)) as Score_floor_txt[];
+
+
 		cur_floor = -1;
 		n_floor = 0;
 		musicLayerN = 0;
@@ -2401,7 +2411,8 @@ GameObject instance = Instantiate(Resources.Load("Prefabs/Bgs/Scenario2/bg_"+ran
 			rand = custom_position;
         int i, j = 0, count = 0;
         bool can_create = false;
-        spike[] spks = FindObjectsOfType(typeof(spike)) as spike[];
+//		spike[] spks = FindObjectsOfType(typeof(spike)) as spike[];
+		spike[] spks = objects_pool_controller.s.spikes_scripts.ToArray();
 
         // chef if there is any spikes
         if (spks.Length > 0) {
@@ -2494,6 +2505,55 @@ GameObject instance = Instantiate(Resources.Load("Prefabs/Bgs/Scenario2/bg_"+ran
         }
     }
 
+	public bool CreateSpikeForHoleAbove(int n, float holeX, float customXInit = 0, float customXEnd = 0, ObstacleType obstType = ObstacleType.spk)
+	{
+		 Debug.Log("tttttttttttttttttttttt TRYING TO CREATE SPIKE FLOOR: " + n);
+		float rand_x = 0, xInit = 0, xEnd = 0;
+
+		xInit = (customXInit != 0) ? customXInit : corner_left;
+		xEnd =  (customXEnd != 0) ? customXEnd : corner_right;
+		
+		rand_x = Random.Range(xInit, xEnd);
+		int i, j = 0, count = 0;
+		bool can_create = false;
+
+		while (count < 50 && can_create == false) {
+			can_create = true;
+			rand_x = Random.Range(xInit, xEnd);
+
+			if ((obstType != ObstacleType.tripleSpk && Mathf.Abs(holeX - rand_x) < globals.s.HOLE_SPK_DIST) ||
+				(obstType == ObstacleType.tripleSpk && Mathf.Abs(holeX - rand_x) < globals.s.HOLE_SPK_DIST + 0.15f)) 
+				can_create = false;
+			else 
+				can_create =  true;
+			count++;
+		}
+	
+		// SUCCESS! LETS CREATE A HOLE!
+		if (can_create) {
+			if (QA.s.TRACE_PROFUNDITY >= 2)
+				Debug.Log ("SUCCESSFULLY CREATING SPIKE!!");
+			// GameObject obj = (GameObject)Instantiate(floor_type, new Vector3(rand - hole_size / 2 - floor_type.transform.GetComponent<SpriteRenderer>().bounds.size.x / 2, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n, 0), transform.rotation);
+			if (obstType == ObstacleType.spk) {
+				if (obstType != ObstacleType.hiddenSpk) 
+					create_spike (rand_x, globals.s.BASE_Y + n * globals.s.FLOOR_HEIGHT, n);
+				else
+					create_hidden_spike (rand_x, globals.s.BASE_Y + n * globals.s.FLOOR_HEIGHT, n);
+			} else {
+				if (obstType == ObstacleType.tripleSpk)
+					create_triple_spike (rand_x, globals.s.BASE_Y + n * globals.s.FLOOR_HEIGHT, n);
+				else
+					create_triple_hidden_spike (rand_x, globals.s.BASE_Y + n * globals.s.FLOOR_HEIGHT, n);
+				}
+			return true;
+		}
+		else {
+			//			if (QA.s.TRACE_PROFUNDITY >= 1) { Debug.Log(" FffffffffffffAILED TO CREATE HOLE..."); }
+			Debug.Log(" FffffffffffffAILED TO CREATE SPIKE FOR HOLE... count = " +count); 
+			return false;
+		}
+	}
+
 	public bool create_just_hole(int n, float x)
     {
         //GameObject obj = (GameObject)Instantiate(floor_type, new Vector3(x - hole_size / 2 - floor_type.transform.GetComponent<SpriteRenderer>().bounds.size.x / 2, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n, 0), transform.rotation);
@@ -2555,6 +2615,7 @@ GameObject instance = Instantiate(Resources.Load("Prefabs/Bgs/Scenario2/bg_"+ran
         GameObject my_qa_wave;
         my_qa_wave = (GameObject)Instantiate(QA_wave_name, new Vector3(0, y_pos - 0.6f, transform.position.z), transform.rotation);
         my_qa_wave.GetComponentInChildren<TextMesh>().text = wave_name;
+		QAWaveNames.Add (my_qa_wave);
     }
 }
 

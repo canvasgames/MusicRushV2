@@ -5,29 +5,32 @@ using DG.Tweening;
 
 public class QA : MonoBehaviour {
 
-	public string Phrase;
 
     public static QA s;
+	[Header ("MAIN VARS")]
 
 	public bool INVENCIBLE ;
 	public float TIMESCALE = 1;
-
+	public bool SHOW_WAVE_TYPE = false;
+	public bool ALWAYS_REVIVE = false;
 	public bool SPIN_INFINITE = false;
+
+	[Space (10)]
+
+	public bool NO_PWS = false;
+	public bool OLD_PLAYER;
+	public bool ALL_UNLOCKED;
+	public float TRACE_PROFUNDITY = 1;
+
+	public string Phrase;
 	public bool DONT_START_THE_GAME = false;
     public bool DELTADNA_ON = false;
 
-    public bool OLD_PLAYER;
-
-	public bool ALL_UNLOCKED;
 	bool sqMode = true;
-	public bool ALWAYS_REVIVE = false;
-    public float TRACE_PROFUNDITY = 1;
 
     // 1 = Just Main info
     // 2 = All floor excential creation information
     // 3 = More detailed info of creation floor process and physics
-    public bool NO_PWS = false;
-    public bool SHOW_WAVE_TYPE = false;
 	public bool CREATE_NOTE_TRAIL = true;
 	public bool NO_MUSIC = false;
 

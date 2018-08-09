@@ -449,13 +449,23 @@ public class store_controller : MonoBehaviour {
 
 
 	void SetPileOfCoinsInitalPosition(){
+
+
 		yIncCoinsPile = Mathf.Abs(yEndCoinsPile - yStartCoinsPile ) / globals.s.JUKEBOX_CURRENT_PRICE;
 
-		Debug.Log ("[JUKE] Y INC: " + yIncCoinsPile);
-		myCoinsPile.transform.localPosition = 
-			new Vector2 (myCoinsPile.transform.localPosition.x, yStartCoinsPile + yIncCoinsPile * (USER.s.NOTES - globals.s.NOTES_COLLECTED_JUKEBOX));
-	}
 
+		if (globals.s.JUKEBOX_CURRENT_PRICE > USER.s.NOTES - globals.s.NOTES_COLLECTED_JUKEBOX) {
+			myCoinsPile.transform.localPosition = 
+				new Vector2 (myCoinsPile.transform.localPosition.x, yStartCoinsPile + yIncCoinsPile * (USER.s.NOTES - globals.s.NOTES_COLLECTED_JUKEBOX));
+		} else {
+			myCoinsPile.transform.localPosition = 
+				new Vector2 (myCoinsPile.transform.localPosition.x, yStartCoinsPile + yIncCoinsPile * (globals.s.JUKEBOX_CURRENT_PRICE + 5));
+
+			if ( USER.s.NOTES >= globals.s.JUKEBOX_CURRENT_PRICE)
+				StartCoroutine (InitCoinsFullAnimation ());
+		}
+		Debug.Log ("[JUKE] 'Y INITIAL POS: " +  myCoinsPile.transform.localPosition.y + " + Y INC: " + yIncCoinsPile);
+	}
 
 	public IEnumerator InitCoinFallingAnimation(int nCoins = 0){
 		Debug.Log ("[JUKE] COIIIIIIIINS ANIMATION");
