@@ -1,0 +1,14 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Latina2Animator
+  m_Controller: {fileID: 9100000, guid: 2e891d194e56bd446b360b1ff7d8177c, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 0df53e2667de9384593861a75ed0ca7c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 62c015ff629d28a4ea0e5a073ad004ef, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: d392010c062ba3442a3ac4f4eecb47ac, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 526862ac74be82e4ebefbd50ca951a66, type: 2}

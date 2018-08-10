@@ -5,7 +5,7 @@ AnimatorOverrideController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: LatinaAnimator
+  m_Name: Latina1Animator
   m_Controller: {fileID: 9100000, guid: 2e891d194e56bd446b360b1ff7d8177c, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 0df53e2667de9384593861a75ed0ca7c, type: 2}
