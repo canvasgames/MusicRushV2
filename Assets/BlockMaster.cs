@@ -77,7 +77,8 @@ public class BlockMaster : MonoBehaviour {
 	#endregion
 
 	#region === Custom Blocks ===
-	bool B_CustomBlock(Obstacle[] obsts, int n){
+	bool B_CustomBlock(Obstacle[] obsts, int n, string customName = ""){
+		
 		float xPos = 0;
 		bool thereIsHole = false;
 		string name = "C..";
@@ -94,15 +95,19 @@ public class BlockMaster : MonoBehaviour {
 				thereIsHole = true;
 		}
 
+		if (customName != "")
+			name = customName;
+			
 		if(thereIsHole == false) 
 			CreateNormalFloor(name, n);
+
 
 		return true;
 	}
 
 	bool floor2IsNext = false;
 
-	bool B_Custom2FloorsBlock(Obstacle[] obsts, int n, bool firstTime = true){
+	bool B_Custom2FloorsBlock(Obstacle[] obsts, int n, bool firstTime = true, string customName = ""){
 		float xPos = 0;
 		bool thereIsHole = false;
 		string name = "";
@@ -126,6 +131,9 @@ public class BlockMaster : MonoBehaviour {
 				thereIsHole = true;
 		}
 
+		if (customName != "")
+			name = customName;
+		
 		if(thereIsHole == false) 
 			CreateNormalFloor(name, n);
 		else
@@ -151,7 +159,7 @@ public class BlockMaster : MonoBehaviour {
 		return true;
 	}
 
-	bool B_HoleAbove(Obstacle[] obsts, int n, float holeAboveX, bool firstTime = true){
+	bool B_HoleAbove(Obstacle[] obsts, int n, float holeAboveX, bool firstTime = true, string customName = ""){
 		if (!last_hole) {
 			Debug.Log (" B_ HOLE ABOVE!!!!!! FIRST TIME");
 			float xPos = 0;
@@ -172,7 +180,6 @@ public class BlockMaster : MonoBehaviour {
 						xPos = Random.Range (ob.xEnd, ob.xInit);
 				}
 				name += ob.myType.ToString () + "_" + xPos.ToString ("0.00") + " & ";
-
 
 
 				if (ob.myType == ObstacleType.spk || ob.myType == ObstacleType.tripleSpk 
@@ -611,18 +618,18 @@ public class BlockMaster : MonoBehaviour {
 		else if (blockType == BlockType.TwoSpksMid)
 			createSucess =	B_2SpksMid (n);
 		else if (blockType == BlockType.CustomBlock)
-			createSucess = B_CustomBlock (block.obstacles, n);
+			createSucess = B_CustomBlock (block.obstacles, n, block.customName);
 		else if (blockType == BlockType.Custom2Blocks) {
 			if (floor2IsNext == false) {
-				createSucess = B_Custom2FloorsBlock (block.obstacles, n);
+				createSucess = B_Custom2FloorsBlock (block.obstacles, n, true, block.customName);
 				nextBlock = block.obstaclesFloor2;
 			} else
-				createSucess = B_Custom2FloorsBlock (block.obstaclesFloor2, n);
+				createSucess = B_Custom2FloorsBlock (block.obstaclesFloor2, n, true , block.customName);
 		} else if (blockType == BlockType.HoleAbove) {
 			if (floor2IsNext == false) {
 				nextBlock = block.obstaclesFloor2;
 //				float x = block.obstacles[0].xInit;
-				createSucess = B_HoleAbove(block.obstacles, n, block.obstaclesFloor2[0].xInit);
+				createSucess = B_HoleAbove(block.obstacles, n, block.obstaclesFloor2[0].xInit, true, block.customName);
 			}
 		} 
 		else if (blockType == BlockType.WallAndSpkAtCenter) {

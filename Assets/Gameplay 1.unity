@@ -3916,7 +3916,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &238224757
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13906,13 +13906,8 @@ Prefab:
     m_Modifications:
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksSuperEasy.Array.data[3].obstacles.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
-        type: 2}
-      propertyPath: BlocksSuperEasy.Array.data[3].obstaclesFloor2.Array.size
-      value: 0
+      propertyPath: BlocksVeryHard.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4523238864494732, guid: 512cb4b6c2f4d4a4985df174031ee41d, type: 2}
       propertyPath: m_LocalPosition.x
@@ -13948,68 +13943,48 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksSuperEasy.Array.data[3].name
-      value: CustomBlock_15
-      objectReference: {fileID: 0}
-    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
-        type: 2}
-      propertyPath: BlocksSuperEasy.Array.data[3].type
+      propertyPath: BlocksVeryHard.Array.data[1].type
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksSuperEasy.Array.data[3].obstaclesFloor2.Array.data[0].name
-      value: hiddenHole_[-1.4, 1.4]
+      propertyPath: BlocksVeryHard.Array.data[1].customName
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksSuperEasy.Array.data[3].obstaclesFloor2.Array.data[0].myType
-      value: 6
+      propertyPath: BlocksVeryHard.Array.data[0].customName
+      value: 324324
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksSuperEasy.Array.data[3].obstaclesFloor2.Array.data[0].xInit
-      value: -1.4
+      propertyPath: BlocksSuperEasy.Array.data[0].type
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksSuperEasy.Array.data[3].obstaclesFloor2.Array.data[0].xEnd
-      value: 1.4
+      propertyPath: BlocksSuperEasy.Array.data[0].customName
+      value: 64654
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksSuperEasy.Array.data[3].obstacles.Array.data[0].name
-      value: saw_-2
+      propertyPath: BlocksVeryHard.Array.data[0].chance
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksSuperEasy.Array.data[3].obstacles.Array.data[0].myType
-      value: 4
+      propertyPath: BlocksVeryHard.Array.data[0].type
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksSuperEasy.Array.data[3].obstacles.Array.data[0].xInit
-      value: -2
+      propertyPath: BlocksSuperEasy.Array.data[0].name
+      value: HiddenSpkAndSpkMid_30
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksSuperEasy.Array.data[3].obstacles.Array.data[1].name
-      value: hiddenSpk_-2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
-        type: 2}
-      propertyPath: BlocksSuperEasy.Array.data[3].obstacles.Array.data[1].myType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
-        type: 2}
-      propertyPath: BlocksSuperEasy.Array.data[3].obstacles.Array.data[1].xInit
-      value: -2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
-        type: 2}
-      propertyPath: debugInitialBlock
-      value: 6
+      propertyPath: BlocksVeryHard.Array.data[0].name
+      value: 324324_0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 512cb4b6c2f4d4a4985df174031ee41d, type: 2}
@@ -27688,7 +27663,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1656654134
 RectTransform:
   m_ObjectHideFlags: 0

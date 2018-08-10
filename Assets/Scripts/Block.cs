@@ -29,6 +29,7 @@ public class Obstacle{
 [Serializable]
 public class Block  {
 	[HideInInspector] public string name;
+	public string customName;
 	public int chance;
 	public BlockType type;
 	public DenyCondition[] denyConditions;
@@ -39,7 +40,13 @@ public class Block  {
 		this.name = name;
 	}
 	public void UpdateName(){
-		name = type.ToString () + "_" + chance.ToString ();
+		if (type == BlockType.CustomBlock || type == BlockType.Custom2Blocks || type == BlockType.HoleAbove)
+			name = customName + "_"+ chance.ToString ();
+		else
+			name = type.ToString () + "_" + chance.ToString ();
+		
+//		else
+			
 		//Debug.Log ("name: " + name);
 	}
 }

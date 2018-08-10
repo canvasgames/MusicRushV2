@@ -60,7 +60,7 @@ MonoBehaviour:
   debugInitialBlock: 6
   debugAllBlocks: 6
   BlocksSuperEasy:
-  - name: WallAndSpkAtCenter_30
+  - customName: 
     chance: 30
     type: 6
     denyConditions: 
@@ -74,33 +74,33 @@ MonoBehaviour:
       xInit: -1.4
       xEnd: -0.1
     obstaclesFloor2: []
-  - name: SpkMid_30
+  - customName: 
     chance: 30
     type: 2
     denyConditions: 
     obstacles: []
     obstaclesFloor2: []
-  - name: TwoSpksMid_15
+  - customName: 
     chance: 15
     type: 5
     denyConditions: 
     obstacles: []
     obstaclesFloor2: []
-  - name: WallAndHiddenSpkAtCenter_15
+  - customName: 
     chance: 15
-    type: 7
+    type: 0
     denyConditions: 
     obstacles:
-    - name: spk_0
-      myType: 0
-      xInit: 0
+    - name: saw_-2
+      myType: 4
+      xInit: -2
       xEnd: 0
-    obstaclesFloor2:
-    - name: hiddenHole_[-1.4, 1.4]
-      myType: 6
-      xInit: -1.4
-      xEnd: 1.4
-  - name: WallAndHiddenSpkAtCenter_40
+    - name: hiddenSpk_-2
+      myType: 2
+      xInit: -2
+      xEnd: 0
+    obstaclesFloor2: []
+  - customName: 
     chance: 40
     type: 7
     denyConditions: 
@@ -122,7 +122,7 @@ MonoBehaviour:
       myType: 3
       xInit: 2
       xEnd: 0
-  - name: HoleAbove_150
+  - customName: 
     chance: 150
     type: 20
     denyConditions: 
@@ -145,56 +145,64 @@ MonoBehaviour:
       xInit: 2
       xEnd: 0
   BlocksEasy:
-  - name: TwoSpksMid_50
+  - customName: 
     chance: 50
     type: 5
     denyConditions: 0000000001000000
     obstacles: []
     obstaclesFloor2: []
-  - name: CustomBlock_10
+  - customName: 
     chance: 10
     type: 0
     denyConditions: 
     obstacles: []
     obstaclesFloor2: []
-  - name: Custom2Blocks_10
+  - customName: 
     chance: 10
     type: 1
     denyConditions: 
     obstacles: []
     obstaclesFloor2: []
   BlocksMedium:
-  - name: CustomBlock_0
+  - customName: 
     chance: 0
     type: 0
     denyConditions: 0000000001000000020000000000000000000000
     obstacles: []
     obstaclesFloor2: []
   BlocksHard:
-  - name: CustomBlock_0
+  - customName: 
     chance: 0
     type: 0
     denyConditions: 
     obstacles: []
     obstaclesFloor2: []
   BlocksVeryHard:
-  - name: SpkMid_40
-    chance: 40
-    type: 2
+  - customName: 
+    chance: 80
+    type: 12
     denyConditions: 
     obstacles: []
     obstaclesFloor2: []
-  - name: CustomBlock_0
+  - customName: 
     chance: 0
     type: 0
     denyConditions: 
     obstacles: []
     obstaclesFloor2: []
-  - name: CustomBlock_0
+  - customName: 
     chance: 0
     type: 0
     denyConditions: 
     obstacles: []
     obstaclesFloor2: []
-  BlocksSuperHard: []
+  BlocksSuperHard:
+  - customName: SeriaoCara?
+    chance: 10
+    type: 20
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
   hole_size: 0
+  corner_limit_right: 2.7
+  corner_limit_left: -2.7
