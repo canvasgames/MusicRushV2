@@ -3916,7 +3916,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &238224757
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13959,12 +13959,12 @@ Prefab:
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
       propertyPath: BlocksSuperEasy.Array.data[0].type
-      value: 16
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
       propertyPath: BlocksSuperEasy.Array.data[0].customName
-      value: 64654
+      value: FixedDist
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
@@ -13979,12 +13979,52 @@ Prefab:
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
       propertyPath: BlocksSuperEasy.Array.data[0].name
-      value: HiddenSpkAndSpkMid_30
+      value: FixedDist_1000
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
       propertyPath: BlocksVeryHard.Array.data[0].name
-      value: 324324_0
+      value: TwoTripleSpksMid_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[0].chance
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[0].obstacles.Array.data[0].name
+      value: spk_2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[0].obstacles.Array.data[0].myType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[0].obstacles.Array.data[1].name
+      value: tripleSpk_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[0].obstacles.Array.data[1].myType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[0].obstacles.Array.data[1].xInit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[0].obstacles.Array.data[1].xEnd
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[0].obstacles.Array.data[1].fixedDist
+      value: -2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 512cb4b6c2f4d4a4985df174031ee41d, type: 2}

@@ -8,7 +8,7 @@ public enum ObstacleType {spk, tripleSpk, hiddenSpk, hiddenTripleSpk, saw, hole,
 public class Obstacle{
 	[HideInInspector]public string name;
 	public ObstacleType myType;
-	public float xInit, xEnd;
+	public float xInit, xEnd, fixedDist;
 	bool mirrored;
 
 	public Obstacle(string name){

@@ -84,6 +84,8 @@ public class game_controller : MonoBehaviour {
     bool first_hole_already_created = false;
     bool first_wall_already_created = false;
 
+	bool coinAlreadTryiedToCreateThisFloor = false;
+
 
     void Awake (){
 		QAWaveNames = new List<GameObject> ();
@@ -644,7 +646,9 @@ public class game_controller : MonoBehaviour {
     {
         if (ball_floor > cur_floor) {
             // if (ball_floor >= 1) camerda.GetComponent<Rigidbody2D>().velocity = new Vector2(0, globals.s.CAMERA_SPEED);
-            cur_floor = ball_floor;
+			bool coinAlreadTryiedToCreateThisFloor = false;
+
+			cur_floor = ball_floor;
             hud_controller.si.update_floor(cur_floor);
 			globals.s.BALL_FLOOR = cur_floor;
 //			globals.s.BALL_CUR_FLOOR_Y = globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * cur_floor;
@@ -1815,7 +1819,6 @@ public class game_controller : MonoBehaviour {
                 return true;
             }
 
-
             // WALL CORNER + 2 spks (normal, hidden or manual_trigger)  ||__v_v__|
             else if (!last_wall && rand > 30 && rand <= 70)
             {
@@ -2235,15 +2238,15 @@ public class game_controller : MonoBehaviour {
         }
 
         ///////////////////////// CREATE NOTES OR NOT
-
-        int rand = Random.Range(1,100);
-		if(rand <= GD.s.GD_COIN_CHANCE) {
-            //GameObject instance = Instantiate(Resources.Load("Prefabs/Note",
-            //typeof(GameObject)), new Vector3(x, y + globals.s.SLOT / 2 + 1.85f), transform.rotation) as GameObject;
-
-			GameObject objj = objects_pool_controller.s.reposite_note(x + Random.Range (-0.05f,0.05f), y + globals.s.SLOT / 2 + 1.85f);
-
-        }
+		if(coinAlreadTryiedToCreateThisFloor == false) {
+			coinAlreadTryiedToCreateThisFloor = true;
+	        int rand = Random.Range(1,100);
+			if(rand <= GD.s.GD_COIN_CHANCE) {
+	            //GameObject instance = Instantiate(Resources.Load("Prefabs/Note",
+	            //typeof(GameObject)), new Vector3(x, y + globals.s.SLOT / 2 + 1.85f), transform.rotation) as GameObject;
+				GameObject objj = objects_pool_controller.s.reposite_note(x + Random.Range (-0.05f,0.05f), y + globals.s.SLOT / 2 + 1.85f);
+	        }
+		}
     }
 
 	public void create_hidden_spike(float x, float y, int n, bool manual_trigger = false, bool corner_repositionable = false)
@@ -2288,6 +2291,17 @@ public class game_controller : MonoBehaviour {
             obj.GetComponent<spike>().wave_name = wave_name;
 
         }
+
+		///////////////////////// CREATE NOTES OR NOT
+		if(coinAlreadTryiedToCreateThisFloor == false) {
+			coinAlreadTryiedToCreateThisFloor = true;
+			int rand = Random.Range(1,100);
+			if(rand <= GD.s.GD_COIN_CHANCE) {
+				//GameObject instance = Instantiate(Resources.Load("Prefabs/Note",
+				//typeof(GameObject)), new Vector3(x, y + globals.s.SLOT / 2 + 1.85f), transform.rotation) as GameObject;
+				GameObject objj = objects_pool_controller.s.reposite_note(x + Random.Range (-0.05f,0.05f), y + globals.s.SLOT / 2 + 1.85f);
+			}
+		}
     }
 
 	public void create_triple_hidden_spike(float x, float y, int n, bool manual_trigger = false)
