@@ -39,6 +39,7 @@ public class GD : MonoBehaviour {
 	[Space (10)]
 	[Header ("METAGAME ECONOMY")]
 	public int GD_COIN_CHANCE = 25;
+	public int GD_COIN_CHANCE_INC = 1;
 	public int JUKEBOX_PRICE = 50, JUKEBOX_FTU_PRICE = 5;
 	public int GD_ROULLETE_WAIT_MINUTES;
 

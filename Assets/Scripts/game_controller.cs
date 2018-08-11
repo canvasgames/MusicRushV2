@@ -266,11 +266,10 @@ public class game_controller : MonoBehaviour {
             }
 
 //			if ( n_floor >= 2  && USER.s.TOTAL_GAMES_WITH_TUTORIAL >= 2  && USER.s.NEWBIE_PLAYER == 0 /* && globals.s.PW_ACTIVE*/) {
-			if ( n_floor >= 2  && USER.s.NEWBIE_PLAYER == 0 /* && globals.s.PW_ACTIVE*/) {
-                //Debug.Log(" n floor: " + n_floor + " CREATE PW!! ");
-                create_power_up_logic();
-				//
-            }
+//			if ( n_floor >= 2  && USER.s.NEWBIE_PLAYER == 0 /* && globals.s.PW_ACTIVE*/) {
+//                //Debug.Log(" n floor: " + n_floor + " CREATE PW!! ");
+//                create_power_up_logic();
+//            }
 
             n_floor = i+1;
             
@@ -587,12 +586,12 @@ public class game_controller : MonoBehaviour {
     #endregion
 
     #region ======= COLLECTABLES ==========
-
+	int curStage = 1;
 	void CreateCollectableLogic(float x, float y){
 		if(coinAlreadTryiedToCreateThisFloor == false) {
 			coinAlreadTryiedToCreateThisFloor = true;
 			int rand = Random.Range(1,100);
-			if(rand <= GD.s.GD_COIN_CHANCE) {
+			if(rand <= GD.s.GD_COIN_CHANCE + GD.s.GD_COIN_CHANCE_INC * (curStage -1)) {
 				coinSuccefullyCreated = true;
 				//GameObject instance = Instantiate(Resources.Load("Prefabs/Note",
 				//typeof(GameObject)), new Vector3(x, y + globals.s.SLOT / 2 + 1.85f), transform.rotation) as GameObject;
@@ -616,7 +615,7 @@ public class game_controller : MonoBehaviour {
 
         //rand = Random.Range(0, 10);
         // create chance check
-		if (QA.s.TRACE_PROFUNDITY > -1)Debug.Log("FIRST PW CREATED " + USER.s.FIRST_PW_CREATED + " .. CREATE POWER UPS CHANCE: " + rand + " .. CONDITION: " + ((pw_floors_not_created - pw_dont_create_for_n_floors) * 7));
+		if (QA.s.TRACE_PROFUNDITY > -1) Debug.Log("FIRST PW CREATED " + USER.s.FIRST_PW_CREATED + " .. CREATE POWER UPS CHANCE: " + rand + " .. CONDITION: " + ((pw_floors_not_created - pw_dont_create_for_n_floors) * 7));
         // if (!QA.s.NO_PWS && pw_floors_not_created > pw_dont_create_for_n_floors && rand <= 15 && globals.s.PW_ACTIVE == true) {
 //		if (!QA.s.NO_PWS && USER.s.TOTAL_GAMES_WITH_TUTORIAL >= 1 && USER.s.NEWBIE_PLAYER == 0 && (
 		if (!QA.s.NO_PWS && USER.s.NEWBIE_PLAYER == 0 && (
@@ -2373,17 +2372,23 @@ public class game_controller : MonoBehaviour {
     public void create_bg(int n, bool special_wave = false) {
 
 		//Debug.Log ("creating BG  n:  " +n + "  POS : " + ( globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n  + 2.45f) );
-		if (n <= GD.s.SCENERY_FLOOR_VALUES[0])
+		if (n <= GD.s.SCENERY_FLOOR_VALUES [0]) {
 			//objects_pool_controller.s.create_and_reposite_bg (1, 0, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n  + 2.45f, special_wave);
-			objects_pool_controller.s.create_and_reposite_bg (1, 0, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n  + 2.45f, special_wave);
-		else if (n <= GD.s.SCENERY_FLOOR_VALUES[1])
-			objects_pool_controller.s.create_and_reposite_bg (2, 0, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n  + 2.45f, special_wave);
-		else if (n <= GD.s.SCENERY_FLOOR_VALUES[2])
-			objects_pool_controller.s.create_and_reposite_bg (3, 0, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n  + 2.45f, special_wave);
-		else if (n <= GD.s.SCENERY_FLOOR_VALUES[3])
-			objects_pool_controller.s.create_and_reposite_bg (4, 0, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n  + 2.45f, special_wave);
-		else
-			objects_pool_controller.s.create_and_reposite_bg (5, 0, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n  + 2.45f, special_wave);
+			curStage = 1;
+			objects_pool_controller.s.create_and_reposite_bg (1, 0, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n + 2.45f, special_wave);
+		} else if (n <= GD.s.SCENERY_FLOOR_VALUES [1]) {
+			curStage = 2;
+			objects_pool_controller.s.create_and_reposite_bg (2, 0, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n + 2.45f, special_wave);
+		} else if (n <= GD.s.SCENERY_FLOOR_VALUES [2]) {
+			curStage = 3;
+			objects_pool_controller.s.create_and_reposite_bg (3, 0, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n + 2.45f, special_wave);
+		} else if (n <= GD.s.SCENERY_FLOOR_VALUES [3]) {
+			curStage = 4;
+			objects_pool_controller.s.create_and_reposite_bg (4, 0, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n + 2.45f, special_wave);
+		} else {
+			curStage = 5;
+			objects_pool_controller.s.create_and_reposite_bg (5, 0, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n + 2.45f, special_wave);
+		}
 
 		/*
         int rand;
@@ -2414,7 +2419,6 @@ GameObject instance = Instantiate(Resources.Load("Prefabs/Bgs/Scenario2/bg_"+ran
 		#if DEBUGMODE
 		Debug.Log ("creating floor n:  " +n + "  POS : " + ( globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n  + 2.45f) );
 		#endif
-
 
        // GameObject obj = (GameObject)Instantiate(floor_type, new Vector3(x, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n, 0), transform.rotation);
         GameObject obj = objects_pool_controller.s.reposite_floor(x, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n);
