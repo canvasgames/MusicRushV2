@@ -185,8 +185,10 @@ public class game_controller : MonoBehaviour {
 						create_spike (Random.Range (-0.5f, +0.5f), globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * i, i);
 					else {
 
-						if (BlockMaster.s.debugInitialBlock == BlockDifficulty.None)
-							create_spike (Random.Range (-mid_area, mid_area), globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * i, i);
+						if (BlockMaster.s.debugInitialBlock == BlockDifficulty.None) {
+//							create_spike (Random.Range (-mid_area, mid_area), globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * i, i);
+							wave_found = BlockMaster.s.CreateBlockLogicNEW(i);
+						}
 						else
 							wave_found = BlockMaster.s.CreateBlockByDifficulty (BlockMaster.s.debugInitialBlock, i);
 					}
@@ -218,7 +220,9 @@ public class game_controller : MonoBehaviour {
 					}
 					else
 //						wave_found = create_wave_super_easy(i);
-						wave_found = create_wave_easy(i);
+//						wave_found = create_wave_easy(i);
+						wave_found = BlockMaster.s.CreateBlockLogicNEW(i);
+
 //						wave_found = create_wave_hard(i, 46);
                     break;
 				case 4:
@@ -229,8 +233,11 @@ public class game_controller : MonoBehaviour {
 						wave_found = true;
 
 					} else {
-						if (BlockMaster.s.debugInitialBlock == BlockDifficulty.None)
-							wave_found = create_wave_super_easy (i);
+						if (BlockMaster.s.debugInitialBlock == BlockDifficulty.None) {
+							wave_found = BlockMaster.s.CreateBlockLogicNEW(i);
+
+//							wave_found = create_wave_super_easy (i);
+						}
 						else
 							wave_found = BlockMaster.s.CreateBlockByDifficulty (BlockMaster.s.debugInitialBlock, i);
 					}
@@ -238,11 +245,12 @@ public class game_controller : MonoBehaviour {
 				case 5:
 					
 					if (USER.s.NEWBIE_PLAYER == 1) {
-						wave_found = create_hole (i, false, 0, true, ftu_spk_pos + globals.s.HOLE_SPK_DIST+ 0.3f);
+						wave_found = create_hole (i, false, 0, true, ftu_spk_pos + globals.s.HOLE_SPK_DIST + 0.3f);
 						//create_spike (ftu_spk_pos, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * i, i, false, true);
-					} else
-						if (BlockMaster.s.debugInitialBlock == BlockDifficulty.None)
-							wave_found = create_wave_super_easy (i);
+					} else if (BlockMaster.s.debugInitialBlock == BlockDifficulty.None) {
+						wave_found = BlockMaster.s.CreateBlockLogicNEW(i);
+//						wave_found = create_wave_super_easy (i);
+					}
 						else
 							wave_found = BlockMaster.s.CreateBlockByDifficulty (BlockMaster.s.debugInitialBlock, i);
 					break;
