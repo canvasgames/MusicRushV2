@@ -25,6 +25,7 @@ public class BlockMaster : MonoBehaviour {
 
 //	public InputField iField;
 	Obstacle[] nextBlock;
+	public int NotRepeatFrequency;
 	public bool NewCreationLogic;
 	[Space (5)]
 	[Header ("Block Difficulties")]
@@ -882,16 +883,16 @@ public class BlockMaster : MonoBehaviour {
 				count++;
 				int rand = Random.Range (0, max);
 				last = 0;
-				Debug.Log (count + " RAND: " + rand + " MAX CHANCE " + max);
+				if(QA.s.LOG_BLOCKMASTER) Debug.Log (count + " RAND: " + rand + " MAX CHANCE " + max);
 				foreach (Block block in BlockList) {
 					blockType = block.type;
 					last = last + GetBlockChance (blockType);
-					Debug.Log (count + " MY TIME: " + blockType.ToString () + " MY CHANCE: " + block.chance.ToString ());
+					if(QA.s.LOG_BLOCKMASTER) Debug.Log (count + "KKK BLOCK: " + blockType.ToString () + " MY CHANCE: " + block.chance.ToString () + "...  RAND: " + rand + " REAL VALUE: "+ last);
 
 					if (blockfound == false && rand < last) {
 //					if ( AllowCreationByDenyConditions (block) && CreateBlockByType (blockType, n_floor)) {
 						if (!justCreatedBlockTypes.Contains (block.name) && AllowCreationByDenyConditions (block) && CreateBlockByType (block, n_floor)) {
-							Debug.Log (count + " bbbbbbbbb BLOCK FOUND! " + blockType);
+							if(QA.s.LOG_BLOCKMASTER) Debug.Log (count + " bbbbbbbbbbbbbbbb BLOCK FOUND! " + blockType);
 //							if (blockType != BlockType.CustomBlock && blockType != BlockType.Custom2Blocks) 
 							justCreatedBlockTypes.Add (block.name);
 							blockfound = true;
@@ -899,11 +900,11 @@ public class BlockMaster : MonoBehaviour {
 						} else {
 							blockfound = false;
 //						Debug.Log (count+" bbbbbbb Block can't be created ... " + blockType+ " Contains? "+ justCreatedBlocks.Contains (blockType) + " Deny Size? "+ block.denyConditions.Length);
-							Debug.Log (count + " bbbbbbb Block can't be created ... " + blockType + " Contains? " + justCreatedBlockTypes.Contains (block.name) + " Deny Size? " + block.denyConditions.Length);
+							if(QA.s.LOG_BLOCKMASTER)Debug.Log (count + " nnn Block can't be created ... " + blockType + " Contains? " + justCreatedBlockTypes.Contains (block.name) + " Deny Size? " + block.denyConditions.Length);
 							break;
 						}
 					} else
-						Debug.Log (count + " ERROR SEARCHING FOR BLOCK");
+						if(QA.s.LOG_BLOCKMASTER)Debug.Log (count + " ERROR SEARCHING FOR BLOCK.... LAST : " + last + " BLOCK FOUND IS "+  blockfound);
 				}
 			}
 
@@ -914,8 +915,8 @@ public class BlockMaster : MonoBehaviour {
 
 				nCreatedBlocks++;
 				totalCreatedBlocks++;
-				if (nCreatedBlocks > 1 && justCreatedBlockTypes.Count > 0) {
-					//Debug.Log("REMOVING AT 0! 
+				if (nCreatedBlocks > NotRepeatFrequency && justCreatedBlockTypes.Count > 0) {
+					if(QA.s.LOG_BLOCKMASTER) Debug.Log ("REMOVING AT 0! Name " + justCreatedBlockTypes.ToArray () [0]);
 					justCreatedBlockTypes.RemoveAt (0);
 					nCreatedBlocks--;
 				}
@@ -925,7 +926,7 @@ public class BlockMaster : MonoBehaviour {
 		} else {
 //			B_Custom2FloorsBlock (nextBlock, n);,
 			actual_y = globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n_floor;
-			Debug.Log("2ND FLOOR TIME!!!!!!!");
+			if(QA.s.LOG_BLOCKMASTER) Debug.Log("2ND FLOOR TIME!!!!!!!");
 			ClearDenys ();
 
 			B_Custom2FloorsBlock (nextBlock, n_floor);

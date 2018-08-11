@@ -43,9 +43,9 @@ public class BallMaster : MonoBehaviour {
 	public void DeactivateUnnusedFollowers(){
 		if (globals.s.ACTUAL_SKIN.bandN > 0) {
 			for (int i = 0; i < followersBall1.Length; i++) {
-				Debug.Log ("DEactivate unnused!!!!! " + i);
+//				Debug.Log ("DEactivate unnused!!!!! " + i);
 				if (i > globals.s.ACTUAL_SKIN.bandN - 2) {
-					Debug.Log ("DEppppppppppactivate unnused!!!!! " + i);
+//					Debug.Log ("DEppppppppppactivate unnused!!!!! " + i);
 
 					followersBall1 [i].gameObject.SetActive (false);
 					followersBall2 [i].gameObject.SetActive (false);

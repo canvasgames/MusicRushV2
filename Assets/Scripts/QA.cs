@@ -21,6 +21,7 @@ public class QA : MonoBehaviour {
 	public bool OLD_PLAYER;
 	public bool ALL_UNLOCKED;
 	public float TRACE_PROFUNDITY = 1;
+	public bool LOG_BLOCKMASTER = false;
 
 	public string Phrase;
 	public bool DONT_START_THE_GAME = false;
