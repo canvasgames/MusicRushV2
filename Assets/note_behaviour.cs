@@ -24,18 +24,13 @@ public class note_behaviour : MonoBehaviour {
     }
 
 	public void Init(){
+		DOTween.KillAll ();
 		active = true;
 
 		init_y = transform.position.y;
 		state = 2;
 		floating_animation_up();
 	}
-
-	// Update is called once per frame
-	void Update () {
-       // transform.GetComponent<SpriteRenderer>().color = Color.black;
-
-    }
 
     void floating_animation_up() {
 		if (active && state == 2) {

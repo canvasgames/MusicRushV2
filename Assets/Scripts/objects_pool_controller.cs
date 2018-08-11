@@ -503,11 +503,10 @@ public class objects_pool_controller : MonoBehaviour {
     }
     #endregion
 
-    #region ====== NOTES =======
+    #region ====== COLLETABLES =======
     public GameObject reposite_power_up(float x_pos, float y_pos)
 	{
 		//clear_flags_notes();
-
 		power_ups_pool[power_ups_actual_i].transform.position = new Vector3(x_pos, y_pos, 0);
 		GameObject repos_power_up = power_ups_pool[power_ups_actual_i];
 		//repos_note.GetComponent <note_behaviour>().Init ();
@@ -522,7 +521,6 @@ public class objects_pool_controller : MonoBehaviour {
 	public GameObject reposite_note(float x_pos, float y_pos)
 	{
 		//clear_flags_notes();
-
 		note_pool [note_pool_actual_i].SetActive (true);
 		note_pool[note_pool_actual_i].transform.position = new Vector3(x_pos, y_pos, 0);
 		GameObject repos_note = note_pool[note_pool_actual_i];

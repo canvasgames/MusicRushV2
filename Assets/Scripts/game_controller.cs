@@ -85,7 +85,8 @@ public class game_controller : MonoBehaviour {
     bool first_wall_already_created = false;
 
 	bool coinAlreadTryiedToCreateThisFloor = false;
-
+	bool coinSuccefullyCreated = false;
+	bool pwAlreadyTryiedToCreateThisFloor = false;
 
     void Awake (){
 		QAWaveNames = new List<GameObject> ();
@@ -585,8 +586,26 @@ public class game_controller : MonoBehaviour {
     }
     #endregion
 
-    #region ======= POWER UPS ==========
-	void create_power_up_logic(int floor = 0) {
+    #region ======= COLLECTABLES ==========
+
+	void CreateCollectableLogic(float x, float y){
+		if(coinAlreadTryiedToCreateThisFloor == false) {
+			coinAlreadTryiedToCreateThisFloor = true;
+			int rand = Random.Range(1,100);
+			if(rand <= GD.s.GD_COIN_CHANCE) {
+				coinSuccefullyCreated = true;
+				//GameObject instance = Instantiate(Resources.Load("Prefabs/Note",
+				//typeof(GameObject)), new Vector3(x, y + globals.s.SLOT / 2 + 1.85f), transform.rotation) as GameObject;
+				GameObject objj = objects_pool_controller.s.reposite_note(x + Random.Range (-0.05f,0.05f), y + globals.s.SLOT / 2 + 1.85f);
+			}
+		}
+
+		if(coinSuccefullyCreated == false){
+			create_power_up_logic (n_floor, x, y);
+		}
+	}
+
+	void create_power_up_logic(int floor = 0, float x = 0, float y = 0) {
 		int rand;
 		if(n_floor < 5)
 			rand = Random.Range(0, 60);
@@ -597,7 +616,7 @@ public class game_controller : MonoBehaviour {
 
         //rand = Random.Range(0, 10);
         // create chance check
-		Debug.Log("FIRST PW CREATED " + USER.s.FIRST_PW_CREATED + " .. CREATE POWER UPS CHANCE: " + rand + " .. CONDITION: " + ((pw_floors_not_created - pw_dont_create_for_n_floors) * 7));
+		if (QA.s.TRACE_PROFUNDITY > -1)Debug.Log("FIRST PW CREATED " + USER.s.FIRST_PW_CREATED + " .. CREATE POWER UPS CHANCE: " + rand + " .. CONDITION: " + ((pw_floors_not_created - pw_dont_create_for_n_floors) * 7));
         // if (!QA.s.NO_PWS && pw_floors_not_created > pw_dont_create_for_n_floors && rand <= 15 && globals.s.PW_ACTIVE == true) {
 //		if (!QA.s.NO_PWS && USER.s.TOTAL_GAMES_WITH_TUTORIAL >= 1 && USER.s.NEWBIE_PLAYER == 0 && (
 		if (!QA.s.NO_PWS && USER.s.NEWBIE_PLAYER == 0 && (
@@ -606,18 +625,21 @@ public class game_controller : MonoBehaviour {
 			(USER.s.FIRST_PW_CREATED == 0 && !first_pw_created)
 			))
 		{
-
             int my_type = 0;
+			if(n_floor < 5)
+				rand = Random.Range(0, GD.s.GD_PW_CHANCE_SUPER_JUMP + GD.s.GD_PW_CHANCE_SHIELD );
+			else
+				rand = Random.Range(0, 100);
 			rand = Random.Range(0, 100);
 //			rand = 1;
-			if ( rand < 20 || (USER.s.FIRST_PW_CREATED == 0 && !first_pw_created)) {
+			if ( rand < GD.s.GD_PW_CHANCE_SUPER_JUMP || (USER.s.FIRST_PW_CREATED == 0 && !first_pw_created)) {
 				my_type = (int)PW_Types.Super;
-			} else if (rand < 60 && n_floor > 5) {
-				my_type = (int)PW_Types.Sight;
-			} else {
+			} else if (rand < GD.s.GD_PW_CHANCE_SUPER_JUMP + GD.s.GD_PW_CHANCE_SHIELD) {
 				my_type = (int)PW_Types.Invencible;
+			} else {
+				my_type = (int)PW_Types.Sight;
 			}
-			Debug.Log ("---------- cREATE PW !! TYPE: " + my_type + " FIRST PW CREATED " + USER.s.FIRST_PW_CREATED);
+			if (QA.s.TRACE_PROFUNDITY > -1)Debug.Log ("---------- cREATE PW !! TYPE: " + my_type + " FIRST PW CREATED " + USER.s.FIRST_PW_CREATED);
 
 			first_pw_created = true;
 //			Debug.Log(globals.s.PW_ACTIVE + "  pw created RAND " + rand + " type: " + my_type);
@@ -626,7 +648,7 @@ public class game_controller : MonoBehaviour {
             // int my_type = Random.Range((int)PW_Types.Invencible, (int)PW_Types.Sight + 1);
 			if (QA.s.TRACE_PROFUNDITY > 0) Debug.Log ("---------- cREATE PW !! TYPE: " + my_type + " FIRST PW CREATED " + USER.s.FIRST_PW_CREATED);
 
-            create_pw_icon(Random.Range(corner_limit_left + 0.7f, corner_limit_right - 0.7f), n_floor, my_type);
+            create_pw_icon(x, y, my_type, floor);
 
             pw_floors_not_created = 0;
         }
@@ -634,11 +656,11 @@ public class game_controller : MonoBehaviour {
             pw_floors_not_created++;
     }
 
-    void create_pw_icon(float x, int n, int type) {
+	void create_pw_icon(float x, float y, int type, int n) {
         if (globals.s.PW_INVENCIBLE == false || globals.s.PW_SIGHT_BEYOND_SIGHT == false || globals.s.PW_SUPER_JUMP == false) {
             //Debug.Log("[GM] CREATING POWER UP!");
 			//GameObject obj  = (GameObject) Instantiate(pw_icon, new Vector3(x, 2 + globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n, 0), transform.rotation);
-			GameObject obj = objects_pool_controller.s.reposite_power_up(x, 2 + globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n);
+			GameObject obj = objects_pool_controller.s.reposite_power_up(x, 2.3f + globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n);
 			//Debug.Log("PW type " + type);
             obj.GetComponent<PW_Collect>().my_floor = n;
             obj.GetComponent<PW_Collect>().pw_type = type;
@@ -654,7 +676,9 @@ public class game_controller : MonoBehaviour {
     {
         if (ball_floor > cur_floor) {
             // if (ball_floor >= 1) camerda.GetComponent<Rigidbody2D>().velocity = new Vector2(0, globals.s.CAMERA_SPEED);
-			bool coinAlreadTryiedToCreateThisFloor = false;
+			coinAlreadTryiedToCreateThisFloor = false;
+			coinSuccefullyCreated = false;
+			pwAlreadyTryiedToCreateThisFloor = false;
 
 			cur_floor = ball_floor;
             hud_controller.si.update_floor(cur_floor);
@@ -717,9 +741,9 @@ public class game_controller : MonoBehaviour {
         wave_found = false;
 
         //PW Creation
-		if(/*globals.s.PW_ACTIVE == true &&*/ globals.s.PW_SUPER_JUMP == false && USER.s.FIRST_PW_CREATED == 1){
-            create_power_up_logic();
-        }
+//		if(/*globals.s.PW_ACTIVE == true &&*/ globals.s.PW_SUPER_JUMP == false && USER.s.FIRST_PW_CREATED == 1){
+//            create_power_up_logic();
+//        }
        
         while (wave_found == false && count < 80)
         {
@@ -2246,17 +2270,9 @@ public class game_controller : MonoBehaviour {
         }
 
         ///////////////////////// CREATE NOTES OR NOT
-		if(coinAlreadTryiedToCreateThisFloor == false) {
-			coinAlreadTryiedToCreateThisFloor = true;
-	        int rand = Random.Range(1,100);
-			if(rand <= GD.s.GD_COIN_CHANCE) {
-	            //GameObject instance = Instantiate(Resources.Load("Prefabs/Note",
-	            //typeof(GameObject)), new Vector3(x, y + globals.s.SLOT / 2 + 1.85f), transform.rotation) as GameObject;
-				GameObject objj = objects_pool_controller.s.reposite_note(x + Random.Range (-0.05f,0.05f), y + globals.s.SLOT / 2 + 1.85f);
-	        }
-		}
+		CreateCollectableLogic(x, y);
     }
-
+		
 	public void create_hidden_spike(float x, float y, int n, bool manual_trigger = false, bool corner_repositionable = false)
     {
         //GameObject obj = (GameObject)Instantiate(spike_type, new Vector3(x, y + globals.s.SLOT/2 - spike_type.transform.GetComponent<SpriteRenderer>().bounds.size.y, 0), transform.rotation);
@@ -2301,15 +2317,7 @@ public class game_controller : MonoBehaviour {
         }
 
 		///////////////////////// CREATE NOTES OR NOT
-		if(coinAlreadTryiedToCreateThisFloor == false) {
-			coinAlreadTryiedToCreateThisFloor = true;
-			int rand = Random.Range(1,100);
-			if(rand <= GD.s.GD_COIN_CHANCE) {
-				//GameObject instance = Instantiate(Resources.Load("Prefabs/Note",
-				//typeof(GameObject)), new Vector3(x, y + globals.s.SLOT / 2 + 1.85f), transform.rotation) as GameObject;
-				GameObject objj = objects_pool_controller.s.reposite_note(x + Random.Range (-0.05f,0.05f), y + globals.s.SLOT / 2 + 1.85f);
-			}
-		}
+		CreateCollectableLogic(x , y);
     }
 
 	public void create_triple_hidden_spike(float x, float y, int n, bool manual_trigger = false)
@@ -2361,7 +2369,6 @@ public class game_controller : MonoBehaviour {
 
         }
     }
-
 
     public void create_bg(int n, bool special_wave = false) {
 
@@ -2529,7 +2536,7 @@ GameObject instance = Instantiate(Resources.Load("Prefabs/Bgs/Scenario2/bg_"+ran
 
 	public bool CreateSpikeForHoleAbove(int n, float holeX, float customXInit = 0, float customXEnd = 0, ObstacleType obstType = ObstacleType.spk)
 	{
-		 Debug.Log("tttttttttttttttttttttt TRYING TO CREATE SPIKE FLOOR: " + n);
+//		 Debug.Log("tttttttttttttttttttttt TRYING TO CREATE SPIKE FLOOR: " + n);
 		float rand_x = 0, xInit = 0, xEnd = 0;
 
 		xInit = (customXInit != 0) ? customXInit : corner_left;
