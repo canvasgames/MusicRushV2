@@ -1,13 +1,9 @@
 MUSIC RUSH JOAREZ:
 
-- CUSTOM WAVE
-- 2 FLOORS
 
-- power ups em cima de espinhos
-- variavel de controle de spawn de moedas
-- variavle de controle de spanw de power ups
-- destruir os textos debug dos andares
--
+v power ups em cima de espinhos
+c variavle de controle de spanw de power ups
+- logica reversa de criar pw de vision
 
 
 -----------
@@ -19,3 +15,8 @@ objetivo: 1 a 2 personagens por dia. ou, 17 em 2 semanas -> se não der, em 1 se
 - sessoes por dia (1 a 5)
 - preço do personagem
 
+v wall 2 spikes custom
+v par de spinhos
+v double wall custom
+v coin: 1 per floor (somente acima de spikes visiveis)
+c nao repetir 2 blocos

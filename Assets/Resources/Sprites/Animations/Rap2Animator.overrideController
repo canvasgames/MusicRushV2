@@ -5,10 +5,10 @@ AnimatorOverrideController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: ReggaAnimator
+  m_Name: Rap2Animator
   m_Controller: {fileID: 9100000, guid: 2e891d194e56bd446b360b1ff7d8177c, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 0df53e2667de9384593861a75ed0ca7c, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: f224d70044fb75c4eabf1a029c6d3fa3, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d56add49476f99546a76d2e88f745877, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: d392010c062ba3442a3ac4f4eecb47ac, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 6930762a4f57201489419a44402446ca, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 453c53a7afe7236419479ff126b98d5b, type: 2}

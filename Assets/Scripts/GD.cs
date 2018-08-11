@@ -29,15 +29,18 @@ public struct Skin{
 public class GD : MonoBehaviour {
 
     public static GD s;
-	[Header ("MAIN VARS")]
+	[Header ("POWER UPS")]
 	public int GD_PW_SIGHT_TIME;
 	public int GD_PW_HEARTH_TIME;
-	public int GD_ROULLETE_WAIT_MINUTES;
-	public int GD_COIN_CHANCE = 25;
+	public int GD_PW_CHANCE_SUPER_JUMP = 20;
+	public int GD_PW_CHANCE_SHIELD = 40;
+	public int GD_PW_CHANCE_VISION = 40;
 
 	[Space (10)]
-
+	[Header ("METAGAME ECONOMY")]
+	public int GD_COIN_CHANCE = 25;
 	public int JUKEBOX_PRICE = 50, JUKEBOX_FTU_PRICE = 5;
+	public int GD_ROULLETE_WAIT_MINUTES;
 
 	public int[] SCENERY_FLOOR_VALUES;
 
