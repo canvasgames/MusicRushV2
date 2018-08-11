@@ -59,11 +59,9 @@ public class BallMaster : MonoBehaviour {
 		}
 	}
 
-
 	public void IEnumeratorInitFollowersMovement(bool iAmLeft, Vector2 myPos, Vector2 speed){ 
 		StartCoroutine (InitFollowersMovement (iAmLeft, myPos, speed));
 	}
-
 
 	public IEnumerator InitFollowersMovement(bool iAmLeft, Vector2 myPos, Vector2 speed){
 		for (int i = 0; i <= globals.s.ACTUAL_SKIN.bandN - 2; i++) {
@@ -84,7 +82,6 @@ public class BallMaster : MonoBehaviour {
 
 	public void IEnumeratorJumpMyFollowers(bool iAmLeft){
 		StartCoroutine (JumpMothaFockaJump (iAmLeft));
-
 	}
 
 	IEnumerator JumpMothaFockaJump(bool iAmLeft){

@@ -758,6 +758,7 @@ public class game_controller : MonoBehaviour {
 			           || n_floor - 1 == GD.s.SCENERY_FLOOR_VALUES [3]) {
 				wave_found = true;
 				create_floor (0, n_floor);
+				BlockMaster.s.ClearDenys ();
 			} else {
 				if (BlockMaster.s.debugAllBlocks == BlockDifficulty.None) {
 					if(BlockMaster.s.NewCreationLogic == true)

@@ -14,7 +14,6 @@ public class store_controller : MonoBehaviour {
 	[Header ("Gems")]
 	[SerializeField] Text myGemsPrice;
 
-
 	[Header ("Bottom Coins")]
 
 	public Animator myCoinsFullAnimator;
@@ -175,6 +174,11 @@ public class store_controller : MonoBehaviour {
 		title.text = globals.s.ACTUAL_SKIN.skinName;
 
 		sound_controller.s.curJukeboxMusic = globals.s.ACTUAL_STYLE;
+
+		if (FTUController.s.firstSongPurchased == 0) {
+			myBackBt.gameObject.SetActive (false);
+			equipButton.gameObject.SetActive (false);
+		}
 	}
 
 	public void CloseStore(bool fromBackBt){
@@ -650,6 +654,10 @@ public class store_controller : MonoBehaviour {
 
 	// Collect button pressed
 	public void OnButtonRewardPressed(){
+		if (FTUController.s.firstSongPurchased == 0) {
+			myBackBt.gameObject.SetActive (false);
+			equipButton.gameObject.SetActive (false);
+		}
 //		jukeboxBt.interactable = true; //TBD: FAZER LOGICA QUE TESTA SE TODOS FORAM COMPRADOS E POR UM IF AQUI
 //		UpdateUserNotes(); //TBD: FAZER LOGICA QUE TESTA SE TODOS FORAM COMPRADOS E POR UM IF AQUI
 		globals.s.MENU_OPEN = false;
@@ -681,7 +689,16 @@ public class store_controller : MonoBehaviour {
 		}
 	}
 
+	void ActivatePlayAndBackButtonsAgain(){
+		if (FTUController.s.firstSongPurchased == 1) {
+			myBackBt.gameObject.SetActive (true);
+			equipButton.gameObject.SetActive (true);
+		}
+	}
+
 	public void OnGemsPurchaseComplete(){
+		
+
 		equipCharacterNew(true);
 		PlayerPrefs.SetInt (GD.s.skins[actualCharInScreen].skinName + "AlreadyBuyed", 1);
 		alreadyBuyed [actualCharInScreen] = 1;
