@@ -385,25 +385,25 @@ MonoBehaviour:
     customName: 
     chance: 1
     type: 12
-    denyConditions: 
+    denyConditions: 00000000
     obstacles: []
     obstaclesFloor2: []
   - name: SpkMidAndSpkCornerRandom_1
     customName: 
     chance: 1
     type: 13
-    denyConditions: 
+    denyConditions: 0000000001000000
     obstacles: []
     obstaclesFloor2: []
   - name: SpkMidAndSpkCornerRight_1
     customName: 
     chance: 1
     type: 14
-    denyConditions: 
+    denyConditions: 01000000
     obstacles: []
     obstaclesFloor2: []
-  - name: J_hard_hidSpk_left_spk_right_1
-    customName: J_hard_hidSpk_left_spk_right
+  - name: J_h_hidSpk_left_spk_right_1
+    customName: J_h_hidSpk_left_spk_right
     chance: 1
     type: 0
     denyConditions: 
@@ -418,6 +418,79 @@ MonoBehaviour:
       xInit: 0
       xEnd: 0
       fixedDist: 3.1
+    obstaclesFloor2: []
+  - name: J_h_hidSpk_right_spk_left_1
+    customName: J_h_hidSpk_right_spk_left
+    chance: 1
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: hiddenSpk_[1.8, 1.2]
+      myType: 2
+      xInit: 1.8
+      xEnd: 1.2
+      fixedDist: 0
+    - name: spk_0
+      myType: 0
+      xInit: 0
+      xEnd: 0
+      fixedDist: -3.1
+    obstaclesFloor2: []
+  - name: J_h_hidSpk_mid_spk_cornerLeft_1
+    customName: J_h_hidSpk_mid_spk_cornerLeft
+    chance: 1
+    type: 0
+    denyConditions: 0000000001000000
+    obstacles:
+    - name: hiddenSpk_0
+      myType: 2
+      xInit: 0
+      xEnd: 0
+      fixedDist: 0
+    - name: spk_4.4
+      myType: 0
+      xInit: 4.4
+      xEnd: 0
+      fixedDist: 0
+    obstaclesFloor2: []
+  - name: J_h_hidSpk_mid_spk_cornerRight_1
+    customName: J_h_hidSpk_mid_spk_cornerRight
+    chance: 1
+    type: 0
+    denyConditions: 0000000001000000
+    obstacles:
+    - name: hiddenSpk_0
+      myType: 2
+      xInit: 0
+      xEnd: 0
+      fixedDist: 0
+    - name: spk_4.4
+      myType: 0
+      xInit: 4.4
+      xEnd: 0
+      fixedDist: 0
+    obstaclesFloor2: []
+  - name: J_h_3spks_midTriple_1
+    customName: J_h_3spks_midTriple
+    chance: 1
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: tripleSpk_0
+      myType: 1
+      xInit: 0
+      xEnd: 0
+      fixedDist: 0
+    - name: spk_3.2
+      myType: 0
+      xInit: 3.2
+      xEnd: 0
+      fixedDist: 0
+    - name: spk_-3.2
+      myType: 0
+      xInit: -3.2
+      xEnd: 0
+      fixedDist: 0
     obstaclesFloor2: []
   BlocksVeryHard:
   - name: TwoTripleSpksMid_0
