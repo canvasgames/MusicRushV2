@@ -79,7 +79,7 @@ public class BlockMaster : MonoBehaviour {
 
 	#region === Custom Blocks ===
 	bool B_CustomBlock(Obstacle[] obsts, int n, string customName = ""){
-		
+		ClearDenys ();
 		float xPos = 0; float lastXPos = 0;
 		bool thereIsHole = false;
 		string name = "C..";
@@ -117,6 +117,7 @@ public class BlockMaster : MonoBehaviour {
 	bool floor2IsNext = false;
 
 	bool B_Custom2FloorsBlock(Obstacle[] obsts, int n, bool firstTime = true, string customName = ""){
+		ClearDenys ();
 		float xPos = 0, lastXPos = 0;
 		bool thereIsHole = false;
 		string name = "";
@@ -177,6 +178,7 @@ public class BlockMaster : MonoBehaviour {
 
 	bool B_HoleAbove(Obstacle[] obsts, int n, float holeAboveX, bool firstTime = true, string customName = ""){
 		if (!last_hole) {
+			ClearDenys ();
 			Debug.Log (" B_ HOLE ABOVE!!!!!! FIRST TIME");
 			float xPos = 0; float lastXPos = 0;
 			bool thereIsHole = false;
@@ -825,7 +827,7 @@ public class BlockMaster : MonoBehaviour {
 		return createSucess;
 	}
 	
-	void ClearDenys(){
+	public void ClearDenys(){
 		last_spike_left = false;
 		last_spike_right = false;
 		last_hole = false;
@@ -883,11 +885,12 @@ public class BlockMaster : MonoBehaviour {
 				count++;
 				int rand = Random.Range (0, max);
 				last = 0;
-				if(QA.s.LOG_BLOCKMASTER) Debug.Log (count + " RAND: " + rand + " MAX CHANCE " + max);
+				if(QA.s.LOG_BLOCKMASTER) Debug.Log ("   ");
+				if(QA.s.LOG_BLOCKMASTER) Debug.Log (" LLLLLLLLLL  " + count + " RAND: " + rand + " MAX CHANCE " + max + " LLLLLLLLLL  ");
 				foreach (Block block in BlockList) {
 					blockType = block.type;
 					last = last + GetBlockChance (blockType);
-					if(QA.s.LOG_BLOCKMASTER) Debug.Log (count + "KKK BLOCK: " + blockType.ToString () + " MY CHANCE: " + block.chance.ToString () + "...  RAND: " + rand + " REAL VALUE: "+ last);
+					if(QA.s.LOG_BLOCKMASTER && rand < last && blockfound == false) Debug.Log (count + "KKK BLOCK: " + blockType.ToString () + " MY CHANCE: " + block.chance.ToString () + "...  RAND: " + rand + " REAL VALUE: "+ last);
 
 					if (blockfound == false && rand < last) {
 //					if ( AllowCreationByDenyConditions (block) && CreateBlockByType (blockType, n_floor)) {
@@ -900,11 +903,12 @@ public class BlockMaster : MonoBehaviour {
 						} else {
 							blockfound = false;
 //						Debug.Log (count+" bbbbbbb Block can't be created ... " + blockType+ " Contains? "+ justCreatedBlocks.Contains (blockType) + " Deny Size? "+ block.denyConditions.Length);
-							if(QA.s.LOG_BLOCKMASTER)Debug.Log (count + " nnn Block can't be created ... " + blockType + " Contains? " + justCreatedBlockTypes.Contains (block.name) + " Deny Size? " + block.denyConditions.Length);
+							if(QA.s.LOG_BLOCKMASTER)Debug.Log (count + " nnn "+ block.name+ " Block can't be created ... " + blockType + " Contains? " + justCreatedBlockTypes.Contains (block.name) + " Deny Size? " + block.denyConditions.Length);
+							if (QA.s.LOG_BLOCKMASTER)Debug.Log ("spk left " + last_spike_left + " spk right " + last_spike_right + " wall " + last_wall + " HOLE " + last_hole + " SAW " + last_saw);
 							break;
 						}
 					} else
-						if(QA.s.LOG_BLOCKMASTER)Debug.Log (count + " ERROR SEARCHING FOR BLOCK.... LAST : " + last + " BLOCK FOUND IS "+  blockfound);
+						if(QA.s.LOG_BLOCKMASTER)Debug.Log (count + " ~~~~~~~~ CAN'T FIND SEARCHING BLOCK.... LAST : " + last + " BLOCK FOUND IS "+  blockfound);
 				}
 			}
 
@@ -968,9 +972,9 @@ public class BlockMaster : MonoBehaviour {
 
 		if (obstType == ObstacleType.spk || obstType == ObstacleType.tripleSpk 
 			|| obstType == ObstacleType.hiddenSpk || obstType == ObstacleType.hiddenTripleSpk) {
-			if (xPos > corner_limit_right)
+			if (xPos >= corner_limit_right)
 				last_spike_right = true;
-			else if (xPos < corner_limit_left)
+			else if (xPos <= corner_limit_left)
 				last_spike_left = true;
 		}
 		if (obstType == ObstacleType.hole) {
