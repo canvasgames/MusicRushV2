@@ -888,6 +888,7 @@ public class BlockMaster : MonoBehaviour {
 				BlockList = BlocksVeryHard;
 			else
 				BlockList = BlocksSuperHard;
+			BlockList = BlocksVeryHard;
 
 			//------------ Sort Block Logic -------------- //
 			//if (justCreatedPowerUp.Contains ((PowerUpTypes)type))

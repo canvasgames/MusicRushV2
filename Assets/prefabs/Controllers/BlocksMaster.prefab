@@ -1092,6 +1092,105 @@ MonoBehaviour:
       xEnd: 0
       fixedDist: 0
     obstaclesFloor2: []
+  - name: DoubleWall_20
+    customName: J_vh_TripleSpikes_Corner_mid
+    chance: 20
+    type: 10
+    denyConditions: 02000000
+    obstacles: []
+    obstaclesFloor2: []
+  - name: WallCornerVeryHard_20
+    customName: J_vh_TripleSpikes_Corner_mid
+    chance: 20
+    type: 9
+    denyConditions: 020000000000000001000000
+    obstacles: []
+    obstaclesFloor2: []
+  - name: E_HoleAbove_&TripleSpikes_30
+    customName: E_HoleAbove_&TripleSpikes
+    chance: 30
+    type: 22
+    denyConditions: 0000000001000000
+    obstacles:
+    - name: tripleSpk_0.1
+      myType: 1
+      xInit: 0.1
+      xEnd: 0
+      fixedDist: 0
+    - name: tripleSpk_[0, 0.1]
+      myType: 1
+      xInit: 0
+      xEnd: 0.1
+      fixedDist: 0
+    obstaclesFloor2:
+    - name: hiddenHole_-1
+      myType: 6
+      xInit: -1
+      xEnd: 0
+      fixedDist: 0
+    - name: tripleSpk_0
+      myType: 1
+      xInit: 0
+      xEnd: 0
+      fixedDist: 2.45
+    - name: spk_-2.3
+      myType: 0
+      xInit: -2.3
+      xEnd: 0
+      fixedDist: 0
+  - name: E_HoleAbove_&HiddenSpikes_30
+    customName: E_HoleAbove_&HiddenSpikes
+    chance: 30
+    type: 22
+    denyConditions: 0000000001000000
+    obstacles:
+    - name: hiddenSpk_-0.1
+      myType: 2
+      xInit: -0.1
+      xEnd: 0
+      fixedDist: 0
+    - name: hiddenSpk_[0, 0.1]
+      myType: 2
+      xInit: 0
+      xEnd: 0.1
+      fixedDist: 0
+    obstaclesFloor2:
+    - name: hiddenHole_1
+      myType: 6
+      xInit: 1
+      xEnd: 0
+      fixedDist: 0
+    - name: hiddenSpk_0
+      myType: 2
+      xInit: 0
+      xEnd: 0
+      fixedDist: -2.7
+    - name: spk_4.3
+      myType: 0
+      xInit: 4.3
+      xEnd: 0
+      fixedDist: 0
+  - name: TwoSpksMid_10
+    customName: E_HoleAbove_&HiddenSpikes
+    chance: 10
+    type: 5
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  - name: WallNotCorner_15
+    customName: E_HoleAbove_&HiddenSpikes
+    chance: 15
+    type: 21
+    denyConditions: 02000000
+    obstacles: []
+    obstaclesFloor2: []
+  - name: TwoHiddenSpkMid_10
+    customName: E_HoleAbove_&HiddenSpikes
+    chance: 10
+    type: 17
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
   BlocksSuperHard:
   - name: TwoTripleSpksMid_10
     customName: SeriaoCara?
