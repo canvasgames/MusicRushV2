@@ -40,7 +40,9 @@ public class BlockMaster : MonoBehaviour {
 	int nCreatedBlocks = 0;
 	int totalCreatedBlocks = 0;
 	List<Block> BlockList, CurBlockList, justCreatedBlocks;
-	public List<Block> BlocksSuperEasy, BlocksEasy, BlocksMedium, BlocksHard, BlocksVeryHard, BlocksSuperHard;
+	public List<Block> BlocksSuperEasy, BlocksEasy;
+	public List<Block> BlocksMedium;
+	public List<Block> BlocksHard, BlocksVeryHard, BlocksSuperHard;
 
 	string wave_name;
 	float actual_y;
