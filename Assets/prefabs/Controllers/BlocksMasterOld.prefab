@@ -1,0 +1,733 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1302591716666982}
+  m_IsPrefabParent: 1
+--- !u!1 &1302591716666982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4523238864494732}
+  - component: {fileID: 114944974810248258}
+  m_Layer: 0
+  m_Name: BlocksMasterOld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4523238864494732
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1302591716666982}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114944974810248258
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1302591716666982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dea727388cc364418dd650933772ca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NotRepeatFrequency: 0
+  NewCreationLogic: 1
+  superEasy: 1
+  easy: 2
+  medium: 3
+  hard: 50
+  veryHard: 45
+  debugInitialBlock: 6
+  debugAllBlocks: 6
+  BlocksSuperEasy:
+  - name: FixedDist_1000
+    customName: FixedDist
+    chance: 1000
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: spk_2.1
+      myType: 0
+      xInit: 2.1
+      xEnd: 0
+      fixedDist: 0
+    - name: tripleSpk_0
+      myType: 1
+      xInit: 0
+      xEnd: 0
+      fixedDist: -2
+    obstaclesFloor2: []
+  - name: SpkMid_0
+    customName: 
+    chance: 0
+    type: 2
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  - name: TwoSpksMid_0
+    customName: 
+    chance: 0
+    type: 5
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  - name: _15
+    customName: 
+    chance: 15
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: saw_-2
+      myType: 4
+      xInit: -2
+      xEnd: 0
+      fixedDist: 0
+    - name: hiddenSpk_-2
+      myType: 2
+      xInit: -2
+      xEnd: 0
+      fixedDist: 0
+    obstaclesFloor2: []
+  - name: WallAndHiddenSpkAtCenter_0
+    customName: 
+    chance: 0
+    type: 7
+    denyConditions: 
+    obstacles:
+    - name: hiddenTripleSpk_1.5
+      myType: 3
+      xInit: 1.5
+      xEnd: 0
+      fixedDist: 0
+    - name: spk_[-1.5, 1.5]
+      myType: 0
+      xInit: -1.5
+      xEnd: 1.5
+      fixedDist: 0
+    obstaclesFloor2:
+    - name: hiddenHole_-1.4
+      myType: 6
+      xInit: -1.4
+      xEnd: 0
+      fixedDist: 0
+    - name: hiddenTripleSpk_2
+      myType: 3
+      xInit: 2
+      xEnd: 0
+      fixedDist: 0
+  - name: TwoTripleSpksMid_0
+    customName: 
+    chance: 0
+    type: 20
+    denyConditions: 
+    obstacles:
+    - name: spk_[0, -0.1]
+      myType: 0
+      xInit: 0
+      xEnd: -0.1
+      fixedDist: 0
+    - name: hiddenSpk_0.1
+      myType: 2
+      xInit: 0.1
+      xEnd: 0
+      fixedDist: 0
+    obstaclesFloor2:
+    - name: hiddenHole_-0.6
+      myType: 6
+      xInit: -0.6
+      xEnd: 0
+      fixedDist: 0
+    - name: hiddenTripleSpk_2
+      myType: 3
+      xInit: 2
+      xEnd: 0
+      fixedDist: 0
+  BlocksEasy:
+  - name: TwoSpksMid_50
+    customName: easy_2_spks_mid_near
+    chance: 50
+    type: 5
+    denyConditions: 0000000001000000
+    obstacles: []
+    obstaclesFloor2: []
+  - name: easy_spk_left_10
+    customName: easy_spk_left
+    chance: 10
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: spk_[-2, -2.5]
+      myType: 0
+      xInit: -2
+      xEnd: -2.5
+      fixedDist: 0
+    obstaclesFloor2: []
+  - name: easy_spk_right_10
+    customName: easy_spk_right
+    chance: 10
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: spk_[2, 2.5]
+      myType: 0
+      xInit: 2
+      xEnd: 2.5
+      fixedDist: 0
+    obstaclesFloor2: []
+  - name: easy_triple_spk_left_50
+    customName: easy_triple_spk_left
+    chance: 50
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: tripleSpk_[-1.7, -2.2]
+      myType: 1
+      xInit: -1.7
+      xEnd: -2.2
+      fixedDist: 0
+    obstaclesFloor2: []
+  - name: easy_triple_spk_right_100
+    customName: easy_triple_spk_right
+    chance: 100
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: tripleSpk_[1.7, 2.2]
+      myType: 1
+      xInit: 1.7
+      xEnd: 2.2
+      fixedDist: 0
+    obstaclesFloor2: []
+  - name: easy_2_spks_mid_far_100
+    customName: easy_2_spks_mid_far
+    chance: 100
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: spk_1.8
+      myType: 0
+      xInit: 1.8
+      xEnd: 0
+      fixedDist: 0
+    - name: spk_0
+      myType: 0
+      xInit: 0
+      xEnd: 0
+      fixedDist: -3.7
+    obstaclesFloor2: []
+  - name: easy_2_spks_right_far_100
+    customName: easy_2_spks_right_far
+    chance: 100
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: spk_3
+      myType: 0
+      xInit: 3
+      xEnd: 0
+      fixedDist: 0
+    - name: spk_0
+      myType: 0
+      xInit: 0
+      xEnd: 0
+      fixedDist: -3.7
+    obstaclesFloor2: []
+  - name: easy_2_spks_left_far_100
+    customName: easy_2_spks_left_far
+    chance: 100
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: spk_0.5
+      myType: 0
+      xInit: 0.5
+      xEnd: 0
+      fixedDist: 0
+    - name: spk_0
+      myType: 0
+      xInit: 0
+      xEnd: 0
+      fixedDist: -3.7
+    obstaclesFloor2: []
+  - name: easy_2_spks_left_near_100
+    customName: easy_2_spks_left_near
+    chance: 100
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: spk_0.5
+      myType: 0
+      xInit: 0.5
+      xEnd: 0
+      fixedDist: 0
+    - name: spk_0
+      myType: 0
+      xInit: 0
+      xEnd: 0
+      fixedDist: -2.8
+    obstaclesFloor2: []
+  - name: easy_2_spks_left_near_100
+    customName: easy_2_spks_left_near
+    chance: 100
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: spk_3
+      myType: 0
+      xInit: 3
+      xEnd: 0
+      fixedDist: 0
+    - name: spk_0
+      myType: 0
+      xInit: 0
+      xEnd: 0
+      fixedDist: -2.8
+    obstaclesFloor2: []
+  - name: TripleSpkMid_10
+    customName: easy_triple_spk_mid
+    chance: 10
+    type: 4
+    denyConditions: 
+    obstacles:
+    - name: spk_3
+      myType: 0
+      xInit: 3
+      xEnd: 0
+      fixedDist: 0
+    - name: spk_0
+      myType: 0
+      xInit: 0
+      xEnd: 0
+      fixedDist: -2.8
+    obstaclesFloor2: []
+  - name: easy_hole_left_&spk_down_right_1000
+    customName: easy_hole_left_&spk_down_right
+    chance: 1000
+    type: 1
+    denyConditions: 
+    obstacles:
+    - name: spk_[2, 2.4]
+      myType: 0
+      xInit: 2
+      xEnd: 2.4
+      fixedDist: 0
+    obstaclesFloor2:
+    - name: hole_[-1.8, -2]
+      myType: 5
+      xInit: -1.8
+      xEnd: -2
+      fixedDist: 0
+  - name: easy_hole_right_&spk_down_left_1000
+    customName: easy_hole_right_&spk_down_left
+    chance: 1000
+    type: 1
+    denyConditions: 
+    obstacles:
+    - name: spk_[-2, -2.4]
+      myType: 0
+      xInit: -2
+      xEnd: -2.4
+      fixedDist: 0
+    obstaclesFloor2:
+    - name: hole_[1.8, 2]
+      myType: 5
+      xInit: 1.8
+      xEnd: 2
+      fixedDist: 0
+  BlocksMedium:
+  - name: medium_hidSpk_mid_1
+    customName: medium_hidSpk_mid
+    chance: 1
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: hiddenSpk_0
+      myType: 2
+      xInit: 0
+      xEnd: 0
+      fixedDist: 0
+    obstaclesFloor2: []
+  - name: medium_spk_leftCorner_1
+    customName: medium_spk_leftCorner
+    chance: 1
+    type: 0
+    denyConditions: 0000000001000000020000000000000000000000
+    obstacles:
+    - name: spk_-4.4
+      myType: 0
+      xInit: -4.4
+      xEnd: 0
+      fixedDist: 0
+    obstaclesFloor2: []
+  - name: medium_spk_RightCorner_1
+    customName: medium_spk_RightCorner
+    chance: 1
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: spk_4.4
+      myType: 0
+      xInit: 4.4
+      xEnd: 0
+      fixedDist: 0
+    obstaclesFloor2: []
+  - name: medium_two_spks_leftRight_1
+    customName: medium_two_spks_leftRight
+    chance: 1
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: spk_-3.2
+      myType: 0
+      xInit: -3.2
+      xEnd: 0
+      fixedDist: 0
+    - name: spk_3.2
+      myType: 0
+      xInit: 3.2
+      xEnd: 0
+      fixedDist: 0
+    obstaclesFloor2: []
+  - name: medium_spk_mid_wall_corner_1
+    customName: medium_spk_mid_wall_corner
+    chance: 1
+    type: 0
+    denyConditions: 02000000
+    obstacles:
+    - name: wallCorner_0
+      myType: 7
+      xInit: 0
+      xEnd: 0
+      fixedDist: 0
+    - name: spk_[-1, 1]
+      myType: 0
+      xInit: -1
+      xEnd: 1
+      fixedDist: 0
+    obstaclesFloor2: []
+  - name: medium_tripleSpk_mid_wall_corner_1
+    customName: medium_tripleSpk_mid_wall_corner
+    chance: 1
+    type: 0
+    denyConditions: 02000000
+    obstacles:
+    - name: wallCorner_0
+      myType: 7
+      xInit: 0
+      xEnd: 0
+      fixedDist: 0
+    - name: tripleSpk_[-0.6, 0.6]
+      myType: 1
+      xInit: -0.6
+      xEnd: 0.6
+      fixedDist: 0
+    obstaclesFloor2: []
+  - name: medium_hid_spk_mid_1
+    customName: medium_hid_spk_mid
+    chance: 1
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: hiddenSpk_0
+      myType: 2
+      xInit: 0
+      xEnd: 0
+      fixedDist: 0
+    obstaclesFloor2: []
+  - name: J_medium_hid_spk_left_1
+    customName: J_medium_hid_spk_left
+    chance: 1
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: hiddenSpk_-1.6
+      myType: 2
+      xInit: -1.6
+      xEnd: 0
+      fixedDist: 0
+    obstaclesFloor2: []
+  - name: J_medium_hid_spk_right_1
+    customName: J_medium_hid_spk_right
+    chance: 1
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: hiddenSpk_1.6
+      myType: 2
+      xInit: 1.6
+      xEnd: 0
+      fixedDist: 0
+    obstaclesFloor2: []
+  - name: J_medium_two_tripleSpk_far_1
+    customName: J_medium_two_tripleSpk_far
+    chance: 1
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: tripleSpk_[2.3, 2.8]
+      myType: 1
+      xInit: 2.3
+      xEnd: 2.8
+      fixedDist: 0
+    - name: spk_0
+      myType: 0
+      xInit: 0
+      xEnd: 0
+      fixedDist: -3.7
+    obstaclesFloor2: []
+  - name: J_medium_saw_1
+    customName: J_medium_saw
+    chance: 1
+    type: 0
+    denyConditions: 0200000003000000
+    obstacles:
+    - name: saw_4
+      myType: 4
+      xInit: 4
+      xEnd: 0
+      fixedDist: 0
+    obstaclesFloor2: []
+  - name: J_medium_tripleSpk_spk_mid_1
+    customName: J_medium_tripleSpk_spk_mid
+    chance: 1
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: tripleSpk_[1.2, 1.8]
+      myType: 1
+      xInit: 1.2
+      xEnd: 1.8
+      fixedDist: 0
+    - name: spk_0
+      myType: 0
+      xInit: 0
+      xEnd: 0
+      fixedDist: -3.4
+    obstaclesFloor2: []
+  - name: J_medium_hole_left_&tripleSpk_right_1
+    customName: J_medium_hole_left_&tripleSpk_right
+    chance: 1
+    type: 1
+    denyConditions: 
+    obstacles:
+    - name: tripleSpk_1.7
+      myType: 1
+      xInit: 1.7
+      xEnd: 0
+      fixedDist: 0
+    obstaclesFloor2:
+    - name: hole_[-1.4, -1.6]
+      myType: 5
+      xInit: -1.4
+      xEnd: -1.6
+      fixedDist: 0
+  - name: J_medium_hole_right_&tripleSpk_left_1
+    customName: J_medium_hole_right_&tripleSpk_left
+    chance: 1
+    type: 1
+    denyConditions: 
+    obstacles:
+    - name: tripleSpk_-1.7
+      myType: 1
+      xInit: -1.7
+      xEnd: 0
+      fixedDist: 0
+    obstaclesFloor2:
+    - name: hole_[1.4, 1.6]
+      myType: 5
+      xInit: 1.4
+      xEnd: 1.6
+      fixedDist: 0
+  - name: J_medium_hole_mid_&Spk_left_1
+    customName: J_medium_hole_mid_&Spk_left
+    chance: 1
+    type: 1
+    denyConditions: 
+    obstacles:
+    - name: spk_[-2.5, -2]
+      myType: 0
+      xInit: -2.5
+      xEnd: -2
+      fixedDist: 0
+    obstaclesFloor2:
+    - name: hole_[-0.4, 0.4]
+      myType: 5
+      xInit: -0.4
+      xEnd: 0.4
+      fixedDist: 0
+  - name: J_medium_hole_mid_&Spk_right_1
+    customName: J_medium_hole_mid_&Spk_right
+    chance: 1
+    type: 1
+    denyConditions: 
+    obstacles:
+    - name: spk_[2.5, 2]
+      myType: 0
+      xInit: 2.5
+      xEnd: 2
+      fixedDist: 0
+    obstaclesFloor2:
+    - name: hole_[-0.4, 0.4]
+      myType: 5
+      xInit: -0.4
+      xEnd: 0.4
+      fixedDist: 0
+  - name: J_medium_hidHole_mid_&Spk_right_10
+    customName: J_medium_hidHole_mid_&Spk_right
+    chance: 10
+    type: 1
+    denyConditions: 
+    obstacles:
+    - name: spk_[2.4, 2.8]
+      myType: 0
+      xInit: 2.4
+      xEnd: 2.8
+      fixedDist: 0
+    obstaclesFloor2:
+    - name: hiddenHole_[-0.8, -0.1]
+      myType: 6
+      xInit: -0.8
+      xEnd: -0.1
+      fixedDist: 0
+  - name: J_medium_hidHole_mid_&Spk_left_10
+    customName: J_medium_hidHole_mid_&Spk_left
+    chance: 10
+    type: 1
+    denyConditions: 
+    obstacles:
+    - name: spk_[-2.4, -2.8]
+      myType: 0
+      xInit: -2.4
+      xEnd: -2.8
+      fixedDist: 0
+    obstaclesFloor2:
+    - name: hiddenHole_[0.8, 0.1]
+      myType: 6
+      xInit: 0.8
+      xEnd: 0.1
+      fixedDist: 0
+  BlocksHard:
+  - name: WallAndHiddenManualSpkAtCenter_1
+    customName: 
+    chance: 1
+    type: 8
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  - name: WallAndHiddenSpkAtCenter_1
+    customName: 
+    chance: 1
+    type: 7
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  - name: WallCornerVeryHard_10
+    customName: 
+    chance: 10
+    type: 9
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  - name: ThreeSpks_1
+    customName: 
+    chance: 1
+    type: 19
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  - name: SpkMidAndSpkCornerLeft_1
+    customName: 
+    chance: 1
+    type: 12
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  - name: SpkMid_1
+    customName: 
+    chance: 1
+    type: 2
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  - name: SpkNotMid_1
+    customName: 
+    chance: 1
+    type: 3
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  - name: TripleSpkMid_1
+    customName: 
+    chance: 1
+    type: 4
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  BlocksVeryHard:
+  - name: TwoTripleSpksMid_0
+    customName: 324324
+    chance: 0
+    type: 20
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  - name: TwoTripleSpksMid_0
+    customName: 324324
+    chance: 0
+    type: 20
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  BlocksSuperHard:
+  - name: TwoTripleSpksMid_10
+    customName: SeriaoCara?
+    chance: 10
+    type: 20
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  - name: TwoTripleSpksMid_10
+    customName: SeriaoCara?
+    chance: 10
+    type: 20
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  - name: SeriaoCara?_10
+    customName: SeriaoCara?
+    chance: 10
+    type: 0
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  - name: SeriaoCara?2_10
+    customName: SeriaoCara?2
+    chance: 10
+    type: 0
+    denyConditions: 
+    obstacles: []
+    obstaclesFloor2: []
+  hole_size: 0
+  corner_limit_right: 2.7
+  corner_limit_left: -2.7
