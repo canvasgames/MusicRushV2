@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class BallMaster : MonoBehaviour {
 	#region === VARS ===
 	public static BallMaster s;
-	public GameObject ballExplosion;
+	public GameObject ballExplosion, collectCoinEffect;
 //	public ArrayList balls;
 	public List<ball_hero> balls;
 	public Follower[] followersBall1, followersBall2;
@@ -199,6 +199,10 @@ public class BallMaster : MonoBehaviour {
 
 	public void CreateExplosion(Vector3 pos){
 		Instantiate(ballExplosion, pos, transform.rotation);
+	}
+
+	public void CreateCollectCoinEffect(Vector3 pos){
+		Instantiate(collectCoinEffect, pos, transform.rotation);
 	}
 
 //	public void AddNewBall(ball_hero b){

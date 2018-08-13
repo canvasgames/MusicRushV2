@@ -726,6 +726,7 @@ public class ball_hero : MonoBehaviour
 			globals.s.NOTES_COLLECTED += 1;
 			globals.s.NOTES_COLLECTED_JUKEBOX += 1;
 			hud_controller.si.display_notes(USER.s.NOTES);
+			BallMaster.s.CreateCollectCoinEffect (coll.transform.position);
 			coll.transform.position = new Vector2 (-9909,-9999);
 			coll.GetComponent <note_behaviour> ().active = false;
 			coll.GetComponent <note_behaviour> ().state = 0;
@@ -733,6 +734,7 @@ public class ball_hero : MonoBehaviour
 			//Debug.Log("COLLECTING NOTE !!!!!!! ");
 //			if(sound_controller.s != null) sound_controller.s.special_event();
 			if(sound_controller.s != null) sound_controller.s.PlaySfxQuemQuerDinheiroooo();
+
 		}
 
 		else if (coll.gameObject.CompareTag("HoleFalling")) {

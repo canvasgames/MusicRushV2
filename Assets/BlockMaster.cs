@@ -74,8 +74,11 @@ public class BlockMaster : MonoBehaviour {
 	}
 
 	public void Init(){
+		BlockList = null;
 		floor2IsNext = false;
 		nextBlock = null;
+		justCreatedBlockTypes = null;
+		justCreatedBlockTypes = new List<string> ();
 	}
 	#endregion
 
@@ -837,9 +840,7 @@ public class BlockMaster : MonoBehaviour {
 		last_saw = false;
 	}
 
-
-
-	bool AllowCreationByDenyConditions(Block b){
+	bool AllowCreationByDenyConditions(Block b, int n_floor = 0){
 		foreach (DenyCondition cond in b.denyConditions) {
 			if (cond == DenyCondition.Hole && last_hole)
 				return false;
@@ -851,6 +852,23 @@ public class BlockMaster : MonoBehaviour {
 				return false;
 			else if (cond == DenyCondition.Wall && last_wall)
 				return false;
+		}
+
+		if ( (b.type == BlockType.Custom2Blocks || b.type == BlockType.HoleAbove ) &&  
+			(n_floor - 2 == GD.s.SCENERY_FLOOR_VALUES [0]
+		   	|| n_floor - 2 == GD.s.SCENERY_FLOOR_VALUES [1]
+		   	|| n_floor - 2== GD.s.SCENERY_FLOOR_VALUES [2]
+			|| n_floor - 2 == GD.s.SCENERY_FLOOR_VALUES [3])) {
+//			if (QA.s.LOG_BLOCKMASTER)
+				Debug.Log ("[BM] [[[[[[ STAGE CHANGE ]]]]]]] CANT CREATE 2 FLOOR BLOCK");
+			return false;
+		}
+
+		if ((b.type == BlockType.Custom2Blocks || b.type == BlockType.HoleAbove) &&
+		    (n_floor == USER.s.DAY_SCORE - 1 || n_floor == USER.s.LAST_SCORE - 1 || n_floor == USER.s.BEST_SCORE - 1)) {
+			return false;
+			Debug.Log ("[BM] ÇÇÇÇÇ FLOOR SIGN IS ABOVE ÇÇÇÇÇÇ CANT CREATE 2 FLOOR BLOCK");
+
 		}
 
 		return true;
@@ -896,7 +914,7 @@ public class BlockMaster : MonoBehaviour {
 
 					if (blockfound == false && rand < last) {
 //					if ( AllowCreationByDenyConditions (block) && CreateBlockByType (blockType, n_floor)) {
-						if (!justCreatedBlockTypes.Contains (block.name) && AllowCreationByDenyConditions (block) && CreateBlockByType (block, n_floor)) {
+						if (!justCreatedBlockTypes.Contains (block.name) && AllowCreationByDenyConditions (block, n_floor) && CreateBlockByType (block, n_floor)) {
 							if(QA.s.LOG_BLOCKMASTER) Debug.Log (count + " bbbbbbbbbbbbbbbb BLOCK FOUND! " + blockType);
 //							if (blockType != BlockType.CustomBlock && blockType != BlockType.Custom2Blocks) 
 							justCreatedBlockTypes.Add (block.name);
