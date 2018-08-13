@@ -784,14 +784,14 @@ MonoBehaviour:
       xInit: 0
       xEnd: 0
       fixedDist: 0
-    - name: spk_3.2
+    - name: spk_3
       myType: 0
-      xInit: 3.2
+      xInit: 3
       xEnd: 0
       fixedDist: 0
-    - name: spk_-3.2
+    - name: spk_-3
       myType: 0
-      xInit: -3.2
+      xInit: -3
       xEnd: 0
       fixedDist: 0
     obstaclesFloor2: []
