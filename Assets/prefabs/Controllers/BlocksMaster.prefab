@@ -525,10 +525,10 @@ MonoBehaviour:
     type: 1
     denyConditions: 
     obstacles:
-    - name: spk_[-2, -2.5]
+    - name: spk_[-2.8, -3.1]
       myType: 0
-      xInit: -2
-      xEnd: -2.5
+      xInit: -2.8
+      xEnd: -3.1
       fixedDist: 0
     obstaclesFloor2:
     - name: hole_[-0.4, 0.4]
@@ -542,10 +542,10 @@ MonoBehaviour:
     type: 1
     denyConditions: 
     obstacles:
-    - name: spk_[2, 2.5]
+    - name: spk_[2.6, 2.8]
       myType: 0
-      xInit: 2
-      xEnd: 2.5
+      xInit: 2.6
+      xEnd: 2.8
       fixedDist: 0
     obstaclesFloor2:
     - name: hole_[-0.4, 0.4]
@@ -559,10 +559,10 @@ MonoBehaviour:
     type: 1
     denyConditions: 
     obstacles:
-    - name: spk_[2.1, 2.5]
+    - name: spk_[2.5, 2.8]
       myType: 0
-      xInit: 2.1
-      xEnd: 2.5
+      xInit: 2.5
+      xEnd: 2.8
       fixedDist: 0
     obstaclesFloor2:
     - name: hiddenHole_[-0.8, -0.1]
@@ -576,9 +576,9 @@ MonoBehaviour:
     type: 1
     denyConditions: 
     obstacles:
-    - name: spk_[-2.4, -2.8]
+    - name: spk_[-2.5, -2.8]
       myType: 0
-      xInit: -2.4
+      xInit: -2.5
       xEnd: -2.8
       fixedDist: 0
     obstaclesFloor2:
@@ -918,10 +918,10 @@ MonoBehaviour:
     type: 1
     denyConditions: 0300000000000000
     obstacles:
-    - name: spk_[-0.6, 0.6]
+    - name: spk_[1.2, 1.5]
       myType: 0
-      xInit: -0.6
-      xEnd: 0.6
+      xInit: 1.2
+      xEnd: 1.5
       fixedDist: 0
     obstaclesFloor2:
     - name: hiddenHole_[2, 2.3]
@@ -940,10 +940,10 @@ MonoBehaviour:
     type: 1
     denyConditions: 0300000000000000
     obstacles:
-    - name: spk_[-0.4, 0.4]
+    - name: spk_[1.2, 0.8]
       myType: 0
-      xInit: -0.4
-      xEnd: 0.4
+      xInit: 1.2
+      xEnd: 0.8
       fixedDist: 0
     obstaclesFloor2:
     - name: hiddenHole_[-2, -2.4]
