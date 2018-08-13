@@ -63,7 +63,7 @@ public class ScrollSnapRect : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
     //------------------------------------------------------------------------
     void Start() {
 //		Debug.Log("staaaaaaaaaaaaaaaart scrpççsasdl");
-
+		store_controller.s.DefineGenericCharPosition();
         _scrollRectComponent = GetComponent<ScrollRect>();
         _scrollRectRect = GetComponent<RectTransform>();
         _container = _scrollRectComponent.content;
@@ -236,7 +236,7 @@ public class ScrollSnapRect : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
 	}
     //------------------------------------------------------------------------
     public void NextScreen() {
-		if(_currentPage == GD.s.N_SKINS-1)
+		if(_currentPage == GD.s.N_SKINS)
         {
 			Debug.Log ("NEXT SCREEN BT PRESSED");
 //			store_controller.s.OnCharacterChanged(0);
@@ -256,8 +256,8 @@ public class ScrollSnapRect : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
     private void PreviousScreen() {
         if (_currentPage == 0)
         {
-			LerpToPage(GD.s.N_SKINS - 1);
-			store_controller.s.OnCharacterChangedNew((GD.s.N_SKINS - 1));
+			LerpToPage(GD.s.N_SKINS);
+			store_controller.s.OnCharacterChangedNew((GD.s.N_SKINS));
         }
         else
         {

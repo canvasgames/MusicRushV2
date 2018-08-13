@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class USER : MonoBehaviour {
 
@@ -11,6 +12,9 @@ public class USER : MonoBehaviour {
     [HideInInspector]   public int FIRST_PW_CREATED, FIRST_HOLE_CREATED, FIRST_WALL_CREATED;
 	[HideInInspector]   public int NOTES, TOTAL_NOTES;
 	[HideInInspector]   public int DIAMONDS, TOTAL_DIAMONDS;
+	[HideInInspector]   public string FIRST_SESSION_DATE, FIRST_SATURDAY;
+	[HideInInspector]   public int LAST_UPDATE_UNLOCKED;
+
 //    [HideInInspector]   public int N_CHARS_PURCHASED;
     [HideInInspector]
     public int SOUND_MUTED;
@@ -24,7 +28,41 @@ public class USER : MonoBehaviour {
         //PlayerPrefs.SetInt("total_games", 0);
 		//PlayerPrefs.SetInt("best", 0);
 		//PlayerPrefs.SetInt ("first_game", 0);
-        SOUND_MUTED = PlayerPrefs.GetInt("sound_muted", 0);
+		// DATE STUFF
+		FIRST_SESSION_DATE = PlayerPrefs.GetString("first_session_date", "");
+		if(FIRST_SESSION_DATE == ""){ 
+			#if UNITY_EDITOR 
+			Debug.Log ("LOOK! A NEWBIE LET'S MAKE FUN OF HIM!!!!!!"); 
+			#endif
+			DateTime tempDate = System.DateTime.Now;
+			FIRST_SESSION_DATE = tempDate.ToString ();
+			PlayerPrefs.SetString("first_session_date", FIRST_SESSION_DATE);
+
+			int dayOfWeek = (int)tempDate.DayOfWeek;
+			int nextSaturdayDif = 6 - dayOfWeek + 1 ;
+			if (nextSaturdayDif == 0)
+				nextSaturdayDif = 7;
+//			TimeSpan dif; dif.
+//			tempDate.Subtract(tempDate.Hour);
+			Debug.Log("TEMPDATE RAW : " + tempDate.ToString() + " day of week: " + (int)tempDate.DayOfWeek);
+			int curHours = tempDate.Hour;
+			tempDate = tempDate.AddHours (-curHours);
+			int curMins = tempDate.Minute;
+			tempDate = tempDate.AddMinutes (-curMins);
+
+			Debug.Log("TEMPDATE  - HOURS : " + tempDate.ToString() + " SAT DIF: "+ nextSaturdayDif);
+
+			tempDate = tempDate.AddDays (nextSaturdayDif);
+			Debug.Log("TEMPDATE NEXT SATURDAY: " + tempDate.ToString());
+
+			FIRST_SATURDAY = tempDate.ToString ();
+			PlayerPrefs.SetString("first_saturday", FIRST_SATURDAY);
+//			System.DateTime.da
+		}
+		FIRST_SATURDAY = PlayerPrefs.GetString("first_saturday", FIRST_SATURDAY);
+		LAST_UPDATE_UNLOCKED = PlayerPrefs.GetInt ("last_update_unlocked", 0);
+
+		SOUND_MUTED = PlayerPrefs.GetInt("sound_muted", 0);
 
 		NOTES = PlayerPrefs.GetInt("notes", 0);
         TOTAL_NOTES = PlayerPrefs.GetInt("total_notes", 0);
@@ -137,6 +175,12 @@ public class USER : MonoBehaviour {
 	public void SetNotNewbiePlayer(){
 		PlayerPrefs.SetInt ("newbie_player", 0);
 		USER.s.NEWBIE_PLAYER = 0;
+	}
+
+	public void SetUpdateCharsUnlocked(){
+		LAST_UPDATE_UNLOCKED++;
+		PlayerPrefs.SetInt ("last_update_unlocked", LAST_UPDATE_UNLOCKED);
+
 	}
 
 }

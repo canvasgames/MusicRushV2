@@ -18,6 +18,7 @@ public class hud_controller : MonoBehaviour {
 
     [HideInInspector]
     public bool HUD_BUTTON_CLICKED = false;
+	public GameObject screenCustomMessage;
 
 	public GameObject store_label;
 
@@ -81,7 +82,6 @@ public class hud_controller : MonoBehaviour {
     public Text PW_time_text;
 
 	public bool giftAnimationEnded = false;
-
 
 
     string PW_date, roullete_date, gift_date;
@@ -487,6 +487,22 @@ public class hud_controller : MonoBehaviour {
 		if (QA.s.TRACE_PROFUNDITY >= 3) Debug.Log(" NEW FLOOR!!!!!! ");
 		//GetComponentInChildren<TextMesh>().text =  "Floor " + (n+1).ToString();
 		floor.GetComponent<Text>().text = "Floor " + (n + 1).ToString("00");
+	}
+
+	#endregion
+
+	#region === Custom Messages ===
+	public void DisplayNewCharactersAvailable(){
+		StartCoroutine (DisplayNewCharactersMessageNow ());
+	}
+
+	IEnumerator DisplayNewCharactersMessageNow(){
+		yield return new WaitForSeconds (0.35f);
+		screenCustomMessage.SetActive (true);
+	}
+
+	public void OnButtonNiceHideNewCharacatersMessage(){
+		screenCustomMessage.SetActive (false);
 	}
 
 	#endregion

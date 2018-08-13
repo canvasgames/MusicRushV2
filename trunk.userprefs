@@ -4,12 +4,17 @@
     <Files>
       <File FileName="Assets\GameOverController.cs" Line="222" Column="40" />
       <File FileName="Assets\Editor\BlockMasterEditor.cs" Line="1" Column="1" />
-      <File FileName="Assets\BlockMaster.cs" Line="21" Column="31" />
-      <File FileName="Assets\Scripts\game_controller.cs" Line="716" Column="47" />
+      <File FileName="Assets\BlockMaster.cs" Line="21" Column="1" />
+      <File FileName="Assets\Scripts\game_controller.cs" Line="2390" Column="17" />
       <File FileName="Assets\Scripts\Block.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\BlockFixed.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\spike.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\scenario_objects.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GD.cs" Line="42" Column="35" />
+      <File FileName="Assets\Scripts\objects_pool_controller.cs" Line="527" Column="40" />
+      <File FileName="Assets\note_behaviour.cs" Line="27" Column="22" />
+      <File FileName="Assets\Scripts\hud_controller.cs" Line="450" Column="5" />
+      <File FileName="Assets\pizza_char.cs" Line="176" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

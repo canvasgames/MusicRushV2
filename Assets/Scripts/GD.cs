@@ -24,7 +24,11 @@ public struct Skin{
 	public bool isClothChanger;
 	public int bandN;
 	public int styleId;
+	public SkinRarity rarity;
+	public bool isReleased;
 }
+
+public enum SkinRarity{common, uncommon, rare, epic, realBand}
 
 public class GD : MonoBehaviour {
 
@@ -42,6 +46,9 @@ public class GD : MonoBehaviour {
 	public int GD_COIN_CHANCE_INC = 1;
 	public int JUKEBOX_PRICE = 50, JUKEBOX_FTU_PRICE = 5;
 	public int GD_ROULLETE_WAIT_MINUTES;
+	[Space (5)]
+	public int GD_DROP_CHANCE_COMMON = 75;
+	public int GD_DROP_CHANCE_UNCOMMON = 20 , GD_DROP_CHANCE_RARE = 5;
 
 	public int[] SCENERY_FLOOR_VALUES;
 
@@ -49,13 +56,10 @@ public class GD : MonoBehaviour {
 
 	public float FOLLOWER_DELAY = 0.7f, FOLLOWER_DELAY_BASE = 0.1f;
 
-
-
 	public int FTU_NEWBIE_SCORE = 5;
 	public int FTU_MATCHES_TO_UNLOCK_PW = 2;
 	public int FTU_MATCHES_TO_UNLOCK_GIFT = 4;
 	public int CUR_MATCHES_TO_UNLOCK_STUFF = 0;
-
 
     public int GD_WITH_PW_TIME;
     public int GD_WITHOUT_PW_TIME;
@@ -70,6 +74,7 @@ public class GD : MonoBehaviour {
 
     public bool AnalyticsLive = false;
 
+	[Header ("MAIN Ns")]
 	public int N_MUSIC = 6;
 	public int N_SKINS = 9;
 	public int SKINS_PER_MUSIC = 3;
@@ -95,49 +100,52 @@ public class GD : MonoBehaviour {
 		// ELETRO SKINS = 1
 		NewSkin("One More Try", MusicStyle.Eletro, 1); // 0
 		NewSkin("Electro Robot", MusicStyle.Eletro, 2); // 1
-		NewSkin("Interstella", MusicStyle.Eletro, 3, true, 4); // 2
+		NewSkin("Interstella", MusicStyle.Eletro, 3, true, 4, false, SkinRarity.rare); // 2
 
 		// ROCK SKINS = 2
 		NewSkin("Guitar Solist", MusicStyle.Rock, 1); // 3
 		NewSkin("Rock'n'Roll", MusicStyle.Rock, 2); // 4
-		NewSkin("Rock Band", MusicStyle.Rock, 3, true, 3); // 5
+		NewSkin("Rock Band", MusicStyle.Rock, 3, true, 3, false, SkinRarity.uncommon); // 5
 
 		// POP SKINS = 3
 		NewSkin("Thriller Man", MusicStyle.Pop, 1); // 7
 		NewSkin("Pop King", MusicStyle.Pop, 2); // 6
-		NewSkin("Disco", MusicStyle.Pop, 3, true, 5); // 8
+		NewSkin("Disco", MusicStyle.Pop, 3, true, 5, false, SkinRarity.rare); // 8
 
 		// POPSTARS = 4
 		NewSkin("Umbrella", MusicStyle.PopGaga, 1);
 		NewSkin("Classic Popstar", MusicStyle.PopGaga, 2);
-		NewSkin("Lady Pop", MusicStyle.PopGaga, 3, false, 0, true);
+		NewSkin("Lady Pop", MusicStyle.PopGaga, 3, false, 0, true, SkinRarity.rare);
 
 		// SAMBA = 5
 		NewSkin("Carnaval", MusicStyle.Samba, 1);
 		NewSkin("Rei Momo", MusicStyle.Samba, 2);
-		NewSkin("Xaranga", MusicStyle.Samba, 3, true, 3);
+		NewSkin("Xaranga", MusicStyle.Samba, 3, true, 3, false , SkinRarity.uncommon);
 
 		// CLASSIC = 6
 		NewSkin("Maestro", MusicStyle.Classic, 1);
 		NewSkin("Sympohist", MusicStyle.Classic, 2);
-		NewSkin("Orquestra", MusicStyle.Classic, 3, true, 3);
+		NewSkin("Orquestra", MusicStyle.Classic, 3, true, 3, false, SkinRarity.uncommon);
 
 		// REGGAE = 7
 		NewSkin("The Jammer", MusicStyle.Reggae, 1);
 		NewSkin("Rasta", MusicStyle.Reggae, 2);
-		NewSkin("Reggae Family", MusicStyle.Reggae, 3, true, 3);
+		NewSkin("Reggae Family", MusicStyle.Reggae, 3, true, 3, false, SkinRarity.uncommon);
 
 		// RAP = 8
 		NewSkin("Jing Bling", MusicStyle.Rap, 1);
 		NewSkin("The Rhymer", MusicStyle.Rap, 2);
-		NewSkin("Ma Man", MusicStyle.Rap, 3, true, 3);
+		NewSkin("Jump This Way", MusicStyle.Rap, 3, true, 3, false, SkinRarity.uncommon);
 
 		// LATINA = 9
 		NewSkin("Waka Waka", MusicStyle.Latina, 1);
-		NewSkin("La Vida Loka", MusicStyle.Latina, 2);
-		NewSkin("Muchachos", MusicStyle.Latina, 3, true, 3);
+		NewSkin("Vida Loka", MusicStyle.Latina, 2);
+		NewSkin("Mariachis", MusicStyle.Latina, 3, true, 3, false, SkinRarity.uncommon);
 
-
+		// ANIME SHONEN = 10
+		NewSkin("Ora Ora Ora", MusicStyle.AnimeShounen, 1);
+		NewSkin("Not a Ninja", MusicStyle.AnimeShounen, 2);
+		NewSkin("Revived Franchise", MusicStyle.AnimeShounen, 3, true, 3, false, SkinRarity.uncommon);
 
 //		for (int i = 0; i < MusicStyle.Lenght; i++) {
 //			skins [i] = new Skin[3];
@@ -161,7 +169,7 @@ public class GD : MonoBehaviour {
 
 	}
 
-	void NewSkin(string name, MusicStyle music, int styleId, bool isBand = false, int bandQuantity = 0, bool clothChanger = false){
+	void NewSkin(string name, MusicStyle music, int styleId, bool isBand = false, int bandQuantity = 0, bool clothChanger = false, SkinRarity rarity = SkinRarity.common){
 		skins[curId].skinName = name;
 		skins[curId].musicStyle = music;
 		skins[curId].isBand = isBand;
@@ -169,6 +177,7 @@ public class GD : MonoBehaviour {
 		skins [curId].isClothChanger = clothChanger;
 		skins [curId].id = curId;
 		skins [curId].styleId = styleId;
+		skins [curId].rarity = rarity;
 
 		curId++;
 	}

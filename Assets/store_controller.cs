@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 public class store_controller : MonoBehaviour {
 
@@ -32,6 +33,8 @@ public class store_controller : MonoBehaviour {
 
 	public int jukeboxCurrentPrice;
 
+	[Header ("Chars")]
+	[SerializeField] GameObject genericChar;
 	[SerializeField] GameObject[] myChars;
 	GameObject lastChar;
 
@@ -41,8 +44,6 @@ public class store_controller : MonoBehaviour {
 	public Text title;
 	public Button jukeboxBt;
 	public Text jukeboxBtNotesLow, jukeboxBtNotesHigh;
-
-	public GameObject[] chars;
 
     [HideInInspector]public int popAlreadyBuyed ;
     [HideInInspector]public int eletronicAlreadyBuyed;
@@ -87,7 +88,7 @@ public class store_controller : MonoBehaviour {
 //		StartCoroutine (InitCoinFallingAnimation (globals.s.NOTES_COLLECTED_JUKEBOX));
 
         s = this;
-//				USER.s.AddNotes (150);
+//		USER.s.AddNotes (101);
 
 		PlayerPrefs.SetInt(GD.s.skins[0].skinName+"AlreadyBuyed", 1);
 //		PlayerPrefs.SetInt(MusicStyle.Rap.ToString()+"AlreadyBuyed", 1);
@@ -145,6 +146,11 @@ public class store_controller : MonoBehaviour {
 //		StartCoroutine (LightAnimations ());
     }
 
+	public void DefineGenericCharPosition(){
+		Debug.Log ("[JUKE] DEFINE GENERIC CHAR POS!!!! : " + GD.s.N_SKINS); 
+		genericChar.transform.SetSiblingIndex (GD.s.N_SKINS);
+	}
+
 	void DefineActualCharOnTheScreenNew(){
 //		actualCharInScreen = (int)globals.s.ACTUAL_STYLE;
 		actualCharInScreen = globals.s.ACTUAL_SKIN.id;
@@ -179,6 +185,8 @@ public class store_controller : MonoBehaviour {
 			myBackBt.gameObject.SetActive (false);
 			equipButton.gameObject.SetActive (false);
 		}
+
+
 	}
 
 	public void CloseStore(bool fromBackBt){
@@ -257,7 +265,6 @@ public class store_controller : MonoBehaviour {
 			return false;
 	}
 
-
 	public void GiveCharacterForFreeNew(int skinId){
 		actualCharInScreen = skinId;
 		actualStyle = GD.s.skins [skinId].musicStyle;
@@ -326,39 +333,54 @@ public class store_controller : MonoBehaviour {
 		if(dontChangeMusic == false) sound_controller.s.change_music(globals.s.ACTUAL_STYLE);
 	}
 
-
-	public void OnCharacterChangedNew(int skinId, bool dontPlayMusic = false) {
-		MusicStyle style = GD.s.skins [skinId].musicStyle;
-		if(lastChar != null) StartCoroutine(DeactivateLastChar(lastChar));
-		myChars [skinId].SetActive (true);
-		lastChar = myChars [skinId];
+	public void OnCharacterChangedNew(int skinId, bool dontPlayMusic = false, bool dontDeactivateLast = false) {
+		if (skinId < GD.s.N_SKINS ) {
+			MusicStyle style = GD.s.skins [skinId].musicStyle;
+			if (lastChar != null && dontDeactivateLast == false)
+				StartCoroutine (DeactivateLastChar (lastChar));
+			myChars [skinId].SetActive (true);
+			lastChar = myChars [skinId];
 
 //		Debug.Log ("[JUKEBOX] Character changed new: " + style.ToString());
-		Debug.Log ("[JUKEBOX] Character changed new: " + GD.s.skins[skinId].skinName);
-		actualCharInScreen = skinId;
-		actualStyle = style;
+//		Debug.Log ("[JUKEBOX] Character changed new: " + GD.s.skins[skinId].skinName);
+			actualCharInScreen = skinId;
+			actualStyle = style;
 
 //		title.text = GD.s.GetStyleName (style);
-		title.text = GD.s.skins[skinId].skinName;
+			title.text = GD.s.skins [skinId].skinName;
 
-		if(globals.s.JUKEBOX_SORT_ANIMATION == false && dontPlayMusic == false) 
+			if (globals.s.JUKEBOX_SORT_ANIMATION == false && dontPlayMusic == false) 
 //			sound_controller.s.change_music(style);
-			sound_controller.s.ChangeMusicForStore(style);
+			sound_controller.s.ChangeMusicForStore (style);
 
-		if (alreadyBuyed [skinId] == 0) {
+			if (alreadyBuyed [skinId] == 0) {
 //			equipButton.GetComponent<Animator> ().Play ("select off");
-			equipButton.GetComponent<Button> ().interactable = false;
-			myBgLights.SetActive (false);
-			myLockedBg.SetActive (true);
-			buyButton.SetActive (true);
+				equipButton.GetComponent<Button> ().interactable = false;
+				myBgLights.SetActive (false);
+				myLockedBg.SetActive (true);
+				buyButton.SetActive (true);
 
-			if(GD.s.skins[skinId].isBand || GD.s.skins[skinId].isClothChanger)
-				myGemsPrice.text = "30";
-			else
-				myGemsPrice.text = "10";
-		}
-		else {
-			equipButton.GetComponent<Button> ().interactable = true;
+				if (GD.s.skins [skinId].isBand || GD.s.skins [skinId].isClothChanger)
+					myGemsPrice.text = "30";
+				else
+					myGemsPrice.text = "10";
+			} else {
+				equipButton.GetComponent<Button> ().interactable = true;
+				myLockedBg.SetActive (false);
+				myBgLights.SetActive (true);
+				buyButton.SetActive (false);
+			}
+		} else { // GENERIC CHAR CASE 
+			actualCharInScreen = skinId;
+			if (RemoteMaster.s.maximumAllowedChars == GD.s.N_SKINS) {
+				title.text = "More comming soon";
+			}
+			else 
+				title.text = "More next Saturday";
+
+
+			equipButton.GetComponent<Button> ().interactable = false;
+
 			myLockedBg.SetActive (false);
 			myBgLights.SetActive (true);
 			buyButton.SetActive (false);
@@ -481,8 +503,8 @@ public class store_controller : MonoBehaviour {
 			myCoinsPile.transform.localPosition = new Vector2 (myCoinsPile.transform.localPosition.x, myCoinsPile.transform.localPosition.y + yIncCoinsPile);
 			myCoinsQuantity.text = initialCoins + i + "/"+globals.s.JUKEBOX_CURRENT_PRICE;
 			Debug.Log ("CCCCCCCC COINS: " + (initialCoins + i));
-			yield return new WaitForSeconds (0.14f);
-
+			if(nCoins < 20) yield return new WaitForSeconds (0.14f);
+			else yield return new WaitForSeconds (0.07f);
 			if(i % 2 == 0)
 				sound_controller.s.PlaySfxUIJukeboxCoinFalling ();
 		}
@@ -564,9 +586,8 @@ public class store_controller : MonoBehaviour {
 //		myCoinsFullAnimator.ResetTrigger("BuyButtonPressed");
 		yield return new WaitForSeconds (1.1f);
 
-
 		globals.s.JUKEBOX_SORT_ANIMATION = true;
-		int rand = Random.Range (10, 20);
+		int rand = Random.Range (10, 13);
 
 		myBackBt.interactable = false;
 		jukeboxBt.interactable = false;
@@ -576,22 +597,26 @@ public class store_controller : MonoBehaviour {
 		mYTitle.GetComponent<Animator>().speed = 3f;
 		myBgLights.GetComponent<Animator>().speed = 3f;
 
+		int skinToGive;
+		if (FTUController.s.firstSongPurchased == 0)
+			skinToGive = 16; // mozart as first
+		else skinToGive = SortCharToDrop ();
+
+		Debug.Log ("[[[[ [JUKE] SORTED CHAR TO GIVE: " + GD.s.skins [skinToGive].skinName);
+
 		int k = 0;
 		do { // FAZER UM MINIMO 
-			for (int i = 0; i < rand; i++) {
-				//logica de não repetir
+			for (int i = 0; i < rand; i++) { //logica de não repetir
+				
 				ScrollSnap.NextScreen ();
 				yield return new WaitForSeconds (0.1f);
-				//		scrol
 				if( k % 5 == 0 ) sound_controller.s.PlaySfxUIJukeboxSortingCharacter();
 			}
-
-
-
 			rand = Random.Range (1, 3);
 //			Debug.Log("STYLE FOUND: "+ (MusicStyle)actualStyle + " have " +CheckIfCharacterIsAlreadyPurchasedNew(skinId) );
+		} while ( actualCharInScreen != skinToGive  || actualCharInScreen == lastSortedSkin); // TBD SE FOR O ULTIMO A DROPAR VAI DAR MERDA NO LAST SORTED SKIN
 //		} while (alreadyBuyed [(int)actualStyle] == 0);
-		} while (CheckIfCharacterIsAlreadyPurchasedNew(actualCharInScreen) == true || actualCharInScreen == lastSortedSkin);
+//		} while (CheckIfCharacterIsAlreadyPurchasedNew(actualCharInScreen) == true || actualCharInScreen == lastSortedSkin);
 
 		globals.s.JUKEBOX_SORT_ANIMATION = false;
 //		OnCharacterChangedNew (actualStyle);
@@ -606,12 +631,57 @@ public class store_controller : MonoBehaviour {
 		StartCoroutine (GiveReward ());
 
 //		hud_controller.si.GiftButtonClicked (actualStyle);
-
 	}
+
+	int SortCharToDrop(){
+		List<Skin> commonChars = new List<Skin> ();
+		List<Skin> uncommonChars = new List<Skin> ();
+		List<Skin> rareChars = new List<Skin> ();
+//		List<Skin> epicChars = new List<Skin> ();
+
+		//mount possible char list
+		for (int i = 0; i < GD.s.N_SKINS; i++) {
+//			if(GD.s.sk
+			if (alreadyBuyed [i] == 0) {
+				if (GD.s.skins [i].rarity == SkinRarity.common)
+					commonChars.Add (GD.s.skins [i]);
+				else if (GD.s.skins [i].rarity == SkinRarity.uncommon)
+					uncommonChars.Add (GD.s.skins [i]);
+				else if (GD.s.skins [i].rarity == SkinRarity.rare)
+					rareChars.Add (GD.s.skins [i]);
+//				else if (GD.s.skins [i].epicChars == SkinRarity.epic)
+//					epicChars.Add (GD.s.skins [i]);
+			}
+		}
+
+		//check available raririty and define chance sort values
+		int maxRand = 0, commonChance = 0, uncommonChance = 0 , rareChance = 0, epicChance = 0;
+		if (commonChars.Count > 0) { maxRand += GD.s.GD_DROP_CHANCE_COMMON; commonChance = GD.s.GD_DROP_CHANCE_COMMON;	}
+		if (uncommonChars.Count > 0) { maxRand += GD.s.GD_DROP_CHANCE_UNCOMMON; uncommonChance = GD.s.GD_DROP_CHANCE_COMMON;}
+		if (rareChars.Count > 0) {maxRand += GD.s.GD_DROP_CHANCE_RARE; rareChance = GD.s.GD_DROP_CHANCE_RARE; }
+			
+		//start the sort
+		int rand = Random.Range (0, maxRand);
+
+		if (commonChars.Count > 0 && rand < commonChance) {
+			rand = Random.Range (0, commonChars.Count);
+			return commonChars.ToArray () [rand].id;
+		} else if (uncommonChars.Count > 0 && rand < commonChance + uncommonChance) {
+			rand = Random.Range (0, uncommonChars.Count);
+			return uncommonChars.ToArray () [rand].id;
+		} else if (rareChars.Count > 0 && rand < commonChance + uncommonChance + rareChance) {
+			rand = Random.Range (0, rareChars.Count);
+			return rareChars.ToArray () [rand].id;
+		} else {
+			return -1;
+			Debug.LogError (" **** OUT OF CHARS ! THAT SHOULD NEVER HAPPEN *****");
+		}
+	}
+
 
 	IEnumerator GiveReward() { //After the sort, show the Reward Screen
 
-		OnCharacterChangedNew (actualCharInScreen); // TBDCHAR
+		OnCharacterChangedNew (actualCharInScreen, false, true); // TBDCHAR
 		globals.s.curGameScreen = GameScreen.RewardCharacter;
 
 		GameObject curChar = null;
@@ -654,10 +724,7 @@ public class store_controller : MonoBehaviour {
 
 	// Collect button pressed
 	public void OnButtonRewardPressed(){
-		if (FTUController.s.firstSongPurchased == 0) {
-			myBackBt.gameObject.SetActive (false);
-			equipButton.gameObject.SetActive (false);
-		}
+		ActivatePlayAndBackButtonsAgain ();
 //		jukeboxBt.interactable = true; //TBD: FAZER LOGICA QUE TESTA SE TODOS FORAM COMPRADOS E POR UM IF AQUI
 //		UpdateUserNotes(); //TBD: FAZER LOGICA QUE TESTA SE TODOS FORAM COMPRADOS E POR UM IF AQUI
 		globals.s.MENU_OPEN = false;
@@ -697,7 +764,7 @@ public class store_controller : MonoBehaviour {
 	}
 
 	public void OnGemsPurchaseComplete(){
-		
+		ActivatePlayAndBackButtonsAgain ();
 
 		equipCharacterNew(true);
 		PlayerPrefs.SetInt (GD.s.skins[actualCharInScreen].skinName + "AlreadyBuyed", 1);

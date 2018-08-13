@@ -189,11 +189,11 @@ public class AnalyticController : MonoBehaviour {
 
     }
 
-    void Update() {
-        if (Input.GetMouseButtonDown(0)) {
-            //ReportTest();
-        }
-    }
+//    void Update() {
+//        if (Input.GetMouseButtonDown(0)) {
+//            //ReportTest();
+//        }
+//    }
 
     void ReportTest() {
         Debug.Log("REPORTING EVENT!! ");
