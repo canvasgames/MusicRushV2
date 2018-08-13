@@ -373,53 +373,6 @@ GameObject:
 GameObject:
   m_PrefabParentObject: {fileID: 176876, guid: fb2a017e1d02c774aa5bae6d9bc42084, type: 2}
   m_PrefabInternal: {fileID: 1427676102}
---- !u!1001 &55382443
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4270310832597114, guid: e26e40b342e8d5149ba6729677f99d09, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -5.947765
-      objectReference: {fileID: 0}
-    - target: {fileID: 4270310832597114, guid: e26e40b342e8d5149ba6729677f99d09, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 2.339486
-      objectReference: {fileID: 0}
-    - target: {fileID: 4270310832597114, guid: e26e40b342e8d5149ba6729677f99d09, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4270310832597114, guid: e26e40b342e8d5149ba6729677f99d09, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4270310832597114, guid: e26e40b342e8d5149ba6729677f99d09, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4270310832597114, guid: e26e40b342e8d5149ba6729677f99d09, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4270310832597114, guid: e26e40b342e8d5149ba6729677f99d09, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4270310832597114, guid: e26e40b342e8d5149ba6729677f99d09, type: 2}
-      propertyPath: m_RootOrder
-      value: 21
-      objectReference: {fileID: 0}
-    - target: {fileID: 198844392682433382, guid: e26e40b342e8d5149ba6729677f99d09,
-        type: 2}
-      propertyPath: looping
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: e26e40b342e8d5149ba6729677f99d09, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &73967744 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 156416, guid: fb2a017e1d02c774aa5bae6d9bc42084, type: 2}
@@ -6494,7 +6447,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11425774, guid: ba448d2d8c790bd4bb0b7ee7b38aaa87, type: 2}
       propertyPath: the_first_note
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba448d2d8c790bd4bb0b7ee7b38aaa87, type: 2}
@@ -7380,6 +7333,21 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 345496583}
     m_Modifications:
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].obstacles.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].obstaclesFloor2.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4523238864494732, guid: 512cb4b6c2f4d4a4985df174031ee41d, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7411,6 +7379,71 @@ Prefab:
     - target: {fileID: 4523238864494732, guid: 512cb4b6c2f4d4a4985df174031ee41d, type: 2}
       propertyPath: m_RootOrder
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: veryHard
+      value: 8000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: superEasy
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].name
+      value: debug_Saw_60
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].customName
+      value: debug_Saw
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].chance
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].obstacles.Array.data[0].name
+      value: saw_-4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].obstacles.Array.data[0].xInit
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].obstacles.Array.data[0].xEnd
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].obstaclesFloor2.Array.data[0].name
+      value: hole_-2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].obstaclesFloor2.Array.data[0].myType
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].obstaclesFloor2.Array.data[0].xInit
+      value: -2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].obstacles.Array.data[0].myType
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 512cb4b6c2f4d4a4985df174031ee41d, type: 2}
@@ -10319,6 +10352,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballExplosion: {fileID: 109816, guid: 679ab5a120cb7b4439c55f1fe80730e3, type: 2}
+  collectCoinEffect: {fileID: 1567315950310104, guid: e26e40b342e8d5149ba6729677f99d09,
+    type: 2}
   balls:
   - {fileID: 342088206}
   - {fileID: 144287603}
@@ -15718,6 +15753,14 @@ Prefab:
     - target: {fileID: 11422754, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
       propertyPath: N_SKINS
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 11488674, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
+      propertyPath: TRACE_PROFUNDITY
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11488674, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
+      propertyPath: INVENCIBLE
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}

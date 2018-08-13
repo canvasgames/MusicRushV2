@@ -473,7 +473,7 @@ public class game_controller : MonoBehaviour {
 		FTUController.s.Start ();
 
 		// BLACK SCREEN AND MOTIVATIONAL PHRASE
-		ResetStuffForNewGame();
+		//ResetStuffForNewGame();
 
 		BallMaster.s.NewGameLogic();
 
@@ -599,7 +599,7 @@ public class game_controller : MonoBehaviour {
 			}
 		}
 
-		if(coinSuccefullyCreated == false){
+		if(coinSuccefullyCreated == false) {
 			create_power_up_logic (n_floor, x, y);
 		}
 	}
@@ -2359,15 +2359,6 @@ public class game_controller : MonoBehaviour {
             saw.wave_name = wave_name;
             saw.distance2Appear = distanceAppear;
         }
-
-        ///////////////////////// CREATE NOTES OR NOT
-
-        int rand = Random.Range(1, 100);
-        if (rand <= 25)
-        {
-            GameObject objj = objects_pool_controller.s.reposite_note(x + Random.Range(-0.05f, 0.05f), y + globals.s.SLOT / 2 + 1.85f);
-
-        }
     }
 
     public void create_bg(int n, bool special_wave = false) {
@@ -2517,10 +2508,7 @@ GameObject instance = Instantiate(Resources.Load("Prefabs/Bgs/Scenario2/bg_"+ran
 				hole.GetComponent<hole_behaviour> ().floor_left = floor_left;
 				hole.GetComponent<hole_behaviour> ().floor_right = floor_right;
 				floor_left.GetComponent<floor> ().my_hole = hole.GetComponent<hole_behaviour> ();
-
             }
-
-
             //return obj;
             last_hole_x = rand;
 

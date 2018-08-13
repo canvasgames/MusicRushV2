@@ -40,7 +40,7 @@ public class objects_pool_controller : MonoBehaviour {
 
 	[HideInInspector]public GameObject[] double_spikes_pool;
 	[HideInInspector]public List<spike> spikes_scripts;
-    int double_spikes_pool_size = 20;
+    int double_spikes_pool_size = 25;
     int double_spikes_pool_actual_i = 0;
 
     [HideInInspector]public GameObject[] triple_spikes_pool;
@@ -50,7 +50,7 @@ public class objects_pool_controller : MonoBehaviour {
     [HideInInspector]
     public GameObject[] saw_pool;
     [HideInInspector]  public saw[] saw_scripts;
-    int saw_pool_size = 20;
+    int saw_pool_size = 7;
     int saw_pool_actual_i = 0;
 
     [HideInInspector]
@@ -142,11 +142,15 @@ public class objects_pool_controller : MonoBehaviour {
 //		}
 		scores_floor_pool_actual_i = 0;
 
+		for (i = 0; i < saw_pool_size; i++){
+			saw_pool[i].transform.position = new Vector2(-1000,-1000);
+		}
+		saw_pool_actual_i = 0;
+
 		for (i = 0; i < power_ups_pool_size; i++){
 			power_ups_pool[i].transform.position = new Vector2(-1000,-1000);
 		}
 		power_ups_actual_i = 0;
-
 
 //		for (i = 0; i < wallsPool.Length; i++) {
 //			wallsPool[i].transform.position = new Vector2(-1000,-1000);

@@ -1,3 +1,14 @@
+===== DUVIDAS EXISTENCIAIS
+
+- update todo sábado ou a cada 7 dias ?
+- compra fake ou realista? 
+- 
+
+
+
+
+========== 
+
 MUSIC RUSH JOAREZ:
 
 
@@ -5,6 +16,11 @@ v power ups em cima de espinhos
 c variavle de controle de spanw de power ups
 - logica reversa de criar pw de vision
 - spin disk numeros aumentarem com "distancia do centro"
+- exclamação desaparecer se não tem mais traps
+
+- floor vazios entre stages: não criar os de 2 andares
+
+- restart do jogo com exclamação
 
 -----------
 objetivo: 1 a 2 personagens por dia. ou, 17 em 2 semanas -> se não der, em 1 semana.
