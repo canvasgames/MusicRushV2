@@ -182,12 +182,16 @@ public class spike : scenario_objects {
 
     public void show_me_pw_sight()
     {
-        if ( hidden == true) {
-            //transform.GetComponent<SpriteRenderer>().color = Color.magenta;
+		if (hidden == true && manual_trigger == false) {
+			//transform.GetComponent<SpriteRenderer>().color = Color.magenta;
 			my_vision_effect.SetActive (true);
 			my_vision_effect.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 0);
 			my_vision_effect.GetComponent<SpriteRenderer> ().DOFade (1, 0.25f);
-        }
+		} else if (hidden == true && manual_trigger == true) {
+			my_vision_effect.SetActive (true);
+			my_vision_effect.GetComponent<SpriteRenderer> ().color = Color.red;
+			my_vision_effect.GetComponent<SpriteRenderer> ().DOFade (1, 0.25f);
+		}
             
                 //transform.GetComponent<SpriteRenderer>().color = Color.magenta;
         //transform.GetComponent<Animator>().Play("red");

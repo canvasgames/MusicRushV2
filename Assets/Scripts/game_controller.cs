@@ -154,7 +154,8 @@ public class game_controller : MonoBehaviour {
                 case 0:
 
                     GameObject b = create_floor(0, i);
-                    if (b == null) Debug.Log("ERROR CREATING THE FIRST FLOOR!!!");
+					if (b == null) Debug.Log("ERROR CREATING THE FIRST FLOOR!!!");
+                     Debug.Log("----------CREATING THE FIRST FLOOR!!!");
                     wave_found = true;
                     //create_spike_wave(i, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * i);
                     break;
@@ -178,24 +179,32 @@ public class game_controller : MonoBehaviour {
 
 					//create_triple_hidden_spike(Random.Range (-1.7f, -1.5f), globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * i, i);
 //
-					create_floor (0, i);
+
 					//create_hidden_spike(Random.Range (-0.5f, + 0.5f), globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * i, i);
 //					create_spike(Random.Range(-mid_area, mid_area), globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * i, i);
 
-					if (USER.s.NEWBIE_PLAYER == 1) // FTU
+					if (USER.s.NEWBIE_PLAYER == 1) { // FTU
+						create_floor (0, i);
 						create_spike (Random.Range (-0.5f, +0.5f), globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * i, i);
+						wave_found = true;
+					}
 					else {
 
 						if (BlockMaster.s.debugInitialBlock == BlockDifficulty.None) {
 //							create_spike (Random.Range (-mid_area, mid_area), globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * i, i);
 							wave_found = BlockMaster.s.CreateBlockLogicNEW(i);
+//							if (wave_found == false) {
+//								create_floor (0, i);
+//								create_spike (Random.Range (-0.5f, +0.5f), globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * i, i);
+//								wave_found = true;
+//							}
 						}
 						else
 							wave_found = BlockMaster.s.CreateBlockByDifficulty (BlockMaster.s.debugInitialBlock, i);
 					}
 
 					//create_hidden_spike(0, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * i, i);
-                    wave_found = true;
+
 
                     break;
 
@@ -478,11 +487,9 @@ public class game_controller : MonoBehaviour {
 		BallMaster.s.NewGameLogic();
 
 		Start ();
-
 	}
 
 	void ResetStuffForNewGame(){
-		
 
 		if (QA.s.SHOW_WAVE_TYPE) {
 			foreach (GameObject qa in QAWaveNames)
@@ -512,9 +519,7 @@ public class game_controller : MonoBehaviour {
 
 		//        print("AHHHHHHHHH CORNER LIMIT RIGHT: " + corner_limit_right);
 		//Time.timeScale = 0.3f;
-
 		//
-
 		//Wave creation Stuff
 		last_hole = false;
 		last_spike_left = false;
@@ -633,6 +638,7 @@ public class game_controller : MonoBehaviour {
 //			rand = 1;
 			if ( rand < GD.s.GD_PW_CHANCE_SUPER_JUMP || (USER.s.FIRST_PW_CREATED == 0 && !first_pw_created)) {
 				my_type = (int)PW_Types.Super;
+				x = Random.Range (-center_mid_area, center_mid_area);
 			} else if (rand < GD.s.GD_PW_CHANCE_SUPER_JUMP + GD.s.GD_PW_CHANCE_SHIELD) {
 				my_type = (int)PW_Types.Invencible;
 			} else {
@@ -2296,8 +2302,7 @@ public class game_controller : MonoBehaviour {
             spk.my_collider.enabled = false;
             spk.corner_repositionable = corner_repositionable;
             spk.wave_name = wave_name;
-            if (globals.s.PW_SIGHT_BEYOND_SIGHT == true)
-            {
+            if (globals.s.PW_SIGHT_BEYOND_SIGHT == true) {
                 spk.show_me_pw_sight();
             }
         }
@@ -2411,6 +2416,7 @@ GameObject instance = Instantiate(Resources.Load("Prefabs/Bgs/Scenario2/bg_"+ran
 		#if DEBUGMODE
 		Debug.Log ("creating floor n:  " +n + "  POS : " + ( globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n  + 2.45f) );
 		#endif
+		Debug.Log ("creating floor n:  " +n + "  POS : " + ( globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n  + 2.45f) );
 
        // GameObject obj = (GameObject)Instantiate(floor_type, new Vector3(x, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n, 0), transform.rotation);
         GameObject obj = objects_pool_controller.s.reposite_floor(x, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n);

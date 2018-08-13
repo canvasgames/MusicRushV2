@@ -103,10 +103,11 @@ public class objects_pool_controller : MonoBehaviour {
 
 		for (i = 0; i < floor_pool_size; i++) {
 			//			floor_pool [i].SetActive (false);
-			floor_pool [i].SetActive (true);
+//			floor_pool [i].SetActive (true);
+			floor_pool [i].GetComponent<floor> ().ResetCanUpdate();
 			floor_pool [i].GetComponent<floor> ().clear_flags_reposite ();
+//			floor_pool [i].SetActive (false);
 			floor_pool [i].transform.position = new Vector2 (-1000, -1000);
-			floor_pool [i].SetActive (false);
 		}
 		floor_pool_actual_i = 0;
 

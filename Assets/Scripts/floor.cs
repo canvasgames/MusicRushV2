@@ -33,12 +33,17 @@ public class floor : scenario_objects {
 		Invoke ("CanUpdate", 2f);
     }
 
+	public void ResetCanUpdate(){
+		canUpdate = false;
+		Invoke ("CanUpdate", 1f);
+	}
+
 	void CanUpdate(){
 		canUpdate = true;
 	}
 
 	void Update(){
-		if(isActiveAndEnabled && canUpdate && globals.s.BALL_Y - globals.s.BALL_R > transform.position.y - 1.5f){
+		if( isActiveAndEnabled && canUpdate && globals.s.BALL_Y - globals.s.BALL_R > transform.position.y - 1.5f){
 //			Debug.Log ("sTARTTTTTT FLOOR");
 			foreach (floor_note note in my_notes_fg) {
 				if (note.already_appeared == false &&
@@ -92,6 +97,8 @@ public class floor : scenario_objects {
 				myHighscoreAnimation = objects_pool_controller.s.RepositeFloorBestScore ();
 				myHighscoreAnimation.transform.parent = transform;
 				myHighscoreAnimation.transform.localPosition = new Vector2 (0f, 0.08f);
+				myHighscoreAnimation.transform.parent = null;
+
 //                GameObject obj = objects_pool_controller.s.reposite_score(0, transform.position.y - my_txt_y_dif);
 //                obj.GetComponentInChildren<TextMesh>().text = "YOUR BEST";
 //                obj.GetComponentInChildren<Score_floor_txt>().my_floor = my_floor;
@@ -102,6 +109,8 @@ public class floor : scenario_objects {
 				myHighscoreAnimation = objects_pool_controller.s.RepositeFloorDailyBest ();
 				myHighscoreAnimation.transform.parent = transform;
 				myHighscoreAnimation.transform.localPosition = new Vector2 (0f, 0.08f);
+				myHighscoreAnimation.transform.parent = null;
+
 //                GameObject obj = objects_pool_controller.s.reposite_score(0, transform.position.y - my_txt_y_dif);
 //                obj.GetComponentInChildren<TextMesh>().text = "DAILY BEST";
 //                obj.GetComponentInChildren<Score_floor_txt>().my_floor = my_floor;
@@ -112,6 +121,8 @@ public class floor : scenario_objects {
 				myHighscoreAnimation = objects_pool_controller.s.RepositeFloorLastScore ();
 				myHighscoreAnimation.transform.parent = transform;
 				myHighscoreAnimation.transform.localPosition = new Vector2 (0f, 0.08f);
+				myHighscoreAnimation.transform.parent = null;
+
 //                GameObject obj = objects_pool_controller.s.reposite_score(0, transform.position.y - my_txt_y_dif);
 //                obj.GetComponentInChildren<TextMesh>().text = "LAST GAME";
 //                obj.GetComponentInChildren<Score_floor_txt>().my_floor = my_floor;

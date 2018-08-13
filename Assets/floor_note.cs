@@ -12,7 +12,6 @@ public class floor_note : MonoBehaviour {
 		mySR = GetComponent<SpriteRenderer>();
 		myAnimation = GetComponent<Animation>();
 		mySimpleAnimation = GetComponent<SimpleAnimation>();
-
 	}
 	
 	// Update is called once per frame

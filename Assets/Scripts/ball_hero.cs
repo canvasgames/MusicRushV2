@@ -338,13 +338,18 @@ public class ball_hero : MonoBehaviour
 
         symbols_PW_activate();
             
-        // SET X SPEED TO MAX EVERY FRAME
+        // SET X SPEED TO MAX EVERY FRAME AND CORRECT DIRECTION
         if (!globals.s.PW_SUPER_JUMP && !globals.s.REVIVING)
         {
-            if (rb.velocity.x > 0)
-                rb.velocity = new Vector2(globals.s.BALL_SPEED_X, rb.velocity.y);
-            else if (rb.velocity.x < 0)
-                rb.velocity = new Vector2(-globals.s.BALL_SPEED_X, rb.velocity.y);
+			if (rb.velocity.x > 0) {
+				if (rb.velocity.x != globals.s.BALL_SPEED_X) rb.velocity = new Vector2 (globals.s.BALL_SPEED_X, rb.velocity.y);
+				if (my_skin.transform.localScale.x > 0)
+					my_skin.transform.localScale = new Vector2 (-3, my_skin.transform.localScale.y);
+			} else if (rb.velocity.x < 0) {
+				if (rb.velocity.x != -globals.s.BALL_SPEED_X) rb.velocity = new Vector2 (-globals.s.BALL_SPEED_X, rb.velocity.y);
+				if(my_skin.transform.localScale.x < 0 ) 
+					my_skin.transform.localScale = new Vector2(3, my_skin.transform.localScale.y);
+			}
         }
         //Vector3 abc = new Vector3(0, 0, 90);
         //if (rb.velocity.y != 0)
@@ -660,9 +665,11 @@ public class ball_hero : MonoBehaviour
 	#endregion
 
 	#region ===== COLLISIONS =======
+	public void OnCircleColliderTriggered(Collider2D coll){
+		OnTriggerEnter2D(coll);
+	}
 
-
-		void OnTriggerEnter2D(Collider2D coll){
+	void OnTriggerEnter2D(Collider2D coll){
 		//Debug.Log ("kkkkkkkkkkkkkkkkkCOLLISION IS HAPPENING!! ");
 		if (coll.gameObject.CompareTag ("PW")) {
 			
@@ -747,9 +754,40 @@ public class ball_hero : MonoBehaviour
 			if (transform.position.y < main_camera.s.transform.position.y + cam_fall_dist) { 
 				main_camera.s.OnBallFalling();
 				//coll.transform.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-
 			}
+		}
+	}
 
+	public void OnMyFloorCollider(Collision2D coll){
+		if (coll.gameObject.CompareTag("Floor")) {
+
+			if (coll.transform.position.y + coll.transform.GetComponent<floor>().my_skin.GetComponent<SpriteRenderer>().bounds.size.y / 2 <= transform.position.y - globals.s.BALL_R + 1f) {
+				//rb.AddForce (new Vector2 (0, 0));
+				rb.velocity = new Vector2(rb.velocity.x, 0);
+				//my_skin.GetComponent<Animator>().Play("Running");
+				my_skin.GetComponent<Animator>().SetBool("Jumping", false);
+				//transform.position = new Vector2(transform.position.x, coll.transform.position.y + coll.transform.GetComponent<SpriteRenderer>().bounds.size.y / 2 + globals.s.BALL_R);
+				my_floor = coll.gameObject.GetComponent<floor>().my_floor;
+				//Debug.Log(my_id + " KKKKKKKKKKKKKKKKKK KOLLISION! MY NEW FLOOR: " + my_floor + " I AM GROUNDED ");
+
+				globals.s.BALL_CUR_FLOOR_Y = coll.gameObject.transform.position.y;
+
+				if (globals.s.PW_SUPER_JUMP) {
+					pw_super_end_for_real();
+				}
+
+				grounded = true;
+				Land();
+
+				//                coll.gameObject.GetComponent<floor>().try_to_display_best_score();
+			}
+			else { Debug.Log("" + my_id + " ***************ERROR! THIS SHOULD NEVER HAPPEN ***************\n\n"); }
+		}
+
+		else if (coll.gameObject.CompareTag("Revive"))
+		{
+			globals.s.CAN_REVIVE = true;
+			Destroy(coll.gameObject);
 		}
 	}
 
@@ -758,7 +796,7 @@ public class ball_hero : MonoBehaviour
         //Debug.Log("xxxxxxxxxxxxxxxxxxxxx COLLIDING WITH SOMETHING!");
 
         if (coll.gameObject.CompareTag("Floor")) {
-            
+			Debug.Log ("FLOOOOOOOOR COLLIDING! " + coll.transform.GetComponent<floor>().my_floor.ToString() );
 			if (coll.transform.position.y + coll.transform.GetComponent<floor>().my_skin.GetComponent<SpriteRenderer>().bounds.size.y / 2 <= transform.position.y - globals.s.BALL_R + 1f) {
                 //rb.AddForce (new Vector2 (0, 0));
                 rb.velocity = new Vector2(rb.velocity.x, 0);
@@ -781,6 +819,12 @@ public class ball_hero : MonoBehaviour
             }
             else { Debug.Log("" + my_id + " ***************ERROR! THIS SHOULD NEVER HAPPEN ***************\n\n"); }
         }
+
+		else if (coll.gameObject.CompareTag("Revive"))
+		{
+			globals.s.CAN_REVIVE = true;
+			Destroy(coll.gameObject);
+		}
 
 //        else if (coll.gameObject.CompareTag("Spike")) {
 //            if (globals.s.PW_SUPER_JUMP == false && !QA.s.INVENCIBLE)
@@ -832,11 +876,7 @@ public class ball_hero : MonoBehaviour
             sound_controller.s.play_collect_pw();
 			Physics2D.IgnoreCollision(coll.collider, GetComponent<Collider2D>());
         }*/
-        else if (coll.gameObject.CompareTag("Revive"))
-        {
-            globals.s.CAN_REVIVE = true;
-            Destroy(coll.gameObject);
-        }
+       
 //        if (globals.s.PW_SUPER_JUMP == true)
 //        {
 //			if (coll.gameObject.CompareTag("PW_Trigger") && my_floor < my_floor_after_super_jump)

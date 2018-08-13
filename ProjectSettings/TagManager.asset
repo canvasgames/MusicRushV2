@@ -31,14 +31,14 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - ball_floor_collider
   - ball
   - hole
   - hole_falling
   - 
   - spike
   - floor
-  - 
+  - wall
   - 
   - 
   - PW_floor
@@ -67,11 +67,11 @@ TagManager:
   - name: Pauta
     uniqueID: 2032297973
     locked: 0
-  - name: Vision
-    uniqueID: 543748687
-    locked: 0
   - name: Ball
     uniqueID: 935211397
+    locked: 0
+  - name: Vision
+    uniqueID: 543748687
     locked: 0
   - name: BallSymbols
     uniqueID: 4227537861

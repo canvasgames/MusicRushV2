@@ -545,14 +545,19 @@ public class hud_controller : MonoBehaviour {
 
 	public void OnJukeboxCloseBtPressed(bool fromBackBt = true){
 		if (globals.s.AT_STORE == true && globals.s.MENU_OPEN == false) { // close store
-			globals.s.AT_STORE = false;
-			store_label.transform.DOLocalMoveY (-200 - store_label.GetComponent <RectTransform> ().rect.height
+			if (store_controller.s.curCategory == store_controller.Categories.Main) {
+				globals.s.AT_STORE = false;
+				store_label.transform.DOLocalMoveY (-200 - store_label.GetComponent <RectTransform> ().rect.height
 				, 0.5f).SetEase (Ease.OutQuad);
 //			Invoke ("store_closing", 0.35f);
-			StartCoroutine (StoreCloseForReal (fromBackBt));
+				StartCoroutine (StoreCloseForReal (fromBackBt));
 
-			store_controller.s.CloseStore (fromBackBt);
-		}
+				store_controller.s.CloseStore (fromBackBt);
+			}
+			else {
+				store_controller.s.CloseStore (fromBackBt);
+			}
+		} 
 	}
 
 
