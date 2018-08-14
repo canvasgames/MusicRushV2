@@ -6,6 +6,7 @@ using System;
 public class RemoteMaster : MonoBehaviour {
 	public static RemoteMaster s;
 	public int maximumAllowedChars = 24;
+	public int minimumUnlockedChars = 18;
 
 	//public int 
 

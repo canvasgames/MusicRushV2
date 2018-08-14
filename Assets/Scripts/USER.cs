@@ -15,6 +15,9 @@ public class USER : MonoBehaviour {
 	[HideInInspector]   public string FIRST_SESSION_DATE, FIRST_SATURDAY;
 	[HideInInspector]   public int LAST_UPDATE_UNLOCKED;
 
+	[HideInInspector]   public int CUR_SPECIAL_OFFER;
+	[HideInInspector]   public string SPECIAL_OFFER_END_DATE;
+
 //    [HideInInspector]   public int N_CHARS_PURCHASED;
     [HideInInspector]
     public int SOUND_MUTED;
@@ -25,9 +28,17 @@ public class USER : MonoBehaviour {
 		globals.s.ACTUAL_STYLE = (MusicStyle) PlayerPrefs.GetInt ("curStyle", 0);
 		globals.s.ACTUAL_SKIN =  GD.s.skins[PlayerPrefs.GetInt ("curSkin", 0)];
 
-        //PlayerPrefs.SetInt("total_games", 0);
+		// ========= SPECIAL OFFER LOGIC ========
+
+		CUR_SPECIAL_OFFER = PlayerPrefs.GetInt("cur_special_offer", -1);
+		SPECIAL_OFFER_END_DATE = PlayerPrefs.GetString("special_offer_end_date", "");
+
+		//
+		//PlayerPrefs.SetInt("total_games", 0);
 		//PlayerPrefs.SetInt("best", 0);
 		//PlayerPrefs.SetInt ("first_game", 0);
+
+
 		// DATE STUFF
 		FIRST_SESSION_DATE = PlayerPrefs.GetString("first_session_date", "");
 		if(FIRST_SESSION_DATE == ""){ 
@@ -180,7 +191,36 @@ public class USER : MonoBehaviour {
 	public void SetUpdateCharsUnlocked(){
 		LAST_UPDATE_UNLOCKED++;
 		PlayerPrefs.SetInt ("last_update_unlocked", LAST_UPDATE_UNLOCKED);
-
 	}
 
+	public bool CheckIfSpecialOfferTimeHasElapsedAndUpdate(){
+
+		DateTime tempDate = System.DateTime.Now;
+		if (SPECIAL_OFFER_END_DATE == "") {
+			tempDate = tempDate.AddDays (1);
+			SPECIAL_OFFER_END_DATE = tempDate.ToString ();
+			PlayerPrefs.SetString ("special_offer_end_date", SPECIAL_OFFER_END_DATE);
+			Debug.Log ("SPECIAL OFFER TIME IS EMPTY!!! DEFINTING TO " + SPECIAL_OFFER_END_DATE.ToString() );
+			return true;
+		} else {
+			DateTime specialOfferDate = Convert.ToDateTime (SPECIAL_OFFER_END_DATE);
+			TimeSpan diff = tempDate.Subtract(specialOfferDate);
+			if (diff.TotalSeconds > 0) {
+				Debug.Log ("time to define new special offer!!!!! : "+SPECIAL_OFFER_END_DATE.ToString());
+
+				tempDate = tempDate.AddDays (1);
+				SPECIAL_OFFER_END_DATE = tempDate.ToString ();
+				PlayerPrefs.SetString ("special_offer_end_date", SPECIAL_OFFER_END_DATE);
+
+				return true;
+				//tbd check screen
+			} else
+				return false;
+		}
+	}
+
+	public void SetCurrentSpecialOffer(MusicStyle style){
+		CUR_SPECIAL_OFFER = (int)style;
+		PlayerPrefs.SetInt ("cur_special_offer", CUR_SPECIAL_OFFER);
+	}
 }

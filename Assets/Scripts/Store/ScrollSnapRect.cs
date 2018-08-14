@@ -231,6 +231,7 @@ public class ScrollSnapRect : MonoBehaviour, IBeginDragHandler, IEndDragHandler,
 	public void SetCurrentPage(int skinId){
 //		Debug.Log("lerp to page : " + (int)style);
 		LerpToPage(skinId);
+
 //		LerpToPage(2);
 //		NextScreen();
 	}

@@ -441,8 +441,8 @@ public class sound_controller : MonoBehaviour
 	}
 
 	public void StopSfxEffect(FMOD.Studio.STOP_MODE stopMode = FMOD.Studio.STOP_MODE.IMMEDIATE){
-		curFmodMusic.stop (stopMode);
-		curFmodMusic.release ();
+		curFmodEffect.stop (stopMode);
+		curFmodEffect.release ();
 	}
 
 	public void PlaySfxUISpinDiskReward()	{ // tbd

@@ -21,6 +21,16 @@ public class Follower : MonoBehaviour {
 		myXScale = my_skin.transform.localScale.x;
 	}
 
+	void Update(){
+		if (rb.velocity.x > 0) {
+			if (rb.velocity.x != globals.s.BALL_SPEED_X)
+				rb.velocity = new Vector2 (globals.s.BALL_SPEED_X, rb.velocity.y);
+		} else if (rb.velocity.x < 0) {
+			if (rb.velocity.x != -globals.s.BALL_SPEED_X)
+				rb.velocity = new Vector2 (-globals.s.BALL_SPEED_X, rb.velocity.y);
+		}
+	}
+
 	public void InitMovement(Vector2 velocity){
 		rb.velocity = Vector2.zero;
 		rb.velocity = velocity;
@@ -103,14 +113,13 @@ public class Follower : MonoBehaviour {
 		if(this.gameObject) mySkinAnimator.SetBool("Jumping", false);
 	}
 
-
-	public void IenumeratorWallCollision(float time){
-		StartCoroutine( WallCollision (time));
+	public void IenumeratorWallCollision(float time, float xVelocity){
+		StartCoroutine( WallCollision (time, xVelocity));
 	}
 
-	IEnumerator WallCollision(float time){
+	IEnumerator WallCollision(float time, float xVelocity){
 		yield return new WaitForSeconds(time);
-		rb.velocity = -rb.velocity;
+		rb.velocity = new Vector2 (xVelocity, rb.velocity.y);
 		my_skin.transform.localScale = new Vector2(-my_skin.transform.localScale.x, my_skin.transform.localScale.y);
 	}
 

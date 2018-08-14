@@ -343,12 +343,18 @@ public class ball_hero : MonoBehaviour
         {
 			if (rb.velocity.x > 0) {
 				if (rb.velocity.x != globals.s.BALL_SPEED_X) rb.velocity = new Vector2 (globals.s.BALL_SPEED_X, rb.velocity.y);
-				if (my_skin.transform.localScale.x > 0)
+				if (my_skin.transform.localScale.x > 0) {
 					my_skin.transform.localScale = new Vector2 (-3, my_skin.transform.localScale.y);
+					if (myFollowers.Length > 0)
+						WallCollisionForMyFollowers (rb.velocity.x);
+				}
 			} else if (rb.velocity.x < 0) {
 				if (rb.velocity.x != -globals.s.BALL_SPEED_X) rb.velocity = new Vector2 (-globals.s.BALL_SPEED_X, rb.velocity.y);
-				if(my_skin.transform.localScale.x < 0 ) 
-					my_skin.transform.localScale = new Vector2(3, my_skin.transform.localScale.y);
+				if (my_skin.transform.localScale.x < 0) {
+					my_skin.transform.localScale = new Vector2 (3, my_skin.transform.localScale.y);
+					if (myFollowers.Length > 0)
+						WallCollisionForMyFollowers (rb.velocity.x);
+				}
 			}
         }
         //Vector3 abc = new Vector3(0, 0, 90);
@@ -632,10 +638,10 @@ public class ball_hero : MonoBehaviour
 		}
 	}
 
-	void WallCollisionForMyFollowers (){
+	void WallCollisionForMyFollowers (float xVelocity){
 		int i = 1;
 		foreach (Follower f in myFollowers) {
-			f.IenumeratorWallCollision (GD.s.FOLLOWER_DELAY * i);
+			f.IenumeratorWallCollision (GD.s.FOLLOWER_DELAY * i, xVelocity);
 			i++;
 		}
 	}
@@ -717,7 +723,7 @@ public class ball_hero : MonoBehaviour
 			globals.s.CUR_BALL_SPEED = rb.velocity.x;
 
 			if (myFollowers != null)
-				WallCollisionForMyFollowers ();
+				WallCollisionForMyFollowers (rb.velocity.x);
 
 			if (transform.position.y < main_camera.s.transform.position.y - 10f) {
 				hitted_wall = true;
@@ -796,7 +802,7 @@ public class ball_hero : MonoBehaviour
         //Debug.Log("xxxxxxxxxxxxxxxxxxxxx COLLIDING WITH SOMETHING!");
 
         if (coll.gameObject.CompareTag("Floor")) {
-			Debug.Log ("FLOOOOOOOOR COLLIDING! " + coll.transform.GetComponent<floor>().my_floor.ToString() );
+			//Debug.Log ("FLOOOOOOOOR COLLIDING! " + coll.transform.GetComponent<floor>().my_floor.ToString() );
 			if (coll.transform.position.y + coll.transform.GetComponent<floor>().my_skin.GetComponent<SpriteRenderer>().bounds.size.y / 2 <= transform.position.y - globals.s.BALL_R + 1f) {
                 //rb.AddForce (new Vector2 (0, 0));
                 rb.velocity = new Vector2(rb.velocity.x, 0);

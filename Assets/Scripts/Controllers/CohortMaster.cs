@@ -49,6 +49,7 @@ public class CohortMaster : MonoBehaviour {
 
 
 		GD.s.N_SKINS += GD.s.SKINS_PER_MUSIC * USER.s.LAST_UPDATE_UNLOCKED;
+		GD.s.N_STYLES = GD.s.N_SKINS / 3;
 		if(displayCustomMessage) hud_controller.si.DisplayNewCharactersAvailable ();
 
 		//		tempDateRoulette = Convert.ToDateTime(roullete_date);

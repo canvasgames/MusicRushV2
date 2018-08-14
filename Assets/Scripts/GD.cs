@@ -8,9 +8,9 @@ public enum MusicStyle{
 	PopGaga = 3,
 	Samba = 4,
 	Classic = 5,
-	Reggae= 6,
-	Rap = 7,
-	Latina = 8,
+	Rap = 6,
+	Latina = 7,
+	Reggae = 8,
 	AnimeShounen = 9,
 //	DingoBells = 10,
 	Lenght = 10
@@ -77,7 +77,10 @@ public class GD : MonoBehaviour {
 	[Header ("MAIN Ns")]
 	public int N_MUSIC = 6;
 	public int N_SKINS = 9;
+	public int N_STYLES = 9;
 	public int SKINS_PER_MUSIC = 3;
+
+	public int SPECIAL_OFFER_DURATION_HOURS = 24;
 
 	public bool[] musicStyleAllowed;
 	public Skin[] skins;
@@ -127,20 +130,21 @@ public class GD : MonoBehaviour {
 		NewSkin("Sympohist", MusicStyle.Classic, 2);
 		NewSkin("Orquestra", MusicStyle.Classic, 3, true, 3, false, SkinRarity.uncommon);
 
-		// REGGAE = 7
-		NewSkin("The Jammer", MusicStyle.Reggae, 1);
-		NewSkin("Rasta", MusicStyle.Reggae, 2);
-		NewSkin("Reggae Family", MusicStyle.Reggae, 3, true, 3, false, SkinRarity.uncommon);
-
-		// RAP = 8
+		// RAP = 7
 		NewSkin("Jing Bling", MusicStyle.Rap, 1);
 		NewSkin("The Rhymer", MusicStyle.Rap, 2);
 		NewSkin("Jump This Way", MusicStyle.Rap, 3, true, 3, false, SkinRarity.uncommon);
 
-		// LATINA = 9
+		// LATINA = 8
 		NewSkin("Waka Waka", MusicStyle.Latina, 1);
 		NewSkin("Vida Loka", MusicStyle.Latina, 2);
 		NewSkin("Mariachis", MusicStyle.Latina, 3, true, 3, false, SkinRarity.uncommon);
+
+		// REGGAE = 9
+		NewSkin("The Jammer", MusicStyle.Reggae, 1);
+		NewSkin("Rasta", MusicStyle.Reggae, 2);
+		NewSkin("Reggae Family", MusicStyle.Reggae, 3, true, 3, false, SkinRarity.uncommon);
+
 
 		// ANIME SHONEN = 10
 		NewSkin("Ora Ora Ora", MusicStyle.AnimeShounen, 1);

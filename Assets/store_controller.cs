@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using DG.Tweening;
 public class store_controller : MonoBehaviour {
 
 	#region === Vars ===
@@ -36,6 +37,7 @@ public class store_controller : MonoBehaviour {
 	[Header ("Chars")]
 	[SerializeField] GameObject genericChar;
 	[SerializeField] GameObject[] myChars;
+	[SerializeField] GameObject[] myPromos;
 	GameObject lastChar;
 
 	public GameObject[] lightLeftLines, lighttRightLines;
@@ -55,13 +57,13 @@ public class store_controller : MonoBehaviour {
 	int[] alreadyBuyed;
 	public int nCharsBuyed = 0;
 
-    public int popPrice = 70;
-    public int rockPrice = 50;
-	public int popGagaPrice = 70;
-	public int reggaePrice = 50;
-    [HideInInspector]
-    public int eletronicPrice = 30;
-
+//    public int popPrice = 70;
+//    public int rockPrice = 50;
+//	public int popGagaPrice = 70;
+//	public int reggaePrice = 50;
+//    [HideInInspector]
+//    public int eletronicPrice = 30;
+//
     public Text actualCoins;
     public Text buyPrice;
 
@@ -145,10 +147,13 @@ public class store_controller : MonoBehaviour {
 
 //		StartCoroutine (LightAnimations ());
     }
-
+	bool genericCharPosAlreadyDefined = false;
 	public void DefineGenericCharPosition(){
-		Debug.Log ("[JUKE] DEFINE GENERIC CHAR POS!!!! : " + GD.s.N_SKINS); 
-		genericChar.transform.SetSiblingIndex (GD.s.N_SKINS);
+		if (genericCharPosAlreadyDefined == false) {
+			Debug.Log ("[JUKE] DEFINE GENERIC CHAR POS!!!! : " + GD.s.N_SKINS); 
+			genericChar.transform.SetSiblingIndex (GD.s.N_SKINS);
+			genericCharPosAlreadyDefined = true;
+		}
 	}
 
 	void DefineActualCharOnTheScreenNew(){
@@ -238,30 +243,6 @@ public class store_controller : MonoBehaviour {
 	
 	}
 
-
-	#endregion
-
-	#region === CATEGORIES ===
-
-	public void OnButtonSpecialOfferPressed(){
-		ChangeCategoryTo (Categories.Promo1);
-	}
-	public enum Categories{Main = -1, Promo1 = 0, Promo2 = 1, Promo3 = 2, Promo4 = 3}
-
-	void ChangeCategoryTo(Categories categTochange){
-		if (curCategory != categTochange) {
-			if (categTochange == Categories.Main) {
-				promoCategories [(int)curCategory].SetActive (false);
-				mainCategory.SetActive (true);
-			} else {
-				mainCategory.SetActive (false);
-				promoCategories [(int)categTochange].SetActive (true);
-			}
-
-			curCategory = categTochange;
-			lastChar = null;
-		}
-	}
 
 	#endregion
 
@@ -787,10 +768,98 @@ public class store_controller : MonoBehaviour {
 		myBgLights.SetActive (true);
 		equipButton.GetComponent<Button> ().interactable = true;
 		buyButton.SetActive (false);
-
-
 	}
 
+	#endregion
+
+	#region === SPECIAL OFFER ===
+	void DefineNextSpecialPack(){
+		int maxRand = GD.s.N_STYLES; //be carefull
+		if (CountHowManyStylesPlayerHas () < GD.s.N_STYLES) {
+			int styleToOffer = -1;
+			do {
+				styleToOffer = Random.Range (0, maxRand);
+			} while(CheckIfPlayerHasASkinOfThisStyle ((MusicStyle)styleToOffer) == true);
+
+			Debug.Log ("[JK] STYLE FOUND!! : " + (MusicStyle) styleToOffer);
+
+			USER.s.SetCurrentSpecialOffer ((MusicStyle) styleToOffer);
+
+		} else {
+			Debug.Log ("[JK] NOTHING TO DO HERE!! FLY AWAY");
+			//deactivate special offer button
+		}
+	}
+
+	public bool CheckIfPlayerHasASkinOfThisStyle(MusicStyle style){
+		for(int id =  0 ; id < alreadyBuyed.Length; id++)  {
+			if (GD.s.skins[id].musicStyle == style && alreadyBuyed[id] == 1)
+				return true;
+		}
+		return false;
+	}
+
+	public int CountHowManyStylesPlayerHas(){
+		int count = 0;
+		for(int id =  0 ; id <  GD.s.N_STYLES; id++)  {
+			if(CheckIfPlayerHasASkinOfThisStyle((MusicStyle)id)){
+				count++;
+			}
+		}
+		return count;
+	}
+
+
+	public void OnButtonSpecialOfferPressed(){
+		ChangeCategoryTo (Categories.Promo1);
+	}
+
+	void ChangeCategoryTo(Categories categTochange){
+		if (curCategory != categTochange) {
+			if (categTochange == Categories.Main) {
+				promoCategories [(int)curCategory].SetActive (false);
+				mainCategory.SetActive (true);
+				ScrollSnap = mainCategory.GetComponentInChildren<ScrollSnapRect> ();
+
+				StartCoroutine( ChangeCategoryAnimation (actualCharInScreen, mainCategory));
+
+			} else {
+				mainCategory.SetActive (false);
+				promoCategories [(int)categTochange].SetActive (true);
+
+				// try to define the current offer
+				if (USER.s.CUR_SPECIAL_OFFER == -1 || USER.s.CheckIfSpecialOfferTimeHasElapsedAndUpdate() ) //tbd
+					DefineNextSpecialPack ();
+
+				Debug.Log ("JUMPING TO SPECIAL OFFER :" + ((MusicStyle)USER.s.CUR_SPECIAL_OFFER).ToString() + " ID " + USER.s.CUR_SPECIAL_OFFER.ToString());
+
+				myPromos [USER.s.CUR_SPECIAL_OFFER].SetActive (true);
+				ScrollSnap = promoCategories [(int)categTochange].GetComponentInChildren<ScrollSnapRect>();
+				title.text = GD.s.GetStyleName((MusicStyle)USER.s.CUR_SPECIAL_OFFER) + " Pack";
+
+				StartCoroutine( ChangeCategoryAnimation (USER.s.CUR_SPECIAL_OFFER, promoCategories [(int)categTochange]));
+			}
+
+			curCategory = categTochange;
+			lastChar = null;
+		}
+	}
+
+	IEnumerator ChangeCategoryAnimation(int page, GameObject categoryList){
+		yield return new WaitForSeconds(0.01f);
+		ScrollSnap.SetCurrentPage(page);
+		float lastY = categoryList.transform.localPosition.y;
+		categoryList.transform.localPosition = new Vector2 (categoryList.transform.localPosition.x, categoryList.transform.localPosition.y + 500);
+		yield return new WaitForSeconds(0.1f);
+
+		categoryList.transform.DOLocalMoveY (lastY, 0.3f).SetEase (Ease.OutBounce);
+
+
+
+//		ScrollSnap.SetCurrentPage(0);
+	}
+
+	public enum Categories{Main = -1, Promo1 = 0, Promo2 = 1, Promo3 = 2, Promo4 = 3}
 	#endregion
 
 	#region == Old ==
