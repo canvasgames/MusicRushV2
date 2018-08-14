@@ -228,7 +228,7 @@ public class sound_controller : MonoBehaviour
 			}
 
 			if (curJukeboxMusic != style) {
-				Debug.Log (" FOR REAL");
+//				Debug.Log (" FOR REAL");
 				curJukeboxMusic = style;
 				curFmodMusic.setParameterValue ("style", (int)style + 1);
 			}

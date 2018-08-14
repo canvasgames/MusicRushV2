@@ -191,10 +191,6 @@ public class GD : MonoBehaviour {
 		// FAZER CODIGO AQUI QUE USA VARIAVEL REMOTA
 	}
 
-    // Update is called once per frame
-    void Update () {
-	
-	}
 
 	public string GetStyleName(MusicStyle style){
 		if (style == MusicStyle.Classic)

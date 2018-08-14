@@ -19,11 +19,7 @@ public class activate_pw_button : MonoBehaviour {
 //		SetCountownState ();
 //		Invoke ("SetSPinNowState", 0.5f);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 
 	public void SetCountownState(){
 		interactable = false;

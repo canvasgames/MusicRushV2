@@ -269,14 +269,22 @@ public class RewardScreen : MonoBehaviour {
 		StartCoroutine (LightAnimations ());
 	}
 
+	public bool showVideoButton = true;
+
 	IEnumerator EnteringAnimationCharacter(){
+		if (showVideoButton == true) // Deactivate restart button
+			myButtons [1].SetActive (true);
+		else
+			myButtons [1].SetActive (false);
 
 		sound_controller.s.PlaySfxUISpinDiskReward ();
 
 		Color myColor = myImage.color;
 
 		mySparks.SetActive (false);
-		myReward.transform.localScale = new Vector2 (0.84f, 0.84f);
+//		myReward.transform.localScale = new Vector2 (0.84f, 0.84f);
+//		myReward.transform.localScale = new Vector2 (1f, 1f);
+		tempReward.transform.localScale = new Vector2 (1f, 1f);
 		float y = myReward.transform.localPosition.y;
 		myReward.transform.localPosition = new Vector2 (myReward.transform.localPosition.x, 61);
 
@@ -290,11 +298,13 @@ public class RewardScreen : MonoBehaviour {
 //		myRewardName.transform.localScale = Vector2.zero;
 //		myRewardName.transform.DOScale (Vector2.one, 0.8f);
 
-		myReward.transform.DOScale (new Vector3 (1, 1, 1), 0.7f);
+//		myReward.transform.DOScale (new Vector3 (1.12f, 1.12f, 1.12f), 0.7f);
+//		myReward.transform.DOScale (new Vector3 (1.12f, 1.12f, 1.12f), 0.7f);
+		tempReward.transform.DOScale (new Vector3 (1.12f, 1.12f, 1.12f), 0.7f);
 		myReward.transform.DOLocalMoveY (y, 0.7f);
 
 		//set blue bg alpha 0
-		myImage.color = new Color (0, 0, 0 , 0);
+		myImage.color = new Color (0, 0, 0, 0);
 
 		//set corner dark alpha 0 and color black
 		Color cor = myCornerDarks [0].GetComponent<Image> ().color;
@@ -307,9 +317,9 @@ public class RewardScreen : MonoBehaviour {
 
 		//set buttons outside
 		float localY = myButtons[0].transform.localPosition.y;
-		myButtons [0].transform.localPosition = new Vector2 (myButtons [0].transform.localPosition.x, localY - 400);
+		myButtons [0].transform.localPosition = new Vector2 (myButtons [0].transform.localPosition.x, localY - 420);
 		float localY2 = myButtons[1].transform.localPosition.y;
-		myButtons [1].transform.localPosition = new Vector2 (myButtons [1].transform.localPosition.x, localY2 - 400);
+		if(showVideoButton == true) myButtons [1].transform.localPosition = new Vector2 (myButtons [1].transform.localPosition.x, localY2 - 420);
 
 		//ligth group
 		foreach (GameObject lgt in lightsBottomtLine) {
@@ -343,7 +353,7 @@ public class RewardScreen : MonoBehaviour {
 //		myCornerDarks[0].GetComponent<Image>().color = new Color (myImage.color.a, myImage.color.g, myImage.color.b, 0);
 
 		myButtons [0].transform.DOLocalMoveY (localY, 0.5f).SetEase (Ease.OutQuad);
-		myButtons [1].transform.DOLocalMoveY (localY2, 0.5f).SetEase (Ease.OutQuad);
+		if(showVideoButton == true) myButtons [1].transform.DOLocalMoveY (localY2, 0.5f).SetEase (Ease.OutQuad);
 
 		yield return new WaitForSeconds (0.3f);
 
@@ -418,5 +428,21 @@ public class RewardScreen : MonoBehaviour {
 	public void SetMyRewardChar(RuntimeAnimatorController anim, string name){
 		myReward.GetComponent<Animator>().runtimeAnimatorController = anim;
 		myRewardName.text = name;
+	}
+
+	GameObject tempReward;
+	public void SetMyRewardCharV2(GameObject rewardObj, string name){
+//		myReward.GetComponent<Animator>().runtimeAnimatorController = anim;
+		tempReward = Instantiate (rewardObj, myReward.transform.position, myReward.transform.rotation);
+
+		tempReward.transform.parent = myReward.transform;
+//		tempReward.transform.localPosition = Vector2.zero;
+//		rewardObj.GetComponent<RectTransform>()
+//		tempReward = rewardObj;
+		myRewardName.text = name;
+	}
+
+	public void ResetMyRewardChar(){
+		Destroy(tempReward);
 	}
 }

@@ -40,6 +40,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44ef9c264772d014aa57e54ec70ae0a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCategory: {fileID: 0}
+  promoCategories:
+  - {fileID: 0}
+  curCategory: -1
+  myGemsPrice: {fileID: 0}
   myCoinsFullAnimator: {fileID: 0}
   myCoinsQuantity: {fileID: 0}
   myCoins: []
@@ -53,7 +58,37 @@ MonoBehaviour:
   myLockedBg: {fileID: 0}
   myRewardScreen: {fileID: 0}
   jukeboxCurrentPrice: 0
+  genericChar: {fileID: 0}
   myChars:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  myPromos:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -82,7 +117,6 @@ MonoBehaviour:
   jukeboxBt: {fileID: 0}
   jukeboxBtNotesLow: {fileID: 0}
   jukeboxBtNotesHigh: {fileID: 0}
-  chars: []
   popAlreadyBuyed: 0
   eletronicAlreadyBuyed: 0
   rockAlreadyBuyed: 0
@@ -90,15 +124,13 @@ MonoBehaviour:
   reggaeAlreadyBuyed: 0
   rapAlreadyBuyed: 0
   nCharsBuyed: 0
-  popPrice: 70
-  rockPrice: 50
-  popGagaPrice: 70
-  reggaePrice: 50
-  eletronicPrice: 30
   actualCoins: {fileID: 0}
-  buyPrice: {fileID: 0}
+  buyGemsPrice: {fileID: 0}
+  buyRealMoney: {fileID: 0}
   buyButton: {fileID: 0}
   equipButton: {fileID: 0}
+  specialOfferTime: {fileID: 0}
+  specialOfferButton: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

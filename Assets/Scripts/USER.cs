@@ -219,6 +219,17 @@ public class USER : MonoBehaviour {
 		}
 	}
 
+	public void SetANewSpecialOffer(){
+		CUR_SPECIAL_OFFER = -1;
+		PlayerPrefs.SetInt ("cur_special_offer", CUR_SPECIAL_OFFER);
+
+		DateTime tempDate = System.DateTime.Now;
+		tempDate = tempDate.AddDays (1);
+		SPECIAL_OFFER_END_DATE = tempDate.ToString ();
+		PlayerPrefs.SetString ("special_offer_end_date", SPECIAL_OFFER_END_DATE);
+		Debug.Log ("SPECIAL OFFER TIME IS EMPTY!!! DEFINTING TO " + SPECIAL_OFFER_END_DATE.ToString() );
+	}
+
 	public void SetCurrentSpecialOffer(MusicStyle style){
 		CUR_SPECIAL_OFFER = (int)style;
 		PlayerPrefs.SetInt ("cur_special_offer", CUR_SPECIAL_OFFER);

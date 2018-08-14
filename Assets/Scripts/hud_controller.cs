@@ -820,7 +820,7 @@ public class hud_controller : MonoBehaviour {
 
 //			activate_pw_bt.GetComponent<activate_pw_button> ().SetCountownState ();
         }
-        else
+		else if(FTUController.s.firstSongPurchased == 1)
         {
 			Debug.Log ("!!!!!!! PW ACTIVE STATE = FALSE! SPIN NOW!");
 
@@ -916,7 +916,6 @@ public class hud_controller : MonoBehaviour {
 			TimeSpan diff = tempDateRoulette.Subtract(tempcurDate);
 			if (CAN_ROTATE_ROULETTE == false)
 			{
-
 				if (diff.TotalSeconds <= 0)
 				{
 					Debug.Log("o tempo passou e eu sofri calado");
