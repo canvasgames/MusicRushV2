@@ -57,7 +57,7 @@ MonoBehaviour:
   easy: 10
   medium: 20
   hard: 45
-  veryHard: 60
+  veryHard: 10000
   debugInitialBlock: 6
   debugAllBlocks: 6
   BlocksSuperEasy:

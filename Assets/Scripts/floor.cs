@@ -98,6 +98,7 @@ public class floor : scenario_objects {
 				myHighscoreAnimation.transform.parent = transform;
 				myHighscoreAnimation.transform.localPosition = new Vector2 (0f, 0.08f);
 				myHighscoreAnimation.transform.parent = null;
+				myHighscoreAnimation = null;
 
 //                GameObject obj = objects_pool_controller.s.reposite_score(0, transform.position.y - my_txt_y_dif);
 //                obj.GetComponentInChildren<TextMesh>().text = "YOUR BEST";
@@ -110,6 +111,7 @@ public class floor : scenario_objects {
 				myHighscoreAnimation.transform.parent = transform;
 				myHighscoreAnimation.transform.localPosition = new Vector2 (0f, 0.08f);
 				myHighscoreAnimation.transform.parent = null;
+				myHighscoreAnimation = null;
 
 //                GameObject obj = objects_pool_controller.s.reposite_score(0, transform.position.y - my_txt_y_dif);
 //                obj.GetComponentInChildren<TextMesh>().text = "DAILY BEST";
@@ -122,6 +124,7 @@ public class floor : scenario_objects {
 				myHighscoreAnimation.transform.parent = transform;
 				myHighscoreAnimation.transform.localPosition = new Vector2 (0f, 0.08f);
 				myHighscoreAnimation.transform.parent = null;
+				myHighscoreAnimation = null;
 
 //                GameObject obj = objects_pool_controller.s.reposite_score(0, transform.position.y - my_txt_y_dif);
 //                obj.GetComponentInChildren<TextMesh>().text = "LAST GAME";
@@ -331,7 +334,7 @@ public class floor : scenario_objects {
 
 			//create new
 			create_score_text(type);
-			blink_color_mine();
+//			blink_color_mine();
 
 			//            scenario_objects[] allScenario = GameObject.FindObjectsOfType(typeof(scenario_objects)) as scenario_objects[];
 			//

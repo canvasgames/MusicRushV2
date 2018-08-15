@@ -67,7 +67,7 @@ public class PwWheelMaster : MonoBehaviour {
 		if(rewardToGive > 0)
 			USER.s.AddNotes (rewardToGive);
 		else
-			USER.s.AddDiamonds (1, "SpinDisk");
+			USER.s.AddGems (1, "SpinDisk");
 
 		hud_controller.si.PowerUpsMenuClose ();
 

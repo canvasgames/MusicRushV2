@@ -592,7 +592,7 @@ public class game_controller : MonoBehaviour {
 
     #region ======= COLLECTABLES ==========
 	int curStage = 1;
-	void CreateCollectableLogic(float x, float y){
+	void CreateCollectableLogic(float x, float y, int n = 0){
 		if(coinAlreadTryiedToCreateThisFloor == false) {
 			coinAlreadTryiedToCreateThisFloor = true;
 			int rand = Random.Range(1,100);
@@ -605,7 +605,7 @@ public class game_controller : MonoBehaviour {
 		}
 
 		if(coinSuccefullyCreated == false) {
-			create_power_up_logic (n_floor, x, y);
+			create_power_up_logic (n, x, y);
 		}
 	}
 
@@ -2276,7 +2276,7 @@ public class game_controller : MonoBehaviour {
         }
 
         ///////////////////////// CREATE NOTES OR NOT
-		CreateCollectableLogic(x, y);
+		CreateCollectableLogic(x, y, n);
     }
 		
 	public void create_hidden_spike(float x, float y, int n, bool manual_trigger = false, bool corner_repositionable = false)
@@ -2322,7 +2322,7 @@ public class game_controller : MonoBehaviour {
         }
 
 		///////////////////////// CREATE NOTES OR NOT
-		CreateCollectableLogic(x , y);
+		CreateCollectableLogic(x , y, n);
     }
 
 	public void create_triple_hidden_spike(float x, float y, int n, bool manual_trigger = false)

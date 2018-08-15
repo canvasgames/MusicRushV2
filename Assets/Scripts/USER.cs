@@ -11,7 +11,7 @@ public class USER : MonoBehaviour {
     [HideInInspector]   public int TOTAL_GAMES_WITH_TUTORIAL, TOTAL_GAMES, TOTAL_VIDEOS_WATCHED, TUTORIAL_GAMES;
     [HideInInspector]   public int FIRST_PW_CREATED, FIRST_HOLE_CREATED, FIRST_WALL_CREATED;
 	[HideInInspector]   public int NOTES, TOTAL_NOTES;
-	[HideInInspector]   public int DIAMONDS, TOTAL_DIAMONDS;
+	[HideInInspector]   public int GEMS, TOTAL_GEMS;
 	[HideInInspector]   public string FIRST_SESSION_DATE, FIRST_SATURDAY;
 	[HideInInspector]   public int LAST_UPDATE_UNLOCKED;
 
@@ -78,7 +78,7 @@ public class USER : MonoBehaviour {
 		NOTES = PlayerPrefs.GetInt("notes", 0);
         TOTAL_NOTES = PlayerPrefs.GetInt("total_notes", 0);
 
-		DIAMONDS = PlayerPrefs.GetInt ("diamonds", 0);
+		GEMS = PlayerPrefs.GetInt ("diamonds", 0);
 
         BEST_SCORE = PlayerPrefs.GetInt("best", 0);
         LAST_SCORE = PlayerPrefs.GetInt("last_score", 0);
@@ -134,26 +134,26 @@ public class USER : MonoBehaviour {
 
 
 	#endregion
-	#region === DIAMONDS ===
-	public void AddDiamonds(int value, string source){
-		Debug.Log ("::::::: USER ADD DDDIAMONDS CALLED: " + value + " CURRENT NOTES BEFORE: "+ USER.s.NOTES);
-		USER.s.DIAMONDS += value;
-		USER.s.TOTAL_DIAMONDS += value;
+	#region === GEMS ===
+	public void AddGems(int value, string source){
+		Debug.Log ("::::::: USER ADD GEMS CALLED: " + value + " CURRENT NOTES BEFORE: "+ USER.s.NOTES);
+		USER.s.GEMS += value;
+		USER.s.TOTAL_GEMS += value;
 //		hud_controller.si.display_notes(USER.s.NOTES);
 
-		PlayerPrefs.SetInt("diamonds", USER.s.DIAMONDS);
-		PlayerPrefs.SetInt("total_diamonds", USER.s.TOTAL_DIAMONDS);
+		PlayerPrefs.SetInt("gems", USER.s.GEMS);
+		PlayerPrefs.SetInt("total_gems", USER.s.TOTAL_GEMS);
 
 	}
 
-	public void SpendDiamonds(int quantity, string orign){
-		USER.s.DIAMONDS -= quantity;
-		PlayerPrefs.SetInt("diamonds", USER.s.DIAMONDS);
+	public void SpendGems(int quantity, string orign){
+		USER.s.GEMS -= quantity;
+		PlayerPrefs.SetInt("gems", USER.s.GEMS);
 	}
 
-	public void SaveUserDiamonds(){
-		PlayerPrefs.SetInt("total_diamonds", USER.s.TOTAL_DIAMONDS);
-		PlayerPrefs.SetInt("diamonds", USER.s.DIAMONDS);
+	public void SaveUserGems(){
+		PlayerPrefs.SetInt("total_gems", USER.s.TOTAL_GEMS);
+		PlayerPrefs.SetInt("gems", USER.s.GEMS);
 	}
 
 	#endregion

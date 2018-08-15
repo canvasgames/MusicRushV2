@@ -67,6 +67,7 @@ public class store_controller : MonoBehaviour {
 //
     public Text actualCoins;
 
+
 	[Header ("Button buy")]
 	public Text buyGemsPrice;
 	public Text buyRealMoney;
@@ -77,6 +78,8 @@ public class store_controller : MonoBehaviour {
 	[Header ("SPECIAL OFFER")]
 	public Text specialOfferTime;
 	public GameObject specialOfferButton;
+
+	public GameObject frameVIP;
 
     int actualCharInScreen;
 	MusicStyle actualStyle, lastSortedStyle = MusicStyle.Eletro;
@@ -201,6 +204,7 @@ public class store_controller : MonoBehaviour {
 		if (FTUController.s.firstSongPurchased == 0) {
 			myBackBt.gameObject.SetActive (false);
 			equipButton.gameObject.SetActive (false);
+			specialOfferButton.SetActive (false);
 		}
 
 		if (CountHowManyStylesPlayerHas () >= GD.s.N_STYLES) {
@@ -354,6 +358,11 @@ public class store_controller : MonoBehaviour {
 //		Debug.Log ("[JUKEBOX] Character changed new: " + GD.s.skins[skinId].skinName);
 			actualCharInScreen = skinId;
 			actualStyle = style;
+
+			if (GD.s.skins [skinId].isClothChanger || GD.s.skins [skinId].isBand)
+				frameVIP.SetActive (true);
+			else
+				frameVIP.SetActive (false);
 
 //		title.text = GD.s.GetStyleName (style);
 			title.text = GD.s.skins [skinId].skinName;
@@ -584,6 +593,9 @@ public class store_controller : MonoBehaviour {
 	/// Logic Of the sort animation
 	/// </summary>
 	/// <returns>The roullete animation.</returns>
+	/// 
+
+	bool showSpecialOfferButtonFirstTime = false;
 	public IEnumerator StartRoulleteAnimation(){
 
 		//FALLING COINS ANIMATION
@@ -606,6 +618,7 @@ public class store_controller : MonoBehaviour {
 		if (FTUController.s.firstSongPurchased == 0) {
 			skinToGive = 15; // mozart as first
 			FTUController.s.SetFirstSongPurchased ();
+			showSpecialOfferButtonFirstTime = true;
 		}
 		else skinToGive = SortCharToDrop ();
 
@@ -803,6 +816,13 @@ public class store_controller : MonoBehaviour {
 			alreadyBuyed [actualCharInScreen] = 1;
 			nCharsBuyed++;
 
+			if (showSpecialOfferButtonFirstTime == true) {
+				specialOfferButton.SetActive (true);
+				USER.s.SetANewSpecialOffer ();
+				DefineNextSpecialPack ();
+				showSpecialOfferButtonFirstTime = false;
+			}
+
 			// buttons settings
 			myBackBt.interactable = true;
 			buyButton.SetActive (false);
@@ -810,8 +830,7 @@ public class store_controller : MonoBehaviour {
 			myBgLights.SetActive (true);
 			equipButton.GetComponent<Button> ().interactable = true;
 
-
-			if((MusicStyle)USER.s.CUR_SPECIAL_OFFER == GD.s.skins [actualCharInScreen].musicStyle ) {
+			if((MusicStyle) USER.s.CUR_SPECIAL_OFFER == GD.s.skins [actualCharInScreen].musicStyle ) {
 				//&& CheckIfPlayerHasASkinOfThisStyle(GD.s.skins [actualCharInScreen].musicStyle)){
 				USER.s.SetANewSpecialOffer(); // TBD = DO SOMETHING ELSE? 
 				DefineNextSpecialPack();
@@ -827,12 +846,12 @@ public class store_controller : MonoBehaviour {
 					StartCoroutine (InitCoinFallingAnimation (USER.s.NOTES));
 				}
 			}
-
-		} else {
+		} else { // ****** SPECIAL PACK CASE *********
 			UnlockCharactersForSpecialPack ((MusicStyle)USER.s.CUR_SPECIAL_OFFER);
 			USER.s.SetANewSpecialOffer ();
 			DefineNextSpecialPack();
 
+			actualCharInScreen = USER.s.CUR_SPECIAL_OFFER * GD.s.SKINS_PER_MUSIC + 2;
 			ChangeCategoryTo (Categories.Main);
 		}
 	}
@@ -841,6 +860,22 @@ public class store_controller : MonoBehaviour {
 		if (FTUController.s.firstSongPurchased == 1) {
 			myBackBt.gameObject.SetActive (true);
 			equipButton.gameObject.SetActive (true);
+		}
+	}
+
+	#endregion
+
+	#region === IAP & GEMS === 
+	public void OnButtonGreenPurchasePressed(){
+		if (curCategory == Categories.Main) { // LÓGICA DE GEMS
+			if ((USER.s.GEMS >= 30 &&  (GD.s.skins[actualCharInScreen].isBand ||GD.s.skins[actualCharInScreen].isClothChanger)) ||
+				USER.s.GEMS >= 10 ) // PREÇO AQUI
+			{
+
+			}
+			
+		} else if (curCategory == Categories.Promo1) { // COMPRAS DE $ 3.99
+
 		}
 	}
 
@@ -853,19 +888,21 @@ public class store_controller : MonoBehaviour {
 		else if( curCategory == Categories.Promo1)
 			StartCoroutine (GiveRewardSpecialOffer(myPromos[USER.s.CUR_SPECIAL_OFFER], GD.s.GetStyleName((MusicStyle)USER.s.CUR_SPECIAL_OFFER)));
 
-//
-//		equipCharacterNew(true);
-//		PlayerPrefs.SetInt (GD.s.skins[actualCharInScreen].skinName + "AlreadyBuyed", 1);
-//		alreadyBuyed [actualCharInScreen] = 1;
-//		nCharsBuyed++;
-//
-//		myLockedBg.SetActive (false);
-//		myBgLights.SetActive (true);
-//		equipButton.GetComponent<Button> ().interactable = true;
-//		buyButton.SetActive (false);
+		//
+		//		equipCharacterNew(true);
+		//		PlayerPrefs.SetInt (GD.s.skins[actualCharInScreen].skinName + "AlreadyBuyed", 1);
+		//		alreadyBuyed [actualCharInScreen] = 1;
+		//		nCharsBuyed++;
+		//
+		//		myLockedBg.SetActive (false);
+		//		myBgLights.SetActive (true);
+		//		equipButton.GetComponent<Button> ().interactable = true;
+		//		buyButton.SetActive (false);
 	}
 
+
 	#endregion
+
 
 	#region === SPECIAL OFFER ===
 	DateTime dateNextPromo;
@@ -981,6 +1018,8 @@ public class store_controller : MonoBehaviour {
 			OnCharacterChangedNew (actualCharInScreen);
 
 		} else { // promo special case
+			frameVIP.SetActive (true);
+
 			equipButton.SetActive (false);
 			buyButton.SetActive (true);
 			buyGemsPrice.gameObject.SetActive (false);
