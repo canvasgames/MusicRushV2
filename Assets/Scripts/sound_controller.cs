@@ -351,49 +351,49 @@ public class sound_controller : MonoBehaviour
 
 	public void PlaySfxShieldBreak()	{
 		if (soundMuted == false) {
-			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_shield_break");
+			//FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_shield_break");
 		}
 	}
 
 	public void PlaySfxCharacterSuperJumpEffect()	{
 		if (soundMuted == false) {
-			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_super_jump");
+			//FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_super_jump");
 		}
 	}
 
 	public void PlaySfxCharacterVisionEndingAlert()	{ 
 		if (soundMuted == false) {
-			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_vision_ending_alert");
+			//FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_vision_ending_alert");
 		}
 	}
 
 	public void PlaySfxTrapHiddenHoleFall()	{ 
 		if (soundMuted == false) {
-			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_trap_hidden_hole_fall");
+			//FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_trap_hidden_hole_fall");
 		}
 	}
 
 	public void PlaySfxTrapHiddenSawAppear() {
 		if (soundMuted == false) {
-			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_trap_hidden_saw_appear");
+			//FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_trap_hidden_saw_appear");
 		}
 	}
 
 	public void PlaySfxTrapHiddenSpikeAppear()	{ 
 		if (soundMuted == false) {
-			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_trap_hidden_spike_appear");
+			//FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_trap_hidden_spike_appear");
 		}
 	}
 
 	public void PlaySfxTrapHiddenWallAppear()	{
 		if (soundMuted == false) {
-			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_trap_hidden_wall_appear");
+			//FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_trap_hidden_wall_appear");
 		}
 	}
 
 	public void PlaySfxCharacterWallCollided()	{ 
 		if (soundMuted == false) {
-			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_wall_collided");
+			//FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_wall_collided");
 		}
 	}
 

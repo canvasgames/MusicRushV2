@@ -5,7 +5,7 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: LatinaBand2UIAnimator
+  m_Name: LatinaBand3UIAnimator
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
@@ -40,7 +40,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: f37a4e184b4fe424381822f074dc779e, type: 2}
+  m_Motion: {fileID: 7400000, guid: 7433d7a6d22622943b6527a9aeda3e77, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

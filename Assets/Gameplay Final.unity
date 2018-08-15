@@ -490,6 +490,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11489680, guid: fb2a017e1d02c774aa5bae6d9bc42084, type: 2}
+      propertyPath: m_Transition
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb2a017e1d02c774aa5bae6d9bc42084, type: 2}
   m_IsPrefabParent: 0
@@ -4444,6 +4448,10 @@ GameObject:
   m_PrefabParentObject: {fileID: 1618464915442884, guid: 2c13f692049b82d40a3ae2a5d73ddebc,
     type: 2}
   m_PrefabInternal: {fileID: 1224498543}
+--- !u!1 &551057478 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 191094, guid: fb2a017e1d02c774aa5bae6d9bc42084, type: 2}
+  m_PrefabInternal: {fileID: 36289759}
 --- !u!1 &552587241 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 131592, guid: fec6f44afa45bc845808a5e34fe9a7a4, type: 2}
@@ -5742,6 +5750,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11451282, guid: ece89ae72e4720c449efb2b8845ed0e7, type: 2}
+      propertyPath: frameVIP
+      value: 
+      objectReference: {fileID: 551057478}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ece89ae72e4720c449efb2b8845ed0e7, type: 2}
   m_IsPrefabParent: 0
@@ -7527,6 +7539,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 345496583}
     m_Modifications:
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksHard.Array.data[20].denyConditions.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4523238864494732, guid: 512cb4b6c2f4d4a4985df174031ee41d, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7561,13 +7578,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksSuperEasy.Array.data[5].obstaclesFloor2.Array.data[0].name
-      value: hiddenHole_-2.1
+      propertyPath: BlocksMedium.Array.data[10].name
+      value: J_medium_saw_0
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksSuperEasy.Array.data[5].obstaclesFloor2.Array.data[0].myType
-      value: 6
+      propertyPath: BlocksMedium.Array.data[10].chance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksHard.Array.data[20].denyConditions.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksHard.Array.data[20].denyConditions.Array.data[1]
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 512cb4b6c2f4d4a4985df174031ee41d, type: 2}
@@ -8829,7 +8856,8 @@ Prefab:
   m_IsPrefabParent: 0
 --- !u!1 &1012791023 stripped
 GameObject:
-  m_PrefabParentObject: {fileID: 191094, guid: fb2a017e1d02c774aa5bae6d9bc42084, type: 2}
+  m_PrefabParentObject: {fileID: 1736833811119220, guid: fb2a017e1d02c774aa5bae6d9bc42084,
+    type: 2}
   m_PrefabInternal: {fileID: 36289759}
 --- !u!1 &1013092343 stripped
 GameObject:
@@ -15607,7 +15635,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11488674, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
       propertyPath: TIMESCALE
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 125310, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
       propertyPath: m_IsActive
