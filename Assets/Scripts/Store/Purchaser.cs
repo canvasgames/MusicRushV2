@@ -10,6 +10,8 @@ namespace CompleteProject
     // Deriving the Purchaser class from IStoreListener enables it to receive messages from Unity Purchasing.
     public class Purchaser : MonoBehaviour, IStoreListener
     {
+        public static Purchaser instance;
+
         private static IStoreController m_StoreController;          // The Unity Purchasing system.
         private static IExtensionProvider m_StoreExtensionProvider; // The store-specific Purchasing subsystems.
 
@@ -27,17 +29,70 @@ namespace CompleteProject
         public static string kProductIDNonConsumable = "nonconsumable";
         public static string kProductIDSubscription = "subscription";
 
+        // Goldee - examples - replace strings with final ones
+        public static string kProductIDCoinPackS = "gems1";
+        public static string kProductIDCoinPackM = "gems2";
+        public static string kProductIDCoinPackL = "gems3";
+        public static string kProductIDCoinPackXL = "gems4";
+        public static string kProductIDCoinPackXXL = "gems5";
+
+        public static string kProductIDClassicPack = "pack_classic";
+        public static string kProductIDElectronicPack = "pack_electronic";
+        public static string kProductIDLatinaPack= "pack_latina";
+        public static string kProductIDReggaePack = "pack_reggae";
+        public static string kProductIDPopPack = "pack_classic_pop";
+        public static string kProductIDRapPack = "pack_rap";
+        public static string kProductIDModernPopPack = "pack_modern_pop";
+        public static string kProductIDRockPack = "pack_rock";
+        public static string kProductIDSambaPack = "pack_samba";
+        public static string kProductIDAnimePack = "pack_anime_shounen";
+
+        // Goldee
+        public void BuyGemsPackS() { BuyProductID(kProductIDCoinPackS); }
+        public void BuyGemsPackM() { BuyProductID(kProductIDCoinPackM); }
+        public void BuyGemsPackL() { BuyProductID(kProductIDCoinPackL); }
+        public void BuyGemsPackXL() { BuyProductID(kProductIDCoinPackXL); }
+        public void BuyGemsPackXXL() { BuyProductID(kProductIDCoinPackXXL); }
+
+        public void BuyPack(MusicStyle style)
+        {
+            if(style == MusicStyle.AnimeShounen)
+                BuyProductID(kProductIDClassicPack);
+            else if (style == MusicStyle.Classic)
+                BuyProductID(kProductIDElectronicPack);
+            else if (style == MusicStyle.Eletro)
+                BuyProductID(kProductIDLatinaPack);
+            else if (style == MusicStyle.Latina)
+                BuyProductID(kProductIDReggaePack);
+            else if (style == MusicStyle.Pop)
+                BuyProductID(kProductIDPopPack);
+            else if (style == MusicStyle.PopGaga)
+                BuyProductID(kProductIDRapPack);
+            else if (style == MusicStyle.Rap)
+                BuyProductID(kProductIDModernPopPack);
+            else if (style == MusicStyle.Reggae)
+                BuyProductID(kProductIDRockPack);
+            else if (style == MusicStyle.Rock)
+                BuyProductID(kProductIDSambaPack);
+            else
+                BuyProductID(kProductIDAnimePack);
+        }
+
+
         // Apple App Store-specific product identifier for the subscription product.
         private static string kProductNameAppleSubscription = "com.unity3d.subscription.new";
 
         // Google Play Store-specific product identifier subscription product.
         private static string kProductNameGooglePlaySubscription = "com.unity3d.subscription.original";
 
+    
+
         void Start()
         {
             // If we haven't set up the Unity Purchasing reference
             if (m_StoreController == null)
             {
+                instance = this;
                 // Begin to configure our connection to Purchasing
                 InitializePurchasing();
             }
@@ -55,9 +110,26 @@ namespace CompleteProject
             // Create a builder, first passing in a suite of Unity provided stores.
             var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
-            // Add a product to sell / restore by way of its identifier, associating the general identifier
-            // with its store-specific identifiers.
-            builder.AddProduct(kProductIDConsumable, ProductType.Consumable);
+            builder.AddProduct(kProductIDCoinPackS, ProductType.Consumable);
+            builder.AddProduct(kProductIDCoinPackM, ProductType.Consumable);
+            builder.AddProduct(kProductIDCoinPackL, ProductType.Consumable);
+            builder.AddProduct(kProductIDCoinPackXL, ProductType.Consumable);
+            builder.AddProduct(kProductIDCoinPackXXL, ProductType.Consumable);
+
+            builder.AddProduct(kProductIDClassicPack, ProductType.Consumable);
+            builder.AddProduct(kProductIDElectronicPack, ProductType.Consumable);
+            builder.AddProduct(kProductIDLatinaPack, ProductType.Consumable);
+            builder.AddProduct(kProductIDReggaePack, ProductType.Consumable);
+            builder.AddProduct(kProductIDPopPack, ProductType.Consumable);
+            builder.AddProduct(kProductIDRapPack, ProductType.Consumable);
+            builder.AddProduct(kProductIDModernPopPack, ProductType.Consumable);
+            builder.AddProduct(kProductIDRockPack, ProductType.Consumable);
+            builder.AddProduct(kProductIDSambaPack, ProductType.Consumable);
+            builder.AddProduct(kProductIDAnimePack, ProductType.Consumable);
+
+        // Add a product to sell / restore by way of its identifier, associating the general identifier
+        // with its store-specific identifiers.
+        builder.AddProduct(kProductIDConsumable, ProductType.Consumable);
             // Continue adding the non-consumable product.
             builder.AddProduct(kProductIDNonConsumable, ProductType.NonConsumable);
             // And finish adding the subscription product. Notice this uses store-specific IDs, illustrating

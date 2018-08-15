@@ -80,6 +80,7 @@ public class store_controller : MonoBehaviour {
 	public GameObject specialOfferButton;
 
 	public GameObject frameVIP;
+    public GameObject GemsStore;
 
     int actualCharInScreen;
 	MusicStyle actualStyle, lastSortedStyle = MusicStyle.Eletro;
@@ -875,11 +876,22 @@ public class store_controller : MonoBehaviour {
 			}
 			
 		} else if (curCategory == Categories.Promo1) { // COMPRAS DE $ 3.99
-
-		}
+                                                       //
+            CompleteProject.Purchaser.instance.BuyPack((MusicStyle)USER.s.CUR_SPECIAL_OFFER);
+        }
 	}
 
-	bool purchaseFromGems = false;
+    public void OpenGemStore()
+    {
+        GemsStore.SetActive(true);
+    }
+
+    public void CloseGemStore()
+    {
+        GemsStore.SetActive(false);
+    }
+
+    bool purchaseFromGems = false;
 	public void OnGemsPurchaseComplete(){
 		ActivatePlayAndBackButtonsAgain (); // tutorial logic
 

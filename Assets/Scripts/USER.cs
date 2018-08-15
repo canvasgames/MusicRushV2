@@ -141,19 +141,19 @@ public class USER : MonoBehaviour {
 		USER.s.TOTAL_GEMS += value;
 //		hud_controller.si.display_notes(USER.s.NOTES);
 
-		PlayerPrefs.SetInt("gems", USER.s.GEMS);
-		PlayerPrefs.SetInt("total_gems", USER.s.TOTAL_GEMS);
+		PlayerPrefs.SetInt("gems", GEMS);
+		PlayerPrefs.SetInt("total_gems", TOTAL_GEMS);
 
 	}
 
 	public void SpendGems(int quantity, string orign){
-		USER.s.GEMS -= quantity;
-		PlayerPrefs.SetInt("gems", USER.s.GEMS);
+		GEMS -= quantity;
+		PlayerPrefs.SetInt("gems", GEMS);
 	}
 
 	public void SaveUserGems(){
-		PlayerPrefs.SetInt("total_gems", USER.s.TOTAL_GEMS);
-		PlayerPrefs.SetInt("gems", USER.s.GEMS);
+		PlayerPrefs.SetInt("total_gems", TOTAL_GEMS);
+		PlayerPrefs.SetInt("gems", GEMS);
 	}
 
 	#endregion
