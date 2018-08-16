@@ -351,7 +351,7 @@ public class game_controller : MonoBehaviour {
         globals.s.CAN_REVIVE = false;
         there_was_revive = PlayerPrefs.GetInt("there_was_revive", 0);
         n_games_without_revive = PlayerPrefs.GetInt("n_games_without_revive", 0);
-        if ( USER.s.DAY_SCORE > 6 && globals.s.BALL_FLOOR > 6 && ( n_floor > 20 || globals.s.BALL_FLOOR > USER.s.DAY_SCORE - 5)  && there_was_revive == 0) {
+        if ( USER.s.DAY_SCORE > 6 && globals.s.BALL_FLOOR > 6 && ( n_floor > 25 || globals.s.BALL_FLOOR > USER.s.DAY_SCORE - 5)) {
 
             int rand = Random.Range(1,100);
             int dif = 0;
