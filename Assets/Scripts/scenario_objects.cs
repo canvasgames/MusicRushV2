@@ -9,15 +9,6 @@ public class scenario_objects : MonoBehaviour {
     public bool already_blinked = false;
     public bool i_am_floor = false;
 
-    // Use this for initialization
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     public void try_blink(int floor)
     {

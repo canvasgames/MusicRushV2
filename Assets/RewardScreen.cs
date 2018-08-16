@@ -138,8 +138,6 @@ public class RewardScreen : MonoBehaviour {
 		//			yield return new WaitForSeconds (0.01f);
 		//		}
 		StartCoroutine (LightAnimations ());
-
-
 	}
 
 	IEnumerator EnteringAnimationNotes(){
@@ -409,12 +407,10 @@ public class RewardScreen : MonoBehaviour {
 //				lightsTopLine [i].SetActive (false);
 //				lightsBottomtLine [i].SetActive (false);
 
-
 				if (i == lightsTopLine.Length-1) {
 					i = -1;
 					yield return new WaitForSeconds (0.17f);
 				}
-
 
 			} else
 				break;
