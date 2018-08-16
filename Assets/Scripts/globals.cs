@@ -76,7 +76,7 @@ public class globals : MonoBehaviour {
 
 	[HideInInspector] public bool GIFT_ANIMATION = false;
 
-    [HideInInspector] public bool CURSOR_IN_PAUSE_BT = false;
+	[HideInInspector] public bool CURSOR_IN_PAUSE_BT = false;
 
     [HideInInspector]
     public bool MENU_OPEN = false;

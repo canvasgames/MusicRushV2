@@ -868,17 +868,18 @@ public class store_controller : MonoBehaviour {
 
 	#region === IAP & GEMS === 
 	public void OnButtonGreenPurchasePressed(){
-		if (curCategory == Categories.Main) { // LÓGICA DE GEMS
-			if ((USER.s.GEMS >= 30 &&  (GD.s.skins[actualCharInScreen].isBand ||GD.s.skins[actualCharInScreen].isClothChanger)) ||
-				USER.s.GEMS >= 10 ) // PREÇO AQUI
-			{
-
-			}
-			
-		} else if (curCategory == Categories.Promo1) { // COMPRAS DE $ 3.99
-                                                       //
-            CompleteProject.Purchaser.instance.BuyPack((MusicStyle)USER.s.CUR_SPECIAL_OFFER);
-        }
+		OnGemsPurchaseComplete ();
+//		if (curCategory == Categories.Main) { // LÓGICA DE GEMS
+//			if ((USER.s.GEMS >= 30 &&  (GD.s.skins[actualCharInScreen].isBand ||GD.s.skins[actualCharInScreen].isClothChanger)) ||
+//				USER.s.GEMS >= 10 ) // PREÇO AQUI
+//			{
+//
+//			}
+//			
+//		} else if (curCategory == Categories.Promo1) { // COMPRAS DE $ 3.99
+//                                                       //
+//            CompleteProject.Purchaser.instance.BuyPack((MusicStyle)USER.s.CUR_SPECIAL_OFFER);
+//        }
 	}
 
     public void OpenGemStore()
