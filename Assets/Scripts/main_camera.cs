@@ -116,11 +116,6 @@ public class main_camera : MonoBehaviour {
 		pw_super_jump = false;
 	}
 
-	 public void ResetMeForRestart(){
-		initiated = false;
-		transform.position = new Vector2 (0, yStart);
-	}
-
     public void on_ball_up(float ball_y) {
         if (!moving && ball_y > transform.position.y - globals.s.FLOOR_HEIGHT / 4)//Debug.Log("MY Y POS: " + transform.position.y);  if (globals.s.BALL_Y > transform.position.y)
         {
@@ -229,11 +224,8 @@ public class main_camera : MonoBehaviour {
             if (globals.s.GAME_OVER == 0 && !falling && !hitted_on_wall) {
                 if (initiated == false)
                 {
-//					if (globals.s.BALL_Y > transform.position.y) //if ball is in a superior position than the camera
-					if ( globals.s.BALL_Y > globals.s.FLOOR_HEIGHT*1+ globals.s.BASE_Y && 
-						(globals.s.CUR_BALL_SPEED > 0 && globals.s.BALL_X > 1.1f) || (globals.s.CUR_BALL_SPEED < 0 && globals.s.BALL_X < -1.1f) ) //if ball is in a superior position than the camera
+                    if (globals.s.BALL_Y > transform.position.y) //if ball is in a superior position than the camera
                     {
-						Debug.Log (" MY Y " + globals.s.BALL_Y + "  TARGET Y: " + (globals.s.FLOOR_HEIGHT * 1 + globals.s.BASE_Y) + " BALL SPEED : "+globals.s.BALL_SPEED_X+ " BALLX "+ globals.s.BALL_X  );
                         rb.velocity = new Vector2(0, globals.s.CAMERA_SPEED);
                         initiated = true;
                         moving = true;

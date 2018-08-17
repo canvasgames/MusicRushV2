@@ -38,6 +38,7 @@ public class USER : MonoBehaviour {
 		//PlayerPrefs.SetInt("best", 0);
 		//PlayerPrefs.SetInt ("first_game", 0);
 
+
 		// DATE STUFF
 		FIRST_SESSION_DATE = PlayerPrefs.GetString("first_session_date", "");
 		if(FIRST_SESSION_DATE == ""){ 
@@ -169,6 +170,7 @@ public class USER : MonoBehaviour {
 		PlayerPrefs.SetInt("last_score", currentFloor);
 		LAST_SCORE = currentFloor;
 	}
+
 
 	public void SaveUserTotalGames(int n){
 //		PlayerPrefs.SetInt ("total_games_without_tutorial", n);

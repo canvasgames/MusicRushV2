@@ -138,6 +138,8 @@ public class RewardScreen : MonoBehaviour {
 		//			yield return new WaitForSeconds (0.01f);
 		//		}
 		StartCoroutine (LightAnimations ());
+
+
 	}
 
 	IEnumerator EnteringAnimationNotes(){
@@ -206,7 +208,6 @@ public class RewardScreen : MonoBehaviour {
 		yield return new WaitForSeconds (0.5f);
 
 		myImage.DOFade (1, 0.3f).OnComplete( () => myImage.DOColor(myColor,0.3f));
-		sound_controller.s.PlaySfxUISpinDiskReward ();
 
 		yield return new WaitForSeconds (0.3f);
 
@@ -229,7 +230,6 @@ public class RewardScreen : MonoBehaviour {
 
 		myButtons [0].transform.DOLocalMoveY (localY, 0.5f).SetEase (Ease.OutQuad);
 		myButtons [1].transform.DOLocalMoveY (localY2, 0.5f).SetEase (Ease.OutQuad);
-
 
 		yield return new WaitForSeconds (0.3f);
 
@@ -258,8 +258,6 @@ public class RewardScreen : MonoBehaviour {
 			//			lightsBottomtLineOff[lightsBottomtLine.Length-i-1].transform.DOLocalMoveY(0, 0.15f);
 
 			yield return new WaitForSeconds (0.02f);
-
-
 		}
 		//		foreach (GameObject lgt in lightsBottomtLine) {
 		//			lgt.transform.DOLocalMoveY(0, 0.15f);
@@ -278,6 +276,8 @@ public class RewardScreen : MonoBehaviour {
 			myButtons [1].SetActive (true);
 		else
 			myButtons [1].SetActive (false);
+
+		sound_controller.s.PlaySfxUISpinDiskReward ();
 
 		Color myColor = myImage.color;
 
@@ -339,11 +339,7 @@ public class RewardScreen : MonoBehaviour {
 
 		myImage.DOFade (1, 0.3f).OnComplete( () => myImage.DOColor(myColor,0.3f));
 
-		yield return new WaitForSeconds (0.1f);
-
-		sound_controller.s.PlaySfxUISpinDiskReward ();
-
-		yield return new WaitForSeconds (0.2f);
+		yield return new WaitForSeconds (0.3f);
 
 		myYouJustGot.transform.DOScale (Vector3.one, 0.8f);
 
@@ -413,10 +409,12 @@ public class RewardScreen : MonoBehaviour {
 //				lightsTopLine [i].SetActive (false);
 //				lightsBottomtLine [i].SetActive (false);
 
+
 				if (i == lightsTopLine.Length-1) {
 					i = -1;
 					yield return new WaitForSeconds (0.17f);
 				}
+
 
 			} else
 				break;

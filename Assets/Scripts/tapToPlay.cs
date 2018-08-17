@@ -17,6 +17,7 @@ public class tapToPlay : MonoBehaviour {
        GetComponent<CanvasGroup>().DOFade(1, 0.7f).OnComplete(() => fadeout());
     }
 
+
     // Update is called once per frame
     void Update() {
 

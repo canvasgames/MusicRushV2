@@ -27,7 +27,7 @@ public class RestartLoadingScreen : MonoBehaviour {
 		string author = "";
 			
 		if (i == 1) {
-			text = "GET UP! STAND UP! DON`T GIVE UP THE FIGHT!";
+			text = "GET UP! STAND UP! DON'T GIVE UP THE FIGHT!";
 			author = "BOB MARLEY";
 		} else if (i == 2) {
 			text = "NEVER GONNA GIVE YOU UP! NEVER GONNA LET YOU DOWN!";
@@ -36,10 +36,10 @@ public class RestartLoadingScreen : MonoBehaviour {
 			text = "I WILL SURVIVE! I WILL SURVIVE! EH-HE!";
 			author = "GLORIA GAYNOR";
 		} else if (i == 4) {
-			text = "IT`S MY LIFE! IT`S NOW OR NEVER!";
+			text = "IT'S MY LIFE! IT'S NOW OR NEVER!";
 			author = "BON JOVI";
 		} else if (i == 5) {
-			text = "WORK IT, MAKE IT,  DO IT, MAKE US HARDER, BETTER, STRONGER";
+			text = "WORK IT, MAKE IT, DO IT, MAKE US HARDER, BETTER, STRONGER";
 			author = "DAFT PUNK";
 		}
 
