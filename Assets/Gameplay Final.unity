@@ -559,7 +559,7 @@ Prefab:
       objectReference: {fileID: 1475790730}
     - target: {fileID: 150514, guid: fb2a017e1d02c774aa5bae6d9bc42084, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11489680, guid: fb2a017e1d02c774aa5bae6d9bc42084, type: 2}
       propertyPath: m_Transition
@@ -8642,11 +8642,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 345496583}
     m_Modifications:
-    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
-        type: 2}
-      propertyPath: BlocksHard.Array.data[20].denyConditions.Array.size
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4523238864494732, guid: 512cb4b6c2f4d4a4985df174031ee41d, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -8678,26 +8673,6 @@ Prefab:
     - target: {fileID: 4523238864494732, guid: 512cb4b6c2f4d4a4985df174031ee41d, type: 2}
       propertyPath: m_RootOrder
       value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
-        type: 2}
-      propertyPath: BlocksMedium.Array.data[10].name
-      value: J_medium_saw_0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
-        type: 2}
-      propertyPath: BlocksMedium.Array.data[10].chance
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
-        type: 2}
-      propertyPath: BlocksHard.Array.data[20].denyConditions.Array.data[0]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
-        type: 2}
-      propertyPath: BlocksHard.Array.data[20].denyConditions.Array.data[1]
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 512cb4b6c2f4d4a4985df174031ee41d, type: 2}
@@ -18121,7 +18096,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11488674, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
       propertyPath: TIMESCALE
-      value: 2
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 125310, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
       propertyPath: m_IsActive
@@ -18141,11 +18116,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11488674, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
       propertyPath: INVENCIBLE
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11488674, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
       propertyPath: SHOW_WAVE_TYPE
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
