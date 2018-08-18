@@ -11,6 +11,8 @@ public class hud_controller : MonoBehaviour {
 	#region === Variables Declaration ===
 	public static hud_controller si;
 
+	public GameObject displayingVideoMessage;
+
 	public GameObject handTapToPlay;
 
 	public GameObject jukeboxBtMainMenu;
@@ -1011,6 +1013,7 @@ public class hud_controller : MonoBehaviour {
     public void show_video_revive()
     {
         globals.s.MENU_OPEN = true;
+		displayingVideoMessage.SetActive (true);
         Invoke("appear_video", 1.7f);
     }
 
@@ -1028,9 +1031,10 @@ public class hud_controller : MonoBehaviour {
     public void watched_the_video_revive()
     {
         //video.SetActive(false);
+		displayingVideoMessage.SetActive (false);
        
         globals.s.SHOW_VIDEO_AFTER = false;
-        Invoke("change_menu_open_state_revive", 1f);
+        Invoke("change_menu_open_state_revive", 0.5f);
     }
 
     void change_menu_open_state_revive()

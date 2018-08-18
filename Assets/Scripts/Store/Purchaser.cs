@@ -252,7 +252,6 @@ namespace CompleteProject
             }
         }
 
-
         //  
         // --- IStoreListener
         //

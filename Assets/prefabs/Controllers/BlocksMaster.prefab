@@ -54,8 +54,8 @@ MonoBehaviour:
   NotRepeatFrequency: 3
   NewCreationLogic: 1
   superEasy: 5
-  easy: 15
-  medium: 25
+  easy: 10
+  medium: 20
   hard: 45
   veryHard: 10000
   debugInitialBlock: 6
@@ -456,9 +456,9 @@ MonoBehaviour:
       xEnd: 0
       fixedDist: -3.7
     obstaclesFloor2: []
-  - name: J_medium_saw_0
+  - name: J_medium_saw_30
     customName: J_medium_saw
-    chance: 0
+    chance: 30
     type: 0
     denyConditions: 0200000003000000
     obstacles:
@@ -960,7 +960,7 @@ MonoBehaviour:
     customName: J_h_saw
     chance: 30
     type: 0
-    denyConditions: 
+    denyConditions: 0300000002000000
     obstacles:
     - name: saw_4.4
       myType: 4

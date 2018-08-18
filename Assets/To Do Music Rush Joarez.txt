@@ -5,8 +5,6 @@
 - 
 
 
-
-
 ========== 
 
 MUSIC RUSH JOAREZ:
@@ -17,6 +15,7 @@ c variavle de controle de spanw de power ups
 - logica reversa de criar pw de vision
 - spin disk numeros aumentarem com "distancia do centro"
 - exclamação desaparecer se não tem mais traps
+- manual traps: não aparecer o sinal de vision dos spikes
 
 - floor vazios entre stages: não criar os de 2 andares
 

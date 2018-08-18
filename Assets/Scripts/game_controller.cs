@@ -351,7 +351,7 @@ public class game_controller : MonoBehaviour {
         globals.s.CAN_REVIVE = false;
         there_was_revive = PlayerPrefs.GetInt("there_was_revive", 0);
         n_games_without_revive = PlayerPrefs.GetInt("n_games_without_revive", 0);
-        if ( USER.s.DAY_SCORE > 6 && globals.s.BALL_FLOOR > 6 && ( n_floor > 20 || globals.s.BALL_FLOOR > USER.s.DAY_SCORE - 5)  && there_was_revive == 0) {
+        if ( USER.s.DAY_SCORE > 6 && globals.s.BALL_FLOOR > 6 && ( n_floor > 25 || globals.s.BALL_FLOOR > USER.s.DAY_SCORE - 5)) {
 
             int rand = Random.Range(1,100);
             int dif = 0;
@@ -458,11 +458,10 @@ public class game_controller : MonoBehaviour {
 		hud_controller.si.DisplayRestartLoading ();
 		BallMaster.s.DeactivateBallsForRestart ();
 
-
 		yield return new WaitForSeconds (0.35f);
 
 //		main_camera.s.transform.DOMoveY (main_camera.s.yStart, 1.5f);
-		main_camera.s.transform.position = new Vector2 (0, main_camera.s.yStart);
+		main_camera.s.ResetMeForRestart ();
 
 		yield return new WaitForSeconds (0.01f);
 		//CLEAR THE POOL
@@ -489,8 +488,12 @@ public class game_controller : MonoBehaviour {
 		Start ();
 	}
 
-	void ResetStuffForNewGame(){
 
+	bool JustUnvirginedFromTheHoleAndHas1Death = false;
+	void ResetStuffForNewGame(){
+		if (USER.s.NEWBIE_PLAYER == 0 )
+			JustUnvirginedFromTheHoleAndHas1Death = true;
+		
 		if (QA.s.SHOW_WAVE_TYPE) {
 			foreach (GameObject qa in QAWaveNames)
 				qa.SetActive (false);
@@ -593,7 +596,7 @@ public class game_controller : MonoBehaviour {
     #region ======= COLLECTABLES ==========
 	int curStage = 1;
 	void CreateCollectableLogic(float x, float y, int n = 0){
-		if(coinAlreadTryiedToCreateThisFloor == false) {
+		if(coinAlreadTryiedToCreateThisFloor == false  ) {
 			coinAlreadTryiedToCreateThisFloor = true;
 			int rand = Random.Range(1,100);
 			if(rand <= GD.s.GD_COIN_CHANCE + GD.s.GD_COIN_CHANCE_INC * (curStage -1)) {
@@ -620,11 +623,12 @@ public class game_controller : MonoBehaviour {
 
         //rand = Random.Range(0, 10);
         // create chance check
-		if (QA.s.TRACE_PROFUNDITY > -1) Debug.Log("FIRST PW CREATED " + USER.s.FIRST_PW_CREATED + " .. CREATE POWER UPS CHANCE: " + rand + " .. CONDITION: " + ((pw_floors_not_created - pw_dont_create_for_n_floors) * 7));
+		if (QA.s.TRACE_PROFUNDITY > 0) Debug.Log("FIRST PW CREATED " + USER.s.FIRST_PW_CREATED + " .. CREATE POWER UPS CHANCE: " + rand + " .. CONDITION: " + ((pw_floors_not_created - pw_dont_create_for_n_floors) * 7));
         // if (!QA.s.NO_PWS && pw_floors_not_created > pw_dont_create_for_n_floors && rand <= 15 && globals.s.PW_ACTIVE == true) {
 //		if (!QA.s.NO_PWS && USER.s.TOTAL_GAMES_WITH_TUTORIAL >= 1 && USER.s.NEWBIE_PLAYER == 0 && (
-		if (!QA.s.NO_PWS && USER.s.NEWBIE_PLAYER == 0 && (
-			(USER.s.FIRST_PW_CREATED == 1 && pw_floors_not_created > pw_dont_create_for_n_floors && rand <= (pw_floors_not_created - pw_dont_create_for_n_floors) * 7) 
+		if (!QA.s.NO_PWS && 
+			(USER.s.NEWBIE_PLAYER == 0 && JustUnvirginedFromTheHoleAndHas1Death == true) && (
+			(USER.s.FIRST_PW_CREATED == 1 && pw_floors_not_created > pw_dont_create_for_n_floors && rand <= (pw_floors_not_created - pw_dont_create_for_n_floors) *6) 
 			|| 
 			(USER.s.FIRST_PW_CREATED == 0 && !first_pw_created)
 			))

@@ -158,14 +158,14 @@ public class ball_hero : MonoBehaviour
 
 			//ADD FOLLOWERS
 			for (int i = 0; i < myFollowers.Length; i++) {
-				Debug.Log (iAmLeft + i.ToString () + "  zz2 UPDATE MY SKIN: " + globals.s.ACTUAL_STYLE.ToString ());
+//				Debug.Log (iAmLeft + i.ToString () + "  zz2 UPDATE MY SKIN: " + globals.s.ACTUAL_STYLE.ToString ());
 
 				if (iAmLeft)
 					myFollowers [i] = BallMaster.s.followersBall1 [i];
 				else
 					myFollowers [i] = BallMaster.s.followersBall2 [i];
-				Debug.Log (iAmLeft + i.ToString () + " uu3 UPDATE MY SKIN: " + globals.s.ACTUAL_STYLE.ToString ());
-				Debug.Log (i.ToString ()  + " my followER name : " + myFollowers[i].name + " NULL: "+ myFollowers[i] );
+//				Debug.Log (iAmLeft + i.ToString () + " uu3 UPDATE MY SKIN: " + globals.s.ACTUAL_STYLE.ToString ());
+//				Debug.Log (i.ToString ()  + " my followER name : " + myFollowers[i].name + " NULL: "+ myFollowers[i] );
 
 				myFollowers [i].gameObject.SetActive (true);
 				myFollowers [i].UpdateMySkin (globals.s.ACTUAL_SKIN, i + 2, rb.velocity);
@@ -174,7 +174,7 @@ public class ball_hero : MonoBehaviour
 			} 
 		}
 		else if (globals.s.ACTUAL_SKIN.isClothChanger == true) {
-			Debug.Log ("!!!!!!!!!IS CLOTH CHANGER");
+//			Debug.Log ("!!!!!!!!!IS CLOTH CHANGER");
 			my_skin.GetComponent<Animator> ().runtimeAnimatorController = 
 				Resources.Load ("Sprites/Animations/" + globals.s.ACTUAL_STYLE.ToString ()
 					+ "Special" + BallMaster.s.clothChangerCurrent
@@ -261,7 +261,7 @@ public class ball_hero : MonoBehaviour
 	IEnumerator ShowAlert() {
 		yield return new WaitForSeconds (0.05f);
 
-            Debug.Log("SHOWING ALERT!! MY FLOOR: " + my_floor);
+//            Debug.Log("SHOWING ALERT!! MY FLOOR: " + my_floor);
             my_alert.SetActive(true);
             my_alert.transform.localScale = new Vector2(2.3f, 0);
             my_alert.transform.DOScaleY(2.3f, 0.12f);
@@ -286,7 +286,7 @@ public class ball_hero : MonoBehaviour
 		// ================= SUPER JUMP START!!!!!!!!!! =====================
 		if (globals.s.PW_SUPER_JUMP == true && transform.position.y >= nextTargetSuperJumpY)
 		{
-			Debug.Log ("passing through floor!!! N: " + my_floor);
+//			Debug.Log ("passing through floor!!! N: " + my_floor);
 
 			my_floor++;
 			nextTargetSuperJumpY += globals.s.FLOOR_HEIGHT;
@@ -294,7 +294,7 @@ public class ball_hero : MonoBehaviour
 				//Debug.Log ("[sp] are you ...  " + andar.my_floor );
 
 				if (andar.isActiveAndEnabled && andar.my_floor == my_floor+1) {
-					Debug.Log ("FLOOR FOFFFOUNDO floor!!! N: " + andar.my_floor );
+//					Debug.Log ("FLOOR FOFFFOUNDO floor!!! N: " + andar.my_floor );
 					andar.colidded_super_pw ();
 					//Debug.Log ("PW TRIGGER!! MY FLOOR: " + my_floor);
 					game_controller.s.ball_up (my_floor);
@@ -331,7 +331,7 @@ public class ball_hero : MonoBehaviour
 //				Debug.Log ("0JJJJJJJUMP! " + Input.mousePosition.y );
 				globals.s.GAME_STARTED = true;
 				hud_controller.si.start_game_coroutine ();
-				Debug.Log ("START GAME: FIRST JUMP!!!");
+//				Debug.Log ("START GAME: FIRST JUMP!!!");
 				StartCoroutine (Jump ());
 			}
 		}
@@ -402,6 +402,7 @@ public class ball_hero : MonoBehaviour
 			}
 
 			//Debug.Log("BALL DESTROYED TIME: " + Time.time + " .. TIME DIF: " + (Time.time - time_dif));
+			 Debug.Log (my_id + " BALL UP: END REACHED!!!!!!! MY POS: " + transform.position.x + " LEFT: " + globals.s.LIMIT_LEFT + " RIGHT: " + globals.s.LIMIT_RIGHT);
 
 			my_son = BallMaster.s.ReturnInactiveBall ();
 			my_son.transform.position = new Vector2 (x_new_pos, transform.position.y + globals.s.FLOOR_HEIGHT);
@@ -415,9 +416,10 @@ public class ball_hero : MonoBehaviour
 			my_son.GetComponent<ball_hero> ().grounded = grounded;
 
 
+//			globals.s.CUR_BALL_SPEED = my_son.GetComponent<Rigidbody2D> ().velocity.x;
+			globals.s.CUR_BALL_SPEED = -rb.velocity.x;
 			globals.s.BALL_Y = my_son.transform.position.y;
 			globals.s.BALL_X = my_son.transform.position.x;
-			globals.s.CUR_BALL_SPEED = my_son.GetComponent<Rigidbody2D> ().velocity.x;
 
 			my_son.GetComponent<ball_hero> ().init_my_skin ();
 			if (grounded == false) { 
@@ -431,7 +433,6 @@ public class ball_hero : MonoBehaviour
 			my_son.GetComponent<ball_hero>().InitMyFollowers();
 
 			if(globals.s.ACTUAL_SKIN.isClothChanger) my_son.GetComponent<ball_hero>().UpdateMySkinAndMakeMeFabolous();
-
 
 			// CALL GAME CONTROLLER
 			game_controller.s.ball_up (my_floor);
@@ -507,6 +508,8 @@ public class ball_hero : MonoBehaviour
             globals.s.BALL_X = transform.position.x;
             globals.s.CUR_BALL_SPEED = rb.velocity.x;
             globals.s.BALL_GROUNDED = grounded;
+//			Debug.Log (" id update: " + my_id);
+
             //Debug.Log("XY UPDATED | MY ID: " + my_id + " time: " + Time.time + " MY FLOOR " + my_floor + " CUR BALL SPEED: " + globals.s.CUR_BALL_SPEED);
             //globals.s.BALL_FLOOR = my_floor;
         }
@@ -519,7 +522,7 @@ public class ball_hero : MonoBehaviour
 		objects_pool_controller.s.reposite_note_trail (transform.position.x, transform.position.y + Random.Range (-0.2f, 0.2f));
 
 
-		if(!is_destroyed) Invoke("create_note_trail",0.07f);
+	if(!is_destroyed) Invoke("create_note_trail",0.07f);
 	}
 
 	int clothChangerSkin = 1;
@@ -532,7 +535,7 @@ public class ball_hero : MonoBehaviour
 		BallMaster.s.clothChangerCurrent++;
 		if (BallMaster.s.clothChangerCurrent > 3)
 			BallMaster.s.clothChangerCurrent = 1;
-		Debug.Log (iAmLeft + " !!!!!!!!!ccccccccccccc IS CLOTH CHANGER! cur: " + BallMaster.s.clothChangerCurrent);
+//		Debug.Log (iAmLeft + " !!!!!!!!!ccccccccccccc IS CLOTH CHANGER! cur: " + BallMaster.s.clothChangerCurrent);
 
 		my_skin.GetComponent<Animator> ().runtimeAnimatorController = 
 			Resources.Load ("Sprites/Animations/" + globals.s.ACTUAL_STYLE.ToString ()
