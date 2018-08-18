@@ -30,11 +30,11 @@ namespace CompleteProject
         public static string kProductIDSubscription = "subscription";
 
         // Goldee - examples - replace strings with final ones
-        public static string kProductIDCoinPackS = "gems1";
-        public static string kProductIDCoinPackM = "gems2";
-        public static string kProductIDCoinPackL = "gems3";
-        public static string kProductIDCoinPackXL = "gems4";
-        public static string kProductIDCoinPackXXL = "gems5";
+        public static string kProductIDGemPackS = "gems1";
+        public static string kProductIDGemPackM = "gems2";
+        public static string kProductIDGemPackL = "gems3";
+        public static string kProductIDGemPackXL = "gems4";
+        public static string kProductIDGemPackXXL = "gems5";
 
         public static string kProductIDClassicPack = "pack_classic";
         public static string kProductIDElectronicPack = "pack_electronic";
@@ -48,11 +48,11 @@ namespace CompleteProject
         public static string kProductIDAnimePack = "pack_anime_shounen";
 
         // Goldee
-        public void BuyGemsPackS() { BuyProductID(kProductIDCoinPackS); }
-        public void BuyGemsPackM() { BuyProductID(kProductIDCoinPackM); }
-        public void BuyGemsPackL() { BuyProductID(kProductIDCoinPackL); }
-        public void BuyGemsPackXL() { BuyProductID(kProductIDCoinPackXL); }
-        public void BuyGemsPackXXL() { BuyProductID(kProductIDCoinPackXXL); }
+        public void BuyGemsPackS() { BuyProductID(kProductIDGemPackS); }
+        public void BuyGemsPackM() { BuyProductID(kProductIDGemPackM); }
+        public void BuyGemsPackL() { BuyProductID(kProductIDGemPackL); }
+        public void BuyGemsPackXL() { BuyProductID(kProductIDGemPackXL); }
+        public void BuyGemsPackXXL() { BuyProductID(kProductIDGemPackXXL); }
 
 
 		MusicStyle styleToBePurchased = MusicStyle.Eletro;
@@ -123,11 +123,11 @@ namespace CompleteProject
             // Create a builder, first passing in a suite of Unity provided stores.
             var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
-            builder.AddProduct(kProductIDCoinPackS, ProductType.Consumable);
-            builder.AddProduct(kProductIDCoinPackM, ProductType.Consumable);
-            builder.AddProduct(kProductIDCoinPackL, ProductType.Consumable);
-            builder.AddProduct(kProductIDCoinPackXL, ProductType.Consumable);
-            builder.AddProduct(kProductIDCoinPackXXL, ProductType.Consumable);
+            builder.AddProduct(kProductIDGemPackS, ProductType.Consumable);
+            builder.AddProduct(kProductIDGemPackM, ProductType.Consumable);
+            builder.AddProduct(kProductIDGemPackL, ProductType.Consumable);
+            builder.AddProduct(kProductIDGemPackXL, ProductType.Consumable);
+            builder.AddProduct(kProductIDGemPackXXL, ProductType.Consumable);
 
 			builder.AddProduct(kProductIDClassicPack, ProductType.NonConsumable);
             builder.AddProduct(kProductIDElectronicPack, ProductType.NonConsumable);
@@ -167,30 +167,30 @@ namespace CompleteProject
         }
 
 
-        public void BuyConsumable()
-        {
-            // Buy the consumable product using its general identifier. Expect a response either 
-            // through ProcessPurchase or OnPurchaseFailed asynchronously.
-            BuyProductID(kProductIDConsumable);
-        }
+//        public void BuyConsumable()
+//        {
+//            // Buy the consumable product using its general identifier. Expect a response either 
+//            // through ProcessPurchase or OnPurchaseFailed asynchronously.
+//            BuyProductID(kProductIDConsumable);
+//        }
+//
+
+//        public void BuyNonConsumable()
+//        {
+//            // Buy the non-consumable product using its general identifier. Expect a response either 
+//            // through ProcessPurchase or OnPurchaseFailed asynchronously.
+//            BuyProductID(kProductIDNonConsumable);
+//        }
 
 
-        public void BuyNonConsumable()
-        {
-            // Buy the non-consumable product using its general identifier. Expect a response either 
-            // through ProcessPurchase or OnPurchaseFailed asynchronously.
-            BuyProductID(kProductIDNonConsumable);
-        }
-
-
-        public void BuySubscription()
-        {
-            // Buy the subscription product using its the general identifier. Expect a response either 
-            // through ProcessPurchase or OnPurchaseFailed asynchronously.
-            // Notice how we use the general product identifier in spite of this ID being mapped to
-            // custom store-specific identifiers above.
-            BuyProductID(kProductIDSubscription);
-        }
+//        public void BuySubscription()
+//        {
+//            // Buy the subscription product using its the general identifier. Expect a response either 
+//            // through ProcessPurchase or OnPurchaseFailed asynchronously.
+//            // Notice how we use the general product identifier in spite of this ID being mapped to
+//            // custom store-specific identifiers above.
+//            BuyProductID(kProductIDSubscription);
+//        }
 
 
         void BuyProductID(string productId)
@@ -291,13 +291,25 @@ namespace CompleteProject
         public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
         {
             // A consumable product has been purchased by this user.
-            if (String.Equals(args.purchasedProduct.definition.id, kProductIDConsumable, StringComparison.Ordinal))
+			if (String.Equals(args.purchasedProduct.definition.id, kProductIDGemPackL, StringComparison.Ordinal) ||
+				String.Equals(args.purchasedProduct.definition.id, kProductIDGemPackM, StringComparison.Ordinal) ||
+				String.Equals(args.purchasedProduct.definition.id, kProductIDGemPackS, StringComparison.Ordinal) ||
+				String.Equals(args.purchasedProduct.definition.id, kProductIDGemPackXL, StringComparison.Ordinal)||
+				String.Equals(args.purchasedProduct.definition.id, kProductIDGemPackXXL, StringComparison.Ordinal))
             {
                 Debug.Log(string.Format("Consumable: ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
 				AddGemsFromPurchase (args.purchasedProduct.definition.id);
             }
             // Or ... a non-consumable product has been purchased by this user.
-            else if (String.Equals(args.purchasedProduct.definition.id, kProductIDNonConsumable, StringComparison.Ordinal))
+			else if (String.Equals(args.purchasedProduct.definition.id, kProductIDLatinaPack, StringComparison.Ordinal) 	||
+					String.Equals(args.purchasedProduct.definition.id, kProductIDModernPopPack, StringComparison.Ordinal) 	||
+					String.Equals(args.purchasedProduct.definition.id, kProductIDSambaPack, StringComparison.Ordinal) 		||
+					String.Equals(args.purchasedProduct.definition.id, kProductIDAnimePack, StringComparison.Ordinal) 		||
+					String.Equals(args.purchasedProduct.definition.id, kProductIDPopPack, StringComparison.Ordinal) 		||
+					String.Equals(args.purchasedProduct.definition.id, kProductIDClassicPack, StringComparison.Ordinal) 	||
+					String.Equals(args.purchasedProduct.definition.id, kProductIDReggaePack, StringComparison.Ordinal)		||
+					String.Equals(args.purchasedProduct.definition.id, kProductIDElectronicPack, StringComparison.Ordinal) ||
+					String.Equals(args.purchasedProduct.definition.id, kProductIDRapPack, StringComparison.Ordinal))
             {
                 Debug.Log(string.Format("Not Consumable: ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
 				store_controller.s.OnGemsPurchaseComplete (); //tbd interstella case

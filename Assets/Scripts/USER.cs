@@ -79,7 +79,7 @@ public class USER : MonoBehaviour {
 		NOTES = PlayerPrefs.GetInt("notes", 0);
         TOTAL_NOTES = PlayerPrefs.GetInt("total_notes", 0);
 
-		GEMS = PlayerPrefs.GetInt ("diamonds", 0);
+		GEMS = PlayerPrefs.GetInt ("gems", 0);
 
         BEST_SCORE = PlayerPrefs.GetInt("best", 0);
         LAST_SCORE = PlayerPrefs.GetInt("last_score", 0);
