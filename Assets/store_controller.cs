@@ -202,6 +202,8 @@ public class store_controller : MonoBehaviour {
 
 		sound_controller.s.curJukeboxMusic = globals.s.ACTUAL_STYLE;
 
+		DisplayGemsValues ();
+
 		if (FTUController.s.firstSongPurchased == 0) {
 			myBackBt.gameObject.SetActive (false);
 			equipButton.gameObject.SetActive (false);
@@ -379,10 +381,8 @@ public class store_controller : MonoBehaviour {
 				myLockedBg.SetActive (true);
 				buyButton.SetActive (true);
 
-				if (GD.s.skins [skinId].isBand || GD.s.skins [skinId].isClothChanger)
-					myGemsPrice.text = "30";
-				else
-					myGemsPrice.text = "10";
+				myGemsPrice.text = GetCurrentCharGemPrice (actualCharInScreen).ToString();
+
 			} else { // ALREADY OWNED CASE
 				equipButton.GetComponent<Button> ().interactable = true;
 				myLockedBg.SetActive (false);
@@ -402,6 +402,8 @@ public class store_controller : MonoBehaviour {
 			myLockedBg.SetActive (false);
 			myBgLights.SetActive (true);
 			buyButton.SetActive (false);
+
+			frameVIP.SetActive (false);
 		}
 //		changeAnimationEquipButtonNew(style);
 	}
@@ -867,8 +869,34 @@ public class store_controller : MonoBehaviour {
 	#endregion
 
 	#region === IAP & GEMS === 
+	int GetCurrentCharGemPrice(int id){
+		int price = 10;
+		if (GD.s.skins [id].rarity == SkinRarity.common)
+			price = 10;
+		else if(GD.s.skins[id].rarity == SkinRarity.uncommon)
+			price = 30;
+		else if(GD.s.skins[id].rarity == SkinRarity.epic)
+			price = 50;
+		return price;
+	}
+
 	public void OnButtonGreenPurchasePressed(){
-		OnGemsPurchaseComplete ();
+		if (curCategory == Categories.Main) {
+			if (USER.s.GEMS >= GetCurrentCharGemPrice (actualCharInScreen)) {
+				USER.s.GEMS -= GetCurrentCharGemPrice (actualCharInScreen);
+				USER.s.SaveUserGems ();
+				OnGemsPurchaseComplete ();
+				DisplayGemsValues ();
+			}
+			else
+				OpenGemStore ();
+		}
+
+		else if (curCategory == Categories.Promo1) {
+			CompleteProject.Purchaser.instance.BuyPack ((MusicStyle)USER.s.CUR_SPECIAL_OFFER);
+		}
+
+
 //		if (curCategory == Categories.Main) { // LÓGICA DE GEMS
 //			if ((USER.s.GEMS >= 30 &&  (GD.s.skins[actualCharInScreen].isBand ||GD.s.skins[actualCharInScreen].isClothChanger)) ||
 //				USER.s.GEMS >= 10 ) // PREÇO AQUI
@@ -885,6 +913,7 @@ public class store_controller : MonoBehaviour {
     public void OpenGemStore()
     {
         GemsStore.SetActive(true);
+		DisplayGemsValues ();
     }
 
     public void CloseGemStore()
@@ -913,9 +942,13 @@ public class store_controller : MonoBehaviour {
 		//		buyButton.SetActive (false);
 	}
 
+	public Text gemsTextJukebox, gemsTextIAPStore;
+	public void DisplayGemsValues(){
+		if(gemsTextJukebox.isActiveAndEnabled) gemsTextJukebox.text = USER.s.GEMS.ToString();
+		if(gemsTextIAPStore.isActiveAndEnabled) gemsTextIAPStore.text = USER.s.GEMS.ToString();
+	}
 
 	#endregion
-
 
 	#region === SPECIAL OFFER ===
 	DateTime dateNextPromo;

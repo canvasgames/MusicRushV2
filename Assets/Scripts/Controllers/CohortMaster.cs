@@ -19,7 +19,7 @@ public class CohortMaster : MonoBehaviour {
 		DateTime tempNextSaturdayDate = Convert.ToDateTime(USER.s.FIRST_SATURDAY);
 
 		TimeSpan diff = tempcurDate.Subtract(tempNextSaturdayDate);
-		Debug.Log ("[CH] DIF DAYS: " + diff.Days  + " DIF H: " + diff.Hours + " DIF TOTAL H: " + diff.TotalHours + " DIFF MIN: "+ diff.Minutes + " DIFF TOTAL MIN: "+ diff.TotalMinutes );
+		Debug.Log ("[CH] DIF DAYS: " + diff.Days  +" NEXT SAT: " + USER.s.FIRST_SATURDAY + " DIF H: " + diff.Hours + " DIF TOTAL H: " + diff.TotalHours + " DIFF MIN: "+ diff.Minutes + " DIFF TOTAL MIN: "+ diff.TotalMinutes );
 		bool displayCustomMessage = false;
 
 		if (USER.s.LAST_UPDATE_UNLOCKED == 0 && diff.Days >= 0 &&(GD.s.N_SKINS = GD.s.SKINS_PER_MUSIC * USER.s.LAST_UPDATE_UNLOCKED) < RemoteMaster.s.maximumAllowedChars) { // Unlock rap
@@ -84,10 +84,7 @@ public class CohortMaster : MonoBehaviour {
 		//		TimeSpan difference = tempDate.Subtract(tempcurDate);
 		
 	}
-	// Use this for initialization
-	void Start () {
-		
-	}
+
 	
 	// Update is called once per frame
 	void Update () {

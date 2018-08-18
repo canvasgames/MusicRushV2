@@ -402,7 +402,7 @@ public class ball_hero : MonoBehaviour
 			}
 
 			//Debug.Log("BALL DESTROYED TIME: " + Time.time + " .. TIME DIF: " + (Time.time - time_dif));
-			 Debug.Log (my_id + " BALL UP: END REACHED!!!!!!! MY POS: " + transform.position.x + " LEFT: " + globals.s.LIMIT_LEFT + " RIGHT: " + globals.s.LIMIT_RIGHT);
+//			 Debug.Log (my_id + " BALL UP: END REACHED!!!!!!! MY POS: " + transform.position.x + " LEFT: " + globals.s.LIMIT_LEFT + " RIGHT: " + globals.s.LIMIT_RIGHT);
 
 			my_son = BallMaster.s.ReturnInactiveBall ();
 			my_son.transform.position = new Vector2 (x_new_pos, transform.position.y + globals.s.FLOOR_HEIGHT);

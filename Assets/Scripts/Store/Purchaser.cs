@@ -54,28 +54,41 @@ namespace CompleteProject
         public void BuyGemsPackXL() { BuyProductID(kProductIDCoinPackXL); }
         public void BuyGemsPackXXL() { BuyProductID(kProductIDCoinPackXXL); }
 
+
+		MusicStyle styleToBePurchased = MusicStyle.Eletro;
         public void BuyPack(MusicStyle style)
         {
+			styleToBePurchased = style;
             if(style == MusicStyle.AnimeShounen)
-                BuyProductID(kProductIDClassicPack);
+				BuyProductID(kProductIDAnimePack);
+			
             else if (style == MusicStyle.Classic)
-                BuyProductID(kProductIDElectronicPack);
+				BuyProductID(kProductIDClassicPack);
+			
             else if (style == MusicStyle.Eletro)
-                BuyProductID(kProductIDLatinaPack);
+                BuyProductID(kProductIDElectronicPack);
+			
             else if (style == MusicStyle.Latina)
-                BuyProductID(kProductIDReggaePack);
+                BuyProductID(kProductIDLatinaPack);
+			
             else if (style == MusicStyle.Pop)
                 BuyProductID(kProductIDPopPack);
+			
             else if (style == MusicStyle.PopGaga)
-                BuyProductID(kProductIDRapPack);
+				BuyProductID(kProductIDModernPopPack);
+			
             else if (style == MusicStyle.Rap)
-                BuyProductID(kProductIDModernPopPack);
+				BuyProductID(kProductIDRapPack);
+			
             else if (style == MusicStyle.Reggae)
-                BuyProductID(kProductIDRockPack);
+                BuyProductID(kProductIDReggaePack);
+			
             else if (style == MusicStyle.Rock)
-                BuyProductID(kProductIDSambaPack);
-            else
-                BuyProductID(kProductIDAnimePack);
+                BuyProductID(kProductIDRockPack);
+
+			else if (style == MusicStyle.Samba)
+				BuyProductID(kProductIDSambaPack);
+	
         }
 
 
@@ -116,16 +129,16 @@ namespace CompleteProject
             builder.AddProduct(kProductIDCoinPackXL, ProductType.Consumable);
             builder.AddProduct(kProductIDCoinPackXXL, ProductType.Consumable);
 
-            builder.AddProduct(kProductIDClassicPack, ProductType.Consumable);
-            builder.AddProduct(kProductIDElectronicPack, ProductType.Consumable);
-            builder.AddProduct(kProductIDLatinaPack, ProductType.Consumable);
-            builder.AddProduct(kProductIDReggaePack, ProductType.Consumable);
-            builder.AddProduct(kProductIDPopPack, ProductType.Consumable);
-            builder.AddProduct(kProductIDRapPack, ProductType.Consumable);
-            builder.AddProduct(kProductIDModernPopPack, ProductType.Consumable);
-            builder.AddProduct(kProductIDRockPack, ProductType.Consumable);
-            builder.AddProduct(kProductIDSambaPack, ProductType.Consumable);
-            builder.AddProduct(kProductIDAnimePack, ProductType.Consumable);
+			builder.AddProduct(kProductIDClassicPack, ProductType.NonConsumable);
+            builder.AddProduct(kProductIDElectronicPack, ProductType.NonConsumable);
+            builder.AddProduct(kProductIDLatinaPack, ProductType.NonConsumable);
+            builder.AddProduct(kProductIDReggaePack, ProductType.NonConsumable);
+            builder.AddProduct(kProductIDPopPack, ProductType.NonConsumable);
+            builder.AddProduct(kProductIDRapPack, ProductType.NonConsumable);
+            builder.AddProduct(kProductIDModernPopPack, ProductType.NonConsumable);
+            builder.AddProduct(kProductIDRockPack, ProductType.NonConsumable);
+            builder.AddProduct(kProductIDSambaPack, ProductType.NonConsumable);
+            builder.AddProduct(kProductIDAnimePack, ProductType.NonConsumable);
 
         // Add a product to sell / restore by way of its identifier, associating the general identifier
         // with its store-specific identifiers.
@@ -280,25 +293,26 @@ namespace CompleteProject
             // A consumable product has been purchased by this user.
             if (String.Equals(args.purchasedProduct.definition.id, kProductIDConsumable, StringComparison.Ordinal))
             {
-                Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
-                // The consumable item has been successfully purchased, add 100 coins to the player's in-game score.
+                Debug.Log(string.Format("Consumable: ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+				AddGemsFromPurchase (args.purchasedProduct.definition.id);
             }
             // Or ... a non-consumable product has been purchased by this user.
             else if (String.Equals(args.purchasedProduct.definition.id, kProductIDNonConsumable, StringComparison.Ordinal))
             {
-                Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+                Debug.Log(string.Format("Not Consumable: ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+				store_controller.s.OnGemsPurchaseComplete (); //tbd interstella case
                 // TODO: The non-consumable item has been successfully purchased, grant this item to the player.
             }
             // Or ... a subscription product has been purchased by this user.
             else if (String.Equals(args.purchasedProduct.definition.id, kProductIDSubscription, StringComparison.Ordinal))
             {
-                Debug.Log(string.Format("ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
+                Debug.Log(string.Format("Subsc: ProcessPurchase: PASS. Product: '{0}'", args.purchasedProduct.definition.id));
                 // TODO: The subscription item has been successfully purchased, grant this to the player.
             }
             // Or ... an unknown product has been purchased by this user. Fill in additional products here....
             else
             {
-                Debug.Log(string.Format("ProcessPurchase: FAIL. Unrecognized product: '{0}'", args.purchasedProduct.definition.id));
+                Debug.Log(string.Format("ProcessPurchase: FAIL. Unrecognized product: '{0}'", args.purchasedProduct.definition.id ));
             }
 
             // Return a flag indicating whether this product has completely been received, or if the application needs 
@@ -307,6 +321,27 @@ namespace CompleteProject
             return PurchaseProcessingResult.Complete;
         }
 
+
+		public void AddGemsFromPurchase(string productId){
+			Debug.Log (" PURCHASING GEMS COMPLETE!! ADD NOW ! ");
+			if(productId == "gems1"){
+				USER.s.AddGems (15, productId);
+			}
+			else if(productId == "gems2"){
+				USER.s.AddGems (35, productId);
+			}
+			else if(productId == "gems3"){
+				USER.s.AddGems (75, productId);
+			}
+			else if(productId == "gems4"){
+				USER.s.AddGems (165, productId);
+			}
+			else if(productId == "gems5"){
+				USER.s.AddGems (365, productId);
+			}
+
+			store_controller.s.DisplayGemsValues ();
+		}
 
         public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
         {

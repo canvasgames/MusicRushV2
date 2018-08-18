@@ -49,9 +49,11 @@ public class USER : MonoBehaviour {
 			PlayerPrefs.SetString("first_session_date", FIRST_SESSION_DATE);
 
 			int dayOfWeek = (int)tempDate.DayOfWeek;
-			int nextSaturdayDif = 6 - dayOfWeek + 1 ;
-			if (nextSaturdayDif == 0)
+			int nextSaturdayDif = 6 - dayOfWeek ;
+			if (nextSaturdayDif == 0) // today is saturday
 				nextSaturdayDif = 7;
+			else
+				nextSaturdayDif += 1; // saturday is not today, sum 1
 //			TimeSpan dif; dif.
 //			tempDate.Subtract(tempDate.Hour);
 			Debug.Log("TEMPDATE RAW : " + tempDate.ToString() + " day of week: " + (int)tempDate.DayOfWeek);
@@ -189,6 +191,7 @@ public class USER : MonoBehaviour {
 	public void SetUpdateCharsUnlocked(){
 		LAST_UPDATE_UNLOCKED++;
 		PlayerPrefs.SetInt ("last_update_unlocked", LAST_UPDATE_UNLOCKED);
+		Debug.Log (" SETTING LAST UPDATE UNLOCKED!!: " + LAST_UPDATE_UNLOCKED);
 	}
 
 	public bool CheckIfSpecialOfferTimeHasElapsedAndUpdate(){
