@@ -568,6 +568,11 @@ MonoBehaviour:
       xInit: -0.4
       xEnd: 0.4
       fixedDist: 0
+    - name: hole_[2.3, 2.5]
+      myType: 5
+      xInit: 2.3
+      xEnd: 2.5
+      fixedDist: 0
   - name: J_medium_hidHole_mid_&Spk_right_20
     customName: J_medium_hidHole_mid_&Spk_right
     chance: 20
@@ -975,7 +980,7 @@ MonoBehaviour:
     customName: J_h_saw
     chance: 30
     type: 0
-    denyConditions: 
+    denyConditions: 02000000
     obstacles:
     - name: saw_4.4
       myType: 4
@@ -1214,7 +1219,7 @@ MonoBehaviour:
     customName: E_SawMid
     chance: 20
     type: 0
-    denyConditions: 
+    denyConditions: 02000000
     obstacles:
     - name: saw_0.7
       myType: 4
@@ -1226,7 +1231,7 @@ MonoBehaviour:
     customName: E_SawCorner
     chance: 25
     type: 0
-    denyConditions: 
+    denyConditions: 02000000
     obstacles:
     - name: saw_3.6
       myType: 4
