@@ -209,7 +209,7 @@ public class GameOverController : MonoBehaviour {
 			scoreText.text = value.ToString();
 		}
 		scoreText.text = curScore.ToString();
-		coinsCollectedDebug.text = globals.s.NOTES_COLLECTED.ToString();
+		if(coinsCollectedDebug.isActiveAndEnabled) coinsCollectedDebug.text = globals.s.NOTES_COLLECTED.ToString();
 	}
 
 	#endregion

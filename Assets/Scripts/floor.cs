@@ -232,15 +232,15 @@ public class floor : scenario_objects {
 	#region === SUPER JUMP ===
 
     public void activate_colider_super_pw(int floor_actual)
-    {
+	{
 		//if (gameObject.
 //        colliderPW.SetActive(true);
 //        colliderPW.GetComponent<Rigidbody2D>().isKinematic = false;
-
-        if(my_floor > floor_actual && my_floor < floor_actual+6 && transform.position.x>=0)
-        {
-           objects_pool_controller.s.reposite_squares_floor_particle(0, transform.position.y);
-        }
+		if (QA.s.FLOOR_PARTICLES == true){
+			if (my_floor > floor_actual && my_floor < floor_actual + 6 && transform.position.x >= 0) {
+				objects_pool_controller.s.reposite_squares_floor_particle (0, transform.position.y);
+			}
+		}
     }
 
     public void unactivate_colider_super_pw()
@@ -252,7 +252,10 @@ public class floor : scenario_objects {
     {
         pw_super_collided = true;
        // transform.GetComponent<SpriteRenderer>().enabled = false;
-        my_skin.transform.GetComponent<SpriteRenderer>().enabled = false;
+		my_skin.GetComponent<SpriteRenderer>().enabled = false;
+//		pauta.SetActive (false);
+//		pauta.GetComponent<SpriteRenderer>().enabled = false;
+
     }
 
 	public void reaper_post_PW_super(int floor)
@@ -261,6 +264,7 @@ public class floor : scenario_objects {
 		{
 			pw_super_collided = false;
 			transform.GetComponent<SpriteRenderer>().enabled = true;
+//			pauta.SetActive (true);
 		}
 	}
 
@@ -283,6 +287,7 @@ public class floor : scenario_objects {
         pw_super_collided = false;
         my_skin.transform.GetComponent<SpriteRenderer>().enabled = true;
         my_skin.GetComponent<SpriteRenderer>().color = Color.black;
+//		pauta.SetActive (true);
 
 		if (myHighscoreAnimation != null) {
 			myHighscoreAnimation.transform.parent = null;

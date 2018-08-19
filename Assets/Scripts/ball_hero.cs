@@ -1009,7 +1009,7 @@ public class ball_hero : MonoBehaviour
 
 		nextTargetSuperJumpY = ((globals.s.BASE_Y + ((my_floor+2) * globals.s.FLOOR_HEIGHT) - 0.7f)); // define the target y for Floor creation
 		float pos = ((globals.s.BASE_Y + ((my_floor+1) * globals.s.FLOOR_HEIGHT) +  (5* globals.s.FLOOR_HEIGHT) + globals.s.FLOOR_HEIGHT / 2 ));
-		main_camera.s.init_PW_super_jump( pos,  (pos-transform.position.y)/20  + 0.5f);
+		main_camera.s.init_PW_super_jump( pos,  (pos-transform.position.y)/ 20  + 0.5f);
 		target_y = (globals.s.BASE_Y + ((my_floor) * globals.s.FLOOR_HEIGHT) +  (5* globals.s.FLOOR_HEIGHT) + globals.s.FLOOR_HEIGHT / 2 - 0.6f );
 
         //construct floors
@@ -1053,6 +1053,9 @@ public class ball_hero : MonoBehaviour
 		if(QA.s.TRACE_PROFUNDITY >=2) Debug.Log ("PW GO UP START STEP 2!! MY FLOOR end:  " + my_floor);
 
 		destroy_spikes(transform.position.y + 5* globals.s.FLOOR_HEIGHT + (globals.s.FLOOR_HEIGHT/2));
+		Debug.Log (" DESTROY THIS SPIKES: ... " + (transform.position.y + 5 * globals.s.FLOOR_HEIGHT + (globals.s.FLOOR_HEIGHT / 2)));
+//		destroy_spikes(globals.s.BASE_Y + (my_floor + 5)* globals.s.FLOOR_HEIGHT + (globals.s.FLOOR_HEIGHT/2));
+//		destroy_spikes(nextTargetSuperJumpY +1f);
     }
 
     void stop_go_up_PW() {
@@ -1077,12 +1080,12 @@ public class ball_hero : MonoBehaviour
         //my_floor += 5;
         appear_floors();
 		if(QA.s.TRACE_PROFUNDITY >=2) Debug.Log ("TIME TO CREATE FLOOR FOR LANDING! !! ");
-		GameObject floor = game_controller.s.create_floor(12, my_floor+1, false, true);
+//		GameObject floor = game_controller.s.create_floor(12, my_floor+1, false, true);
 
 //		game_controller.s.PauseGame ();
         
 //		floor.GetComponent<floor> ().pauta.SetActive (false);
-        floor.transform.DOMoveX(0, 0.3f);//.OnComplete(pw_super_end);
+//        floor.transform.DOMoveX(0, 0.3f);//.OnComplete(pw_super_end);
 
 		superJumpEffect.SetActive (false);
     }
@@ -1205,7 +1208,10 @@ public class ball_hero : MonoBehaviour
     {
 		foreach (spike spikes in objects_pool_controller.s.spikes_scripts)
         {
-			if(spikes !=null)  spikes.destroy_throwed_spikes(yTarget, transform.position.y + globals.s.FLOOR_HEIGHT * 3);
+			if (spikes != null) {
+				Debug.Log ("FOUND!!! " + spikes.transform.position.y);
+				spikes.destroy_throwed_spikes (yTarget, transform.position.y + globals.s.FLOOR_HEIGHT * 3);
+			}
         }
     }
 

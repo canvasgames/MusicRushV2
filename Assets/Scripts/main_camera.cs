@@ -97,8 +97,10 @@ public class main_camera : MonoBehaviour {
 
     public void init_PW_super_jump(float pos_y, float time)
     {
-        transform.DOMoveY(pos_y, time).SetEase(Ease.InOutSine);
+//		transform.DOMoveY(pos_y, time).SetEase(Ease.InOutSine);
+        transform.DOMoveY(pos_y, 3f).SetEase(Ease.OutSine);
         pw_super_jump = true;
+		Debug.Log( "CAMERA INIT SUPER JUMP!! MY YP :" + transform.position.y + " TARGET Y: " + pos_y);
     }
    
 	public void PW_super_jump(float pos_y) {
@@ -114,6 +116,7 @@ public class main_camera : MonoBehaviour {
 
 	void pw_super_jump_end_for_real(){
 		pw_super_jump = false;
+		Debug.Log ("SUPER JUMP END FOR REAL!!");
 	}
 
 	 public void ResetMeForRestart(){

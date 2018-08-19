@@ -113,7 +113,7 @@ public class GD : MonoBehaviour {
 		// ELETRO SKINS = 1
 		NewSkin("One More Try", MusicStyle.Eletro, 1); // 0
 		NewSkin("Electro Robot", MusicStyle.Eletro, 2); // 1
-		NewSkin("Interstella", MusicStyle.Eletro, 3, true, 4, false, SkinRarity.rare); // 2
+		NewSkin("Interstelar", MusicStyle.Eletro, 3, true, 4, false, SkinRarity.rare); // 2
 
 		// ROCK SKINS = 2
 		NewSkin("Guitar Solist", MusicStyle.Rock, 1); // 3
@@ -137,12 +137,12 @@ public class GD : MonoBehaviour {
 
 		// CLASSIC = 6
 		NewSkin("Maestro", MusicStyle.Classic, 1);
-		NewSkin("Sympohist", MusicStyle.Classic, 2);
+		NewSkin("Symponist", MusicStyle.Classic, 2);
 		NewSkin("Orquestra", MusicStyle.Classic, 3, true, 3, false, SkinRarity.uncommon);
 
 		// RAP = 7
 		NewSkin("Jing Bling", MusicStyle.Rap, 1);
-		NewSkin("The Rhymer", MusicStyle.Rap, 2);
+		NewSkin("Rap Boy", MusicStyle.Rap, 2);
 		NewSkin("Jump This Way", MusicStyle.Rap, 3, true, 3, false, SkinRarity.uncommon);
 
 		// LATINA = 8

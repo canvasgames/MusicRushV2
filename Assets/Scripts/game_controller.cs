@@ -72,7 +72,7 @@ public class game_controller : MonoBehaviour {
     public int n_games_without_revive = 0;
 
     //PW VARIABLES
-    int pw_dont_create_for_n_floors = 5;
+    int pw_dont_create_for_n_floors = 6;
     int pw_floors_not_created = 2;
     bool first_pw_created = false;
 
@@ -147,6 +147,7 @@ public class game_controller : MonoBehaviour {
         {
             //Debug.Log (" base y is... : " + globals.s.BASE_Y);
             wave_found = false;
+			coinSuccefullyCreated = false;
             while (wave_found == false && count < 50) {
                 count++;
                 switch (i)
@@ -163,7 +164,7 @@ public class game_controller : MonoBehaviour {
                     //create_floor(0, i);
                    // create_corner_wall(i);
                     wave_found = true;
-					wave_found = create_just_hole(i, 0);
+					wave_found = create_just_hole(i, 0, false);
 					//wave_found = create_hole(i);
                     last_hole = true;
                     //Debug.Log(" CREATING 1ST EASY:");
@@ -641,8 +642,9 @@ public class game_controller : MonoBehaviour {
 			else
 				rand = Random.Range(0, 100);
 //			rand = 1;
-
-			if ( rand < GD.s.GD_PW_CHANCE_SUPER_JUMP || (USER.s.FIRST_PW_CREATED == 0 && !first_pw_created)) {
+//			rand = GD.s.GD_PW_CHANCE_SUPER_JUMP-1;
+//			if ( rand < GD.s.GD_PW_CHANCE_SUPER_JUMP || (USER.s.FIRST_PW_CREATED == 0 && !first_pw_created)) {
+			if ( 1==2) {
 				my_type = (int)PW_Types.Super;
 				x = Random.Range (-center_mid_area, center_mid_area);
 			} else if (rand < GD.s.GD_PW_CHANCE_SUPER_JUMP + GD.s.GD_PW_CHANCE_SHIELD) {
@@ -2587,7 +2589,7 @@ GameObject instance = Instantiate(Resources.Load("Prefabs/Bgs/Scenario2/bg_"+ran
 		}
 	}
 
-	public bool create_just_hole(int n, float x)
+	public bool create_just_hole(int n, float x, bool fallingHitbox = true)
     {
         //GameObject obj = (GameObject)Instantiate(floor_type, new Vector3(x - hole_size / 2 - floor_type.transform.GetComponent<SpriteRenderer>().bounds.size.x / 2, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n, 0), transform.rotation);
 		GameObject obj = objects_pool_controller.s.reposite_floor(x - hole_size / 2 - floor_type.GetComponent<floor>().my_skin.GetComponent<SpriteRenderer>().bounds.size.x / 2, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n);
@@ -2598,7 +2600,8 @@ GameObject instance = Instantiate(Resources.Load("Prefabs/Bgs/Scenario2/bg_"+ran
 		obj = objects_pool_controller.s.reposite_floor(x + hole_size / 2 + floor_type.GetComponent<floor>().my_skin.GetComponent<SpriteRenderer>().bounds.size.x / 2, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n);
         obj.GetComponent<floor>().my_floor = n;
 
-		GameObject hole = objects_pool_controller.s.RepositeHoleJustFallingHitbox(x, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n);
+		GameObject hole;
+		if(fallingHitbox == true)  hole = objects_pool_controller.s.RepositeHoleJustFallingHitbox(x, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n);
 
 //		if (not_hidden == false) {
 //			hole = (GameObject)Instantiate(hole_type, new Vector3(rand, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n, 0), transform.rotation);

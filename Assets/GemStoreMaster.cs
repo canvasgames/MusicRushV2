@@ -10,7 +10,7 @@ public class GemStoreMaster : MonoBehaviour {
 	// Use this for initialization
 	void OnEnable(){
 
-		if (curCountry == "Philippines") {
+		if (SystemLanguage.English == Application.systemLanguage) {
 			if (PriceS != null)
 				PriceS.text = "$ 79";
 			if (PriceM != null)
@@ -20,10 +20,10 @@ public class GemStoreMaster : MonoBehaviour {
 			if (PriceXL != null)
 				PriceXL.text = "$ 905"; // 365
 			if (PriceXXL != null)
-				PriceXXL.text = "$ 164";
+				PriceXXL.text = "$ 2000";
 		}
 
-		else if (curCountry == "Brazil") {
+		else if (SystemLanguage.Portuguese == Application.systemLanguage) {
 			if (PriceS != null)
 				PriceS.text = "R$ 2.99";
 			if (PriceM != null)
@@ -33,7 +33,7 @@ public class GemStoreMaster : MonoBehaviour {
 			if (PriceXL != null)
 				PriceXL.text = "R$ 32.99";
 			if (PriceXXL != null)
-				PriceXXL.text = "$ 164";
+				PriceXXL.text = "R$ 49.99";
 		}
 
 		else  {

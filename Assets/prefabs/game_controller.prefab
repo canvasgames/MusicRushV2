@@ -59,6 +59,14 @@ MonoBehaviour:
   FIRST_WALL_CREATED: 0
   NOTES: 0
   TOTAL_NOTES: 0
+  GEMS: 0
+  TOTAL_GEMS: 0
+  FIRST_SESSION_DATE: 
+  FIRST_SATURDAY: 
+  NEXT_SATURDAY: 
+  LAST_UPDATE_UNLOCKED: 0
+  CUR_SPECIAL_OFFER: 0
+  SPECIAL_OFFER_END_DATE: 
   SOUND_MUTED: 0
 --- !u!114 &11440628
 MonoBehaviour:
@@ -128,7 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   power_ups_prefab: {fileID: 130670, guid: 841c53487232b54489572739b670ab13, type: 2}
-  note_trail_prefab: {fileID: 0}
+  note_trail_prefab: {fileID: 110890, guid: 245e4251bef089441a9ae59326f69f9f, type: 2}
   note_prefab: {fileID: 136776, guid: ba448d2d8c790bd4bb0b7ee7b38aaa87, type: 2}
   floor_prefab: {fileID: 165340, guid: 5fdf11c29becf7047b54844ba497b0e8, type: 2}
   double_spike_prefab: {fileID: 193914, guid: bd92e27b36f212a4c897b538acdcebbc, type: 2}
@@ -136,7 +144,10 @@ MonoBehaviour:
   squares_floor_prefab: {fileID: 162564, guid: ef3c0e6587b922340967e993aceb2eee, type: 2}
   scores_floor_prefab: {fileID: 113590, guid: 0e7adab4e30cce446b31651f378eeeb9, type: 2}
   saw_prefab: {fileID: 128036, guid: b979cbcb1127e2a42a822f7e9f0f8e43, type: 2}
+  holeJustHitboxPrefab: {fileID: 1774737748885342, guid: 5cc0f9ee3099d194481b7cd921895504,
+    type: 2}
   holesPool: []
+  holesJustFallingHitboxPool: []
   wallsPool: []
   power_ups_pool: []
   pw_scripts: []

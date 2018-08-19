@@ -17,6 +17,7 @@ public class QA : MonoBehaviour {
 
 	[Space (10)]
 
+	public bool FLOOR_PARTICLES = true;
 	public bool NO_PWS = false;
 	public bool OLD_PLAYER;
 	public bool ALL_UNLOCKED;

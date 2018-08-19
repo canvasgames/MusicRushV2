@@ -157,7 +157,8 @@ public class spike : scenario_objects {
 	public void destroy_throwed_spikes (float y_pos_ball, float y_screen_limit)
     {
 //		Debug.Log (" TRYING TO DESTROY SPIKE: " + y_pos_ball + " MY POS " + transform.position.y);
-		if( y_pos_ball > transform.position.y && y_screen_limit < transform.position.y)
+//		if( y_pos_ball > transform.position.y && y_screen_limit < transform.position.y)
+		if( y_pos_ball > transform.position.y)
         {
 //			Debug.Log (" DESTROY SUCCESS !!: " + y_pos_ball + " MY POS " + transform.position.y);
             /// transform.DOScale(0, 0.3f);//.OnComplete(destroy_me_baby);

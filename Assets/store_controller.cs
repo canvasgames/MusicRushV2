@@ -1015,11 +1015,12 @@ public class store_controller : MonoBehaviour {
 				nextSaturdayTimer.text = "Re-open the game!";
 			}
 			if (diff.TotalSeconds > 0) {
-				nextSaturdayTimer.text = diff.Hours.ToString ("00") + ":" + diff.Minutes.ToString ("00") + ":" + diff.Seconds.ToString ("00") + "";
+				if(diff.Days > 0)
+					nextSaturdayTimer.text = diff.Days.ToString("0")+"d "+diff.Hours.ToString ("00") + ":" + diff.Minutes.ToString ("00") + ":" + diff.Seconds.ToString ("00") + "";
+				else
+					nextSaturdayTimer.text = diff.Hours.ToString ("00") + ":" + diff.Minutes.ToString ("00") + ":" + diff.Seconds.ToString ("00") + "";
 			}
-
 		}
-
 	}
 
 	void DefineNextSpecialPack(){
@@ -1128,6 +1129,14 @@ public class store_controller : MonoBehaviour {
 			buyRealMoney.gameObject.SetActive (true);
 
 			sound_controller.s.ChangeMusicForStore ((MusicStyle)page);
+
+			if (Application.systemLanguage == SystemLanguage.Portuguese) {
+				buyRealMoney.text = "R$ 9.99";
+			} else if (Application.systemLanguage == SystemLanguage.English) {
+				buyRealMoney.text = "$ 265";
+			} else {
+				buyRealMoney.text = "$ 4.99";
+			}
 		}
 
 
