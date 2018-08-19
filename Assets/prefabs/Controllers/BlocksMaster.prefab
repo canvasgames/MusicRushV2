@@ -373,7 +373,7 @@ MonoBehaviour:
     customName: medium_spk_mid_wall_corner
     chance: 10
     type: 0
-    denyConditions: 02000000
+    denyConditions: 0200000004000000
     obstacles:
     - name: wallCorner_0
       myType: 7
@@ -390,7 +390,7 @@ MonoBehaviour:
     customName: medium_tripleSpk_mid_wall_corner
     chance: 10
     type: 0
-    denyConditions: 02000000
+    denyConditions: 0200000004000000
     obstacles:
     - name: wallCorner_0
       myType: 7
@@ -501,6 +501,11 @@ MonoBehaviour:
       myType: 5
       xInit: -1.4
       xEnd: -1.6
+      fixedDist: 0
+    - name: spk_[1.4, 1.6]
+      myType: 0
+      xInit: 1.4
+      xEnd: 1.6
       fixedDist: 0
   - name: J_medium_hole_right_&tripleSpk_left_15
     customName: J_medium_hole_right_&tripleSpk_left
@@ -660,21 +665,21 @@ MonoBehaviour:
     customName: 
     chance: 25
     type: 8
-    denyConditions: 02000000
+    denyConditions: 0200000004000000
     obstacles: []
     obstaclesFloor2: []
   - name: WallAndHiddenSpkAtCenter_25
     customName: 
     chance: 25
     type: 7
-    denyConditions: 02000000
+    denyConditions: 0200000004000000
     obstacles: []
     obstaclesFloor2: []
   - name: WallCornerVeryHard_25
     customName: 
     chance: 25
     type: 9
-    denyConditions: 02000000
+    denyConditions: 0200000004000000
     obstacles: []
     obstaclesFloor2: []
   - name: ThreeSpks_15
@@ -811,7 +816,7 @@ MonoBehaviour:
     customName: J_h_hidTripleSpk_mid_wallCorner
     chance: 15
     type: 0
-    denyConditions: 02000000
+    denyConditions: 0200000004000000
     obstacles:
     - name: hiddenTripleSpk_[-0.7, 0.7]
       myType: 3
@@ -994,7 +999,7 @@ MonoBehaviour:
     customName: 0
     chance: 30
     type: 9
-    denyConditions: 02000000
+    denyConditions: 0200000004000000
     obstacles: []
     obstaclesFloor2: []
   - name: ThreeSpks_8
@@ -1030,7 +1035,7 @@ MonoBehaviour:
     customName: J_vh_TripleSpikes_Corner_mid
     chance: 30
     type: 8
-    denyConditions: 02000000
+    denyConditions: 0200000004000000
     obstacles:
     - name: tripleSpk_4.4
       myType: 1
@@ -1052,7 +1057,7 @@ MonoBehaviour:
     customName: J_vh_TripleSpikes_Corner_mid
     chance: 10
     type: 7
-    denyConditions: 02000000
+    denyConditions: 0200000004000000
     obstacles:
     - name: tripleSpk_4.4
       myType: 1
@@ -1096,14 +1101,14 @@ MonoBehaviour:
     customName: J_vh_TripleSpikes_Corner_mid
     chance: 25
     type: 10
-    denyConditions: 02000000
+    denyConditions: 0200000004000000
     obstacles: []
     obstaclesFloor2: []
   - name: WallCornerVeryHard_20
     customName: J_vh_TripleSpikes_Corner_mid
     chance: 20
     type: 9
-    denyConditions: 020000000000000001000000
+    denyConditions: 02000000000000000100000004000000
     obstacles: []
     obstaclesFloor2: []
   - name: E_HoleAbove_&TripleSpikes_30
@@ -1171,7 +1176,7 @@ MonoBehaviour:
     customName: E_HoleAbove_&HiddenSpikes
     chance: 15
     type: 21
-    denyConditions: 02000000
+    denyConditions: 0200000004000000
     obstacles: []
     obstaclesFloor2: []
   - name: TwoHiddenSpkMid_10
@@ -1185,7 +1190,7 @@ MonoBehaviour:
     customName: E_HoleAbove_&HiddenSpikes
     chance: 10
     type: 8
-    denyConditions: 02000000
+    denyConditions: 0200000004000000
     obstacles: []
     obstaclesFloor2: []
   - name: TripleSpkMid_5
