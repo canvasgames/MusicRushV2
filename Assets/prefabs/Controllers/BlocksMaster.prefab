@@ -298,6 +298,11 @@ MonoBehaviour:
       xInit: -1.8
       xEnd: -2
       fixedDist: 0
+    - name: spk_[1.8, 2]
+      myType: 0
+      xInit: 1.8
+      xEnd: 2
+      fixedDist: 0
   - name: easy_hole_right_&spk_down_left_20
     customName: easy_hole_right_&spk_down_left
     chance: 20
@@ -485,8 +490,8 @@ MonoBehaviour:
       xEnd: 0
       fixedDist: -3.4
     obstaclesFloor2: []
-  - name: J_medium_hole_left_&tripleSpk_right_10
-    customName: J_medium_hole_left_&tripleSpk_right
+  - name: J_medium_holeLeft_spikeRight_&tripleSpk_right_10
+    customName: J_medium_holeLeft_spikeRight_&tripleSpk_right
     chance: 10
     type: 1
     denyConditions: 
@@ -502,13 +507,13 @@ MonoBehaviour:
       xInit: -1.4
       xEnd: -1.6
       fixedDist: 0
-    - name: spk_[1.4, 1.6]
+    - name: spk_[1.6, 1.8]
       myType: 0
-      xInit: 1.4
-      xEnd: 1.6
+      xInit: 1.6
+      xEnd: 1.8
       fixedDist: 0
-  - name: J_medium_hole_right_&tripleSpk_left_15
-    customName: J_medium_hole_right_&tripleSpk_left
+  - name: J_medium_holeRight_spkLeft&tripleSpk_left_15
+    customName: J_medium_holeRight_spkLeft&tripleSpk_left
     chance: 15
     type: 1
     denyConditions: 
@@ -524,8 +529,13 @@ MonoBehaviour:
       xInit: 1.4
       xEnd: 1.6
       fixedDist: 0
-  - name: J_medium_hole_mid_&Spk_left_15
-    customName: J_medium_hole_mid_&Spk_left
+    - name: spk_[-1.5, -1.8]
+      myType: 0
+      xInit: -1.5
+      xEnd: -1.8
+      fixedDist: 0
+  - name: J_medium_holeMid_&Spk_left_15
+    customName: J_medium_holeMid_&Spk_left
     chance: 15
     type: 1
     denyConditions: 
