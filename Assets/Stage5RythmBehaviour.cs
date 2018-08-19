@@ -55,14 +55,14 @@ public class Stage5RythmBehaviour : RythmScenarioBehaviour {
 	}
 
 
-	void asFixedUpdate () {
+	void FixedUpdate () {
 		if (RythmController.s.current_step == RythmController.s.step_glow_in && my_state != 0) {
 
 			my_state = 0;
 
-			foreach (GameObject r in RythmElements) {
-				if (r!= null) r.GetComponent<Animator> ().Play ("normal", 0, 0);
-			}
+//			foreach (GameObject r in RythmElements) {
+//				if (r!= null) r.GetComponent<Animator> ().Play ("normal", 0, 0);
+//			}
 
 			//Debug.Log("(( FLOOR GLOW IN! " + Time.time);
 

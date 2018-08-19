@@ -13,9 +13,12 @@ public class objects_pool_controller : MonoBehaviour {
 	#region ======= Variables Declaration ========
     public static objects_pool_controller s;
 
-    public GameObject power_ups_prefab, note_trail_prefab, note_prefab, floor_prefab, double_spike_prefab, triple_spike_prefab, squares_floor_prefab, scores_floor_prefab, saw_prefab;
+    public GameObject power_ups_prefab, note_trail_prefab, note_prefab, floor_prefab, double_spike_prefab, triple_spike_prefab, squares_floor_prefab, scores_floor_prefab, saw_prefab, holeJustHitboxPrefab;
 
 	[HideInInspector] public GameObject[] holesPool;
+	[HideInInspector] public GameObject[] holesJustFallingHitboxPool;
+	int holeJustFalling_pool_size = 10;
+	int holeJustFalling_actual_i = 0;
 
 	[HideInInspector] public GameObject[] wallsPool;
 
@@ -98,8 +101,8 @@ public class objects_pool_controller : MonoBehaviour {
 
 		FloorNewHighscoreObj.SetActive (false);
 		FloorBestScoreObj.SetActive (false);
-//		FloorLastScoreObj.SetActive (false);
-//		FloorDailyBestObj.SetActive (false);
+		FloorLastScoreObj.SetActive (false);
+		FloorDailyBestObj.SetActive (false);
 
 		for (i = 0; i < floor_pool_size; i++) {
 			//			floor_pool [i].SetActive (false);
@@ -115,6 +118,11 @@ public class objects_pool_controller : MonoBehaviour {
 			note_pool [i].transform.position = new Vector2 (-1000, -1000);
 		}
 		note_pool_actual_i = 0;
+
+		for (i = 0; i < holesJustFallingHitboxPool.Length; i++) {
+			holesJustFallingHitboxPool[i].transform.position = new Vector2 (-1000, -1000);
+		}
+		holeJustFalling_actual_i = 0;
 
 		if (QA.s.CREATE_NOTE_TRAIL) {
 			for (i = 0; i < note_trail_pool_size; i++) {
@@ -167,6 +175,31 @@ public class objects_pool_controller : MonoBehaviour {
 		foreach (hole_behaviour obj in holes) {
 			obj.gameObject.SetActive (false);
 		}
+
+
+		// deactivate bgs
+		foreach(GameObject bg in bgs2_pool){
+			if (bg !=null && bg.gameObject.activeInHierarchy && bg.transform.position.x == 0) {
+				bg.SetActive(false);
+			}
+		}
+
+		foreach(GameObject bg in bgs3_pool){
+			if (bg !=null && bg.gameObject.activeInHierarchy && bg.transform.position.x == 0) {
+				bg.SetActive(false);
+			}
+		}
+
+		foreach(GameObject bg in bgs4_pool){
+			if (bg !=null && bg.gameObject.activeInHierarchy && bg.transform.position.x == 0) {
+				bg.SetActive(false);
+			}
+		}
+		foreach (GameObject bg in bgs5_pool) {
+			if (bg != null && bg.gameObject.activeInHierarchy && bg.transform.position.x == 0) {
+				bg.SetActive (false);
+			}
+		}
 	}
 
     void Awake()
@@ -182,6 +215,7 @@ public class objects_pool_controller : MonoBehaviour {
         scores_floor_pool = new GameObject[scores_floor_pool_size];
 		power_ups_pool = new GameObject[power_ups_pool_size];
 		saw_pool = new GameObject[saw_pool_size];
+		holesJustFallingHitboxPool = new GameObject[holeJustFalling_pool_size];
 
 		spikes_scripts = new List<spike> ();
 		saw_scripts = new saw[saw_pool_size];
@@ -247,11 +281,16 @@ public class objects_pool_controller : MonoBehaviour {
 			floor_pool[i] =  (GameObject)Instantiate(floor_prefab, new Vector3(55, 0, 0), transform.rotation);
 			floor_scripts[i] = floor_pool[i].GetComponent<floor>();
 //			floor_pool [i].SetActive (false);
-
 		}
+
 		for(i=0; i<note_pool_size; i++)
 		{
 			note_pool[i] =  (GameObject)Instantiate(note_prefab, new Vector3(55, 0, 0), transform.rotation);
+		}
+
+		for(i=0; i<holeJustFalling_pool_size; i++)
+		{
+			holesJustFallingHitboxPool[i] =  (GameObject)Instantiate(holeJustHitboxPrefab, new Vector3(55, 0, 0), transform.rotation);
 		}
 
 		if (QA.s.CREATE_NOTE_TRAIL == true) {
@@ -537,6 +576,19 @@ public class objects_pool_controller : MonoBehaviour {
 
 		return repos_note;
 	}
+
+	public GameObject RepositeHoleJustFallingHitbox(float x_pos, float y_pos)
+	{
+		holesJustFallingHitboxPool [holeJustFalling_actual_i].SetActive (true);
+		holesJustFallingHitboxPool [holeJustFalling_actual_i].transform.position = new Vector3(x_pos, y_pos, 0);
+
+		holeJustFalling_actual_i++;
+		if (holeJustFalling_actual_i == holeJustFalling_pool_size)
+			holeJustFalling_actual_i = 0;
+
+		return holesJustFallingHitboxPool [holeJustFalling_actual_i];
+	}
+
 
 	public void clear_flags_notes()
 	{

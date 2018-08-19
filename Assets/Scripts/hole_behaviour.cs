@@ -98,7 +98,6 @@ public class hole_behaviour : MonoBehaviour
         if (colliderPW) colliderPW.SetActive(true);
     }
 
-
     public void destroy_pw_super_under_floors(float y_pos_ball)
     {
         if(colliderPW != null)

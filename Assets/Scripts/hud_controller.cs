@@ -128,7 +128,6 @@ public class hud_controller : MonoBehaviour {
 			PlayerPrefs.SetInt("first_pw_created", 1);
 			//PlayerPrefs.SetInt(
 		}
-
 	}
 
     void Start () {
@@ -146,7 +145,7 @@ public class hud_controller : MonoBehaviour {
 		Advertisement.Initialize ("1194074");
 
 //		game_title_y = game_title.transform.position.y;
-		game_title_y = header.transform.position.y;
+		game_title_y = header.transform.localPosition.y;
 		//Invoke ("GiftButtonClicked", 1f);
 
 		SpinDiskTimerLogic ();
@@ -172,26 +171,6 @@ public class hud_controller : MonoBehaviour {
 //			giftBt.SetActive (false);
 //		}
 
-
-		// FIRST GAME LOGIC FOR THE POWER UPS BUTTON AND GIFT BUTTON
-        if (globals.s.FIRST_GAME == true)
-        {
-            //activate_pw_bt.SetActive(false);
-         //   pw_info.SetActive(false);
-			activate_pw_bt.SetActive(false);
-			//giftBt.SetActive(false);
-			Debug.Log ("------ FIRST GAME.. " );
-        }
-//        else
-//        {
-//            if (globals.s.PW_ACTIVE == false)
-//            {
-//                activate_pw_bt.SetActive(true);
-//				//pw_time_left_title_on.SetActive (false);
-////                pw_time_bar.GetComponent<Animator>().Play("PowerUpsChargingBarAnimation");
-////                pw_Text_Header.text = "Power Up Status";
-//            }
-//        }
     }
 
 	void SpinDiskTimerLogic(){
@@ -201,14 +180,11 @@ public class hud_controller : MonoBehaviour {
 
 		//PlayerPrefs.DeleteAll();
 		PW_date = PlayerPrefs.GetString("PWDate2ChangeState");
-		roullete_date = PlayerPrefs.GetString("RouletteDate2ChangeState");
+		roullete_date = PlayerPrefs.GetString("RouletteDate2ChangeState", "");
 		gift_date = PlayerPrefs.GetString("GiftDate2ChangeState");
 
 
 		if (USER.s.NEWBIE_PLAYER == 0 || QA.s.OLD_PLAYER) {
-			//			activate_pw_bt.SetActive (true);
-			//			jukeboxBtMainMenu.SetActive (true);
-			//			handTapToPlay.SetActive (false);
 
 			//			activate_pw_bt.GetComponent<activate_pw_button> ().HandTutLogic ();
 			//SETTING PW STATE
@@ -231,40 +207,37 @@ public class hud_controller : MonoBehaviour {
 		}
 
 		//Debug.Log(PW_date);
-		if (PW_date != "")
-		{
-			tempDate = Convert.ToDateTime(PW_date);
-		}
 
-		if(roullete_date != "")
-		{
-			tempDateRoulette = Convert.ToDateTime(roullete_date);
-			PlayerPrefs.SetString("RouletteDate2ChangeState", tempDateRoulette.ToString());
-			int canRotate = PlayerPrefs.GetInt("CanRotate", 1);
-			if (canRotate == 1) {
+		if (FTUController.s.firstSongPurchased == 1) {
+			if (PW_date != "")
+				tempDate = Convert.ToDateTime (PW_date);
+
+			if (roullete_date != "") {
+				tempDateRoulette = Convert.ToDateTime (roullete_date);
+				PlayerPrefs.SetString ("RouletteDate2ChangeState", tempDateRoulette.ToString ());
+				int canRotate = PlayerPrefs.GetInt ("CanRotate", 1);
+				if (canRotate == 1) { // CAN ROTATE!!!! SET INTEACTABLE THE PW BUTTON
+					CAN_ROTATE_ROULETTE = true;
+					activate_pw_bt.SetActive (true);
+					activate_pw_bt.GetComponent<Button> ().interactable = true;
+					Debug.Log("HUD: CAN ROTATE");
+				} else {
+					CAN_ROTATE_ROULETTE = false;
+					activate_pw_bt.SetActive (true);
+					activate_pw_bt.GetComponent<Button> ().interactable = false;
+
+					Debug.Log ("HUD: NO ROTATE");
+
+				}
+			} else {
 				CAN_ROTATE_ROULETTE = true;
-				if(activate_pw_bt.activeInHierarchy) activate_pw_bt.GetComponent<Button> ().interactable = true;
+				Debug.Log ("HUD: vazio can rotate init");
 
-				Debug.Log("HUD: CAN ROTATE");
-			}
-			else {
-				CAN_ROTATE_ROULETTE = false;
-				if(activate_pw_bt.activeInHierarchy) activate_pw_bt.GetComponent<Button> ().interactable = false;
-
-				Debug.Log("HUD: NO ROTATE");
-
+				activate_pw_bt.SetActive (true);
+				activate_pw_bt.GetComponent<Button> ().interactable = true;
 			}
 		}
-		else {
-			CAN_ROTATE_ROULETTE = true;
-			Debug.Log("HUD: vazio can rotate init");
-
-			if(activate_pw_bt.activeInHierarchy) activate_pw_bt.GetComponent<Button> ().interactable = true;
-		}
-
-		
 	}
-
 
 	public void start_game_coroutine(){
 		StartCoroutine (start_game ());
@@ -363,8 +336,7 @@ public class hud_controller : MonoBehaviour {
 //		restartMotivationalPhrase.GetComponent<Image> ().DOFade (1, 0.35f);
 
 		if(posX == -2323) posX = restartDiskGroup.transform.position.x;
-		restartDiskGroup.transform.position = new Vector2 (posX - 1100, 
-			restartDiskGroup.transform.position.y);
+		restartDiskGroup.transform.position = new Vector2 (posX - 1100, restartDiskGroup.transform.position.y);
 		
 		RestartSpinDiskEnter ();
 
@@ -383,8 +355,6 @@ public class hud_controller : MonoBehaviour {
 //		restartDisk.transform.DORotate (new Vector3 (0, 0, angle), 4f, RotateMode.WorldAxisAdd);
 	}
 
-
-
 	public void HideRestartLoading(){
 		//		restartBlackBG.SetActive (true);
 		Debug.Log ("gogogo disk");
@@ -396,7 +366,6 @@ public class hud_controller : MonoBehaviour {
 
 //		restartMotivationalPhrase.GetComponent<Image> ().DOFade (0, 0.35f);
 	}
-
 
 	public void MainMenuEntranceForRestart(){
 
@@ -562,7 +531,6 @@ public class hud_controller : MonoBehaviour {
 		} 
 	}
 
-
 	IEnumerator StoreCloseForReal(bool fromBackBt = true){
 		
 		if (globals.s.previousGameScreen == GameScreen.LevelEnd && fromBackBt == false) {
@@ -587,7 +555,7 @@ public class hud_controller : MonoBehaviour {
 			globals.s.curGameScreen = globals.s.previousGameScreen;
 
 			if(globals.s.curGameScreen == GameScreen.MainMenu) 
-				game_title.transform.DOMoveY (game_title_y, 0.5f).SetEase (Ease.OutQuad);
+				game_title.transform.DOLocalMoveY (game_title_y, 0.5f).SetEase (Ease.OutQuad);
 			store_label.SetActive (false);
 
 		}
@@ -820,7 +788,7 @@ public class hud_controller : MonoBehaviour {
             PlayerPrefs.SetString("PWDate2ChangeState", PW_date);
             PlayerPrefs.SetInt("PWState", 1);
 
-//			activate_pw_bt.GetComponent<activate_pw_button> ().SetCountownState ();
+			if(FTUController.s.firstSongPurchased == 1) activate_pw_bt.GetComponent<activate_pw_button> ().SetCountownState ();
         }
 		else if(FTUController.s.firstSongPurchased == 1)
         {
@@ -902,7 +870,6 @@ public class hud_controller : MonoBehaviour {
 
     }
 
-
 	public void show_roullete_time_level_end()
 	{
 		tempcurDate = System.DateTime.Now;
@@ -941,7 +908,6 @@ public class hud_controller : MonoBehaviour {
 		//Debug.Log(tempDate + " sadsad " + tempcurDate);
 
 	}
-
     
 	public void addRoulleteTime()
     {

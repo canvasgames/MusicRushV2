@@ -12,6 +12,7 @@ public class CohortMaster : MonoBehaviour {
 	// 4 = ANIME SHONEN
 	// 5 = KPOP OR DINGO BELLS
 	public static CohortMaster s;
+	public int newCharacterForOpenAtStore = 0;
 
 	void Awake(){
 		s = this;
@@ -22,35 +23,47 @@ public class CohortMaster : MonoBehaviour {
 		Debug.Log ("[CH] DIF DAYS: " + diff.Days  +" NEXT SAT: " + USER.s.FIRST_SATURDAY + " DIF H: " + diff.Hours + " DIF TOTAL H: " + diff.TotalHours + " DIFF MIN: "+ diff.Minutes + " DIFF TOTAL MIN: "+ diff.TotalMinutes );
 		bool displayCustomMessage = false;
 
-		if (USER.s.LAST_UPDATE_UNLOCKED == 0 && diff.Days >= 0 &&(GD.s.N_SKINS = GD.s.SKINS_PER_MUSIC * USER.s.LAST_UPDATE_UNLOCKED) < RemoteMaster.s.maximumAllowedChars) { // Unlock rap
+		// Try to Unlock rap
+		if (USER.s.LAST_UPDATE_UNLOCKED == 0 && diff.Days >= 0 && (GD.s.N_SKINS + GD.s.SKINS_PER_MUSIC * USER.s.LAST_UPDATE_UNLOCKED) < RemoteMaster.s.maximumAllowedChars) {
 			Debug.Log ("WOOOOOW A 1 WEEK RETENTION USER. WE LOVE YOU!!!");
 //			GD.s.N_SKINS += GD.s.SKINS_PER_MUSIC;
 			USER.s.SetUpdateCharsUnlocked ();
 			displayCustomMessage = true;
-		} if (USER.s.LAST_UPDATE_UNLOCKED == 1 && diff.Days >= 7 && (GD.s.N_SKINS = GD.s.SKINS_PER_MUSIC * USER.s.LAST_UPDATE_UNLOCKED) < RemoteMaster.s.maximumAllowedChars) { // Unlock latina
+		} 
+		//  Try to Unlock latina
+		if (USER.s.LAST_UPDATE_UNLOCKED == 1 && diff.Days >= 7 && (GD.s.N_SKINS + GD.s.SKINS_PER_MUSIC * USER.s.LAST_UPDATE_UNLOCKED) < RemoteMaster.s.maximumAllowedChars) { 
 			Debug.Log ("WOOOOOW A 2 WEEK RETENTION USER. WE LOVE YOU EVEN MORE!!!");
 //			GD.s.N_SKINS += GD.s.SKINS_PER_MUSIC;
 			USER.s.SetUpdateCharsUnlocked ();
 			displayCustomMessage = true;
-		} if (USER.s.LAST_UPDATE_UNLOCKED == 2 && diff.Days >= 14 && (GD.s.N_SKINS = GD.s.SKINS_PER_MUSIC * USER.s.LAST_UPDATE_UNLOCKED) < RemoteMaster.s.maximumAllowedChars) { // Unlock Reggae
-			Debug.Log ("WOOOOOW A 3 WEEK RETENTION USER. WE LOVE YOU PLEASE MARR ME!!!");
+		} 
+		// Try to Unlock Reggae
+		if (USER.s.LAST_UPDATE_UNLOCKED == 2 && diff.Days >= 14 && (GD.s.N_SKINS + GD.s.SKINS_PER_MUSIC * USER.s.LAST_UPDATE_UNLOCKED) < RemoteMaster.s.maximumAllowedChars) { 
+			Debug.Log ("WOOOOOW A 3 WEEK RETENTION USER. WE LOVE YOU PLEASE MARRY ME!!!");
 			USER.s.SetUpdateCharsUnlocked ();
 //			GD.s.N_SKINS += GD.s.SKINS_PER_MUSIC;
 			displayCustomMessage = true;
-		} else if (USER.s.LAST_UPDATE_UNLOCKED == 3 && diff.Days >= 21 && (GD.s.N_SKINS = GD.s.SKINS_PER_MUSIC * USER.s.LAST_UPDATE_UNLOCKED) < RemoteMaster.s.maximumAllowedChars) { // Unlock Reggae
+		} 
+		// Try to Unlock Anime
+		if (USER.s.LAST_UPDATE_UNLOCKED == 3 && diff.Days >= 21 && (GD.s.N_SKINS + GD.s.SKINS_PER_MUSIC * USER.s.LAST_UPDATE_UNLOCKED) < RemoteMaster.s.maximumAllowedChars) { // Unlock Reggae
 			Debug.Log ("WOOOOOW A 4 WEEK RETENTION USER. LET'S HAVE SEX. NOW.");
 //			GD.s.N_SKINS += GD.s.SKINS_PER_MUSIC;
 			USER.s.SetUpdateCharsUnlocked ();
 			displayCustomMessage = true;
-		} else {
-			Debug.Log ("[COH] NO UPDATE TO SHOW");
+		} 
+//		else {
+//			Debug.Log ("[COH] NO UPDATE TO SHOW");
 //			hud_controller.si.DisplayNewCharactersAvailable ();
-		}
-
+//		}
 
 		GD.s.N_SKINS += GD.s.SKINS_PER_MUSIC * USER.s.LAST_UPDATE_UNLOCKED;
+
 		GD.s.N_STYLES = GD.s.N_SKINS / 3;
-		if(displayCustomMessage) hud_controller.si.DisplayNewCharactersAvailable ();
+		if (displayCustomMessage) {
+			hud_controller.si.DisplayNewCharactersAvailable ();
+			newCharacterForOpenAtStore = GD.s.N_SKINS - 1;
+		}
+//		newCharacterForOpenAtStore = GD.s.N_SKINS - 1;
 
 		//		tempDateRoulette = Convert.ToDateTime(roullete_date);
 		//		PlayerPrefs.SetString("RouletteDate2ChangeState", tempDateRoulette.ToString());

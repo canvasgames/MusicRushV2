@@ -12,7 +12,7 @@ public class USER : MonoBehaviour {
     [HideInInspector]   public int FIRST_PW_CREATED, FIRST_HOLE_CREATED, FIRST_WALL_CREATED;
 	[HideInInspector]   public int NOTES, TOTAL_NOTES;
 	[HideInInspector]   public int GEMS, TOTAL_GEMS;
-	[HideInInspector]   public string FIRST_SESSION_DATE, FIRST_SATURDAY;
+	[HideInInspector]   public string FIRST_SESSION_DATE, FIRST_SATURDAY, NEXT_SATURDAY;
 	[HideInInspector]   public int LAST_UPDATE_UNLOCKED;
 
 	[HideInInspector]   public int CUR_SPECIAL_OFFER;
@@ -69,9 +69,12 @@ public class USER : MonoBehaviour {
 
 			FIRST_SATURDAY = tempDate.ToString ();
 			PlayerPrefs.SetString("first_saturday", FIRST_SATURDAY);
+			NEXT_SATURDAY = FIRST_SATURDAY;
+			PlayerPrefs.SetString ("next_saturday", NEXT_SATURDAY);
 //			System.DateTime.da
 		}
-		FIRST_SATURDAY = PlayerPrefs.GetString("first_saturday", FIRST_SATURDAY);
+		FIRST_SATURDAY = PlayerPrefs.GetString("first_saturday", "");
+		NEXT_SATURDAY = PlayerPrefs.GetString("next_saturday", "");
 		LAST_UPDATE_UNLOCKED = PlayerPrefs.GetInt ("last_update_unlocked", 0);
 
 		SOUND_MUTED = PlayerPrefs.GetInt("sound_muted", 0);
@@ -192,6 +195,11 @@ public class USER : MonoBehaviour {
 		LAST_UPDATE_UNLOCKED++;
 		PlayerPrefs.SetInt ("last_update_unlocked", LAST_UPDATE_UNLOCKED);
 		Debug.Log (" SETTING LAST UPDATE UNLOCKED!!: " + LAST_UPDATE_UNLOCKED);
+		// updating next saturday date
+		DateTime firstSatTime = Convert.ToDateTime (USER.s.FIRST_SATURDAY);
+		firstSatTime = firstSatTime.AddDays (LAST_UPDATE_UNLOCKED * 7);
+		NEXT_SATURDAY = firstSatTime.ToString ();
+		PlayerPrefs.SetString ("next_saturday", NEXT_SATURDAY);
 	}
 
 	public bool CheckIfSpecialOfferTimeHasElapsedAndUpdate(){

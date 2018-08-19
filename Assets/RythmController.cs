@@ -24,7 +24,6 @@ public class RythmController : MonoBehaviour {
 	
 	private RythmScenarioBehaviour[] stages;
 
-
 	void Awake(){
 		s = this;
 	}

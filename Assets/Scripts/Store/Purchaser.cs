@@ -308,6 +308,7 @@ namespace CompleteProject
 					String.Equals(args.purchasedProduct.definition.id, kProductIDPopPack, StringComparison.Ordinal) 		||
 					String.Equals(args.purchasedProduct.definition.id, kProductIDClassicPack, StringComparison.Ordinal) 	||
 					String.Equals(args.purchasedProduct.definition.id, kProductIDReggaePack, StringComparison.Ordinal)		||
+					String.Equals(args.purchasedProduct.definition.id, kProductIDRockPack, StringComparison.Ordinal) ||
 					String.Equals(args.purchasedProduct.definition.id, kProductIDElectronicPack, StringComparison.Ordinal) ||
 					String.Equals(args.purchasedProduct.definition.id, kProductIDRapPack, StringComparison.Ordinal))
             {
@@ -337,19 +338,19 @@ namespace CompleteProject
 		public void AddGemsFromPurchase(string productId){
 			Debug.Log (" PURCHASING GEMS COMPLETE!! ADD NOW ! ");
 			if(productId == "gems1"){
-				USER.s.AddGems (15, productId);
+				USER.s.AddGems (GD.s.GEM_PACK_S_VALUE, productId);
 			}
 			else if(productId == "gems2"){
-				USER.s.AddGems (35, productId);
+				USER.s.AddGems (GD.s.GEM_PACK_M_VALUE, productId);
 			}
 			else if(productId == "gems3"){
-				USER.s.AddGems (75, productId);
+				USER.s.AddGems (GD.s.GEM_PACK_L_VALUE, productId);
 			}
 			else if(productId == "gems4"){
-				USER.s.AddGems (165, productId);
+				USER.s.AddGems (GD.s.GEM_PACK_XL_VALUE, productId);
 			}
 			else if(productId == "gems5"){
-				USER.s.AddGems (365, productId);
+				USER.s.AddGems (500, productId);
 			}
 
 			store_controller.s.DisplayGemsValues ();

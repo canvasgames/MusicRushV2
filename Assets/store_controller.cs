@@ -82,6 +82,8 @@ public class store_controller : MonoBehaviour {
 	public GameObject frameVIP;
     public GameObject GemsStore;
 
+	public Text nextSaturdayTimer;
+
     int actualCharInScreen;
 	MusicStyle actualStyle, lastSortedStyle = MusicStyle.Eletro;
 	int lastSortedSkin = 0;
@@ -97,7 +99,6 @@ public class store_controller : MonoBehaviour {
 //		USER.s.NOTES = 101;
 //		globals.s.NOTES_COLLECTED_JUKEBOX = 8 ;
 
-		SetPileOfCoinsInitalPosition ();
 
 //		StartCoroutine (InitCoinFallingAnimation (globals.s.NOTES_COLLECTED_JUKEBOX));
 
@@ -174,8 +175,14 @@ public class store_controller : MonoBehaviour {
 		actualStyle = globals.s.ACTUAL_STYLE;
 	}
 
+	bool coinsPositionAlreadySetted = false;
 	public void OpenStore(){
 		Invoke ("OpenStore2", 0.1f);
+		if (coinsPositionAlreadySetted == false) {
+			coinsPositionAlreadySetted = true;
+			SetPileOfCoinsInitalPosition ();
+		}
+
 		if (globals.s.NOTES_COLLECTED_JUKEBOX > 0) {
 			Debug.Log (" OPEN NOTES COLLECTED : " + globals.s.NOTES_COLLECTED_JUKEBOX);
 			StartCoroutine (InitCoinFallingAnimation (globals.s.NOTES_COLLECTED_JUKEBOX));
@@ -193,14 +200,22 @@ public class store_controller : MonoBehaviour {
 	void OpenStore2(){
 		lastChar = null;
 
-		changeAnimationEquipButtonNew(globals.s.ACTUAL_SKIN.id);
+		if (CohortMaster.s.newCharacterForOpenAtStore == 0 || USER.s.NEWBIE_PLAYER == 1 || FTUController.s.firstSongPurchased == 0) {
+			changeAnimationEquipButtonNew (globals.s.ACTUAL_SKIN.id);
 //		ScrollSnap.SetCurrentPage((MusicStyle)globals.s.ACTUAL_STYLE);
 //		myChars[globals.s.ACTUAL_SKIN.id].SetActive(true);
-		ScrollSnap.SetCurrentPage(globals.s.ACTUAL_SKIN.id);
-		OnCharacterChangedNew (globals.s.ACTUAL_SKIN.id, true);
-		title.text = globals.s.ACTUAL_SKIN.skinName;
+			ScrollSnap.SetCurrentPage (globals.s.ACTUAL_SKIN.id);
+			OnCharacterChangedNew (globals.s.ACTUAL_SKIN.id, true);
+			title.text = globals.s.ACTUAL_SKIN.skinName;
+			sound_controller.s.curJukeboxMusic = globals.s.ACTUAL_STYLE;
+		} else {
+			changeAnimationEquipButtonNew (CohortMaster.s.newCharacterForOpenAtStore);
 
-		sound_controller.s.curJukeboxMusic = globals.s.ACTUAL_STYLE;
+			ScrollSnap.SetCurrentPage (CohortMaster.s.newCharacterForOpenAtStore);
+			OnCharacterChangedNew (CohortMaster.s.newCharacterForOpenAtStore);
+			title.text = GD.s.skins[CohortMaster.s.newCharacterForOpenAtStore].skinName;
+			CohortMaster.s.newCharacterForOpenAtStore = 0;
+		}
 
 		DisplayGemsValues ();
 
@@ -217,6 +232,11 @@ public class store_controller : MonoBehaviour {
 			USER.s.CheckIfSpecialOfferTimeHasElapsedAndUpdate ();
 			dateNextPromo = Convert.ToDateTime (USER.s.SPECIAL_OFFER_END_DATE);
 		}
+
+		//next saturday logic
+
+		dateNextSaturday = Convert.ToDateTime (USER.s.NEXT_SATURDAY);
+
 	}
 
 	public void CloseStore(bool fromBackBt){
@@ -346,7 +366,7 @@ public class store_controller : MonoBehaviour {
 
 	public void OnCharacterChangedNew(int skinId, bool dontPlayMusic = false, bool dontDeactivateLast = false) {
 		if (lastChar != null && dontDeactivateLast == false && globals.s.JUKEBOX_SORT_ANIMATION == false )
-			StartCoroutine (DeactivateLastChar (lastChar));
+			StartCoroutine (DeactivateLastChar (lastChar, skinId));
 		myChars [skinId].SetActive (true);
 		lastChar = myChars [skinId];
 
@@ -366,6 +386,8 @@ public class store_controller : MonoBehaviour {
 				frameVIP.SetActive (true);
 			else
 				frameVIP.SetActive (false);
+
+			nextSaturdayTimer.gameObject.SetActive (false);
 
 //		title.text = GD.s.GetStyleName (style);
 			title.text = GD.s.skins [skinId].skinName;
@@ -393,9 +415,11 @@ public class store_controller : MonoBehaviour {
 			actualCharInScreen = skinId;
 			if (RemoteMaster.s.maximumAllowedChars == GD.s.N_SKINS) {
 				title.text = "More comming soon";
-			}
-			else 
+				nextSaturdayTimer.gameObject.SetActive (false);
+			} else {
 				title.text = "More next Saturday";
+				nextSaturdayTimer.gameObject.SetActive (true);
+			}
 
 			equipButton.GetComponent<Button> ().interactable = false;
 
@@ -408,9 +432,9 @@ public class store_controller : MonoBehaviour {
 //		changeAnimationEquipButtonNew(style);
 	}
 
-	IEnumerator DeactivateLastChar(GameObject character){
-		yield return new WaitForSeconds (0.3f);
-		if(character != null) character.SetActive (false);
+	IEnumerator DeactivateLastChar(GameObject character, int id = 0){
+		yield return new WaitForSeconds (0.2f);
+		if(character != null && id != actualCharInScreen) character.SetActive (false);
 	}
 
 
@@ -626,14 +650,14 @@ public class store_controller : MonoBehaviour {
 		else skinToGive = SortCharToDrop ();
 
 		Debug.Log ("[[[[ [JUKE] SORTED CHAR TO GIVE: " + GD.s.skins [skinToGive].skinName);
-
+		sound_controller.s.PlaySfxUIJukeboxSortingCharacter();
 		int k = 0;
 		do { // FAZER UM MINIMO 
 			for (int i = 0; i < rand; i++) { //logica de não repetir
 				k++;
 				ScrollSnap.NextScreen ();
 				yield return new WaitForSeconds (0.1f);
-				if( k % 5 == 0 ) sound_controller.s.PlaySfxUIJukeboxSortingCharacter();
+//				if( k % 5 == 0 ) sound_controller.s.PlaySfxUIJukeboxSortingCharacter();
 			}
 			rand = 1;
 //			rand = Random.Range (1, 3);
@@ -644,6 +668,7 @@ public class store_controller : MonoBehaviour {
 
 		globals.s.JUKEBOX_SORT_ANIMATION = false;
 //		OnCharacterChangedNew (actualStyle);
+		sound_controller.s.StopSfxEffect();
 
 		yield return new WaitForSeconds(0.1f);
 
@@ -657,49 +682,65 @@ public class store_controller : MonoBehaviour {
 //		hud_controller.si.GiftButtonClicked (actualStyle);
 	}
 
-	int SortCharToDrop(){
-		List<Skin> commonChars = new List<Skin> ();
-		List<Skin> uncommonChars = new List<Skin> ();
-		List<Skin> rareChars = new List<Skin> ();
+	int SortCharToDrop(int dontSortThisSkin = -1){
+		int charToGive = -1;
+
+		do {
+			List<Skin> commonChars = new List<Skin> ();
+			List<Skin> uncommonChars = new List<Skin> ();
+			List<Skin> rareChars = new List<Skin> ();
 //		List<Skin> epicChars = new List<Skin> ();
 
-		//mount possible char list
-		for (int i = 0; i < GD.s.N_SKINS; i++) {
+			//mount possible char list
+			for (int i = 0; i < GD.s.N_SKINS; i++) {
 //			if(GD.s.sk
-			if (alreadyBuyed [i] == 0) {
-				if (GD.s.skins [i].rarity == SkinRarity.common)
-					commonChars.Add (GD.s.skins [i]);
-				else if (GD.s.skins [i].rarity == SkinRarity.uncommon)
-					uncommonChars.Add (GD.s.skins [i]);
-				else if (GD.s.skins [i].rarity == SkinRarity.rare)
-					rareChars.Add (GD.s.skins [i]);
+				if (alreadyBuyed [i] == 0) {
+					if (GD.s.skins [i].rarity == SkinRarity.common)
+						commonChars.Add (GD.s.skins [i]);
+					else if (GD.s.skins [i].rarity == SkinRarity.uncommon)
+						uncommonChars.Add (GD.s.skins [i]);
+					else if (GD.s.skins [i].rarity == SkinRarity.rare)
+						rareChars.Add (GD.s.skins [i]);
 //				else if (GD.s.skins [i].epicChars == SkinRarity.epic)
 //					epicChars.Add (GD.s.skins [i]);
+				}
 			}
-		}
 
-		//check available raririty and define chance sort values
-		int maxRand = 0, commonChance = 0, uncommonChance = 0 , rareChance = 0, epicChance = 0;
-		if (commonChars.Count > 0) { maxRand += GD.s.GD_DROP_CHANCE_COMMON; commonChance = GD.s.GD_DROP_CHANCE_COMMON;	}
-		if (uncommonChars.Count > 0) { maxRand += GD.s.GD_DROP_CHANCE_UNCOMMON; uncommonChance = GD.s.GD_DROP_CHANCE_COMMON;}
-		if (rareChars.Count > 0) {maxRand += GD.s.GD_DROP_CHANCE_RARE; rareChance = GD.s.GD_DROP_CHANCE_RARE; }
+			//check available raririty and define chance sort values
+			int maxRand = 0, commonChance = 0, uncommonChance = 0, rareChance = 0, epicChance = 0;
+			if (commonChars.Count > 0) {
+				maxRand += GD.s.GD_DROP_CHANCE_COMMON;
+				commonChance = GD.s.GD_DROP_CHANCE_COMMON;
+			}
+			if (uncommonChars.Count > 0) {
+				maxRand += GD.s.GD_DROP_CHANCE_UNCOMMON;
+				uncommonChance = GD.s.GD_DROP_CHANCE_COMMON;
+			}
+			if (rareChars.Count > 0) {
+				maxRand += GD.s.GD_DROP_CHANCE_RARE;
+				rareChance = GD.s.GD_DROP_CHANCE_RARE;
+			}
 			
-		//start the sort
-		int rand = UnityEngine.Random.Range (0, maxRand);
+			//start the sort
+			int rand = UnityEngine.Random.Range (0, maxRand);
 
-		if (commonChars.Count > 0 && rand < commonChance) {
-			rand = UnityEngine.Random.Range (0, commonChars.Count);
-			return commonChars.ToArray () [rand].id;
-		} else if (uncommonChars.Count > 0 && rand < commonChance + uncommonChance) {
-			rand = UnityEngine.Random.Range (0, uncommonChars.Count);
-			return uncommonChars.ToArray () [rand].id;
-		} else if (rareChars.Count > 0 && rand < commonChance + uncommonChance + rareChance) {
-			rand = UnityEngine.Random.Range (0, rareChars.Count);
-			return rareChars.ToArray () [rand].id;
-		} else {
-			return -1;
-			Debug.LogError (" **** OUT OF CHARS ! THAT SHOULD NEVER HAPPEN *****");
-		}
+			if (commonChars.Count > 0 && rand < commonChance) {
+				rand = UnityEngine.Random.Range (0, commonChars.Count);
+				charToGive = commonChars.ToArray () [rand].id;
+			} else if (uncommonChars.Count > 0 && rand < commonChance + uncommonChance) {
+				rand = UnityEngine.Random.Range (0, uncommonChars.Count);
+				charToGive = uncommonChars.ToArray () [rand].id;
+			} else if (rareChars.Count > 0 && rand < commonChance + uncommonChance + rareChance) {
+				rand = UnityEngine.Random.Range (0, rareChars.Count);
+				charToGive = rareChars.ToArray () [rand].id;
+			} else {
+				charToGive = -1;
+				Debug.LogError (" **** OUT OF CHARS ! THAT SHOULD NEVER HAPPEN *****");
+			}
+
+		} while (dontSortThisSkin == charToGive && charToGive == -1);
+
+		return charToGive;
 	}
 
 
@@ -875,7 +916,7 @@ public class store_controller : MonoBehaviour {
 			price = 10;
 		else if(GD.s.skins[id].rarity == SkinRarity.uncommon)
 			price = 30;
-		else if(GD.s.skins[id].rarity == SkinRarity.epic)
+		else if(GD.s.skins[id].rarity == SkinRarity.rare)
 			price = 50;
 		return price;
 	}
@@ -951,7 +992,7 @@ public class store_controller : MonoBehaviour {
 	#endregion
 
 	#region === SPECIAL OFFER ===
-	DateTime dateNextPromo;
+	DateTime dateNextPromo, dateNextSaturday;
 	void Update(){
 		if (globals.s.curGameScreen == GameScreen.Store && specialOfferButton.activeInHierarchy) {
 			TimeSpan diff = dateNextPromo.Subtract (System.DateTime.Now);
@@ -966,6 +1007,19 @@ public class store_controller : MonoBehaviour {
 				specialOfferTime.text = diff.Hours.ToString ("00") + ":" + diff.Minutes.ToString ("00") + ":" + diff.Seconds.ToString ("00") + "";
 			}
 		}
+
+		//NEXT SATURDAY TIMER
+		if (globals.s.curGameScreen == GameScreen.Store && actualCharInScreen == GD.s.N_SKINS && nextSaturdayTimer.gameObject.activeInHierarchy) {
+			TimeSpan diff = dateNextSaturday.Subtract (System.DateTime.Now);
+			if (diff.TotalSeconds <= 0) {
+				nextSaturdayTimer.text = "Re-open the game!";
+			}
+			if (diff.TotalSeconds > 0) {
+				nextSaturdayTimer.text = diff.Hours.ToString ("00") + ":" + diff.Minutes.ToString ("00") + ":" + diff.Seconds.ToString ("00") + "";
+			}
+
+		}
+
 	}
 
 	void DefineNextSpecialPack(){
@@ -1037,6 +1091,8 @@ public class store_controller : MonoBehaviour {
 				myPromos [USER.s.CUR_SPECIAL_OFFER].SetActive (true);
 				ScrollSnap = promoCategories [(int)categTochange].GetComponentInChildren<ScrollSnapRect>();
 				title.text = GD.s.GetStyleName((MusicStyle)USER.s.CUR_SPECIAL_OFFER) + " Pack";
+
+				nextSaturdayTimer.gameObject.SetActive (false);
 
 				StartCoroutine( ChangeCategoryAnimation (USER.s.CUR_SPECIAL_OFFER, promoCategories [(int)categTochange]));
 			}

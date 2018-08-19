@@ -54,6 +54,8 @@ MonoBehaviour:
   ballExplosion: {fileID: 109816, guid: 679ab5a120cb7b4439c55f1fe80730e3, type: 2}
   collectCoinEffect: {fileID: 1567315950310104, guid: e26e40b342e8d5149ba6729677f99d09,
     type: 2}
+  collectPowerUpEffect: {fileID: 1802859789351328, guid: 899f648d14f07d641b1147a3a81f3295,
+    type: 2}
   balls:
   - {fileID: 0}
   - {fileID: 0}

@@ -44,7 +44,7 @@ public class Stage3RythmBehaviour : RythmScenarioBehaviour {
 	}
 		
 
-	void FixedUpdateas () {
+	void FixedUpdate () {
 		if (RythmController.s.current_step == RythmController.s.step_glow_in && my_state != 0) {
 //			foreach (GameObject light in myLights) {
 //				light.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 0.25f);
@@ -55,9 +55,9 @@ public class Stage3RythmBehaviour : RythmScenarioBehaviour {
 //			myBoard2.GetComponent<Animator> ().Play ("normal", 0, 0);
 //			myBoard3.GetComponent<Animator> ().Play ("normal", 0, 0);
 
-			foreach (GameObject r in RythmElements) {
-				if (r!= null) r.GetComponent<Animator> ().Play ("normal", 0, 0);
-			}
+//			foreach (GameObject r in RythmElements) {
+//				if (r!= null) r.GetComponent<Animator> ().Play ("normal", 0, 0);
+//			}
 
 			myBg.GetComponent<Animator> ().Play ("normal", 0, 0);
 			//Debug.Log("(( FLOOR GLOW IN! " + Time.time);
@@ -86,7 +86,4 @@ public class Stage3RythmBehaviour : RythmScenarioBehaviour {
 		}
 	}
 	// Use this for initialization
-	void Start () {
-	
-	}
 }

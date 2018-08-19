@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 478058}
   - component: {fileID: 21291740}
   - component: {fileID: 9583294}
+  - component: {fileID: 114017053276066302}
   m_Layer: 0
   m_Name: Firework_Right
   m_TagString: Untagged
@@ -170,6 +171,7 @@ GameObject:
   - component: {fileID: 439832}
   - component: {fileID: 21231214}
   - component: {fileID: 9526138}
+  - component: {fileID: 114550570161103766}
   m_Layer: 0
   m_Name: Firework_Center
   m_TagString: Untagged
@@ -219,6 +221,7 @@ GameObject:
   - component: {fileID: 478262}
   - component: {fileID: 21274312}
   - component: {fileID: 9548924}
+  - component: {fileID: 114519218561693308}
   m_Layer: 0
   m_Name: Layer2_People
   m_TagString: Untagged
@@ -266,6 +269,7 @@ GameObject:
   - component: {fileID: 422130}
   - component: {fileID: 21228436}
   - component: {fileID: 9517542}
+  - component: {fileID: 114806017657818236}
   m_Layer: 0
   m_Name: Firework_Left
   m_TagString: Untagged
@@ -330,13 +334,14 @@ GameObject:
   m_Component:
   - component: {fileID: 480720}
   - component: {fileID: 11478400}
+  - component: {fileID: 114537705330508704}
   m_Layer: 0
   m_Name: Stage5_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &402912
 Transform:
   m_ObjectHideFlags: 1
@@ -574,8 +579,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 197226}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.159999, y: -2.55, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 46.64817, y: -10.87289, z: 0}
+  m_LocalScale: {x: 2.0365045, y: 2.0365033, z: 0.71707875}
   m_Children:
   - {fileID: 403148}
   - {fileID: 463606}
@@ -639,8 +644,8 @@ Animator:
   m_GameObject: {fileID: 181328}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b12bf4056221616479b3046b3d2f11c3, type: 2}
-  m_CullingMode: 0
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -656,8 +661,8 @@ Animator:
   m_GameObject: {fileID: 139366}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 88932021b04c6854a8ec5ddfc280eec4, type: 2}
-  m_CullingMode: 0
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -673,8 +678,8 @@ Animator:
   m_GameObject: {fileID: 152570}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e730ba51afe4f9140aaeb81271476362, type: 2}
-  m_CullingMode: 0
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -690,8 +695,8 @@ Animator:
   m_GameObject: {fileID: 121344}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b12bf4056221616479b3046b3d2f11c3, type: 2}
-  m_CullingMode: 0
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -1480,3 +1485,106 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 197226}
   m_IsPrefabParent: 1
+--- !u!114 &114017053276066302
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3759e2aae0f7b9a47bb98fc64bf3c543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingMode: 1
+  m_WrapMode: 0
+  m_Clip: {fileID: 7400000, guid: de3fe3eebb5eeeb42b34f5aa9b3ff49a, type: 2}
+  m_States:
+  - clip: {fileID: 7400000, guid: de3fe3eebb5eeeb42b34f5aa9b3ff49a, type: 2}
+    name: Default
+    defaultState: 1
+--- !u!114 &114519218561693308
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 152570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3759e2aae0f7b9a47bb98fc64bf3c543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingMode: 1
+  m_WrapMode: 0
+  m_Clip: {fileID: 7400000, guid: 3d07637672a698d4a8c34526aeb345ea, type: 2}
+  m_States:
+  - clip: {fileID: 7400000, guid: 3d07637672a698d4a8c34526aeb345ea, type: 2}
+    name: Default
+    defaultState: 1
+--- !u!114 &114537705330508704
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 197226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b886aed73dbdc144aa7ef32f3e431413, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RythmElements:
+  - {fileID: 181328}
+  - {fileID: 121344}
+  - {fileID: 139366}
+  myGlowElements:
+  - {fileID: 196704}
+  - {fileID: 131886}
+  myGlowElements2:
+  - {fileID: 104420}
+  - {fileID: 119322}
+  lightStep: 15
+  lightStep2: 3
+--- !u!114 &114550570161103766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3759e2aae0f7b9a47bb98fc64bf3c543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingMode: 1
+  m_WrapMode: 0
+  m_Clip: {fileID: 7400000, guid: eeeb72ee6b531e945a9d512b183de17a, type: 2}
+  m_States:
+  - clip: {fileID: 7400000, guid: eeeb72ee6b531e945a9d512b183de17a, type: 2}
+    name: Default
+    defaultState: 1
+--- !u!114 &114806017657818236
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3759e2aae0f7b9a47bb98fc64bf3c543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingMode: 1
+  m_WrapMode: 0
+  m_Clip: {fileID: 7400000, guid: de3fe3eebb5eeeb42b34f5aa9b3ff49a, type: 2}
+  m_States:
+  - clip: {fileID: 7400000, guid: de3fe3eebb5eeeb42b34f5aa9b3ff49a, type: 2}
+    name: Default
+    defaultState: 1

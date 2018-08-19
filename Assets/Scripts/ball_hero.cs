@@ -98,7 +98,7 @@ public class ball_hero : MonoBehaviour
 
 	void OnEnable() {
 		if (first_ball == false && my_skin.activeInHierarchy && myStyle != globals.s.ACTUAL_STYLE) {
-			Debug.Log (iAmLeft + " [BALL HERO] UPDATE BALL SKIN ON ENABLE");
+//			Debug.Log (iAmLeft + " [BALL HERO] UPDATE BALL SKIN ON ENABLE");
 			UpdateMySkin ();
 		}
 	}
@@ -121,11 +121,11 @@ public class ball_hero : MonoBehaviour
 
 		myStyle = globals.s.ACTUAL_STYLE;
 		mySkinType = globals.s.ACTUAL_SKIN;
-		Debug.Log ("searching... " + globals.s.ACTUAL_STYLE.ToString () + globals.s.ACTUAL_SKIN.styleId + "Animator");
+//		Debug.Log ("searching... " + globals.s.ACTUAL_STYLE.ToString () + globals.s.ACTUAL_SKIN.styleId + "Animator");
 
 		// RESET FOLLOWERS
 		if (myFollowers != null) {
-			Debug.Log ("[BALL] NO FOLLOWERS !!!!!, BUT HAD");
+//			Debug.Log ("[BALL] NO FOLLOWERS !!!!!, BUT HAD");
 			for (int i = 0; i < myFollowers.Length; i++) {
 				myFollowers [i].transform.position = new Vector2 (10000, 1000);
 			}
@@ -345,14 +345,14 @@ public class ball_hero : MonoBehaviour
 				if (rb.velocity.x != globals.s.BALL_SPEED_X) rb.velocity = new Vector2 (globals.s.BALL_SPEED_X, rb.velocity.y);
 				if (my_skin.transform.localScale.x > 0) {
 					my_skin.transform.localScale = new Vector2 (-3, my_skin.transform.localScale.y);
-					if (myFollowers.Length > 0)
+					if (myFollowers != null)
 						WallCollisionForMyFollowers (rb.velocity.x);
 				}
 			} else if (rb.velocity.x < 0) {
 				if (rb.velocity.x != -globals.s.BALL_SPEED_X) rb.velocity = new Vector2 (-globals.s.BALL_SPEED_X, rb.velocity.y);
 				if (my_skin.transform.localScale.x < 0) {
 					my_skin.transform.localScale = new Vector2 (3, my_skin.transform.localScale.y);
-					if (myFollowers.Length > 0)
+					if (myFollowers != null)
 						WallCollisionForMyFollowers (rb.velocity.x);
 				}
 			}
@@ -683,6 +683,7 @@ public class ball_hero : MonoBehaviour
 		if (coll.gameObject.CompareTag ("PW")) {
 			
 			PW_Collect temp = coll.gameObject.GetComponent<PW_Collect> ();
+			BallMaster.s.CreateCollectPowerUpEffect (coll.transform.position);
 			coll.transform.position = new Vector2 (-9909,-9999);
 			pw_do_something (temp);
 			if(sound_controller.s != null) sound_controller.s.PlaySfxCollectPw ();
@@ -1080,7 +1081,7 @@ public class ball_hero : MonoBehaviour
 
 //		game_controller.s.PauseGame ();
         
-		floor.GetComponent<floor> ().pauta.SetActive (false);
+//		floor.GetComponent<floor> ().pauta.SetActive (false);
         floor.transform.DOMoveX(0, 0.3f);//.OnComplete(pw_super_end);
 
 		superJumpEffect.SetActive (false);
@@ -1168,11 +1169,14 @@ public class ball_hero : MonoBehaviour
 				floors[i].unactivate_colider_super_pw();
              }
 
-          hole_behaviour[] holes = GameObject.FindObjectsOfType(typeof(hole_behaviour)) as hole_behaviour[];
+//		hole_behaviour[] holes = GameObject.FindObjectsOfType(typeof(hole_behaviour)) as hole_behaviour[];
+		GameObject[] holes = objects_pool_controller.s.holesPool;
+
 
           for (i = 0; i < holes.Length; i++)
           {
-              holes[i].destroy_pw_super_under_floors(transform.position.y);
+			if (holes [i] != null && holes [i].activeInHierarchy == true)
+				 holes[i].GetComponent<hole_behaviour>().destroy_pw_super_under_floors(transform.position.y);
           }
 
     }

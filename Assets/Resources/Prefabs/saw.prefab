@@ -28,6 +28,7 @@ GameObject:
   - component: {fileID: 9520492}
   - component: {fileID: 11457428}
   - component: {fileID: 5805244}
+  - component: {fileID: 114526165056832166}
   m_Layer: 20
   m_Name: saw
   m_TagString: Saw
@@ -147,8 +148,8 @@ Animator:
   m_GameObject: {fileID: 128036}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f0c173f17c717934190bfd1277c30975, type: 2}
-  m_CullingMode: 0
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -194,6 +195,7 @@ MonoBehaviour:
   corner_repositionable: 0
   repositionable: 0
   triple_spk: 0
+  distance2Appear: 0
 --- !u!212 &21205612
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -226,7 +228,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 543748687
-  m_SortingLayer: -6
+  m_SortingLayer: -5
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 66479773d3063f7418dc5d283ac0e62b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -270,7 +272,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 543748687
-  m_SortingLayer: -6
+  m_SortingLayer: -5
   m_SortingOrder: 7
   m_Sprite: {fileID: 21300000, guid: 4911b946986af1b4386cad79fd4f4be6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -314,7 +316,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 543748687
-  m_SortingLayer: -6
+  m_SortingLayer: -5
   m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 408fcbe87ca7e4f4594cdda9efd79b0c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -381,3 +383,23 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 128036}
   m_IsPrefabParent: 1
+--- !u!114 &114526165056832166
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3759e2aae0f7b9a47bb98fc64bf3c543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingMode: 1
+  m_WrapMode: 0
+  m_Clip: {fileID: 7400000, guid: df2af836b0576ba4687e482198226ab1, type: 2}
+  m_States:
+  - clip: {fileID: 7400000, guid: df2af836b0576ba4687e482198226ab1, type: 2}
+    name: Default
+    defaultState: 1

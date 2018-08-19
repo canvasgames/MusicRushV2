@@ -10,6 +10,7 @@ GameObject:
   - component: {fileID: 423810}
   - component: {fileID: 21298702}
   - component: {fileID: 9544090}
+  - component: {fileID: 114505897685783622}
   m_Layer: 0
   m_Name: NoteB
   m_TagString: Untagged
@@ -43,6 +44,7 @@ GameObject:
   - component: {fileID: 492198}
   - component: {fileID: 21296946}
   - component: {fileID: 9527936}
+  - component: {fileID: 114242695199221262}
   m_Layer: 0
   m_Name: NoteA
   m_TagString: Untagged
@@ -76,6 +78,7 @@ GameObject:
   - component: {fileID: 429706}
   - component: {fileID: 21250868}
   - component: {fileID: 9512058}
+  - component: {fileID: 114408058822387040}
   m_Layer: 0
   m_Name: table1
   m_TagString: Untagged
@@ -205,6 +208,7 @@ GameObject:
   - component: {fileID: 439164}
   - component: {fileID: 21258042}
   - component: {fileID: 9579688}
+  - component: {fileID: 114038146652230892}
   m_Layer: 0
   m_Name: NoteC
   m_TagString: Untagged
@@ -222,6 +226,7 @@ GameObject:
   - component: {fileID: 492106}
   - component: {fileID: 21272228}
   - component: {fileID: 9534132}
+  - component: {fileID: 114425517930701108}
   m_Layer: 0
   m_Name: Layer1_BG
   m_TagString: Untagged
@@ -244,7 +249,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &181910
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,6 +260,7 @@ GameObject:
   - component: {fileID: 474438}
   - component: {fileID: 21221680}
   - component: {fileID: 9575808}
+  - component: {fileID: 114254998837469716}
   m_Layer: 0
   m_Name: Layer3-Glass
   m_TagString: Untagged
@@ -582,8 +588,8 @@ Animator:
   m_GameObject: {fileID: 108770}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 029f7ace58a680c41b09f24dddad7343, type: 2}
-  m_CullingMode: 0
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -599,8 +605,8 @@ Animator:
   m_GameObject: {fileID: 106926}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ed548787c174c4c4eb3de68f681f3ac0, type: 2}
-  m_CullingMode: 0
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -616,8 +622,8 @@ Animator:
   m_GameObject: {fileID: 171838}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8c5ddc26ce483b942b1681dab6742f6c, type: 2}
-  m_CullingMode: 0
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -633,8 +639,8 @@ Animator:
   m_GameObject: {fileID: 102054}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 989e638a11f644a49852149ba351438b, type: 2}
-  m_CullingMode: 0
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -667,8 +673,8 @@ Animator:
   m_GameObject: {fileID: 181910}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3fd80244bfe66f14f9e78fa29a993e06, type: 2}
-  m_CullingMode: 0
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -684,8 +690,8 @@ Animator:
   m_GameObject: {fileID: 166100}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9f1e026d36916b5429ba0d2cfe9ac138, type: 2}
-  m_CullingMode: 0
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -963,9 +969,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 935211397
-  m_SortingLayer: -5
-  m_SortingOrder: 5
+  m_SortingLayerID: -383669041
+  m_SortingLayer: -12
+  m_SortingOrder: 6
   m_Sprite: {fileID: 21300000, guid: 7bcc2cf0128636f488e182d41e1f5654, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1183,9 +1189,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 935211397
-  m_SortingLayer: -5
-  m_SortingOrder: 6
+  m_SortingLayerID: -383669041
+  m_SortingLayer: -12
+  m_SortingOrder: 7
   m_Sprite: {fileID: 21300000, guid: 2e13d2f9db2dfdb4f9975b698a46a541, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1383,3 +1389,123 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 179782}
   m_IsPrefabParent: 1
+--- !u!114 &114038146652230892
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3759e2aae0f7b9a47bb98fc64bf3c543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingMode: 1
+  m_WrapMode: 0
+  m_Clip: {fileID: 7400000, guid: bea8158e4d2490b48bb6ab531b6a7534, type: 2}
+  m_States:
+  - clip: {fileID: 7400000, guid: bea8158e4d2490b48bb6ab531b6a7534, type: 2}
+    name: Default
+    defaultState: 1
+--- !u!114 &114242695199221262
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3759e2aae0f7b9a47bb98fc64bf3c543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingMode: 1
+  m_WrapMode: 0
+  m_Clip: {fileID: 7400000, guid: 49df35d31574ff74191e355b7fc41f94, type: 2}
+  m_States:
+  - clip: {fileID: 7400000, guid: 49df35d31574ff74191e355b7fc41f94, type: 2}
+    name: Default
+    defaultState: 1
+--- !u!114 &114254998837469716
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 181910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3759e2aae0f7b9a47bb98fc64bf3c543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingMode: 1
+  m_WrapMode: 0
+  m_Clip: {fileID: 7400000, guid: 0bf737ee48011a343b80ef96ad784673, type: 2}
+  m_States:
+  - clip: {fileID: 7400000, guid: 0bf737ee48011a343b80ef96ad784673, type: 2}
+    name: Default
+    defaultState: 1
+--- !u!114 &114408058822387040
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3759e2aae0f7b9a47bb98fc64bf3c543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingMode: 1
+  m_WrapMode: 0
+  m_Clip: {fileID: 7400000, guid: 78191141eb3bc2b46a584f801898aa4c, type: 2}
+  m_States:
+  - clip: {fileID: 7400000, guid: 78191141eb3bc2b46a584f801898aa4c, type: 2}
+    name: Default
+    defaultState: 1
+--- !u!114 &114425517930701108
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 171838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3759e2aae0f7b9a47bb98fc64bf3c543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingMode: 1
+  m_WrapMode: 0
+  m_Clip: {fileID: 7400000, guid: 35eff123535f8a443b0c0e8f9802996c, type: 2}
+  m_States:
+  - clip: {fileID: 7400000, guid: 35eff123535f8a443b0c0e8f9802996c, type: 2}
+    name: Default
+    defaultState: 1
+--- !u!114 &114505897685783622
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 102054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3759e2aae0f7b9a47bb98fc64bf3c543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingMode: 1
+  m_WrapMode: 0
+  m_Clip: {fileID: 7400000, guid: bea8158e4d2490b48bb6ab531b6a7534, type: 2}
+  m_States:
+  - clip: {fileID: 7400000, guid: bea8158e4d2490b48bb6ab531b6a7534, type: 2}
+    name: Default
+    defaultState: 1

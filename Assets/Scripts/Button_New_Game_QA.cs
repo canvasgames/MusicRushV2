@@ -57,9 +57,10 @@ public class Button_New_Game_QA : MonoBehaviour {
             PlayerPrefs.DeleteAll();
             hud_controller.si.display_best(0);
             Invoke("back_to_white", 2);
+			sound_controller.s.StopAndReleaseCurMusic ();
 
             //Destroy(gameObject);
-            SceneManager.LoadScene("Gameplay 1");
+            SceneManager.LoadScene("Gameplay Final");
         }
     }
 

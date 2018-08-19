@@ -47,12 +47,22 @@ public class GD : MonoBehaviour {
 	public int JUKEBOX_PRICE = 50, JUKEBOX_FTU_PRICE = 5;
 	public int GD_ROULLETE_WAIT_MINUTES;
 	[Space (5)]
+
 	public int GD_DROP_CHANCE_COMMON = 75;
 	public int GD_DROP_CHANCE_UNCOMMON = 20 , GD_DROP_CHANCE_RARE = 5;
 
+	[Header ("STAGE FLOOR")]
+
 	public int[] SCENERY_FLOOR_VALUES;
 
-	[Space (10)]
+	[Space (7)]
+
+	[Header ("GEM VALUES")]
+	public int GEM_PACK_S_VALUE = 15;
+	public int GEM_PACK_M_VALUE = 35;
+	public int GEM_PACK_L_VALUE = 75;
+	public int GEM_PACK_XL_VALUE = 300;
+
 
 	public float FOLLOWER_DELAY = 0.7f, FOLLOWER_DELAY_BASE = 0.1f;
 

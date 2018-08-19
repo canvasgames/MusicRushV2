@@ -9,7 +9,6 @@ GameObject:
   m_Component:
   - component: {fileID: 492660}
   - component: {fileID: 21222116}
-  - component: {fileID: 9506408}
   - component: {fileID: 11433554}
   m_Layer: 0
   m_Name: Stage_Middle_base
@@ -60,6 +59,7 @@ GameObject:
   - component: {fileID: 21297690}
   - component: {fileID: 9502240}
   - component: {fileID: 11479764}
+  - component: {fileID: 114444612765797438}
   m_Layer: 0
   m_Name: Stage_CornerLeft_Base
   m_TagString: Untagged
@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 460530}
   - component: {fileID: 21290756}
   - component: {fileID: 9511484}
+  - component: {fileID: 114858559643029444}
   m_Layer: 0
   m_Name: Layer0_bg
   m_TagString: Untagged
@@ -400,25 +401,8 @@ Animator:
   m_GameObject: {fileID: 124850}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9335238c4e899094287d07f36deea9ce, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &9506408
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100638}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7e5df1dee8393934ab4e0e4917716f2a, type: 2}
-  m_CullingMode: 0
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -434,8 +418,8 @@ Animator:
   m_GameObject: {fileID: 158740}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 63ce3268020f93a4c9de8c6fabc5ce26, type: 2}
-  m_CullingMode: 0
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -453,6 +437,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88244d30c39a6f045b8cd4bd2b9888a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mySprites:
+  - {fileID: 21300000, guid: f62d35d91de158248af4bc92ef3365f7, type: 3}
+  - {fileID: 21300000, guid: 659b7d63f2e31624ba06214a69f0e3d8, type: 3}
+  - {fileID: 21300000, guid: 47a9707f7ff87d44a9d3a7588b74efe4, type: 3}
+  - {fileID: 21300000, guid: b6d237dbc93d7a74daeab348f1e6fe91, type: 3}
+  - {fileID: 21300000, guid: db5c91126e9f6504c924fd8a02eb2817, type: 3}
 --- !u!114 &11459842
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -892,3 +882,61 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 167810}
   m_IsPrefabParent: 1
+--- !u!114 &114444612765797438
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3759e2aae0f7b9a47bb98fc64bf3c543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingMode: 1
+  m_WrapMode: 0
+  m_Clip: {fileID: 7400000, guid: 3ee8bb0756db2484d9ab9c2911b2bec8, type: 2}
+  m_States:
+  - clip: {fileID: 7400000, guid: 3ee8bb0756db2484d9ab9c2911b2bec8, type: 2}
+    name: Default
+    defaultState: 1
+  - clip: {fileID: 7400000, guid: 8f3a0b2160ea8ab4db7e7b6f6cd351b2, type: 2}
+    name: Default_1
+    defaultState: 0
+  - clip: {fileID: 7400000, guid: 660947afc6aa0a146ad605033ffcc3d3, type: 2}
+    name: Default_2
+    defaultState: 0
+  - clip: {fileID: 7400000, guid: c2d10c393dc107340adf44242117b3ca, type: 2}
+    name: Default_3
+    defaultState: 0
+  - clip: {fileID: 7400000, guid: 6091475947c716f48ada5145695efd90, type: 2}
+    name: Default_4
+    defaultState: 0
+  - clip: {fileID: 7400000, guid: ed467eadbd5babf40857b3fc5126c10f, type: 2}
+    name: Default_5
+    defaultState: 0
+  - clip: {fileID: 7400000, guid: 9635721b41cdbfc4f92099c8540a6e18, type: 2}
+    name: Default_6
+    defaultState: 0
+--- !u!114 &114858559643029444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 158740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3759e2aae0f7b9a47bb98fc64bf3c543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingMode: 1
+  m_WrapMode: 0
+  m_Clip: {fileID: 7400000, guid: f122e6edf86314f45b5493fdb5801227, type: 2}
+  m_States:
+  - clip: {fileID: 7400000, guid: f122e6edf86314f45b5493fdb5801227, type: 2}
+    name: Default
+    defaultState: 1

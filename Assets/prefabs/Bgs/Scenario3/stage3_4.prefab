@@ -10,6 +10,7 @@ GameObject:
   - component: {fileID: 481378}
   - component: {fileID: 21261590}
   - component: {fileID: 9554702}
+  - component: {fileID: 114000067350544174}
   m_Layer: 0
   m_Name: Layer0_bg
   m_TagString: Untagged
@@ -44,6 +45,7 @@ GameObject:
   - component: {fileID: 21292766}
   - component: {fileID: 9526830}
   - component: {fileID: 11403948}
+  - component: {fileID: 114255300552323894}
   m_Layer: 0
   m_Name: Stage_CornerLeft_Base
   m_TagString: Untagged
@@ -171,6 +173,7 @@ GameObject:
   - component: {fileID: 21238826}
   - component: {fileID: 9569166}
   - component: {fileID: 11435900}
+  - component: {fileID: 114390009020564442}
   m_Layer: 0
   m_Name: Stage_CornerRight_base
   m_TagString: Untagged
@@ -370,8 +373,8 @@ Animator:
   m_GameObject: {fileID: 129782}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9335238c4e899094287d07f36deea9ce, type: 2}
-  m_CullingMode: 0
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -387,8 +390,8 @@ Animator:
   m_GameObject: {fileID: 121412}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 63ce3268020f93a4c9de8c6fabc5ce26, type: 2}
-  m_CullingMode: 0
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -404,8 +407,8 @@ Animator:
   m_GameObject: {fileID: 190944}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9335238c4e899094287d07f36deea9ce, type: 2}
-  m_CullingMode: 0
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -817,3 +820,99 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 194252}
   m_IsPrefabParent: 1
+--- !u!114 &114000067350544174
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3759e2aae0f7b9a47bb98fc64bf3c543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingMode: 1
+  m_WrapMode: 0
+  m_Clip: {fileID: 7400000, guid: f122e6edf86314f45b5493fdb5801227, type: 2}
+  m_States:
+  - clip: {fileID: 7400000, guid: f122e6edf86314f45b5493fdb5801227, type: 2}
+    name: Default
+    defaultState: 1
+--- !u!114 &114255300552323894
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3759e2aae0f7b9a47bb98fc64bf3c543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingMode: 1
+  m_WrapMode: 0
+  m_Clip: {fileID: 7400000, guid: 3ee8bb0756db2484d9ab9c2911b2bec8, type: 2}
+  m_States:
+  - clip: {fileID: 7400000, guid: 3ee8bb0756db2484d9ab9c2911b2bec8, type: 2}
+    name: Default
+    defaultState: 1
+  - clip: {fileID: 7400000, guid: 8f3a0b2160ea8ab4db7e7b6f6cd351b2, type: 2}
+    name: Default_1
+    defaultState: 0
+  - clip: {fileID: 7400000, guid: 660947afc6aa0a146ad605033ffcc3d3, type: 2}
+    name: Default_2
+    defaultState: 0
+  - clip: {fileID: 7400000, guid: c2d10c393dc107340adf44242117b3ca, type: 2}
+    name: Default_3
+    defaultState: 0
+  - clip: {fileID: 7400000, guid: 6091475947c716f48ada5145695efd90, type: 2}
+    name: Default_4
+    defaultState: 0
+  - clip: {fileID: 7400000, guid: ed467eadbd5babf40857b3fc5126c10f, type: 2}
+    name: Default_5
+    defaultState: 0
+  - clip: {fileID: 7400000, guid: 9635721b41cdbfc4f92099c8540a6e18, type: 2}
+    name: Default_6
+    defaultState: 0
+--- !u!114 &114390009020564442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 190944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3759e2aae0f7b9a47bb98fc64bf3c543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingMode: 1
+  m_WrapMode: 0
+  m_Clip: {fileID: 7400000, guid: 3ee8bb0756db2484d9ab9c2911b2bec8, type: 2}
+  m_States:
+  - clip: {fileID: 7400000, guid: 3ee8bb0756db2484d9ab9c2911b2bec8, type: 2}
+    name: Default
+    defaultState: 1
+  - clip: {fileID: 7400000, guid: 8f3a0b2160ea8ab4db7e7b6f6cd351b2, type: 2}
+    name: Default_1
+    defaultState: 0
+  - clip: {fileID: 7400000, guid: 660947afc6aa0a146ad605033ffcc3d3, type: 2}
+    name: Default_2
+    defaultState: 0
+  - clip: {fileID: 7400000, guid: c2d10c393dc107340adf44242117b3ca, type: 2}
+    name: Default_3
+    defaultState: 0
+  - clip: {fileID: 7400000, guid: 6091475947c716f48ada5145695efd90, type: 2}
+    name: Default_4
+    defaultState: 0
+  - clip: {fileID: 7400000, guid: ed467eadbd5babf40857b3fc5126c10f, type: 2}
+    name: Default_5
+    defaultState: 0
+  - clip: {fileID: 7400000, guid: 9635721b41cdbfc4f92099c8540a6e18, type: 2}
+    name: Default_6
+    defaultState: 0

@@ -16,7 +16,7 @@ public class RestartLoadingScreen : MonoBehaviour {
 		//		float force = UnityEngine.Random.Range (1,2);
 		float force = 60f;
 		angle = angle * (force);
-		loadingSymbol.transform.DORotate (new Vector3 (0, 0, angle), 4f, RotateMode.WorldAxisAdd);
+		loadingSymbol.transform.DORotate (new Vector3 (0, 0, angle), 4f, RotateMode.FastBeyond360);
 
 		DecidePhrase ();
 	}

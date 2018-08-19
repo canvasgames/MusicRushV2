@@ -41,14 +41,14 @@ public class sound_controller : MonoBehaviour
             s = this;
         else if (s != this)
             Destroy(gameObject);
-        DontDestroyOnLoad(gameObject);
+//        DontDestroyOnLoad(gameObject);
     }
     // Use this for initialization
     void Start()
     {
         can_play_jump = true;
 
-		 SoltaOSomAeDJAndreMarques (globals.s.ACTUAL_STYLE);
+	 	SoltaOSomAeDJAndreMarques (globals.s.ACTUAL_STYLE);
 
 		// MUTE LOGIC
 		int temp_sound = PlayerPrefs.GetInt("sound_state_0on_1off", 0);
@@ -142,6 +142,10 @@ public class sound_controller : MonoBehaviour
 		curFmodMusic.setParameterValue ("layer", 1);
 		curFmodMusic.start ();
 		//curFmodMusic = 
+	}
+	public void StopAndReleaseCurMusic(){
+		curFmodMusic.stop (FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+		curFmodMusic.release ();
 	}
 
 	void GameOverAbafarOsom(){
@@ -363,31 +367,31 @@ public class sound_controller : MonoBehaviour
 
 	public void PlaySfxCharacterVisionEndingAlert()	{ 
 		if (soundMuted == false) {
-			//FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_vision_ending_alert");
+//			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_vision_ending_alert");
 		}
 	}
 
 	public void PlaySfxTrapHiddenHoleFall()	{ 
 		if (soundMuted == false) {
-			//FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_trap_hidden_hole_fall");
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_trap_hidden_hole_fall");
 		}
 	}
 
 	public void PlaySfxTrapHiddenSawAppear() {
 		if (soundMuted == false) {
-			//FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_trap_hidden_saw_appear");
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/Traps/sfx_trap_hidden_saw_appear");
 		}
 	}
 
 	public void PlaySfxTrapHiddenSpikeAppear()	{ 
 		if (soundMuted == false) {
-			//FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_trap_hidden_spike_appear");
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/Traps/sfx_trap_hidden_spike_appear");
 		}
 	}
 
 	public void PlaySfxTrapHiddenWallAppear()	{
 		if (soundMuted == false) {
-			//FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_trap_hidden_wall_appear");
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/Traps/sfx_trap_hidden_wall_appear");
 		}
 	}
 
@@ -399,7 +403,7 @@ public class sound_controller : MonoBehaviour
 
 	public void PlayUIButtonPressed()	{ // tbd
 		if (soundMuted == false) {
-			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_ui_button_pressed");
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/UI/sfx_ui_button_pressed");
 		}
 	}
 
@@ -411,31 +415,36 @@ public class sound_controller : MonoBehaviour
 
 	public void PlaySfxUIJukeboxCoinFalling()	{ 
 		if (soundMuted == false) {
-			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_ui_jukebox_coin_falling");
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/UI/sfx_ui_jukebox_coin_falling");
 		}
 	}
 
+	bool restoreMusicVolume = false;
 	public void PlaySfxUIJukeboxSortingCharacter()	{ 
 		if (soundMuted == false) {
-			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_ui_jukebox_sorting_character");
+			curFmodEffect = FMODUnity.RuntimeManager.CreateInstance ("event:/Sfx/UI/sfx_ui_jukebox_sorting_character");
+			curFmodEffect.start ();
+			curFmodMusic.setVolume (0f);
+			restoreMusicVolume = true;
+//			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/UI/sfx_ui_jukebox_sorting_character");
 		}
 	}
 
 	public void PlaySfxUINewHighscore()	{
 		if (soundMuted == false) {
-			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_ui_new_highscore");
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/UI/sfx_ui_new_highscore");
 		}
 	}
 
 	public void PlaySfxUIReviveCountdown()	{ // ?tbd?
 		if (soundMuted == false) {
-			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_ui_revive_countdown");
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/UI/sfx_ui_revive_countdown");
 		}
 	}
 
 	public void PlaySfxUIGameOverScoreRaisingWhichIsBasicallyTheSoundOfALoser()	{ // tbd
 		if (soundMuted == false) {
-			curFmodEffect = FMODUnity.RuntimeManager.CreateInstance ("event:/Sfx/sfx_ui_game_over_score_raising");
+			curFmodEffect = FMODUnity.RuntimeManager.CreateInstance ("event:/Sfx/UI/sfx_ui_game_over_score_raising");
 			curFmodEffect.start ();
 		}
 	}
@@ -443,11 +452,15 @@ public class sound_controller : MonoBehaviour
 	public void StopSfxEffect(FMOD.Studio.STOP_MODE stopMode = FMOD.Studio.STOP_MODE.IMMEDIATE){
 		curFmodEffect.stop (stopMode);
 		curFmodEffect.release ();
+		if(restoreMusicVolume == true){
+			restoreMusicVolume = false;
+			curFmodMusic.setVolume (1f);
+		}
 	}
 
 	public void PlaySfxUISpinDiskReward()	{ // tbd
 		if (soundMuted == false) {
-			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_ui_spin_disk_reward");
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/UI/sfx_ui_spin_disk_reward");
 		}
 	}
 

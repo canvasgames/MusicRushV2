@@ -80,7 +80,7 @@ public class main_camera : MonoBehaviour {
 
             }
 
-            Debug.Log("vvvvvvvvvvvvvvvvvvvvv [CAMERA] ON BALL FALLING !! TDIF: " + target_dif + " [] YD: " + (transform.position.y - globals.s.BALL_Y) + " MY POSITION: " + transform.position.y + "  MY TARGET Y " + (transform.position.y - globals.s.FLOOR_HEIGHT - 0.5f));
+//            Debug.Log("vvvvvvvvvvvvvvvvvvvvv [CAMERA] ON BALL FALLING !! TDIF: " + target_dif + " [] YD: " + (transform.position.y - globals.s.BALL_Y) + " MY POSITION: " + transform.position.y + "  MY TARGET Y " + (transform.position.y - globals.s.FLOOR_HEIGHT - 0.5f));
 
             transform.DOMoveY(transform.position.y - target_dif, 0.4f).SetEase(Ease.InOutQuad).OnComplete(() => falling = false);
         }
@@ -88,7 +88,7 @@ public class main_camera : MonoBehaviour {
 
     public void OnBallTooHigh() {
         if (!falling) {
-            Debug.Log("[CAMERA] ON BALL TOO HIGH !! BALL Y: " + globals.s.BALL_Y + " | LIMIT: " + (transform.position.y + globals.s.FLOOR_HEIGHT + 1.5f));
+//            Debug.Log("[CAMERA] ON BALL TOO HIGH !! BALL Y: " + globals.s.BALL_Y + " | LIMIT: " + (transform.position.y + globals.s.FLOOR_HEIGHT + 1.5f));
             falling = true;
             transform.DOMoveY(transform.position.y + globals.s.FLOOR_HEIGHT + 0.5f, 0.4f).SetEase(Ease.InOutQuad).OnComplete(() => falling = false);
         }
@@ -230,8 +230,8 @@ public class main_camera : MonoBehaviour {
                 if (initiated == false)
                 {
 //					if (globals.s.BALL_Y > transform.position.y) //if ball is in a superior position than the camera
-					if ( globals.s.BALL_Y > globals.s.FLOOR_HEIGHT*1+ globals.s.BASE_Y && 
-						(globals.s.CUR_BALL_SPEED > 0 && globals.s.BALL_X > 1.1f) || (globals.s.CUR_BALL_SPEED < 0 && globals.s.BALL_X < -1.1f) ) //if ball is in a superior position than the camera
+					if ( globals.s.BALL_Y > globals.s.FLOOR_HEIGHT*1+ globals.s.BASE_Y &&  
+						((globals.s.CUR_BALL_SPEED > 0 && globals.s.BALL_X > 1.1f) || (globals.s.CUR_BALL_SPEED < 0 && globals.s.BALL_X < -1.1f)) ) //if ball is in a superior position than the camera
                     {
 						Debug.Log (" MY Y " + globals.s.BALL_Y + "  TARGET Y: " + (globals.s.FLOOR_HEIGHT * 1 + globals.s.BASE_Y) + " BALL SPEED : "+globals.s.BALL_SPEED_X+ " BALLX "+ globals.s.BALL_X  );
                         rb.velocity = new Vector2(0, globals.s.CAMERA_SPEED);
