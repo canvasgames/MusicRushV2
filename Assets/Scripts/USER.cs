@@ -194,10 +194,10 @@ public class USER : MonoBehaviour {
 	public void SetUpdateCharsUnlocked(){
 		LAST_UPDATE_UNLOCKED++;
 		PlayerPrefs.SetInt ("last_update_unlocked", LAST_UPDATE_UNLOCKED);
-		Debug.Log (" SETTING LAST UPDATE UNLOCKED!!: " + LAST_UPDATE_UNLOCKED);
 		// updating next saturday date
 		DateTime firstSatTime = Convert.ToDateTime (USER.s.FIRST_SATURDAY);
-		firstSatTime = firstSatTime.AddDays (LAST_UPDATE_UNLOCKED * 7);
+		firstSatTime = firstSatTime.AddDays (LAST_UPDATE_UNLOCKED * 6);
+		Debug.Log (" SETTING LAST UPDATE UNLOCKED!!: " + LAST_UPDATE_UNLOCKED + " NEXT SAT DATE: " + firstSatTime);
 		NEXT_SATURDAY = firstSatTime.ToString ();
 		PlayerPrefs.SetString ("next_saturday", NEXT_SATURDAY);
 	}

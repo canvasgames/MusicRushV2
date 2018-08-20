@@ -772,8 +772,13 @@ public class BlockMaster : MonoBehaviour {
 		} else if (blockType == BlockType.HoleAbove) {
 			if (floor2IsNext == false) {
 				nextBlock = block.obstaclesFloor2;
+				float xPosHole = 0;
+				if (block.obstaclesFloor2 [0].xEnd != 0)
+					xPosHole = Random.Range (block.obstaclesFloor2 [0].xInit, block.obstaclesFloor2 [0].xEnd);
+				else
+					xPosHole = block.obstaclesFloor2 [0].xInit;
 //				float x = block.obstacles[0].xInit;
-				createSucess = B_HoleAbove(block.obstacles, n, block.obstaclesFloor2[0].xInit, true, block.customName);
+				createSucess = B_HoleAbove(block.obstacles, n, xPosHole, true, block.customName);
 			}
 		} 
 		else if (blockType == BlockType.WallAndSpkAtCenter) {
@@ -917,20 +922,30 @@ public class BlockMaster : MonoBehaviour {
 					if (blockfound == false && rand < last) {
 //					if ( AllowCreationByDenyConditions (block) && CreateBlockByType (blockType, n_floor)) {
 						if (!justCreatedBlockTypes.Contains (block.name) && AllowCreationByDenyConditions (block, n_floor) && CreateBlockByType (block, n_floor)) {
-							if(QA.s.LOG_BLOCKMASTER) Debug.Log (count + " bbbbbbbbbbbbbbbb BLOCK FOUND! " + blockType);
+							if(QA.s.LOG_BLOCKMASTER) Debug.Log (count + " bbbbbbbbbbbbbbbb BLOCK FOUND! " + blockType + "  name: " + block.name);
 //							if (blockType != BlockType.CustomBlock && blockType != BlockType.Custom2Blocks) 
 							justCreatedBlockTypes.Add (block.name);
 							blockfound = true;
 							break;
 						} else {
 							blockfound = false;
+							if (QA.s.LOG_BLOCKMASTER) {
 //						Debug.Log (count+" bbbbbbb Block can't be created ... " + blockType+ " Contains? "+ justCreatedBlocks.Contains (blockType) + " Deny Size? "+ block.denyConditions.Length);
-							if(QA.s.LOG_BLOCKMASTER)Debug.Log (count + " nnn "+ block.name+ " Block can't be created ... " + blockType + " Contains? " + justCreatedBlockTypes.Contains (block.name) + " Deny Size? " + block.denyConditions.Length);
-							if (QA.s.LOG_BLOCKMASTER)Debug.Log ("spk left " + last_spike_left + " spk right " + last_spike_right + " wall " + last_wall + " HOLE " + last_hole + " SAW " + last_saw);
+								if (justCreatedBlockTypes.Contains (block.name) )
+									Debug.Log (count + " nnnnnn REASON = CONTAINS THE NAME " + block.name + " Block can't be created ... " + blockType + " Contains? ");
+								else if (!AllowCreationByDenyConditions (block, n_floor)) {
+									Debug.Log (count + " nnnnnn REASON = DENY: " + block.name + " Block can't be created ... " + blockType + " Contains? " + justCreatedBlockTypes.Contains (block.name) + " Deny Size? " + block.denyConditions.Length);
+									Debug.Log ("spk left " + last_spike_left + " spk right " + last_spike_right + " wall " + last_wall + " HOLE " + last_hole + " SAW " + last_saw);
+								}
+								else{
+									Debug.Log (count + " nnnnnn REASON = OTHER CONDITION:  " + block.name + " Block can't be created ... " + blockType + " Contains? " + justCreatedBlockTypes.Contains (block.name) + " Deny Size? " + block.denyConditions.Length);
+									Debug.Log ("spk left " + last_spike_left + " spk right " + last_spike_right + " wall " + last_wall + " HOLE " + last_hole + " SAW " + last_saw);
+								}
+							}
 							break;
 						}
 					} else
-						if(QA.s.LOG_BLOCKMASTER)Debug.Log (count + " ~~~~~~~~ CAN'T FIND SEARCHING BLOCK.... LAST : " + last + " BLOCK FOUND IS "+  blockfound);
+						if(QA.s.LOG_BLOCKMASTER)Debug.Log (count + " ~~~~~~~~ CAN'T FIND SEARCHING BLOCK.... LAST : " + last + " BLOCK FOUND IS "+  blockfound + " NAME: " + block.name);
 				}
 			}
 
@@ -945,6 +960,10 @@ public class BlockMaster : MonoBehaviour {
 					if(QA.s.LOG_BLOCKMASTER) Debug.Log ("REMOVING AT 0! Name " + justCreatedBlockTypes.ToArray () [0] + "  JUST CREATED SIZE: " + nCreatedBlocks + "  NO REPEAT FREQ " + NotRepeatFrequency);
 					justCreatedBlockTypes.RemoveAt (0);
 					nCreatedBlocks--;
+					if (QA.s.LOG_BLOCKMASTER) {
+						foreach (string s in justCreatedBlockTypes)
+							Debug.Log (" :::: CANT CREATE - " + s);
+					}
 				}
 			}
 

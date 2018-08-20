@@ -25,20 +25,21 @@ public class CohortMaster : MonoBehaviour {
 
 		// Try to Unlock rap
 		if (USER.s.LAST_UPDATE_UNLOCKED == 0 && diff.Days >= 0 && (GD.s.N_SKINS + GD.s.SKINS_PER_MUSIC * USER.s.LAST_UPDATE_UNLOCKED) < RemoteMaster.s.maximumAllowedChars) {
+//		if (1==1) {
 			Debug.Log ("WOOOOOW A 1 WEEK RETENTION USER. WE LOVE YOU!!!");
 //			GD.s.N_SKINS += GD.s.SKINS_PER_MUSIC;
 			USER.s.SetUpdateCharsUnlocked ();
 			displayCustomMessage = true;
 		} 
 		//  Try to Unlock latina
-		if (USER.s.LAST_UPDATE_UNLOCKED == 1 && diff.Days >= 7 && (GD.s.N_SKINS + GD.s.SKINS_PER_MUSIC * USER.s.LAST_UPDATE_UNLOCKED) < RemoteMaster.s.maximumAllowedChars) { 
+		if (USER.s.LAST_UPDATE_UNLOCKED == 1 && diff.Days >= 6 && (GD.s.N_SKINS + GD.s.SKINS_PER_MUSIC * USER.s.LAST_UPDATE_UNLOCKED) < RemoteMaster.s.maximumAllowedChars) { 
 			Debug.Log ("WOOOOOW A 2 WEEK RETENTION USER. WE LOVE YOU EVEN MORE!!!");
-//			GD.s.N_SKINS += GD.s.SKINS_PER_MUSIC;
+//			GD.s.N_SKINS += GD.s.SKINS_PER_MUSIC;6
 			USER.s.SetUpdateCharsUnlocked ();
 			displayCustomMessage = true;
 		} 
 		// Try to Unlock Reggae
-		if (USER.s.LAST_UPDATE_UNLOCKED == 2 && diff.Days >= 14 && (GD.s.N_SKINS + GD.s.SKINS_PER_MUSIC * USER.s.LAST_UPDATE_UNLOCKED) < RemoteMaster.s.maximumAllowedChars) { 
+		if (USER.s.LAST_UPDATE_UNLOCKED == 2 && diff.Days >= 13 && (GD.s.N_SKINS + GD.s.SKINS_PER_MUSIC * USER.s.LAST_UPDATE_UNLOCKED) < RemoteMaster.s.maximumAllowedChars) { 
 			Debug.Log ("WOOOOOW A 3 WEEK RETENTION USER. WE LOVE YOU PLEASE MARRY ME!!!");
 			USER.s.SetUpdateCharsUnlocked ();
 //			GD.s.N_SKINS += GD.s.SKINS_PER_MUSIC;

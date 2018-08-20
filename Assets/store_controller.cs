@@ -546,7 +546,7 @@ public class store_controller : MonoBehaviour {
 		for (int i = 0; i <= nCoins && initialCoins + i <= globals.s.JUKEBOX_CURRENT_PRICE; i++) {
 			myCoinsPile.transform.localPosition = new Vector2 (myCoinsPile.transform.localPosition.x, myCoinsPile.transform.localPosition.y + yIncCoinsPile);
 			myCoinsQuantity.text = initialCoins + i + "/"+globals.s.JUKEBOX_CURRENT_PRICE;
-			Debug.Log ("CCCCCCCC COINS: " + (initialCoins + i));
+//			Debug.Log ("CCCCCCCC COINS: " + (initialCoins + i));
 			if(nCoins < 20) yield return new WaitForSeconds (0.14f);
 			else yield return new WaitForSeconds (0.07f);
 			if(i % 2 == 0)
@@ -628,7 +628,7 @@ public class store_controller : MonoBehaviour {
 		//FALLING COINS ANIMATION
 		myCoinsFullAnimator.SetTrigger("BuyButtonPressed");
 //		myCoinsFullAnimator.ResetTrigger("BuyButtonPressed");
-		yield return new WaitForSeconds (1.1f);
+		yield return new WaitForSeconds (0.8f);
 
 		globals.s.JUKEBOX_SORT_ANIMATION = true;
 		int rand = UnityEngine.Random.Range (10, 13);
@@ -656,7 +656,7 @@ public class store_controller : MonoBehaviour {
 			for (int i = 0; i < rand; i++) { //logica de não repetir
 				k++;
 				ScrollSnap.NextScreen ();
-				yield return new WaitForSeconds (0.1f);
+				yield return new WaitForSeconds (0.15f);
 //				if( k % 5 == 0 ) sound_controller.s.PlaySfxUIJukeboxSortingCharacter();
 			}
 			rand = 1;
