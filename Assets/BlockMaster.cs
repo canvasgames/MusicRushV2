@@ -853,21 +853,22 @@ public class BlockMaster : MonoBehaviour {
 			else if (cond == DenyCondition.Wall && last_wall)
 				return false;
 		}
+		if (QA.s.LOG_BLOCKMASTER) Debug.Log ("[BM] .... block type " + b.type.ToString() + " N FLOOR: " + n_floor + " SCEN VL : " + GD.s.SCENERY_FLOOR_VALUES[0]);
 
 		if ( (b.type == BlockType.Custom2Blocks || b.type == BlockType.HoleAbove ) &&  
-			(n_floor - 2 == GD.s.SCENERY_FLOOR_VALUES [0]
-		   	|| n_floor - 2 == GD.s.SCENERY_FLOOR_VALUES [1]
-		   	|| n_floor - 2== GD.s.SCENERY_FLOOR_VALUES [2]
-			|| n_floor - 2 == GD.s.SCENERY_FLOOR_VALUES [3])) {
-//			if (QA.s.LOG_BLOCKMASTER)
-				Debug.Log ("[BM] [[[[[[ STAGE CHANGE ]]]]]]] CANT CREATE 2 FLOOR BLOCK");
+			(n_floor  == GD.s.SCENERY_FLOOR_VALUES [0]
+		   	|| n_floor == GD.s.SCENERY_FLOOR_VALUES [1]
+		   	|| n_floor == GD.s.SCENERY_FLOOR_VALUES [2]
+			|| n_floor == GD.s.SCENERY_FLOOR_VALUES [3]) ) {
+//			if (QA.s.LOG_BLOCKMASTER) 5 6
+			if (QA.s.LOG_BLOCKMASTER) Debug.Log ("[BM] [[[[[[ STAGE CHANGE ]]]]]]] CANT CREATE 2 FLOOR BLOCK");
 			return false;
 		}
 
 		if ((b.type == BlockType.Custom2Blocks || b.type == BlockType.HoleAbove) &&
 		    (n_floor == USER.s.DAY_SCORE - 1 || n_floor == USER.s.LAST_SCORE - 1 || n_floor == USER.s.BEST_SCORE - 1)) {
 			return false;
-			Debug.Log ("[BM] ÇÇÇÇÇ FLOOR SIGN IS ABOVE ÇÇÇÇÇÇ CANT CREATE 2 FLOOR BLOCK");
+			if (QA.s.LOG_BLOCKMASTER) Debug.Log ("[BM] ÇÇÇÇÇ FLOOR SIGN IS ABOVE ÇÇÇÇÇÇ CANT CREATE 2 FLOOR BLOCK");
 
 		}
 
@@ -941,7 +942,7 @@ public class BlockMaster : MonoBehaviour {
 				nCreatedBlocks++;
 				totalCreatedBlocks++;
 				if (nCreatedBlocks > NotRepeatFrequency && justCreatedBlockTypes.Count > 0) {
-					if(QA.s.LOG_BLOCKMASTER) Debug.Log ("REMOVING AT 0! Name " + justCreatedBlockTypes.ToArray () [0]);
+					if(QA.s.LOG_BLOCKMASTER) Debug.Log ("REMOVING AT 0! Name " + justCreatedBlockTypes.ToArray () [0] + "  JUST CREATED SIZE: " + nCreatedBlocks + "  NO REPEAT FREQ " + NotRepeatFrequency);
 					justCreatedBlockTypes.RemoveAt (0);
 					nCreatedBlocks--;
 				}

@@ -43,11 +43,11 @@ public class objects_pool_controller : MonoBehaviour {
 
 	[HideInInspector]public GameObject[] double_spikes_pool;
 	[HideInInspector]public List<spike> spikes_scripts;
-    int double_spikes_pool_size = 25;
+    int double_spikes_pool_size = 30;
     int double_spikes_pool_actual_i = 0;
 
     [HideInInspector]public GameObject[] triple_spikes_pool;
-    int triple_spikes_pool_size = 20;
+    int triple_spikes_pool_size = 30;
     int triple_spikes_pool_actual_i = 0;
 
     [HideInInspector]

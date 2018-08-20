@@ -190,7 +190,6 @@ public class game_controller : MonoBehaviour {
 						wave_found = true;
 					}
 					else {
-
 						if (BlockMaster.s.debugInitialBlock == BlockDifficulty.None) {
 //							create_spike (Random.Range (-mid_area, mid_area), globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * i, i);
 							wave_found = BlockMaster.s.CreateBlockLogicNEW(i);
