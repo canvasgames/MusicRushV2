@@ -393,14 +393,14 @@ retry:
             }
         }
 
-        Rect windowRect = new Rect(10, 10, 300, 100);
+        /*Rect windowRect = new Rect(10, 10, 300, 100);
         void OnGUI()
         {
             if (studioSystem.isValid() && Settings.Instance.IsOverlayEnabled(fmodPlatform))
             {
 //                windowRect = GUI.Window(0, windowRect, DrawDebugOverlay, "FMOD Studio Debug");
             }
-        }
+        }*/
 
         string lastDebugText;
         float lastDebugUpdate = 0;

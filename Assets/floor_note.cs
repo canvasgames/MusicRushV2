@@ -7,11 +7,12 @@ public class floor_note : MonoBehaviour {
 	public SpriteRenderer mySR ;
 	public Animation myAnimation;
 	public SimpleAnimation mySimpleAnimation;
+	public float startTime = 0;
 	// Use this for initialization
 	void Awake () {
 		mySR = GetComponent<SpriteRenderer>();
-		myAnimation = GetComponent<Animation>();
-		mySimpleAnimation = GetComponent<SimpleAnimation>();
+//		myAnimation = GetComponent<Animation>();
+//		mySimpleAnimation = GetComponent<SimpleAnimation>();
 	}
 	
 	// Update is called once per frame

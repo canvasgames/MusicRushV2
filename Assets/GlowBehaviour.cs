@@ -14,7 +14,7 @@ public class GlowBehaviour : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void aaUpdate () {
 		if (RythmController.s.current_step == RythmController.s.step_glow_in && my_state != GlowState.FadeIn) {
 			mySprite.color = new Color (1, 1, 1, my_fade_out_value);
 			mySprite.DOFade (1f, GD.s.GlowInTime);

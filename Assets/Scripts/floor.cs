@@ -42,18 +42,31 @@ public class floor : scenario_objects {
 		canUpdate = true;
 	}
 
+	int i=0;
 	void Update(){
 		if( isActiveAndEnabled && canUpdate && globals.s.BALL_Y - globals.s.BALL_R > transform.position.y - 1.5f){
 //			Debug.Log ("sTARTTTTTT FLOOR");
-			foreach (floor_note note in my_notes_fg) {
-				if (note.already_appeared == false &&
-				  ((globals.s.CUR_BALL_SPEED > 0 && globals.s.BALL_X > note.transform.position.x) ||
-				  ((globals.s.CUR_BALL_SPEED < 0 && globals.s.BALL_X < note.transform.position.x)))) {
-					note.already_appeared = true;
-
-					note.mySR.enabled = true;
-					note.mySR.color = new Color (1, 1, 1, 0);
-					note.mySimpleAnimation.Rewind ();
+			for (i=0; i < my_notes_fg.Length; i++) {
+				if (my_notes_fg[i].already_appeared == false &&
+					((globals.s.CUR_BALL_SPEED > 0 && globals.s.BALL_X > my_notes_fg[i].transform.position.x - 0.3f) ||
+					((globals.s.CUR_BALL_SPEED < 0 && globals.s.BALL_X < my_notes_fg[i].transform.position.x + 0.3f)))) {
+					
+//					my_notes_fg[i].already_appeared = true;
+					if (my_notes_fg [i].mySR.enabled == false) {
+//						Debug.Log ("START THE DANCE!!!!!!!");
+						my_notes_fg [i].startTime = Time.time;
+						my_notes_fg [i].mySR.enabled = true;
+						my_notes_fg [i].mySR.color = new Color (1, 1, 1, 0);
+					} else if (my_notes_fg [i].mySR.color.a != 1) {
+//						my_notes_fg [i].mySR.color = Color.Lerp (new Color (1, 1, 1, 0), new Color (1, 1, 1, 1), Time.time - my_notes_fg [i].startTime);
+//						my_notes_fg [i].mySR.color = new Color (1, 1, 1, Mathf.Lerp(0, 1, Time.time - my_notes_fg [i].startTime));
+						my_notes_fg [i].mySR.color = new Color (1, 1, 1, Mathf.Lerp(0f, 1f, (Time.time - my_notes_fg [i].startTime)/ 0.35f));
+//						my_notes_fg [i].mySR.color = new Color (1, 0, 1, 0.15f);
+//						my_notes_fg [i].mySR.color = Color.red;
+					} else {
+						my_notes_fg [i].already_appeared = true;
+					}
+//					my_notes_fg[i].mySimpleAnimation.Rewind ();
 //					note.myAnimation.Rewind();
 //					note.myAnimation.Rewind. Play ();
 //					note.
@@ -294,9 +307,9 @@ public class floor : scenario_objects {
 		}
         
 		if (isActiveAndEnabled) {
-			foreach (floor_note a in my_notes_fg) {
-				a.mySR.enabled = false;
-				a.already_appeared = false;
+			for (i=0; i < my_notes_fg.Length; i++) {
+				my_notes_fg[i].mySR.enabled = false;
+				my_notes_fg[i].already_appeared = false;
 			}
 		}
         
