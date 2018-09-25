@@ -484,7 +484,7 @@ public class objects_pool_controller : MonoBehaviour {
         if (double_spikes_pool_actual_i == double_spikes_pool_size){
             double_spikes_pool_actual_i = 0;
         }
-
+//		repos_spike.SetActive (false);
         return repos_spike;
     }
 

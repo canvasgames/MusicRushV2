@@ -20,6 +20,8 @@ public class globals : MonoBehaviour {
 
 	public int pwSuperJumpCollected = 0, pwVisionCollected, pwShieldCollected = 0;
 
+	public int RHYTHMIC_MODE = 0;
+
 	public int NOTES_COLLECTED = 0 ;
 	public int NOTES_COLLECTED_JUKEBOX = 0;
 	public float TIME_TO_ALLOW_TAP = 0.3f;
@@ -45,14 +47,15 @@ public class globals : MonoBehaviour {
 	public float CAMERA_SPEED = 0;
 	public float HOLE_SPK_DIST = 1.35f;
 	[HideInInspector] public float LIMIT_LEFT = -4.8f;
-    [HideInInspector] public float LIMIT_RIGHT = 4.8f;
+	[HideInInspector] public float LIMIT_RIGHT = 4.8f;
+    [HideInInspector] public float FLOOR_SIZE = 9.6f;
 	[HideInInspector] public float SCREEN_MID =  0;
 	[HideInInspector] public float FLOOR_HEIGHT = 4f;
     [HideInInspector] public float SLOT = 1f;
 	[HideInInspector] public float BASE_Y = -7.5f;
 	public float BALL_R = 0.5f;
 	public float BALL_D = 1f;
-	public int SCREEN_WIDTH = 980;
+	public int SCREEN_WIDTH = 960;
 	public bool JUKEBOX_SORT_ANIMATION = false;
    
 	[HideInInspector] public int JUKEBOX_CURRENT_PRICE;

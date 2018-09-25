@@ -361,7 +361,7 @@ public class game_controller : MonoBehaviour {
             else dif = USER.s.DAY_SCORE - globals.s.BALL_FLOOR;
 
             Debug.Log("~~~~~~~~ REVIVE LOGIC ~~~~~~~ RAND: " + rand + " CHANCE TOTAL:  "+ (15 + 5 * dif + n_games_without_revive * 5) + " CHANCE: " + (20 + 5 * dif) + " N games: " + n_games_without_revive);
-            if (rand < 15 + 5 * dif + n_games_without_revive * 5)
+			if (rand < 35 + 5 * dif + n_games_without_revive * 5 || n_floor > 27)
                 globals.s.CAN_REVIVE = true;
         }
 
@@ -399,7 +399,7 @@ public class game_controller : MonoBehaviour {
 
         if (globals.s.SHOW_VIDEO_AFTER == false)
         {
-            revive_logic();
+			if(QA.s.PC_MODE == false) revive_logic();
 //			globals.s.CAN_REVIVE = true;
 			if (QA.s.ALWAYS_REVIVE == true || globals.s.CAN_REVIVE == true)
             {

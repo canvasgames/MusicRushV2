@@ -18,6 +18,8 @@ public class CohortMaster : MonoBehaviour {
 		s = this;
 		DateTime tempcurDate = System.DateTime.Now;
 		DateTime tempNextSaturdayDate = Convert.ToDateTime(USER.s.FIRST_SATURDAY);
+			
+//		USER.s.LAST_UPDATE_UNLOCKED = ;
 
 		TimeSpan diff = tempcurDate.Subtract(tempNextSaturdayDate);
 		Debug.Log ("[CH] DIF DAYS: " + diff.Days  +" NEXT SAT: " + USER.s.FIRST_SATURDAY + " DIF H: " + diff.Hours + " DIF TOTAL H: " + diff.TotalHours + " DIFF MIN: "+ diff.Minutes + " DIFF TOTAL MIN: "+ diff.TotalMinutes );
@@ -58,6 +60,7 @@ public class CohortMaster : MonoBehaviour {
 //		}
 
 		GD.s.N_SKINS += GD.s.SKINS_PER_MUSIC * USER.s.LAST_UPDATE_UNLOCKED;
+		GD.s.N_SKINS = 24;
 		GD.s.N_STYLES = GD.s.N_SKINS / 3;
 		if (displayCustomMessage) {
 			hud_controller.si.DisplayNewCharactersAvailable ();
@@ -100,7 +103,7 @@ public class CohortMaster : MonoBehaviour {
 
 	
 	// Update is called once per frame
-	void Update () {
+//	void Update () {
 		
-	}
+//	}
 }

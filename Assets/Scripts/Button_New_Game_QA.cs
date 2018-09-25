@@ -13,7 +13,6 @@ public class Button_New_Game_QA : MonoBehaviour {
 	void Update () {
 //        if (globals.s.GAME_STARTED)
 //            Invoke("destroy_me", 1f);
-
     }
 
     void destroy_me() {

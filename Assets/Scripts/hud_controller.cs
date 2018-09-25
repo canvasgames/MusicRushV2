@@ -141,9 +141,9 @@ public class hud_controller : MonoBehaviour {
 
 		FMODUnity.RuntimeManager.PlayOneShot ("event:/JumpTest");
 //		lowlevelSystem.p
-
+		#if UNITY_ANDROID
 		Advertisement.Initialize ("1194074");
-
+		#endif
 //		game_title_y = game_title.transform.position.y;
 		game_title_y = header.transform.localPosition.y;
 		//Invoke ("GiftButtonClicked", 1f);
@@ -262,7 +262,7 @@ public class hud_controller : MonoBehaviour {
 //					, 0.5f).SetEase (Ease.OutQuart);
 //			yield return new WaitForSeconds (0.15f);
 
-			header.transform.DOLocalMoveY (game_title.transform.localPosition.y + 200
+			header.transform.DOLocalMoveY (header.transform.localPosition.y + 200
 				, 0.5f).SetEase (Ease.OutQuart);
 			yield return new WaitForSeconds (0.2f);
 
@@ -276,7 +276,7 @@ public class hud_controller : MonoBehaviour {
 				, 0.5f).SetEase (Ease.OutQuart);
 			yield return new WaitForSeconds (0.14f);
 
-			header.transform.DOLocalMoveY (game_title.transform.localPosition.y + 500
+			header.transform.DOLocalMoveY (header.transform.localPosition.y + 500
 				, 0.5f).SetEase (Ease.OutQuart);
 			yield return new WaitForSeconds (0.2f);
 
@@ -382,8 +382,9 @@ public class hud_controller : MonoBehaviour {
 		intro_label.SetActive (true);
 
 		header.transform.localPosition = new Vector2 (header.transform.localPosition.x, 
-			header.transform.localPosition.y + 450);
-		header.transform.DOMoveY (game_title_y, 0.5f).SetEase (Ease.OutQuad); // NAO TA CORRETO
+//			header.transform.localPosition.y + 450);
+			game_title_y + 450);
+		header.transform.DOLocalMoveY (game_title_y, 0.5f).SetEase (Ease.OutQuad); // NAO TA CORRETO
 
 		float y_start = bottomLabel.transform.localPosition.y; // NAO TA CORRETO
 		bottomLabel.transform.localPosition = new Vector2 (bottomLabel.transform.localPosition.x, 
@@ -490,8 +491,8 @@ public class hud_controller : MonoBehaviour {
 			//				, 0.5f).SetEase (Ease.OutQuad);
 			Invoke ("store_entrance", 0.2f);
 
-			game_title_y = game_title.transform.localPosition.y;
-			game_title.transform.DOLocalMoveY (GetComponent <RectTransform> ().rect.height / 2 + game_title.GetComponent <RectTransform> ().rect.height / 2
+//			game_title_y = game_title.transform.localPosition.y;
+			header.transform.DOLocalMoveY (GetComponent <RectTransform> ().rect.height / 2 + game_title.GetComponent <RectTransform> ().rect.height / 2
 				//game_title.transform.DOLocalMoveY (GetComponent <Rect>().height - game_title.transform.localPosition.y + 500
 				, 0.5f).SetEase (Ease.OutQuad);
 		}
@@ -555,7 +556,7 @@ public class hud_controller : MonoBehaviour {
 			globals.s.curGameScreen = globals.s.previousGameScreen;
 
 			if(globals.s.curGameScreen == GameScreen.MainMenu) 
-				game_title.transform.DOLocalMoveY (game_title_y, 0.5f).SetEase (Ease.OutQuad);
+				header.transform.DOLocalMoveY (game_title_y, 0.5f).SetEase (Ease.OutQuad);
 			store_label.SetActive (false);
 
 		}
@@ -568,6 +569,13 @@ public class hud_controller : MonoBehaviour {
 	#endregion
 
     #region === GAME OVER ===
+	IEnumerator ManualReset(){
+		yield return new WaitForSeconds (100);
+
+		if (globals.s.GAME_OVER == 1) {
+			hud_controller.si.OnReplayButtonPressed ();
+		}
+	}
 
 	public void show_game_over(int currentFloor, bool fromRevive = false)
     {
@@ -592,6 +600,10 @@ public class hud_controller : MonoBehaviour {
 
 		temp_cur_floor = currentFloor;
 		temp_best_floor = bestFloor;
+
+		if (QA.s.PC_MODE == true) {
+			StartCoroutine (ManualReset ());
+		}
 
     }
 
@@ -980,7 +992,14 @@ public class hud_controller : MonoBehaviour {
     {
         globals.s.MENU_OPEN = true;
 		displayingVideoMessage.SetActive (true);
+
+		#if UNITY_ANDROID
         Invoke("appear_video", 1.7f);
+		#endif
+
+		#if UNITY_STANDALONE_WIN
+		watched_the_video_revive();
+		#endif
     }
 
     void appear_video()
@@ -1025,11 +1044,19 @@ public class hud_controller : MonoBehaviour {
         //video.GetComponent<new_external_link_bt>().set_variables(false, true);
 //        if(CAN_ROTATE_ROULETTE == false)
 //        {
-        flagVideoRevive = false;
-        flagVideoCoins = false;
-        flagVideoPower = true;
+        
 
+		#if UNITY_ANDROID
+		flagVideoRevive = false;
+		flagVideoCoins = false;
+		flagVideoPower = true;
         ShowAd();
+		#endif
+
+		if (QA.s.PC_MODE)
+			watched_the_video_pw();
+
+
 //        }
     }
 
@@ -1073,7 +1100,13 @@ public class hud_controller : MonoBehaviour {
 		flagVideoRevive = false;
 		flagVideoCoins = true;
 		flagVideoPower = false;
+		#if UNITY_ANDROID
 		ShowAd();
+		#endif
+
+		#if UNITY_STANDALONE_WIN
+			WatchedVideoResortStyle();
+		#endif
 
 	}
 		
@@ -1095,13 +1128,14 @@ public class hud_controller : MonoBehaviour {
 
     public void ShowAd()
     {
+		#if UNITY_ANDROID
 		if (Advertisement.IsReady ("rewardedVideo")) {
 			var options = new ShowOptions { resultCallback = HandleShowResult };
 			Advertisement.Show ("rewardedVideo", options);
 		} else {
 			Advertisement.Initialize ("1194074");
 		}
-
+		#endif
     }
 
 	#if UNITY_ANDROID || UNITY_EDITOR

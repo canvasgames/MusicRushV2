@@ -40,6 +40,7 @@ public class BlockMaster : MonoBehaviour {
 	int nCreatedBlocks = 0;
 	int totalCreatedBlocks = 0;
 	List<Block> BlockList, CurBlockList, justCreatedBlocks;
+	public List<Block> BlocksRhythmic;
 	public List<Block> BlocksSuperEasy, BlocksEasy;
 	public List<Block> BlocksMedium;
 	public List<Block> BlocksHard, BlocksVeryHard, BlocksSuperHard;
@@ -879,10 +880,27 @@ public class BlockMaster : MonoBehaviour {
 
 		return true;
 	}
-	
+
+	int curRhytmicBlock = 0;
+	public bool CreateBlockLogicRhythmic(int n_floor){
+		BlockList = BlocksRhythmic;
+
+//		BlockList.ToArray () [curRhytmicBlock];
+
+		CreateBlockByType (BlockList.ToArray () [curRhytmicBlock], n_floor);
+		if (curRhytmicBlock <= BlockList.Count)
+			curRhytmicBlock++;
+		else
+			curRhytmicBlock = 0;
+		return true;
+	}
+
 	public bool CreateBlockLogicNEW(int n_floor){
 		if (floor2IsNext == false) {
-			if (n_floor <= superEasy)
+			if(globals.s.RHYTHMIC_MODE != 0)
+//				BlockList = BlocksRhythmic;
+				return CreateBlockLogicRhythmic(n_floor);
+			else if (n_floor <= superEasy)
 				BlockList = BlocksSuperEasy;
 			else if (n_floor <= easy)
 				BlockList = BlocksEasy;
@@ -990,7 +1008,25 @@ public class BlockMaster : MonoBehaviour {
 		return 0;
 	}
 
+	float stepDist = 0.4f;
+	int lastStepBeat = 0;
+	float stepsPerFloor = 3f;
+	float GetXPosForRhythmicMode(int n_floor){
+		int curStep = RythmController.s.current_step;
+		float stepDif = (RythmController.s.current_step - lastStepBeat) * stepDist;
+		if (globals.s.BALL_SPEED_X < 0) {
+			stepDif = stepDif * (-1);
+		}
+		float xFuture = n_floor * stepDist * 0;
+//		globals.s.
+//		int xPosToCreate =
+
+		return 0.1f;
+	}
+
 	void CreateCustomObstacleByType(ObstacleType obstType, float xPos, float yPos, int n, bool isManualTriggered = false){
+		if (globals.s.RHYTHMIC_MODE > 0)
+			xPos = 0;
 		if (obstType == ObstacleType.spk)
 			game_controller.s.create_spike (xPos, yPos, n);
 		else if (obstType == ObstacleType.tripleSpk)
@@ -1047,9 +1083,7 @@ public class BlockMaster : MonoBehaviour {
 		if (QA.s.SHOW_WAVE_TYPE == true) game_controller.s.create_wave_name(0, actual_y, wave_name);
 		game_controller.s.create_floor(0, n);
 	}
-
-
-
+		
 	void OnValidate(){
 		UpdateBlockListName ();
 	}
@@ -1081,6 +1115,21 @@ public class BlockMaster : MonoBehaviour {
 				}
 			}
 		}
+		foreach (Block b in BlocksRhythmic) {
+			b.UpdateName ();
+			if (b.type == BlockType.CustomBlock || b.type == BlockType.Custom2Blocks|| b.type == BlockType.HoleAbove ) {
+				foreach (Obstacle ob in b.obstacles) {
+					ob.UpdateName ();
+				}
+			}
+			if (b.type == BlockType.Custom2Blocks|| b.type == BlockType.HoleAbove) {
+				foreach (Obstacle ob in b.obstaclesFloor2) {
+					ob.UpdateName ();
+				}
+			}
+		}
+
+
 		foreach (Block b in BlocksHard) {
 			b.UpdateName ();
 			if (b.type == BlockType.CustomBlock || b.type == BlockType.Custom2Blocks|| b.type == BlockType.HoleAbove ) {

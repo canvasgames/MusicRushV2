@@ -234,16 +234,16 @@ public class GD : MonoBehaviour {
 		else if (style == MusicStyle.Eletro)
 			return "music_electronic";
 		else if (style == MusicStyle.Latina)
-//			return "music_latina";
-			return "music_funk";
+			return "music_latina";
+//			return "music_funk";
 		else if (style == MusicStyle.Reggae)
 			return "music_reggae";
 		else if (style == MusicStyle.Pop)
 			return "music_pop";
 		else if (style == MusicStyle.Rap)
-//			return "music_rap";
+			return "music_rap";
 //			return "music_funk";
-			return "music_ty_hands_on";
+//			return "music_ty_hands_on";
 		else if (style == MusicStyle.PopGaga)
 			return "music_modern_pop";
 		else if (style == MusicStyle.Rock)

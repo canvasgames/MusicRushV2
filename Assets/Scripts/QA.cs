@@ -8,7 +8,7 @@ public class QA : MonoBehaviour {
 
     public static QA s;
 	[Header ("MAIN VARS")]
-
+	public bool PC_MODE = true;
 	public bool INVENCIBLE ;
 	public float TIMESCALE = 1;
 	public bool SHOW_WAVE_TYPE = false;
@@ -44,6 +44,14 @@ public class QA : MonoBehaviour {
 	public bool FMOD_ON;
 
 	public GameObject SqBt, invButton;
+
+	public void ResetStuff(){
+		BallMaster.s.NewGameLogic ();
+//		sound_controller.s.change_music((MusicStyle) globals.s.
+		sound_controller.s.SoltaOSomAeDJAndreMarques (globals.s.ACTUAL_STYLE);
+
+	}
+
 	// Use this for initialization
 	void Awake() {
 		if (sqMode == false) {

@@ -33,7 +33,7 @@ public class floor : scenario_objects {
 		Invoke ("CanUpdate", 2f);
     }
 
-	public void ResetCanUpdate(){
+	public void ResetCanUpdate() {
 		canUpdate = false;
 		Invoke ("CanUpdate", 1f);
 	}

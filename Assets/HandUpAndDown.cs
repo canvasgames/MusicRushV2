@@ -4,15 +4,10 @@ using DG.Tweening;
 public class HandUpAndDown : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
+	void OnEnable() {
         goUp();
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     void goUp()
     {
