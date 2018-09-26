@@ -125,12 +125,22 @@ MonoBehaviour:
       xEnd: 0
       fixedDist: 0
   BlocksEasy:
-  - name: TwoSpksMid_10
+  - name: easy_2_spks_mid_near_10
     customName: easy_2_spks_mid_near
     chance: 10
-    type: 5
+    type: 0
     denyConditions: 0000000001000000
-    obstacles: []
+    obstacles:
+    - name: spk_1.7
+      myType: 0
+      xInit: 1.7
+      xEnd: 0
+      fixedDist: 0
+    - name: spk_-1.7
+      myType: 0
+      xInit: -1.7
+      xEnd: 0
+      fixedDist: 0
     obstaclesFloor2: []
   - name: easy_spk_left_10
     customName: easy_spk_left
@@ -203,9 +213,9 @@ MonoBehaviour:
     type: 0
     denyConditions: 
     obstacles:
-    - name: spk_3.4
+    - name: spk_3.1
       myType: 0
-      xInit: 3.4
+      xInit: 3.1
       xEnd: 0
       fixedDist: 0
     - name: spk_0
@@ -237,16 +247,16 @@ MonoBehaviour:
     type: 0
     denyConditions: 
     obstacles:
-    - name: spk_0.9
+    - name: spk_1
       myType: 0
-      xInit: 0.9
+      xInit: 1
       xEnd: 0
       fixedDist: 0
     - name: spk_0
       myType: 0
       xInit: 0
       xEnd: 0
-      fixedDist: -3.1
+      fixedDist: -3.4
     obstaclesFloor2: []
   - name: easy_2_spks_left_near_10
     customName: easy_2_spks_left_near
@@ -254,16 +264,16 @@ MonoBehaviour:
     type: 0
     denyConditions: 
     obstacles:
-    - name: spk_3
+    - name: spk_2.9
       myType: 0
-      xInit: 3
+      xInit: 2.9
       xEnd: 0
       fixedDist: 0
     - name: spk_0
       myType: 0
       xInit: 0
       xEnd: 0
-      fixedDist: -3.1
+      fixedDist: -3.4
     obstaclesFloor2: []
   - name: TripleSpkMid_10
     customName: easy_triple_spk_mid
@@ -282,9 +292,9 @@ MonoBehaviour:
       xEnd: 0
       fixedDist: -2.8
     obstaclesFloor2: []
-  - name: easy_hole_left_&spk_down_right_10
+  - name: easy_hole_left_&spk_down_right_12
     customName: easy_hole_left_&spk_down_right
-    chance: 10
+    chance: 12
     type: 1
     denyConditions: 
     obstacles:
@@ -304,9 +314,9 @@ MonoBehaviour:
       xInit: 1.8
       xEnd: 2
       fixedDist: 0
-  - name: easy_hole_right_&spk_down_left_7
+  - name: easy_hole_right_&spk_down_left_12
     customName: easy_hole_right_&spk_down_left
-    chance: 7
+    chance: 12
     type: 1
     denyConditions: 
     obstacles:
@@ -355,7 +365,7 @@ MonoBehaviour:
     customName: medium_spk_leftCorner
     chance: 1
     type: 0
-    denyConditions: 0000000002000000
+    denyConditions: 000000000200000003000000
     obstacles:
     - name: spk_-4.4
       myType: 0
@@ -367,7 +377,7 @@ MonoBehaviour:
     customName: medium_spk_RightCorner
     chance: 1
     type: 0
-    denyConditions: 01000000
+    denyConditions: 010000000200000003000000
     obstacles:
     - name: spk_4.4
       myType: 0
@@ -996,6 +1006,28 @@ MonoBehaviour:
       xEnd: 0
       fixedDist: 0
     obstaclesFloor2: []
+  - name: J_h_2floor_saw_2spks_35
+    customName: J_h_2floor_saw_2spks
+    chance: 35
+    type: 1
+    denyConditions: 0200000003000000
+    obstacles:
+    - name: saw_4.4
+      myType: 4
+      xInit: 4.4
+      xEnd: 0
+      fixedDist: 0
+    obstaclesFloor2:
+    - name: spk_2.4
+      myType: 0
+      xInit: 2.4
+      xEnd: 0
+      fixedDist: 0
+    - name: spk_-2.4
+      myType: 0
+      xInit: -2.4
+      xEnd: 0
+      fixedDist: 0
   BlocksVeryHard:
   - name: TwoTripleSpksMid_10
     customName: 0
