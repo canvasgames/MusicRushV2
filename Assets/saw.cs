@@ -76,6 +76,16 @@ public class saw : scenario_objects
             }
 
             already_placed = true;
+
+
+			// Deactivate the manual trigger from spikes that are at the same side as I am
+			spike[] spks = objects_pool_controller.s.spikes_scripts.ToArray();
+
+			for (int i=0; i< spks.Length; i++) {
+				//spk.manual_trigger_cancel(transform.position.x, my_floor);
+				if(spks[i].isActiveAndEnabled) spks[i].reposite_me_at_the_other_corner(-transform.position.x, my_floor);
+			}
+
         }
     }
 

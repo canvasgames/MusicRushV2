@@ -21360,8 +21360,18 @@ Prefab:
     m_Modifications:
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksHard.Array.data[18].denyConditions.Array.size
-      value: 1
+      propertyPath: BlocksSuperEasy.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].obstacles.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].obstaclesFloor2.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4523238864494732, guid: 512cb4b6c2f4d4a4985df174031ee41d, type: 2}
       propertyPath: m_LocalPosition.x
@@ -21397,48 +21407,83 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksSuperEasy.Array.data[3].name
-      value: TwoSpksMid_4
+      propertyPath: BlocksSuperEasy.Array.data[6].name
+      value: Saw_Spk_50
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksSuperEasy.Array.data[3].chance
-      value: 4
+      propertyPath: BlocksSuperEasy.Array.data[6].customName
+      value: Saw_Spk
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: superEasy
-      value: 1
+      propertyPath: BlocksSuperEasy.Array.data[6].chance
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksHard.Array.data[18].obstacles.Array.data[0].name
-      value: spk_[-0.5, 5]
+      propertyPath: BlocksSuperEasy.Array.data[6].type
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksHard.Array.data[18].obstacles.Array.data[0].xEnd
+      propertyPath: BlocksSuperEasy.Array.data[6].obstacles.Array.data[0].name
+      value: saw_[3, 3.4]
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].obstacles.Array.data[0].xInit
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].obstacles.Array.data[0].xEnd
+      value: 3.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].obstaclesFloor2.Array.data[0].name
+      value: hole_-2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].obstaclesFloor2.Array.data[0].myType
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksHard.Array.data[18].obstacles.Array.data[0].xInit
-      value: -0.5
+      propertyPath: BlocksSuperEasy.Array.data[6].obstaclesFloor2.Array.data[0].xInit
+      value: -2.1
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksEasy.Array.data[13].name
-      value: easy_hole_above_25
+      propertyPath: BlocksSuperEasy.Array.data[6].obstacles.Array.data[0].myType
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksEasy.Array.data[13].chance
-      value: 25
+      propertyPath: BlocksSuperEasy.Array.data[6].obstacles.Array.data[1].name
+      value: hiddenSpk_3
       objectReference: {fileID: 0}
     - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
         type: 2}
-      propertyPath: BlocksEasy.Array.data[13].customName
-      value: easy_hole_above
+      propertyPath: BlocksSuperEasy.Array.data[6].obstacles.Array.data[1].myType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].obstacles.Array.data[1].xInit
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: BlocksSuperEasy.Array.data[6].obstacles.Array.data[1].xEnd
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114944974810248258, guid: 512cb4b6c2f4d4a4985df174031ee41d,
+        type: 2}
+      propertyPath: superEasy
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 512cb4b6c2f4d4a4985df174031ee41d, type: 2}
@@ -40962,7 +41007,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 67, y: -421.00003}
+  m_AnchoredPosition: {x: 67, y: -421}
   m_SizeDelta: {x: 129, y: 70}
   m_Pivot: {x: 0.49999997, y: 0.5}
 --- !u!114 &1528870670
@@ -42701,7 +42746,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -216, y: -725.00006}
+  m_AnchoredPosition: {x: -216, y: -725}
   m_SizeDelta: {x: 129, y: 70}
   m_Pivot: {x: 0.5000002, y: 0.5}
 --- !u!114 &1597513478
@@ -51176,6 +51221,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11488674, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
       propertyPath: ALWAYS_REVIVE
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11488674, guid: 4ed84a9cfd195c240983d17d2dc6f295, type: 2}
+      propertyPath: PC_MODE
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

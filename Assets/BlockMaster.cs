@@ -88,6 +88,7 @@ public class BlockMaster : MonoBehaviour {
 		ClearDenys ();
 		float xPos = 0; float lastXPos = 0;
 		bool thereIsHole = false;
+		bool thereIsSaw = false;
 		string name = "C..";
 		foreach (Obstacle ob in obsts) {
 			if (ob.fixedDist == 0) {
@@ -102,13 +103,16 @@ public class BlockMaster : MonoBehaviour {
 			} else
 				xPos = lastXPos + ob.fixedDist;
 			
+
 			name += ob.myType.ToString () + "_" + xPos.ToString ("0.00")+" & ";
-			CreateCustomObstacleByType (ob.myType, xPos, actual_y, n, false);
+			CreateCustomObstacleByType (ob.myType, xPos, actual_y, n, false, thereIsSaw);
 			if (ob.myType == ObstacleType.hole || ob.myType == ObstacleType.hiddenHole)
 				thereIsHole = true;
 
 			lastXPos = xPos;
 
+			if (ob.myType == ObstacleType.saw)
+				thereIsSaw = true;
 		}
 
 		if (customName != "")
@@ -875,7 +879,6 @@ public class BlockMaster : MonoBehaviour {
 		    (n_floor == USER.s.DAY_SCORE - 1 || n_floor == USER.s.LAST_SCORE - 1 || n_floor == USER.s.BEST_SCORE - 1)) {
 			return false;
 			if (QA.s.LOG_BLOCKMASTER) Debug.Log ("[BM] ÇÇÇÇÇ FLOOR SIGN IS ABOVE ÇÇÇÇÇÇ CANT CREATE 2 FLOOR BLOCK");
-
 		}
 
 		return true;
@@ -1024,17 +1027,17 @@ public class BlockMaster : MonoBehaviour {
 		return 0.1f;
 	}
 
-	void CreateCustomObstacleByType(ObstacleType obstType, float xPos, float yPos, int n, bool isManualTriggered = false){
+	void CreateCustomObstacleByType(ObstacleType obstType, float xPos, float yPos, int n, bool isManualTriggered = false, bool repositionable = false){
 		if (globals.s.RHYTHMIC_MODE > 0)
 			xPos = 0;
 		if (obstType == ObstacleType.spk)
-			game_controller.s.create_spike (xPos, yPos, n);
+			game_controller.s.create_spike (xPos, yPos, n, repositionable);
 		else if (obstType == ObstacleType.tripleSpk)
-			game_controller.s.create_triple_spike (xPos, yPos, n);
+			game_controller.s.create_triple_spike (xPos, yPos, n, repositionable);
 		else if (obstType == ObstacleType.hiddenSpk)
-			game_controller.s.create_hidden_spike (xPos, yPos, n, isManualTriggered);
+			game_controller.s.create_hidden_spike (xPos, yPos, n, isManualTriggered, repositionable);
 		else if (obstType == ObstacleType.hiddenTripleSpk)
-			game_controller.s.create_triple_hidden_spike (xPos, yPos, n, isManualTriggered);
+			game_controller.s.create_triple_hidden_spike (xPos, yPos, n, isManualTriggered, repositionable);
 		else if (obstType == ObstacleType.hole)
 			game_controller.s.create_just_hole (n, xPos);
 		else if (obstType == ObstacleType.hiddenHole)
@@ -1063,7 +1066,6 @@ public class BlockMaster : MonoBehaviour {
 		if (obstType == ObstacleType.wallCenter || obstType == ObstacleType.wallCorner) {
 			last_wall = true;
 		}
-
 	}
 
 //	void CreateCustomObstacleB

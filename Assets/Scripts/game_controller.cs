@@ -2315,7 +2315,7 @@ public class game_controller : MonoBehaviour {
         }
     }
 
-	public void create_triple_spike(float x, float y, int n)
+	public void create_triple_spike(float x, float y, int n, bool corner_repositionable = false)
     {
 
        // GameObject obj = (GameObject)Instantiate(triple_spike_type, new Vector3(x, y + globals.s.SLOT / 2, 0), transform.rotation);
@@ -2324,7 +2324,8 @@ public class game_controller : MonoBehaviour {
         if (obj.GetComponent<spike>() != null)
         {
             obj.GetComponent<spike>().my_floor = n;
-            obj.GetComponent<spike>().wave_name = wave_name;
+			obj.GetComponent<spike>().wave_name = wave_name;
+			obj.GetComponent<spike>().corner_repositionable = corner_repositionable;
 
         }
 
@@ -2332,7 +2333,7 @@ public class game_controller : MonoBehaviour {
 		CreateCollectableLogic(x , y, n);
     }
 
-	public void create_triple_hidden_spike(float x, float y, int n, bool manual_trigger = false)
+	public void create_triple_hidden_spike(float x, float y, int n, bool manual_trigger = false, bool corner_repositionable = false)
     {
        // GameObject obj = (GameObject)Instantiate(triple_spike_type, new Vector3(x, y + globals.s.SLOT / 2 - triple_spike_type.transform.GetComponent<SpriteRenderer>().bounds.size.y, 0), transform.rotation);
         //GameObject obj = objects_pool_controller.s.reposite_triple_spikes(x, y + globals.s.SLOT / 2 - triple_spike_type.transform.GetComponent<SpriteRenderer>().bounds.size.y);
@@ -2349,6 +2350,7 @@ public class game_controller : MonoBehaviour {
             spk.hidden = true;
             spk.my_floor = n;
             spk.manual_trigger = manual_trigger;
+			spk.corner_repositionable = corner_repositionable;
             spk.my_collider.enabled = false;
             spk.wave_name = wave_name;
             if (globals.s.PW_SIGHT_BEYOND_SIGHT == true)
