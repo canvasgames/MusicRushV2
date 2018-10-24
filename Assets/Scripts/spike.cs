@@ -58,13 +58,16 @@ public class spike : scenario_objects {
             && globals.s.BALL_Y - globals.s.BALL_R > transform.position.y - 1.5f && my_floor <= globals.s.BALL_FLOOR + 1) {
             already_alerted = true;
             globals.s.ALERT_BALL = true;
+			globals.s.ALERT_BALL_N++;
         }
 
         //hidden spike distance check (no manual trigger)
         if (!manual_trigger && hidden == true && already_appeared == false
             && globals.s.BALL_Y - globals.s.BALL_R > transform.position.y - 1.5f
-            && Mathf.Abs(globals.s.BALL_X - transform.position.x) < 4.5f)
+			&& Mathf.Abs(globals.s.BALL_X - transform.position.x) < 4.5f) {
             show_me();
+			globals.s.ALERT_BALL_N--;
+		}
 
         //Destroy check
         if (transform.position.y < globals.s.BALL_Y - globals.s.FLOOR_HEIGHT * 4)
@@ -72,6 +75,7 @@ public class spike : scenario_objects {
             if(gameObject!=null)
             {
                // Destroy(gameObject);
+				gameObject.SetActive(false);
             }
         }
             

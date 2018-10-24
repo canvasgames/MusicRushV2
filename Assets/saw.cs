@@ -49,6 +49,7 @@ public class saw : scenario_objects
         {
             already_alerted = true;
             globals.s.ALERT_BALL = true;
+			globals.s.ALERT_BALL_N++;
         }
 
         if ( already_appeared == false &&
@@ -57,6 +58,7 @@ public class saw : scenario_objects
             if (already_placed && Mathf.Abs(transform.position.x - globals.s.BALL_X) < distance2Appear)
             {
                 show_me();
+				globals.s.ALERT_BALL_N--;
             }
         }
     }

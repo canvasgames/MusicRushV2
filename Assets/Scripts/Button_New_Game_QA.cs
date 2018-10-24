@@ -29,7 +29,6 @@ public class Button_New_Game_QA : MonoBehaviour {
 			DataRecorderController.s.userSessionGames = 0;
 			DataRecorderController.s.userSessionHighscore = 0;
 
-
 			USER.s.FIRST_HOLE_CREATED = 0;
             cont_click = 0;
 			USER.s.TOTAL_GAMES_WITH_TUTORIAL = 0;
@@ -37,7 +36,6 @@ public class Button_New_Game_QA : MonoBehaviour {
 
 			PlayerPrefs.SetInt ("diskIntroduced", 0);
 			PlayerPrefs.SetInt ("firstSongPurchased", 0);
-
 
 			PlayerPrefs.SetInt("total_games", 0);
             PlayerPrefs.SetInt("total_games_whitout_tutorial", 0);

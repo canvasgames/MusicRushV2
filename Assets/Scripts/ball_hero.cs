@@ -269,6 +269,17 @@ public class ball_hero : MonoBehaviour
 
 	}
 
+	public void HideAlert(){
+		StartCoroutine (HideAlertForReal ());
+	}
+	IEnumerator HideAlertForReal(){
+		yield return new WaitForSeconds (0.2f);
+		my_alert.transform.DOScaleY(0, 0.14f);
+		yield return new WaitForSeconds (0.14f);
+		my_alert.SetActive(false);
+	}
+
+
 	public void activate_pos_revive() // TBD FOLLOWERS
 	{
 		if (transform.position.x > 0)
@@ -280,6 +291,7 @@ public class ball_hero : MonoBehaviour
 	}
 
 	float nextTargetSuperJumpY = 0;
+	bool myAlertAlreadyShowed = false;
 
     void Update()
     {
@@ -303,10 +315,11 @@ public class ball_hero : MonoBehaviour
 		}
 
 		// ========================  SHOW ALERT ======================
-		if (globals.s.ALERT_BALL == true && son_created == false && game_controller.s.alertDebug == true) {
-            globals.s.ALERT_BALL = false;
-			//Debug.Log ("!!!!!!!!!!!!!!!!!!! SHOW ALERT NOW !! ");
+		if (myAlertAlreadyShowed == false && globals.s.ALERT_BALL == true && son_created == false && game_controller.s.alertDebug == true) {
+//            globals.s.ALERT_BALL = false;
+			myAlertAlreadyShowed = true;
 			StartCoroutine(ShowAlert());
+			//Debug.Log ("!!!!!!!!!!!!!!!!!!! SHOW ALERT NOW !! ");
 //			Invoke("show_alert", 0.05f);
             //show_alert();
         }
@@ -409,6 +422,8 @@ public class ball_hero : MonoBehaviour
 
 			PW_controller.s.add_ball (my_son.GetComponent<ball_hero> ());
 //			BallMaster.s.AddNewBall(my_son.GetComponent<ball_hero>());
+
+			my_son.GetComponent<ball_hero> ().myAlertAlreadyShowed = false;
 
 			my_son.GetComponent<Rigidbody2D> ().velocity = new Vector2 (-rb.velocity.x, rb.velocity.y);
 			//Debug.Log("MMMMMM MY SON VY " + my_son.GetComponent<Rigidbody2D>().velocity.y + " | MY VY: " + rb.velocity.y);

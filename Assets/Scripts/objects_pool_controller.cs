@@ -237,33 +237,45 @@ public class objects_pool_controller : MonoBehaviour {
 
 	void DestroyUnnusedObjects(){
 		int camDist = 14;
+		int i = 0;
 		if (!globals.s.PW_SUPER_JUMP) {
-			foreach(GameObject bg in bgs1_pool){
-				if (bg !=null && bg.gameObject.activeInHierarchy && bg.transform.position.x == 0 && bg.transform.position.y < main_camera.s.transform.position.y - camDist) {
-//					Destroy(bg);
-					bg.SetActive(false);
+//			foreach(GameObject bg in bgs1_pool){
+			for(i=0 ; i < bgs1_pool.Length; i++) {
+				if (bgs1_pool[i] !=null && bgs1_pool[i].activeInHierarchy && bgs1_pool[i].transform.position.x == 0 && 
+					bgs1_pool[i].transform.position.y < main_camera.s.transform.position.y - (camDist + 14)) {
+					bgs1_pool[i].SetActive(false);
 					//Debug.Log ("DESTROYING BG 1 =) ... My pos: "+ bg.transform.position.y + "  CAMERA POS: " +main_camera.s.transform.position.y );
 				}
 			}
 
-			foreach(GameObject bg in bgs2_pool){
-				if (bg !=null && bg.gameObject.activeInHierarchy && bg.transform.position.x == 0 && bg.transform.position.y < main_camera.s.transform.position.y - camDist) {
-					bg.SetActive(false);
+			for(i=0 ; i < bgs2_pool.Length; i++) {
+				if (bgs2_pool[i] !=null && bgs2_pool[i].activeInHierarchy && bgs2_pool[i].transform.position.x == 0 && bgs2_pool[i].transform.position.y < main_camera.s.transform.position.y - camDist) {
+					bgs2_pool[i].SetActive(false);
+					//Debug.Log ("DESTROYING BG 1 =) ... My pos: "+ bg.transform.position.y + "  CAMERA POS: " +main_camera.s.transform.position.y );
 				}
 			}
 
-			foreach(GameObject bg in bgs3_pool){
-				if (bg !=null && bg.gameObject.activeInHierarchy && bg.transform.position.x == 0 && bg.transform.position.y < main_camera.s.transform.position.y - camDist) {
-					bg.SetActive(false);
+			for(i=0 ; i < bgs3_pool.Length; i++) {
+				if (bgs3_pool[i] !=null && bgs3_pool[i].activeInHierarchy && bgs3_pool[i].transform.position.x == 0 && bgs3_pool[i].transform.position.y < main_camera.s.transform.position.y - camDist) {
+					bgs3_pool[i].SetActive(false);
+					//Debug.Log ("DESTROYING BG 1 =) ... My pos: "+ bg.transform.position.y + "  CAMERA POS: " +main_camera.s.transform.position.y );
 				}
 			}
 
-			foreach(GameObject bg in bgs4_pool){
-				if (bg !=null && bg.gameObject.activeInHierarchy && bg.transform.position.x == 0 && bg.transform.position.y < main_camera.s.transform.position.y - camDist) {
-					bg.SetActive(false);
+
+			for(i=0 ; i < bgs5_pool.Length; i++) {
+				if (bgs5_pool[i] !=null && bgs5_pool[i].activeInHierarchy && bgs5_pool[i].transform.position.x == 0 && bgs5_pool[i].transform.position.y < main_camera.s.transform.position.y - camDist) {
+					bgs5_pool[i].SetActive(false);
+					//Debug.Log ("DESTROYING BG 1 =) ... My pos: "+ bg.transform.position.y + "  CAMERA POS: " +main_camera.s.transform.position.y );
 				}
 			}
 
+			for(i=0 ; i < bgs4_pool.Length; i++) {
+				if (bgs4_pool[i] !=null && bgs4_pool[i].activeInHierarchy && bgs4_pool[i].transform.position.x == 0 && bgs4_pool[i].transform.position.y < main_camera.s.transform.position.y - camDist) {
+					bgs4_pool[i].SetActive(false);
+					//Debug.Log ("DESTROYING BG 1 =) ... My pos: "+ bg.transform.position.y + "  CAMERA POS: " +main_camera.s.transform.position.y );
+				}
+			}
 		}
 
 		Invoke ("DestroyUnnusedObjects", 3f);

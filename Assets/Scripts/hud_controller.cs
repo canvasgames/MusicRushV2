@@ -416,8 +416,7 @@ public class hud_controller : MonoBehaviour {
 		//            
 		//            SceneManager.LoadScene("Gameplay 1");
 		//        }
-		if (USER.s.NEWBIE_PLAYER == 0 && globals.s.FIRST_GAME == false && globals.s.GAME_STARTED == false)
-		{
+		if (USER.s.NEWBIE_PLAYER == 0 && globals.s.FIRST_GAME == false && globals.s.GAME_STARTED == false) {
 			if (USER.s.NEWBIE_PLAYER == 0) {
 				show_pw_time ();
 				show_roullete_time ();
@@ -434,8 +433,6 @@ public class hud_controller : MonoBehaviour {
 
 		if (globals.s.GAME_STARTED == false && globals.s.MENU_OPEN == false)
 		{
-
-
 			if (Input.GetMouseButtonUp(0) && HUD_BUTTON_CLICKED == false)
 			{
 				//globals.s.GAME_STARTED = true;

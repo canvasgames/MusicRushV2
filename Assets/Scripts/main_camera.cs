@@ -23,6 +23,7 @@ public class main_camera : MonoBehaviour {
         rb = transform.GetComponent<Rigidbody2D>();
 		Debug.Log ("[cam] YSTART!! " + yStart);
 
+		/*
         // set the desired aspect ratio (the values in this example are
         // hard-coded for 16:9, but you could make them into public
         // variables instead so you can set them at design time)
@@ -38,18 +39,18 @@ public class main_camera : MonoBehaviour {
         Camera camera = GetComponent<Camera>();
 
         // if scaled height is less than current height, add letterbox
-        if (scaleheight < 1.0f)
-        {
-            Rect rect = camera.rect;
-
-            rect.width = 1.0f;
-            rect.height = scaleheight;
-            rect.x = 0;
-            rect.y = (1.0f - scaleheight) / 2.0f;
-
-            camera.rect = rect;
-        }
-        else // add pillarbox
+//        if (scaleheight < 1.0f)
+//        {
+//            Rect rect = camera.rect;
+//
+//            rect.width = 1.0f;
+//            rect.height = scaleheight;
+//            rect.x = 0;
+//            rect.y = (1.0f - scaleheight) / 2.0f;
+//
+//            camera.rect = rect;
+//        }
+//        else // add pillarbox
         {
             float scalewidth = 1.0f / scaleheight;
 
@@ -62,6 +63,7 @@ public class main_camera : MonoBehaviour {
 
             camera.rect = rect;
         }
+		*/
 
 		transform.position = new Vector3(0, -1.24f, -10);
     }
@@ -122,6 +124,12 @@ public class main_camera : MonoBehaviour {
 	 public void ResetMeForRestart(){
 		initiated = false;
 		transform.position = new Vector2 (0, yStart);
+	}
+
+	public void ResetMeFoInstantRestart(){
+		initiated = false;
+		transform.DOMoveY (yStart, 0.5f);
+//		transform.position = new Vector2 (0, yStart);
 	}
 
     public void on_ball_up(float ball_y) {

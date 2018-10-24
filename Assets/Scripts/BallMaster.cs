@@ -131,7 +131,8 @@ public class BallMaster : MonoBehaviour {
 		balls.ToArray () [0].gameObject.SetActive(true);
 		balls.ToArray () [0].my_alert.SetActive (false);
 
-		balls.ToArray () [0].transform.position = new Vector2 (-4.57f, -6.53f); 
+//		balls.ToArray () [0].transform.position = new Vector2 (-4.57f, -6.53f); 
+		balls.ToArray () [0].transform.position = new Vector2 (-5.52f, -6.53f); 
 		balls.ToArray () [0].UpdateMySkin();
 		balls.ToArray () [0].Init_first_ball ();
 	}
@@ -197,6 +198,23 @@ public class BallMaster : MonoBehaviour {
 		}
 	}
 
+	#region === RUNTIME ===
+	void Update(){
+		if(globals.s.ALERT_BALL_N != 0) Debug.Log ("..... N ALERT: " + globals.s.ALERT_BALL_N);
+
+		if (globals.s.ALERT_BALL == true && globals.s.ALERT_BALL_N == 0) {
+			globals.s.ALERT_BALL = false;
+			balls.ToArray () [currentBall].HideAlert ();
+//			StartCoroutine (HideAlert ());
+//			balls.ToArray () [currentBall].my_alert.SetActive (false);
+		}
+	}
+
+	IEnumerator HideAlert(){
+		yield return new WaitForSeconds (0.2f);
+		balls.ToArray () [currentBall].HideAlert ();
+	}
+
 	public void CreateExplosion(Vector3 pos){
 		Instantiate(ballExplosion, pos, transform.rotation);
 	}
@@ -208,6 +226,8 @@ public class BallMaster : MonoBehaviour {
 	public void CreateCollectPowerUpEffect(Vector3 pos){
 		Instantiate(collectPowerUpEffect, pos, transform.rotation);
 	}
+
+	#endregion
 
 //	public void AddNewBall(ball_hero b){
 //		balls.Add (b);

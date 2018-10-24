@@ -51,6 +51,7 @@ public class hole_behaviour : MonoBehaviour
             globals.s.BALL_Y - globals.s.BALL_R > transform.position.y - 1.5f) {
             already_alerted = true;
             globals.s.ALERT_BALL = true;
+			globals.s.ALERT_BALL_N++;
         }
 
 		if (transform.position.y < globals.s.BALL_Y - globals.s.FLOOR_HEIGHT * 4)
@@ -70,6 +71,7 @@ public class hole_behaviour : MonoBehaviour
     }
 
     void start_falling() {
+		globals.s.ALERT_BALL_N--;
 		my_skin.transform.DOMoveY(my_skin.transform.position.y - 8f, 0.8f).OnComplete(() => GetBacktoMeBaby());
         GetComponent<BoxCollider2D>().enabled = false;
 		already_fallen = true;

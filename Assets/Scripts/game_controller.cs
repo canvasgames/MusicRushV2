@@ -127,6 +127,7 @@ public class game_controller : MonoBehaviour {
     
 	void Alert_unbug(){
 		globals.s.ALERT_BALL = false;
+		globals.s.ALERT_BALL_N = 0;
 		alertDebug = true;
 	}
     void Start () {
@@ -143,7 +144,10 @@ public class game_controller : MonoBehaviour {
         
 		float ftu_spk_pos = 0;
         // create initial platforms
-        for (int i = 0; i < 6; i++)
+		int max = 3;
+		if (USER.s.NEWBIE_PLAYER == 1)
+			max = 6;
+        for (int i = 0; i < max; i++)
         {
             //Debug.Log (" base y is... : " + globals.s.BASE_Y);
             wave_found = false;
@@ -387,16 +391,19 @@ public class game_controller : MonoBehaviour {
         killer_wave_to_report = killer_wave_name;
         time_to_report = (int)(Time.time - starting_time);
 
-        globals.s.GAME_OVER = 1;
+		if (globals.s.BALL_FLOOR <= 4) {
+			StartCoroutine( InstantRestartLogic ());
 
-        temp_ball = ball_hero;
-        Invoke("show_game_over", 1f);
+		} else {
+			globals.s.GAME_OVER = 1;
+
+			temp_ball = ball_hero;
+			Invoke ("show_game_over", 1f);
+		}
     }
 
     void show_game_over() {
-
         //sound_controller.s.stop_music();
-
         if (globals.s.SHOW_VIDEO_AFTER == false)
         {
 			if(QA.s.PC_MODE == false) revive_logic();
@@ -448,6 +455,24 @@ public class game_controller : MonoBehaviour {
     #endregion
 
 	#region ==== RESTART====
+
+	IEnumerator InstantRestartLogic(){
+		globals.s.GAME_OVER = 1;
+		AnalyticController.s.ReportGameEnded(killer_wave_to_report, time_to_report);
+		yield return new WaitForSeconds (0.5f);
+
+		main_camera.s.ResetMeFoInstantRestart ();
+		Alert_unbug ();
+
+		yield return new WaitForSeconds (0.5f);
+		globals.s.GAME_OVER = 0;
+
+		hud_controller.si.update_floor (0);
+
+		cur_floor = -1;
+
+		BallMaster.s.NewGameLogic();
+	}
 
 	public void RewindEffect(){
 		
@@ -510,6 +535,7 @@ public class game_controller : MonoBehaviour {
 		BlockMaster.s.Init ();
 
 		globals.s.FIRST_GAME = false;
+		globals.s.ALERT_BALL_N = 0;
 
 		globals.s.GAME_OVER = 0;
 		globals.s.CAN_RESTART = false;
@@ -684,6 +710,7 @@ public class game_controller : MonoBehaviour {
 
     #region ====== GAME LOGIC ====== 
 
+	int curMaxFloor = -1;
     public void ball_up(int ball_floor)
     {
         if (ball_floor > cur_floor) {
@@ -700,6 +727,7 @@ public class game_controller : MonoBehaviour {
 			if (USER.s.NEWBIE_PLAYER == 1 && cur_floor >= GD.s.FTU_NEWBIE_SCORE) {
 				USER.s.SetNotNewbiePlayer ();
 			}
+
 			// NEW STAGE WARNING
 			if (globals.s.PW_SUPER_JUMP == false) {
 				for (int k = 0; k < GD.s.SCENERY_FLOOR_VALUES.Length ; k++) {
@@ -712,7 +740,10 @@ public class game_controller : MonoBehaviour {
 
 			Debug.Log ("NEW CUR FLOOR!! " + cur_floor);
 
-            create_new_wave();
+//			if (ball_floor < curMaxFloor)
+            	create_new_wave();
+
+			curMaxFloor = ball_floor;
 
 			NewHighscoreAnimation (ball_floor);
 
@@ -723,11 +754,12 @@ public class game_controller : MonoBehaviour {
 				if (sound_controller.s != null)
 					sound_controller.s.update_music ();
 			}
+
         }
-        else if (ball_floor >= 1) {
-            camerda.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-            //Debug.Log( "~~~~~~~~~~~~~~~~ DON'T CREATE FLOOR!!!! BALL FLOOR: "+ ball_floor + " CUR FLOOR: " + cur_floor);
-        }
+//        else if (ball_floor >= 1) {
+//            camerda.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+//            //Debug.Log( "~~~~~~~~~~~~~~~~ DON'T CREATE FLOOR!!!! BALL FLOOR: "+ ball_floor + " CUR FLOOR: " + cur_floor);
+//        }
 
     }
 

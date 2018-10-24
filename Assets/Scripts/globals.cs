@@ -29,6 +29,7 @@ public class globals : MonoBehaviour {
 	public bool AT_STORE = false;
 
     public bool ALERT_BALL = false;
+	public int ALERT_BALL_N = 0;
     public int GAME_OVER = 0;
     public bool CAN_RESTART = false;
     public bool GAME_STARTED = false;

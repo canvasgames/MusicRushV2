@@ -50,6 +50,7 @@ public class wall : MonoBehaviour
             globals.s.BALL_Y - globals.s.BALL_R > transform.position.y - 2f && my_floor <= globals.s.BALL_FLOOR + 1) {
             already_alerted = true;
             globals.s.ALERT_BALL = true;
+			globals.s.ALERT_BALL_N++;
         }
 
         if (transform.position.y < globals.s.BALL_Y - globals.s.FLOOR_HEIGHT * 4)
@@ -67,6 +68,7 @@ public class wall : MonoBehaviour
             if ((!corner_wall || (corner_wall && already_placed)) && Mathf.Abs(transform.position.x - globals.s.BALL_X) < 2f)
             {
                 show_me();
+				globals.s.ALERT_BALL_N--;
             }
             /*else if (corner_wall && !already_placed)
             {
