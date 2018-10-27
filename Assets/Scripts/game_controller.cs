@@ -529,6 +529,7 @@ public class game_controller : MonoBehaviour {
 
 
 		cur_floor = -1;
+		lastFloor = -1;
 		n_floor = 0;
 		musicLayerN = 0;
 
@@ -710,7 +711,7 @@ public class game_controller : MonoBehaviour {
 
     #region ====== GAME LOGIC ====== 
 
-	int curMaxFloor = -1;
+	int lastFloor = -1;
     public void ball_up(int ball_floor)
     {
         if (ball_floor > cur_floor) {
@@ -740,10 +741,10 @@ public class game_controller : MonoBehaviour {
 
 			Debug.Log ("NEW CUR FLOOR!! " + cur_floor);
 
-//			if (ball_floor < curMaxFloor)
-            	create_new_wave();
-
-			curMaxFloor = ball_floor;
+			if (ball_floor >= lastFloor) {
+				create_new_wave ();
+				lastFloor = ball_floor;
+			}
 
 			NewHighscoreAnimation (ball_floor);
 
