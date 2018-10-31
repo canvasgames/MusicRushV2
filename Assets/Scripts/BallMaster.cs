@@ -12,7 +12,7 @@ public class BallMaster : MonoBehaviour {
 	public GameObject ballPrefab;
 	public int currentBall;
 	public int clothChangerCurrent = 1;
-
+    public bool jumpedSaw = false;
 
 	void Awake(){
 		s = this;
@@ -85,7 +85,9 @@ public class BallMaster : MonoBehaviour {
 	}
 
 	IEnumerator JumpMothaFockaJump(bool iAmLeft){
-		for (int i = 0; i <= globals.s.ACTUAL_SKIN.bandN - 2; i++) {
+        Debug.Log("bbbbbbbbbbbbb");
+
+        for (int i = 0; i <= globals.s.ACTUAL_SKIN.bandN - 2; i++) {
 			yield return new WaitForSeconds (GD.s.FOLLOWER_DELAY);
 			Follower f = null;
 			if (iAmLeft) {
@@ -227,15 +229,27 @@ public class BallMaster : MonoBehaviour {
 		Instantiate(collectPowerUpEffect, pos, transform.rotation);
 	}
 
-	#endregion
+    public void CollidedSawTrigger()
+    {
+        Debug.Log("jumped saw");
+        //jumpedSaw = true;
+       // Invoke("ClearJumpedSaw", 1);
+    }
 
-//	public void AddNewBall(ball_hero b){
-//		balls.Add (b);
-//	}
-//
-//	public void RemoveBall(ball_hero b){
-//		balls.Remove (b);
-//	}
+
+    void ClearJumpedSaw()
+    {
+        jumpedSaw = false;
+    }
+    #endregion
+
+    //	public void AddNewBall(ball_hero b){
+    //		balls.Add (b);
+    //	}
+    //
+    //	public void RemoveBall(ball_hero b){
+    //		balls.Remove (b);
+    //	}
 
 
 }

@@ -11,17 +11,23 @@ public class Follower : MonoBehaviour {
 	float myXScale;
 	bool iAmDead = false;
 	public int myBandPosition;
+    bool jumping = false;
 
 	#endregion
 
 	#region === Init & Change Skin ====
 	void Awake(){
 		rb = GetComponent<Rigidbody2D> ();
-		mySkinAnimator = my_skin.GetComponent<Animator> ();
+        mySkinAnimator = my_skin.GetComponent<Animator> ();
 		myXScale = my_skin.transform.localScale.x;
 	}
 
-	void Update(){
+    void OnEnable()
+    {
+        jumping = false;
+    }
+
+    void Update(){
 		if (rb.velocity.x > 0) {
 			if (rb.velocity.x != globals.s.BALL_SPEED_X)
 				rb.velocity = new Vector2 (globals.s.BALL_SPEED_X, rb.velocity.y);
@@ -90,6 +96,9 @@ public class Follower : MonoBehaviour {
 
 	#region === Gameplay Events ====
 	public void JumpOn(){
+        if (jumping || globals.s.GAME_OVER == 1)
+            return;
+        jumping = true;
 		// my_trail.transform.localRotation = new Quaternion(0, 0, 110, 0);
 		//			sound_controller.s.PlayJump();
 		//			grounded = false;
@@ -108,9 +117,10 @@ public class Follower : MonoBehaviour {
 
 	public IEnumerator LandOn(float time = 0.2f, float yPos = 0){
 		yield return new WaitForSeconds (time);
-		//		transform.position = new Vector2 (transform.position.x, yPos); 
-		//		rb.velocity = new Vector2(rb.velocity.x, 0);
-		if(this.gameObject) mySkinAnimator.SetBool("Jumping", false);
+        //		transform.position = new Vector2 (transform.position.x, yPos); 
+        //		rb.velocity = new Vector2(rb.velocity.x, 0);
+        jumping = false;
+        if (this.gameObject) mySkinAnimator.SetBool("Jumping", false);
 	}
 
 	public void IenumeratorWallCollision(float time, float xVelocity){
@@ -123,11 +133,16 @@ public class Follower : MonoBehaviour {
 		my_skin.transform.localScale = new Vector2(-my_skin.transform.localScale.x, my_skin.transform.localScale.y);
 	}
 
-	#endregion
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        Debug.Log("jumpppppppppppppppppppppppppppp");
+        JumpOn();
+    }
+    #endregion
 
-	#region === Bloody Death ===
+    #region === Bloody Death ===
 
-	public void KillMe(float time){
+    public void KillMe(float time){
 		iAmDead = true;
 		StartCoroutine(LetMeSacrificeMyselfForTheGreaterGood(time));
 	}
