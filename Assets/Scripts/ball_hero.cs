@@ -71,10 +71,6 @@ public class ball_hero : MonoBehaviour
         rb = transform.GetComponent<Rigidbody2D>();
         my_alert.SetActive(false);
     }
-	public void test() {
-		Debug.Log("AAAAAAAAAA");
-
-	}
 
     // START THE DANCE
     void Start() {
@@ -591,7 +587,8 @@ public class ball_hero : MonoBehaviour
             my_skin.GetComponent<Animator>().SetBool("Jumping", true);
 
 //			if(myFollowers != null) StartCoroutine (JumpMyFollowers ());
-			if(myFollowers != null) BallMaster.s.IEnumeratorJumpMyFollowers(iAmLeft);
+			if(myFollowers != null && !BallMaster.s.jumpedSaw)
+                BallMaster.s.IEnumeratorJumpMyFollowers(iAmLeft);
         }
         //else Debug.Log("ÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇ CANT JUMP! I AM NOT GROUNDED");
     }
@@ -637,6 +634,7 @@ public class ball_hero : MonoBehaviour
 
 	IEnumerator JumpMyFollowers(){
 		int i = 0;
+        Debug.Log("aaaaaaaaaaaaaaa");
 		foreach (Follower f in myFollowers) {
 			yield return new WaitForSeconds (GD.s.FOLLOWER_DELAY );
 			if (f != null) {
@@ -690,12 +688,12 @@ public class ball_hero : MonoBehaviour
 
 	#region ===== COLLISIONS =======
 	public void OnCircleColliderTriggered(Collider2D coll){
-		OnTriggerEnter2D(coll);
+        OnTriggerEnter2D(coll);
 	}
 
 	void OnTriggerEnter2D(Collider2D coll){
-		//Debug.Log ("kkkkkkkkkkkkkkkkkCOLLISION IS HAPPENING!! ");
-		if (coll.gameObject.CompareTag ("PW")) {
+		//Debug.Log ("xxxxxxxxxxxxxxxxxxxxxxxxxxxCOLLISION IS HAPPENING!! " + coll.transform.tag);
+        if (coll.gameObject.CompareTag ("PW")) {
 			
 			PW_Collect temp = coll.gameObject.GetComponent<PW_Collect> ();
 			BallMaster.s.CreateCollectPowerUpEffect (coll.transform.position);
@@ -735,6 +733,10 @@ public class ball_hero : MonoBehaviour
                 }
             }
         }
+        else if (coll.gameObject.CompareTag("Jump_Trigger"))
+        {
+            BallMaster.s.CollidedSawTrigger();
+        }
         else if (coll.gameObject.CompareTag("Wall"))
 		{
 			rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y);
@@ -752,7 +754,8 @@ public class ball_hero : MonoBehaviour
 			sound_controller.s.PlaySfxCharacterWallCollided ();
 		}
 
-		else if (coll.gameObject.CompareTag("Note")) {
+
+        else if (coll.gameObject.CompareTag("Note")) {
 			USER.s.NOTES += 1;
 			USER.s.TOTAL_NOTES += 1;
 			globals.s.NOTES_COLLECTED += 1;

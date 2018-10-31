@@ -875,7 +875,9 @@ public class game_controller : MonoBehaviour {
 //		if (QA.s.TRACE_PROFUNDITY >=2) Debug.Log("\n " + n + " ~~~~~~~~~~~~ TRY CREATE SUPER EASY HOLE! ~~~~~~~~~~~~ | rand " + rand + " HOLE CHANCE: " + hole_chance + " N FAILED: " + hole_creation_failed);
 //		Debug.Log("\n " + n + " ~~~~~~~~~~~~ TRY CREATE SUPER EASY HOLE! ~~~~~~~~~~~~ | rand " + rand + " HOLE CHANCE: " + hole_chance + " N FAILED: " + hole_creation_failed);
 		if (USER.s.FIRST_HOLE_CREATED == 0) hole_chance = 101;
-
+        wave_found = create_wave_saw_far(n_floor, 1);
+        return true;
+        /*
 		if (custom_wave == 1) {
 			wave_name = "tut_spk_mid_left";
 			if (QA.s.SHOW_WAVE_TYPE == true)
@@ -1036,12 +1038,12 @@ public class game_controller : MonoBehaviour {
 			}
 				
 			else return false;
-		}
-	}
+		}*/
+    }
 
 
     //SINGLE SPIKE SOMEWHERE
-	public bool create_wave_easy(int n, int custom_wave = -1)
+    public bool create_wave_easy(int n, int custom_wave = -1)
     {
         float actual_y = globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n;
         int rand = Random.Range(1, 100);

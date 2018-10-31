@@ -15,6 +15,7 @@ TagManager:
   - Revive
   - Note
   - Saw
+  - Jump_Trigger
   layers:
   - Default
   - TransparentFX
@@ -39,7 +40,7 @@ TagManager:
   - spike
   - floor
   - wall
-  - 
+  - saw_jump_trigger
   - 
   - PW_floor
   - PW_collect
