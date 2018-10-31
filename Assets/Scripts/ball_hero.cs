@@ -587,7 +587,7 @@ public class ball_hero : MonoBehaviour
             my_skin.GetComponent<Animator>().SetBool("Jumping", true);
 
 //			if(myFollowers != null) StartCoroutine (JumpMyFollowers ());
-			if(myFollowers != null && !BallMaster.s.jumpedSaw)
+			if(myFollowers != null)
                 BallMaster.s.IEnumeratorJumpMyFollowers(iAmLeft);
         }
         //else Debug.Log("ÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇ CANT JUMP! I AM NOT GROUNDED");
@@ -733,10 +733,7 @@ public class ball_hero : MonoBehaviour
                 }
             }
         }
-        else if (coll.gameObject.CompareTag("Jump_Trigger"))
-        {
-            BallMaster.s.CollidedSawTrigger();
-        }
+
         else if (coll.gameObject.CompareTag("Wall"))
 		{
 			rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y);

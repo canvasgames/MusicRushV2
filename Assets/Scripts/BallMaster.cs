@@ -12,7 +12,6 @@ public class BallMaster : MonoBehaviour {
 	public GameObject ballPrefab;
 	public int currentBall;
 	public int clothChangerCurrent = 1;
-    public bool jumpedSaw = false;
 
 	void Awake(){
 		s = this;
@@ -229,18 +228,6 @@ public class BallMaster : MonoBehaviour {
 		Instantiate(collectPowerUpEffect, pos, transform.rotation);
 	}
 
-    public void CollidedSawTrigger()
-    {
-        Debug.Log("jumped saw");
-        //jumpedSaw = true;
-       // Invoke("ClearJumpedSaw", 1);
-    }
-
-
-    void ClearJumpedSaw()
-    {
-        jumpedSaw = false;
-    }
     #endregion
 
     //	public void AddNewBall(ball_hero b){

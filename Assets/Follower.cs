@@ -135,8 +135,8 @@ public class Follower : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        Debug.Log("jumpppppppppppppppppppppppppppp");
-        JumpOn();
+        if(coll.tag == "Jump_Trigger")
+            JumpOn();
     }
     #endregion
 
