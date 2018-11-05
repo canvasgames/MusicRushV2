@@ -35,7 +35,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &132646
 GameObject:
   m_ObjectHideFlags: 1
@@ -190,6 +190,7 @@ MonoBehaviour:
   count_blink: 16
   already_blinked: 0
   i_am_floor: 0
+  myId: 0
   my_vision_effect: {fileID: 188368}
   my_skin: {fileID: 0}
   hidden: 0

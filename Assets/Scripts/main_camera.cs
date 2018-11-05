@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using System.Threading;
 
 public class main_camera : MonoBehaviour {
 
@@ -14,13 +15,14 @@ public class main_camera : MonoBehaviour {
 	public float  yStart;
 	public Vector2 targetCenterPos;
 
+
     void Awake (){ s = this; }
   
      // Use this for initialization
     void Start()
     {
 		yStart = transform.position.y;
-        rb = transform.GetComponent<Rigidbody2D>();
+        //rb = transform.GetComponent<Rigidbody2D>();
 		Debug.Log ("[cam] YSTART!! " + yStart);
 
 		/*
@@ -68,7 +70,6 @@ public class main_camera : MonoBehaviour {
 		transform.position = new Vector3(0, -1.24f, -10);
     }
 
-
     public void OnBallFalling() {
         if (!falling) {
             falling = true;
@@ -99,8 +100,8 @@ public class main_camera : MonoBehaviour {
 
     public void init_PW_super_jump(float pos_y, float time)
     {
-//		transform.DOMoveY(pos_y, time).SetEase(Ease.InOutSine);
-        transform.DOMoveY(pos_y, 3f).SetEase(Ease.OutSine);
+		transform.DOMoveY(pos_y, time).SetEase(Ease.InOutSine);
+//        transform.DOMoveY(pos_y, 3f).SetEase(Ease.OutSine);
         pw_super_jump = true;
 		Debug.Log( "CAMERA INIT SUPER JUMP!! MY YP :" + transform.position.y + " TARGET Y: " + pos_y);
     }
@@ -135,7 +136,9 @@ public class main_camera : MonoBehaviour {
     public void on_ball_up(float ball_y) {
         if (!moving && ball_y > transform.position.y - globals.s.FLOOR_HEIGHT / 4)//Debug.Log("MY Y POS: " + transform.position.y);  if (globals.s.BALL_Y > transform.position.y)
         {
-            rb.velocity = new Vector2(0, globals.s.CAMERA_SPEED);
+            //rb.velocity = new Vector2(0, globals.s.CAMERA_SPEED);
+
+			camSpeed = globals.s.CAMERA_SPEED;
             moving = true;
         }
     }
@@ -232,8 +235,13 @@ public class main_camera : MonoBehaviour {
 		}
 	}
 
+	private float camSpeed;
+
     void Update() {
-        
+		#if UNITY_EDITOR
+		if(QA.s.FORCED_LOW_FRAME_RATE) Thread.Sleep(30);
+		#endif
+
         //transform.position = new Vector3 (0, 0,0);
         if (pw_super_jump == false && globals.s.REVIVING == false && globals.s.GAME_STARTED == true)
         {
@@ -245,7 +253,8 @@ public class main_camera : MonoBehaviour {
 						((globals.s.CUR_BALL_SPEED > 0 && globals.s.BALL_X > 1.1f) || (globals.s.CUR_BALL_SPEED < 0 && globals.s.BALL_X < -1.1f)) ) //if ball is in a superior position than the camera
                     {
 						Debug.Log (" MY Y " + globals.s.BALL_Y + "  TARGET Y: " + (globals.s.FLOOR_HEIGHT * 1 + globals.s.BASE_Y) + " BALL SPEED : "+globals.s.BALL_SPEED_X+ " BALLX "+ globals.s.BALL_X  );
-                        rb.velocity = new Vector2(0, globals.s.CAMERA_SPEED);
+                        //rb.velocity = new Vector2(0, globals.s.CAMERA_SPEED);
+						camSpeed = globals.s.CAMERA_SPEED;
                         initiated = true;
                         moving = true;
                     }
@@ -265,24 +274,31 @@ public class main_camera : MonoBehaviour {
 //							Debug.Log ("asas");
 //                            rb.velocity = new Vector2(0, - globals.s.CAMERA_SPEED);
 //                        else
-                            rb.velocity = new Vector2(0, 0);
+                            //rb.velocity = new Vector2(0, 0);
+						camSpeed = 0f;
                         moving = false;
                     }
 
 					//camera is moving normally
                     else if (globals.s.BALL_Y > transform.position.y - globals.s.FLOOR_HEIGHT / 4 && globals.s.BALL_GROUNDED == true)//Debug.Log("MY Y POS: " + transform.position.y);  if (globals.s.BALL_Y > transform.position.y)
                     {
-                        rb.velocity = new Vector2(0, globals.s.CAMERA_SPEED);
+                        //rb.velocity = new Vector2(0, globals.s.CAMERA_SPEED);
+
+						camSpeed = globals.s.CAMERA_SPEED;
                         moving = true;
                     }
                 }
             }
             else
             {
-               if(globals.s.GAME_OVER == 1)
-                    rb.velocity = new Vector2(0, 0);
+				if (globals.s.GAME_OVER == 1)
+					camSpeed = 0f;
+                    //rb.velocity = new Vector2(0, 0);
                 moving = false;
             }
-        }
+
+		}
+		//Debug.Log (camSpeed);
+		transform.position += camSpeed * Vector3.up * Time.deltaTime;
     }
 }

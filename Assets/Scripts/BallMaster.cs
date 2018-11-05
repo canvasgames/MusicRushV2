@@ -138,6 +138,29 @@ public class BallMaster : MonoBehaviour {
 		balls.ToArray () [0].Init_first_ball ();
 	}
 
+	public void ActivateBallForReviveLogic(){
+		ball_hero curBallScript;
+		if (currentBall == 0) {
+			curBallScript = balls.ToArray () [0];
+
+		} else {
+			curBallScript = balls.ToArray () [1];
+		}
+
+		curBallScript.gameObject.SetActive(true);
+
+		if (curBallScript.gameObject.transform.position.x <= 0) {
+			curBallScript.gameObject.transform.position = new Vector3(-1.2f, curBallScript.gameObject.transform.position.y, curBallScript.gameObject.transform.position.z);
+//			curBallScript.s
+		}
+		else {
+			curBallScript.gameObject.transform.position = new Vector3(1.2f, curBallScript.gameObject.transform.position.y, curBallScript.gameObject.transform.position.z);
+		}
+
+		return;// balls.ToArray () [currentBall].gameObject;
+	}
+
+
 	public bool CheckIfBallAreGrounded(){
 		foreach(ball_hero b in balls.ToArray()){
 			if (b.grounded == true)
@@ -201,7 +224,8 @@ public class BallMaster : MonoBehaviour {
 
 	#region === RUNTIME ===
 	void Update(){
-		if(globals.s.ALERT_BALL_N != 0) Debug.Log ("..... N ALERT: " + globals.s.ALERT_BALL_N);
+
+//		if(globals.s.ALERT_BALL_N != 0) Debug.Log ("..... N ALERT: " + globals.s.ALERT_BALL_N);
 
 		if (globals.s.ALERT_BALL == true && globals.s.ALERT_BALL_N == 0) {
 			globals.s.ALERT_BALL = false;
@@ -209,6 +233,23 @@ public class BallMaster : MonoBehaviour {
 //			StartCoroutine (HideAlert ());
 //			balls.ToArray () [currentBall].my_alert.SetActive (false);
 		}
+	}
+
+	public void IncreaseBallAlertN(string callersName, int id=0){
+		if (globals.s.PW_SUPER_JUMP == false){
+			if (globals.s.ALERT_BALL_N == 0)
+				globals.s.ALERT_BALL = true;
+			globals.s.ALERT_BALL_N++;
+			Debug.Log (callersName +id +" INCREASED ALERT N: " + globals.s.ALERT_BALL_N);
+		}
+	}
+
+	public void DeacreaseBallAlertN(string callersName){
+		if (globals.s.PW_SUPER_JUMP == false) {
+			globals.s.ALERT_BALL_N--;
+			Debug.Log (callersName + " DDDEACRESED ALERT N: " + globals.s.ALERT_BALL_N);
+		}
+
 	}
 
 	IEnumerator HideAlert(){

@@ -86,7 +86,7 @@ public class store_controller : MonoBehaviour {
 
     int actualCharInScreen;
 	MusicStyle actualStyle, lastSortedStyle = MusicStyle.Eletro;
-	int lastSortedSkin = 0;
+	int lastSortedSkin = -2;
 
 	float yStartCoinsPile = -1068, yEndCoinsPile = -575, yIncCoinsPile;
 
@@ -601,6 +601,7 @@ public class store_controller : MonoBehaviour {
 	public void BuyRandomCharacter(){
 		if (nCharsBuyed < GD.s.N_SKINS) {
 			jukeboxBt.GetComponent<Button> ().interactable = false;
+			lastSortedSkin = -2;
 			StartCoroutine (StartRoulleteAnimation ());
 
 //			USER.s.NOTES -= globals.s.JUKEBOX_CURRENT_PRICE; 
@@ -647,8 +648,8 @@ public class store_controller : MonoBehaviour {
 			FTUController.s.SetFirstSongPurchased ();
 			showSpecialOfferButtonFirstTime = true;
 		}
-		else skinToGive = SortCharToDrop ();
-
+		else skinToGive = SortCharToDrop (lastSortedSkin); 
+		//
 		Debug.Log ("[[[[ [JUKE] SORTED CHAR TO GIVE: " + GD.s.skins [skinToGive].skinName);
 		sound_controller.s.PlaySfxUIJukeboxSortingCharacter();
 		int k = 0;
@@ -693,7 +694,6 @@ public class store_controller : MonoBehaviour {
 
 			//mount possible char list
 			for (int i = 0; i < GD.s.N_SKINS; i++) {
-//			if(GD.s.sk
 				if (alreadyBuyed [i] == 0) {
 					if (GD.s.skins [i].rarity == SkinRarity.common)
 						commonChars.Add (GD.s.skins [i]);
@@ -714,7 +714,7 @@ public class store_controller : MonoBehaviour {
 			}
 			if (uncommonChars.Count > 0) {
 				maxRand += GD.s.GD_DROP_CHANCE_UNCOMMON;
-				uncommonChance = GD.s.GD_DROP_CHANCE_COMMON;
+				uncommonChance = GD.s.GD_DROP_CHANCE_UNCOMMON;
 			}
 			if (rareChars.Count > 0) {
 				maxRand += GD.s.GD_DROP_CHANCE_RARE;
@@ -738,7 +738,7 @@ public class store_controller : MonoBehaviour {
 				Debug.LogError (" **** OUT OF CHARS ! THAT SHOULD NEVER HAPPEN *****");
 			}
 
-		} while (dontSortThisSkin == charToGive && charToGive == -1);
+		} while (dontSortThisSkin == charToGive || charToGive == -1);
 
 		return charToGive;
 	}
@@ -748,7 +748,7 @@ public class store_controller : MonoBehaviour {
 		purchaseFromGems = false;
 		OnCharacterChangedNew (actualCharInScreen, false, true); // TBDCHAR
 		globals.s.curGameScreen = GameScreen.RewardCharacter;
-		if(nCharsBuyed >= GD.s.N_SKINS)
+		if(nCharsBuyed >= GD.s.N_SKINS-1)
 			myRewardScreen.showVideoButton = false;
 		else
 			myRewardScreen.showVideoButton = true;
@@ -988,7 +988,6 @@ public class store_controller : MonoBehaviour {
 		if(gemsTextJukebox.isActiveAndEnabled) gemsTextJukebox.text = USER.s.GEMS.ToString();
 		if(gemsTextIAPStore.isActiveAndEnabled) gemsTextIAPStore.text = USER.s.GEMS.ToString();
 	}
-
 	#endregion
 
 	#region === SPECIAL OFFER ===
@@ -1138,8 +1137,6 @@ public class store_controller : MonoBehaviour {
 				buyRealMoney.text = "$ 4.99";
 			}
 		}
-
-
 //		ScrollSnap.SetCurrentPage(0);
 	}
 

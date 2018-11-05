@@ -93,6 +93,8 @@ public class globals : MonoBehaviour {
 
     public int ad_type = 0;
 
+	[HideInInspector] public int obstacleId = 0;
+
     void Awake () {
 		MusicStyle mystele;
 		CANVAS_X_LEFT = -240; CANVAS_X_RIGHT = 240;

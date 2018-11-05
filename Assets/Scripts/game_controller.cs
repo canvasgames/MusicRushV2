@@ -356,8 +356,7 @@ public class game_controller : MonoBehaviour {
     bool revive_logic() {
         globals.s.CAN_REVIVE = false;
         there_was_revive = PlayerPrefs.GetInt("there_was_revive", 0);
-        n_games_without_revive = PlayerPrefs.GetInt("n_games_without_revive", 0);
-        if ( USER.s.DAY_SCORE > 6 && globals.s.BALL_FLOOR > 6 && ( n_floor > 25 || globals.s.BALL_FLOOR > USER.s.DAY_SCORE - 5)) {
+        if ( USER.s.DAY_SCORE > 6 && globals.s.BALL_FLOOR > 6 && ( n_floor > 25 || globals.s.BALL_FLOOR > USER.s.DAY_SCORE - 5 - n_games_without_revive * 6)) {
 
             int rand = Random.Range(1,100);
             int dif = 0;
@@ -365,17 +364,18 @@ public class game_controller : MonoBehaviour {
             else dif = USER.s.DAY_SCORE - globals.s.BALL_FLOOR;
 
             Debug.Log("~~~~~~~~ REVIVE LOGIC ~~~~~~~ RAND: " + rand + " CHANCE TOTAL:  "+ (15 + 5 * dif + n_games_without_revive * 5) + " CHANCE: " + (20 + 5 * dif) + " N games: " + n_games_without_revive);
-			if (rand < 35 + 5 * dif + n_games_without_revive * 5 || n_floor > 27)
+			if (rand < 35 + dif * 5 + n_games_without_revive * 10 || n_floor > 25)
                 globals.s.CAN_REVIVE = true;
         }
 
         if (globals.s.CAN_REVIVE == true) {
             PlayerPrefs.SetInt("there_was_revive", 1);
+			n_games_without_revive = 0;
+
         }
         else {
             PlayerPrefs.SetInt("there_was_revive", 0);
             n_games_without_revive++;
-            PlayerPrefs.SetInt("n_games_without_revive", n_games_without_revive);
         }
 
         return globals.s.CAN_REVIVE;
@@ -391,10 +391,10 @@ public class game_controller : MonoBehaviour {
         killer_wave_to_report = killer_wave_name;
         time_to_report = (int)(Time.time - starting_time);
 
-		if (globals.s.BALL_FLOOR <= 4) {
+		if (globals.s.BALL_FLOOR <= 4) { // instant revive logic
 			StartCoroutine( InstantRestartLogic ());
 
-		} else {
+		} else { // start game over logic
 			globals.s.GAME_OVER = 1;
 
 			temp_ball = ball_hero;
@@ -406,7 +406,8 @@ public class game_controller : MonoBehaviour {
         //sound_controller.s.stop_music();
         if (globals.s.SHOW_VIDEO_AFTER == false)
         {
-			if(QA.s.PC_MODE == false) revive_logic();
+//			if(QA.s.PC_MODE == false && AdsController.s.ThereAvailableAds == true) 
+//				revive_logic();
 //			globals.s.CAN_REVIVE = true;
 			if (QA.s.ALWAYS_REVIVE == true || globals.s.CAN_REVIVE == true)
             {
@@ -459,13 +460,16 @@ public class game_controller : MonoBehaviour {
 	IEnumerator InstantRestartLogic(){
 		globals.s.GAME_OVER = 1;
 		AnalyticController.s.ReportGameEnded(killer_wave_to_report, time_to_report);
-		yield return new WaitForSeconds (0.5f);
+		yield return new WaitForSeconds (0.5f + 0.20f * globals.s.ACTUAL_SKIN.bandN);
 
 		main_camera.s.ResetMeFoInstantRestart ();
 		Alert_unbug ();
 
 		yield return new WaitForSeconds (0.5f);
 		globals.s.GAME_OVER = 0;
+//		globals.s.FIRST_GAME = false;
+		globals.s.ALERT_BALL_N = 0;
+
 
 		hud_controller.si.update_floor (0);
 
@@ -564,7 +568,7 @@ public class game_controller : MonoBehaviour {
 	#endregion
 
     #region ====== ACTIVATE/UNA LOGIC REVIVE ======
-    public void store_unactive_balls(ball_hero[] ball_hero)
+    public void store_unactive_balls(ball_hero[] ball_hero) // @TODELETE
     {
         temp_ball = ball_hero;
         foreach (ball_hero b in temp_ball)
@@ -577,22 +581,25 @@ public class game_controller : MonoBehaviour {
 
     public void activate_logic()
     {
-        foreach (ball_hero b in temp_ball)
-        {
-            //Destroy(b.gameObject);
-            b.gameObject.SetActive(true);
-            if (b.gameObject.transform.position.x < -3)
-            {
-                b.gameObject.transform.position = new Vector3(-3, b.gameObject.transform.position.y, b.gameObject.transform.position.z);
-            }
-            else if (b.gameObject.transform.position.x > 3)
-            {
-                b.gameObject.transform.position = new Vector3(3, b.gameObject.transform.position.y, b.gameObject.transform.position.z);
-            }
-            //b.gameObject.rigidbody2D.
 
-            break;
-        }
+//		BallMaster.s.ActivateBallForReviveLogic ();
+
+//        foreach (ball_hero b in temp_ball)
+//        {
+//            //Destroy(b.gameObject);
+//            b.gameObject.SetActive(true);
+//            if (b.gameObject.transform.position.x < -3)
+//            {
+//                b.gameObject.transform.position = new Vector3(-3, b.gameObject.transform.position.y, b.gameObject.transform.position.z);
+//            }
+//            else if (b.gameObject.transform.position.x > 3)
+//            {
+//                b.gameObject.transform.position = new Vector3(3, b.gameObject.transform.position.y, b.gameObject.transform.position.z);
+//            }
+//            //b.gameObject.rigidbody2D.
+//
+//            break;
+//        }
     }
     public void anda_bolinha_fdd()
     {
@@ -605,20 +612,27 @@ public class game_controller : MonoBehaviour {
             break;
         }
     }
-    public void destroy_spikes_2_floors()
+    public void ReviveRemovalLogicForClosestObstacles()
     {
         int i;
-        spike[] spikes = GameObject.FindObjectsOfType(typeof(spike)) as spike[];
-        for (i = 0; i < spikes.Length; i++)
-        {
+//		spike[] spikes = GameObject.FindObjectsOfType(typeof(spike)) as spike[];
+		spike[] spikes = objects_pool_controller.s.spikes_scripts.ToArray();
+        for (i = 0; i < spikes.Length; i++) {
             spikes[i].remove_spikes_revive(cur_floor);
         }
 
-        wall[] wallss = GameObject.FindObjectsOfType(typeof(wall)) as wall[];
+//		wall[] wallss = GameObject.FindObjectsOfType(typeof(wall)) as wall[];
+		GameObject[] wallss = objects_pool_controller.s.wallsPool;
         for (i = 0; i < wallss.Length; i++)
         {
-            wallss[i].destroy_me_PW_super();
+			wallss[i].GetComponent<wall>().destroy_me_PW_super();
         }
+
+		saw[] saws = objects_pool_controller.s.saw_scripts;
+		for (i = 0; i < saws.Length; i++) {
+			saws[i].ReviveRemovalLogicForClosestFloors(cur_floor);
+		}
+
     }
     #endregion
 
@@ -643,7 +657,7 @@ public class game_controller : MonoBehaviour {
 
 	void create_power_up_logic(int floor = 0, float x = 0, float y = 0) {
 		int rand;
-		if(n_floor < GD.s.SCENERY_FLOOR_VALUES[2])
+		if(n_floor < GD.s.SCENERY_FLOOR_VALUES[2]) //DON'T CREATE VISION
 			rand = Random.Range(0, 60);
 		else
 			rand = Random.Range(0, 100);
@@ -669,8 +683,8 @@ public class game_controller : MonoBehaviour {
 				rand = Random.Range(0, 100);
 //			rand = 1;
 //			rand = GD.s.GD_PW_CHANCE_SUPER_JUMP-1;
-//			if ( rand < GD.s.GD_PW_CHANCE_SUPER_JUMP || (USER.s.FIRST_PW_CREATED == 0 && !first_pw_created)) {
-			if ( 1==2) {
+			if ( rand < GD.s.GD_PW_CHANCE_SUPER_JUMP || (USER.s.FIRST_PW_CREATED == 0 && !first_pw_created)) {
+//			if ( 1==2) {
 				my_type = (int)PW_Types.Super;
 				x = Random.Range (-center_mid_area, center_mid_area);
 			} else if (rand < GD.s.GD_PW_CHANCE_SUPER_JUMP + GD.s.GD_PW_CHANCE_SHIELD) {
@@ -2685,7 +2699,7 @@ GameObject instance = Instantiate(Resources.Load("Prefabs/Bgs/Scenario2/bg_"+ran
 	}
 #endregion
 
-	public int SortSign(){
+	public int SortSign() {
 		int a = Random.Range (0, 2);
 		if (a == 0)
 			return -1;
@@ -2693,8 +2707,7 @@ GameObject instance = Instantiate(Resources.Load("Prefabs/Bgs/Scenario2/bg_"+ran
 			return 1;
 	}
 
-    public void create_wave_name(float x_pos, float y_pos, string wave_name)
-    {
+    public void create_wave_name(float x_pos, float y_pos, string wave_name) {
         GameObject my_qa_wave;
         my_qa_wave = (GameObject)Instantiate(QA_wave_name, new Vector3(0, y_pos - 0.6f, transform.position.z), transform.rotation);
         my_qa_wave.GetComponentInChildren<TextMesh>().text = wave_name;

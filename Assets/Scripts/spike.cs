@@ -57,16 +57,16 @@ public class spike : scenario_objects {
         if (!manual_trigger && !already_alerted && hidden == true && already_appeared == false
             && globals.s.BALL_Y - globals.s.BALL_R > transform.position.y - 1.5f && my_floor <= globals.s.BALL_FLOOR + 1) {
             already_alerted = true;
-            globals.s.ALERT_BALL = true;
-			globals.s.ALERT_BALL_N++;
+			BallMaster.s.IncreaseBallAlertN ("spk");
         }
 
         //hidden spike distance check (no manual trigger)
         if (!manual_trigger && hidden == true && already_appeared == false
             && globals.s.BALL_Y - globals.s.BALL_R > transform.position.y - 1.5f
 			&& Mathf.Abs(globals.s.BALL_X - transform.position.x) < 4.5f) {
-            show_me();
-			globals.s.ALERT_BALL_N--;
+            
+			show_me();
+			BallMaster.s.DeacreaseBallAlertN ("spk");
 		}
 
         //Destroy check
@@ -175,8 +175,8 @@ public class spike : scenario_objects {
     {
         if (floor == my_floor || floor+1 == my_floor || floor+2 == my_floor)
         {
-            transform.position = new Vector3(transform.position.x - Random.Range(50, 150), transform.position.y - Random.Range(50, 150), transform.position.z);
-
+			gameObject.SetActive (false);
+			transform.position = new Vector3(transform.position.x - Random.Range(50, 150), transform.position.y - Random.Range(50, 150), transform.position.z);
         }
     }
 
@@ -218,6 +218,7 @@ public class spike : scenario_objects {
 		corner_repositionable = false;
         repositionable = false;
         already_appeared = false;
+		already_alerted = false;
 
         timer = 0;
 //        GetComponent<SpriteRenderer>().color = Color.black;

@@ -19,7 +19,7 @@ public class saw : scenario_objects
     bool already_alerted = false;
     public bool triple_spk = false;
     float timer = 0;
-    internal string wave_name;
+ 	public string wave_name;
     public float distance2Appear = 0;
 
     private void OnEnable()
@@ -48,8 +48,7 @@ public class saw : scenario_objects
         globals.s.BALL_Y - globals.s.BALL_R > transform.position.y - 2f && my_floor <= globals.s.BALL_FLOOR + 1)
         {
             already_alerted = true;
-            globals.s.ALERT_BALL = true;
-			globals.s.ALERT_BALL_N++;
+			BallMaster.s.IncreaseBallAlertN ("saw", this.myId);
         }
 
         if ( already_appeared == false &&
@@ -58,7 +57,7 @@ public class saw : scenario_objects
             if (already_placed && Mathf.Abs(transform.position.x - globals.s.BALL_X) < distance2Appear)
             {
                 show_me();
-				globals.s.ALERT_BALL_N--;
+				BallMaster.s.DeacreaseBallAlertN ("saw");
             }
         }
     }
@@ -138,13 +137,25 @@ public class saw : scenario_objects
     {
         transform.GetComponent<CircleCollider2D>().enabled = false;
 
+
         hidden = false;
         manual_trigger = false;
         corner_repositionable = false;
         repositionable = false;
         already_appeared = false;
+		already_alerted = false;
 
         timer = 0;
         count_blink = 16;
     }
+
+	public void ReviveRemovalLogicForClosestFloors(int floor)
+	{
+		if (floor == my_floor || floor+1 == my_floor || floor+2 == my_floor)
+		{
+			gameObject.SetActive (false);
+			transform.position = new Vector3(transform.position.x - Random.Range(50, 150), transform.position.y - Random.Range(50, 150), transform.position.z);
+		}
+	}
+
 }

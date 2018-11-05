@@ -172,6 +172,7 @@ public class objects_pool_controller : MonoBehaviour {
 		}
 
 		hole_behaviour[] holes = FindObjectsOfType<hole_behaviour>();
+
 		foreach (hole_behaviour obj in holes) {
 			obj.gameObject.SetActive (false);
 		}

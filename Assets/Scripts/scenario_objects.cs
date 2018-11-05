@@ -8,7 +8,12 @@ public class scenario_objects : MonoBehaviour {
     public int count_blink = 16;
     public bool already_blinked = false;
     public bool i_am_floor = false;
+	public int myId = 0;
 
+	void Awake(){
+		myId = globals.s.obstacleId;
+		globals.s.obstacleId++;
+	}
 
     public void try_blink(int floor)
     {

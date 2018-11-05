@@ -49,8 +49,7 @@ public class wall : MonoBehaviour
         if (!wall_triggered_by_wall && already_appeared == false && !already_alerted &&
             globals.s.BALL_Y - globals.s.BALL_R > transform.position.y - 2f && my_floor <= globals.s.BALL_FLOOR + 1) {
             already_alerted = true;
-            globals.s.ALERT_BALL = true;
-			globals.s.ALERT_BALL_N++;
+			BallMaster.s.IncreaseBallAlertN ("wall");
         }
 
         if (transform.position.y < globals.s.BALL_Y - globals.s.FLOOR_HEIGHT * 4)
@@ -68,7 +67,7 @@ public class wall : MonoBehaviour
             if ((!corner_wall || (corner_wall && already_placed)) && Mathf.Abs(transform.position.x - globals.s.BALL_X) < 2f)
             {
                 show_me();
-				globals.s.ALERT_BALL_N--;
+				BallMaster.s.DeacreaseBallAlertN ("wall");
             }
             /*else if (corner_wall && !already_placed)
             {
@@ -139,12 +138,12 @@ public class wall : MonoBehaviour
 
         if (spike_trigger)
         {
-            spike[] spks = FindObjectsOfType(typeof(spike)) as spike[];
+//            spike[] spks = FindObjectsOfType(typeof(spike)) as spike[];
+			spike[] spks = objects_pool_controller.s.spikes_scripts.ToArray();
 
-            foreach(spike spk in spks)
-            {
-                spk.show_me_by_floor(my_floor);
-            }
+
+			for(int i=0; i<spks.Length; i++)
+				spks[i].show_me_by_floor(my_floor);
         }
 
         if (wall_trigger) {
@@ -168,7 +167,6 @@ public class wall : MonoBehaviour
 
     public void unshow_me() {
         my_skin.transform.DOScaleY(0f, 0.2f).OnComplete(() => gameObject.SetActive(false));
-        
     }
 
     public void show_me_pw_sight()
@@ -182,15 +180,12 @@ public class wall : MonoBehaviour
 			my_vision_effect.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 0);
 			my_vision_effect.GetComponent<SpriteRenderer> ().DOFade (1, 0.25f);
 		}
-
     }
 
     public void back_original_color_pw_sight()
     {
-
         //transform.GetComponent<SpriteRenderer>().color = new Color (0,0,0,0);
 		my_vision_effect.SetActive (false);
-
     }
 
     public void destroy_me_PW_super()

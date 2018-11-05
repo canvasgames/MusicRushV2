@@ -943,7 +943,7 @@ public class hud_controller : MonoBehaviour {
 		revive.GetComponent<Revive_menu_ctrl> ().Init ();
     }
 
-    public void close_revive_menu()
+    public void close_revive_menu() // If player said no to Revive
     {
 		Debug.Log ("[HUD] CLOSING REVIVE MENU");
 
@@ -953,7 +953,7 @@ public class hud_controller : MonoBehaviour {
         game_controller.s.game_over_for_real(true);
     }
 
-    public void revive_menu_start()
+    public void revive_menu_start() // If player pressed Yes to revive
     {
         globals.s.SHOW_VIDEO_AFTER = true;
         globals.s.CAN_RESTART = false;
@@ -964,7 +964,7 @@ public class hud_controller : MonoBehaviour {
         ready.SetActive(true);
 
         game_controller.s.activate_logic();
-        game_controller.s.destroy_spikes_2_floors();
+        game_controller.s.ReviveRemovalLogicForClosestObstacles();
 //		if(sound_controller.s != null) sound_controller.s.play_music();
         AnalyticController.s.ReportRevive(true);
 
@@ -982,7 +982,6 @@ public class hud_controller : MonoBehaviour {
         game_controller.s.anda_bolinha_fdd();
         globals.s.REVIVING = false;
         ready.SetActive(false);
-       
     }
 
     public void show_video_revive()
@@ -990,13 +989,13 @@ public class hud_controller : MonoBehaviour {
         globals.s.MENU_OPEN = true;
 		displayingVideoMessage.SetActive (true);
 
-		#if UNITY_ANDROID
+//		#if UNITY_ANDROID
         Invoke("appear_video", 1.7f);
-		#endif
+//		#endif
 
-		#if UNITY_STANDALONE_WIN
-		watched_the_video_revive();
-		#endif
+//		#if UNITY_STANDALONE_WIN
+//		watched_the_video_revive();
+//		#endif
     }
 
     void appear_video()
@@ -1125,7 +1124,7 @@ public class hud_controller : MonoBehaviour {
 
     public void ShowAd()
     {
-		#if UNITY_ANDROID
+		#if UNITY_ANDROID || UNITY_IOS
 		if (Advertisement.IsReady ("rewardedVideo")) {
 			var options = new ShowOptions { resultCallback = HandleShowResult };
 			Advertisement.Show ("rewardedVideo", options);
@@ -1166,9 +1165,50 @@ public class hud_controller : MonoBehaviour {
                 break;
             case ShowResult.Skipped:
                 Debug.Log("The ad was skipped before reaching the end.");
+				// @TBD HANDLE RESULT DIFFERENTLY
+				if(flagVideoPower == true)
+				{
+					CAN_ROTATE_ROULETTE = true;
+					PlayerPrefs.SetInt("CanRotate", 1);
+					roda_a_roda.ReSpinVideoWatched ();
+					//                    StartCoroutine (openTampa());
+					//Invoke("activeRodaaRoda", 1);
+					flagVideoPower = false;
+				}
+				else if(flagVideoRevive == true)
+				{
+					watched_the_video_revive();
+				}
+				else if(flagVideoCoins == true)
+				{
+					//					store_controller.s.watchedVideo();
+					store_controller.s.WatchedVideoForResort();
+				}
                 break;
             case ShowResult.Failed:
                 Debug.LogError("The ad failed to be shown.");
+
+				// @TBD HANDLE RESULT DIFFERENTLY
+
+				if(flagVideoPower == true)
+				{
+					CAN_ROTATE_ROULETTE = true;
+					PlayerPrefs.SetInt("CanRotate", 1);
+					roda_a_roda.ReSpinVideoWatched ();
+					//                    StartCoroutine (openTampa());
+					//Invoke("activeRodaaRoda", 1);
+					flagVideoPower = false;
+				}
+				else if(flagVideoRevive == true)
+				{
+					watched_the_video_revive();
+				}
+				else if(flagVideoCoins == true)
+				{
+					//					store_controller.s.watchedVideo();
+					store_controller.s.WatchedVideoForResort();
+				}
+
                 break;
         }
     }

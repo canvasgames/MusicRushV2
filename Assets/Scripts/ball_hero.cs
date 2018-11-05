@@ -262,7 +262,6 @@ public class ball_hero : MonoBehaviour
             my_alert.transform.localScale = new Vector2(2.3f, 0);
             my_alert.transform.DOScaleY(2.3f, 0.12f);
             if (sound_controller.s != null) sound_controller.s.play_alert();
-
 	}
 
 	public void HideAlert(){
@@ -289,22 +288,49 @@ public class ball_hero : MonoBehaviour
 	float nextTargetSuperJumpY = 0;
 	bool myAlertAlreadyShowed = false;
 
+	void FixedUpdate(){
+		// ===================== JUMP ============================
+		if (globals.s.GAME_STARTED == true && globals.s.CURSOR_IN_PAUSE_BT == false) {
+			if ((Input.GetMouseButtonDown (0) || Input.GetKey ("space")) && globals.s.GAME_STARTED == true) {
+				StartCoroutine (Jump ());
+				//                Debug.Log ("1JJJJJJJUMP! " + Input.mousePosition.y );
+				//				Debug.Log ("GAME ALREADY STARTED, JUST JUMP!!!");
+			} 
+			//			else if (Input.GetMouseButtonUp (0) && hud_controller.si.HUD_BUTTON_CLICKED == false) {
+			//				StartCoroutine (Jump ());
+			////				Debug.Log ("GAME ALREADY STARTED, JUST JUMP!!!2");
+			//
+			//			}
+		} else {
+			if (QA.s.DONT_START_THE_GAME == false && globals.s.MENU_OPEN == false && globals.s.curGameScreen == GameScreen.MainMenu && 
+				(Input.GetMouseButtonDown (0) || Input.GetKey ("space"))) {
+				//				&& Input.mousePosition.y > -7.3f && Input.mousePosition.y < 1.3f
+				//				Debug.Log ("GAME NOT STARTED YET! MENU: " + globals.s.GIFT_ANIMATION);
+				//				Debug.Log ("0JJJJJJJUMP! " + Input.mousePosition.y );
+				globals.s.GAME_STARTED = true;
+				hud_controller.si.start_game_coroutine ();
+				//				Debug.Log ("START GAME: FIRST JUMP!!!");
+				StartCoroutine (Jump ());
+			}
+		}
+	}
+
     void Update()
     {
 		// ================= SUPER JUMP START!!!!!!!!!! =====================
 		if (globals.s.PW_SUPER_JUMP == true && transform.position.y >= nextTargetSuperJumpY)
 		{
-//			Debug.Log ("passing through floor!!! N: " + my_floor);
+			Debug.Log ("passing through floor!!! N: " + my_floor);
 
 			my_floor++;
 			nextTargetSuperJumpY += globals.s.FLOOR_HEIGHT;
-			foreach(floor andar in objects_pool_controller.s.floor_scripts){
-				//Debug.Log ("[sp] are you ...  " + andar.my_floor );
+			for(int i=0; i< objects_pool_controller.s.floor_scripts.Length;i++){
+				Debug.Log ("[sp] are you ...  " + objects_pool_controller.s.floor_scripts[i].my_floor);
 
-				if (andar.isActiveAndEnabled && andar.my_floor == my_floor+1) {
-//					Debug.Log ("FLOOR FOFFFOUNDO floor!!! N: " + andar.my_floor );
-					andar.colidded_super_pw ();
-					//Debug.Log ("PW TRIGGER!! MY FLOOR: " + my_floor);
+				if (objects_pool_controller.s.floor_scripts[i].isActiveAndEnabled && objects_pool_controller.s.floor_scripts[i].my_floor == my_floor+1) {
+					Debug.Log ("FLOOR FOFFFOUNDO floor!!! N: " + objects_pool_controller.s.floor_scripts[i].my_floor);
+					objects_pool_controller.s.floor_scripts[i].colidded_super_pw ();
+//					Debug.Log ("PW TRIGGER!! MY FLOOR: " + my_floor);
 					game_controller.s.ball_up (my_floor);
 				}
 			}
@@ -319,31 +345,6 @@ public class ball_hero : MonoBehaviour
 //			Invoke("show_alert", 0.05f);
             //show_alert();
         }
-
-		// ===================== JUMP ============================
-		if (globals.s.GAME_STARTED == true && globals.s.CURSOR_IN_PAUSE_BT == false) {
-			if ((Input.GetMouseButtonDown (0) || Input.GetKey ("space")) && globals.s.GAME_STARTED == true) {
-				StartCoroutine (Jump ());
-//                Debug.Log ("1JJJJJJJUMP! " + Input.mousePosition.y );
-//				Debug.Log ("GAME ALREADY STARTED, JUST JUMP!!!");
-			} 
-//			else if (Input.GetMouseButtonUp (0) && hud_controller.si.HUD_BUTTON_CLICKED == false) {
-//				StartCoroutine (Jump ());
-////				Debug.Log ("GAME ALREADY STARTED, JUST JUMP!!!2");
-//
-//			}
-		} else {
-			if (QA.s.DONT_START_THE_GAME == false && globals.s.MENU_OPEN == false && globals.s.curGameScreen == GameScreen.MainMenu && 
-				(Input.GetMouseButtonDown (0) || Input.GetKey ("space"))) {
-//				&& Input.mousePosition.y > -7.3f && Input.mousePosition.y < 1.3f
-//				Debug.Log ("GAME NOT STARTED YET! MENU: " + globals.s.GIFT_ANIMATION);
-//				Debug.Log ("0JJJJJJJUMP! " + Input.mousePosition.y );
-				globals.s.GAME_STARTED = true;
-				hud_controller.si.start_game_coroutine ();
-//				Debug.Log ("START GAME: FIRST JUMP!!!");
-				StartCoroutine (Jump ());
-			}
-		}
 
         symbols_PW_activate();
             
@@ -373,10 +374,6 @@ public class ball_hero : MonoBehaviour
         //   my_trail.transform.rotation = new Quaternion(0, 0, 0, 0);
 
 //
-//    }
-//
-//    void Update()
-//    {
         //Debug.Log (" MY X SPEED: " + rb.velocity.x);
         //grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Floor"));
 
@@ -390,7 +387,6 @@ public class ball_hero : MonoBehaviour
 
         // falling case
         if (rb.velocity.y < -0.02f) grounded = false; //else grounded = true;
-
        
         #region ================ Ball Up ====================
 
@@ -458,14 +454,13 @@ public class ball_hero : MonoBehaviour
 
             // MAKE WALLS POSITION THEMSELVES
             List<wall> paredez = wall.All;// TBD
-			foreach (wall p in paredez) {
-				p.place_me_at_the_other_corner (-my_son.transform.position.x, my_floor + 2);
+			for (int i=0 ; i<paredez.Count ; i++) {
+				paredez.ToArray()[i].place_me_at_the_other_corner (-my_son.transform.position.x, my_floor + 2);
 			}
 
             // MAKE SAWS POSITION THEMSELVES
             List<saw> saws = saw.All; // TBD
-            foreach (saw p in saws)
-            {
+            foreach (saw p in saws) {
                 p.place_me_at_the_other_corner(-my_son.transform.position.x, my_floor + 2);
             }
 
@@ -539,7 +534,6 @@ public class ball_hero : MonoBehaviour
 	int clothChangerSkin = 1;
 	void UpdateMySkinAndMakeMeFabolous(){
 		Invoke ("UpdateSkinGagaForReal", 0.01f);
-
 	}
 
 	void UpdateSkinGagaForReal(){
@@ -1015,6 +1009,9 @@ public class ball_hero : MonoBehaviour
 		my_floor_after_super_jump = my_floor + 5;
 		jetpack.SetActive(true);
         my_alert.SetActive(false);
+		globals.s.ALERT_BALL = false;
+		globals.s.ALERT_BALL_N = 0;
+
         rb.velocity = new Vector2(0, 0);
        // my_skin.GetComponent<Animator>().Play("Jumping");
         my_skin.GetComponent<Animator>().SetBool("Jumping", true);
@@ -1028,7 +1025,6 @@ public class ball_hero : MonoBehaviour
 		target_y = (globals.s.BASE_Y + ((my_floor) * globals.s.FLOOR_HEIGHT) +  (5* globals.s.FLOOR_HEIGHT) + globals.s.FLOOR_HEIGHT / 2 - 0.6f );
 
         //construct floors
-        int i;
         int temp = my_floor;
         globals.s.PW_SUPER_JUMP = true;
 
@@ -1258,13 +1254,32 @@ public class ball_hero : MonoBehaviour
             //heart_start();
 			heart_active = true;
 			myShield.SetActive (true);
+			myShield.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
+			endingOngoing = false;
         }
         else if (globals.s.PW_INVENCIBLE == false && heart_active == true) {
-            //heart_end();
 			myShield.SetActive (false);
 			heart_active = false;
         }
+		else if (globals.s.PW_INVENCIBLE == true && heart_active == true  &&  endingOngoing == false && globals.s.PW_ENDING == true) {
+//			myShield.SetActive (false);
+//			heart_active = false;
+			endingOngoing = true;
+			ShieldEndingEffect();
+		}
     }
+
+	bool endingOngoing = false;
+	public void ShieldEndingEffect() {
+		if (globals.s.PW_INVENCIBLE == true && heart_active == true) {
+			myShield.GetComponent<SpriteRenderer>().DOFade(0,0.30f).OnComplete(ShieldEndingEffect2);
+		}
+	}
+
+	void ShieldEndingEffect2() {
+		if (globals.s.PW_INVENCIBLE == true && heart_active == true) 
+			myShield.GetComponent<SpriteRenderer>().DOFade(1,0.30f).OnComplete(ShieldEndingEffect);
+	}
     #endregion
 
 

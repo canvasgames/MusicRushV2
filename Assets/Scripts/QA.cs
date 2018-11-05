@@ -8,14 +8,15 @@ public class QA : MonoBehaviour {
 
     public static QA s;
 	[Header ("MAIN VARS")]
-	public bool PC_MODE = true;
 	public bool INVENCIBLE ;
 	public float TIMESCALE = 1;
+	public bool FORCED_LOW_FRAME_RATE = false;
 	public bool SHOW_WAVE_TYPE = false;
 	public bool ALWAYS_REVIVE = false;
 	public bool SPIN_INFINITE = false;
 
 	[Space (10)]
+	public bool PC_MODE = true;
 
 	public bool FLOOR_PARTICLES = true;
 	public bool NO_PWS = false;

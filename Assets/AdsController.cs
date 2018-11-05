@@ -20,4 +20,10 @@ public class AdsController : MonoBehaviour {
 
         AnalyticController.s.ReportVideoWatchedForPowerUps();
 	}
+
+	public bool ThereAvailableAds(){
+		return false;
+	}
+
+
 }
