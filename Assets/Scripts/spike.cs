@@ -23,7 +23,7 @@ public class spike : scenario_objects {
 
     float timer = 0;
     float target_y;
-    [HideInInspector] public PolygonCollider2D my_collider;
+    public PolygonCollider2D my_collider;
 
     private void OnEnable()
     {

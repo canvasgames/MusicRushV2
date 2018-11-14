@@ -6,10 +6,14 @@ using DG.Tweening;
 using System;
 using UnityEngine.Advertisements;
 
+public enum RewardedVideoType{ Revive, ResortChar, RespinDisk, SpinDisk, DoubleReward}
+
 public class hud_controller : MonoBehaviour {
 
 	#region === Variables Declaration ===
 	public static hud_controller si;
+
+	RewardedVideoType curVideoType = RewardedVideoType.Revive;
 
 	public GameObject displayingVideoMessage;
 
@@ -476,7 +480,7 @@ public class hud_controller : MonoBehaviour {
 
 	#endregion
 
-	#region ========== Store ==========
+	#region ==== Store ====
 	float pw_info_y, game_title_y;
 
 	public void OnJukeboxBtPressed(){
@@ -935,7 +939,7 @@ public class hud_controller : MonoBehaviour {
     }
     #endregion
 
-    #region =========== REVIVE ================
+    #region ===== REVIVE =======
     public void show_revive_menu()
     {
 		Debug.Log ("[HUD] REVIVE MENU OPENING");
@@ -1032,6 +1036,22 @@ public class hud_controller : MonoBehaviour {
     #endregion
 
 	#region ======== Video =========
+
+	public void DisplayRewardedVideo2(string videoType){
+		RewardedVideoType tempVideo = (RewardedVideoType) System.Enum.Parse (typeof(RewardedVideoType), videoType);
+		if (tempVideo != null) { // @TBD THERE IS REWARDED VIDEO TO SHOW
+			curVideoType = tempVideo;
+			ShowAd ();
+		}
+	}
+
+	public void DisplayRewardedVideo(RewardedVideoType videoType){
+		if (1 == 1) { // @TBD THERE IS REWARDED VIDEO TO SHOW
+			curVideoType = videoType;
+			ShowAd ();
+		}
+	}
+
     public void show_video_pw()
     {
         //globals.s.MENU_OPEN = true;
@@ -1042,12 +1062,10 @@ public class hud_controller : MonoBehaviour {
 //        {
         
 
-		#if UNITY_ANDROID
 		flagVideoRevive = false;
 		flagVideoCoins = false;
 		flagVideoPower = true;
         ShowAd();
-		#endif
 
 		if (QA.s.PC_MODE)
 			watched_the_video_pw();
@@ -1139,28 +1157,28 @@ public class hud_controller : MonoBehaviour {
     {
         switch (result)
         {
-            case ShowResult.Finished:
-                Debug.Log("The ad was successfully shown.");
+		case ShowResult.Finished:
+			Debug.Log ("The ad was successfully shown.");
                 //
                 // YOUR CODE TO REWARD THE GAMER
-                if(flagVideoPower == true)
-                {
-                    CAN_ROTATE_ROULETTE = true;
-                    PlayerPrefs.SetInt("CanRotate", 1);
-					roda_a_roda.ReSpinVideoWatched ();
+			if (flagVideoPower == true || curVideoType == RewardedVideoType.RespinDisk) {
+				CAN_ROTATE_ROULETTE = true;
+				PlayerPrefs.SetInt ("CanRotate", 1);
+				roda_a_roda.ReSpinVideoWatched ();
 //                    StartCoroutine (openTampa());
-					//Invoke("activeRodaaRoda", 1);
-                    flagVideoPower = false;
-                }
-                else if(flagVideoRevive == true)
-                {
-                    watched_the_video_revive();
-                }
-                else if(flagVideoCoins == true)
-                {
+				//Invoke("activeRodaaRoda", 1);
+				flagVideoPower = false;
+			} else if (flagVideoRevive == true || curVideoType == RewardedVideoType.Revive) {
+				watched_the_video_revive ();
+			} else if (flagVideoCoins == true || curVideoType == RewardedVideoType.ResortChar) {
 //					store_controller.s.watchedVideo();
-					store_controller.s.WatchedVideoForResort();
-                }
+				store_controller.s.WatchedVideoForResort ();
+			} else if (curVideoType == RewardedVideoType.SpinDisk) {
+				RodaMenu ();
+			} else if (curVideoType == RewardedVideoType.DoubleReward) {
+
+			}
+
                 // Give coins etc.
                 break;
             case ShowResult.Skipped:
@@ -1175,12 +1193,10 @@ public class hud_controller : MonoBehaviour {
 					//Invoke("activeRodaaRoda", 1);
 					flagVideoPower = false;
 				}
-				else if(flagVideoRevive == true)
-				{
+				else if(flagVideoRevive == true) {
 					watched_the_video_revive();
 				}
-				else if(flagVideoCoins == true)
-				{
+				else if(flagVideoCoins == true) {
 					//					store_controller.s.watchedVideo();
 					store_controller.s.WatchedVideoForResort();
 				}
@@ -1214,7 +1230,7 @@ public class hud_controller : MonoBehaviour {
     }
 	#endif
 
-	#region ======== Menu Power Ups ============
+	#region ======== SPIN DISK ============
 	public void RodaMenu(){
 		//StartCoroutine(activeRodaaRoda());
 		globals.s.previousGameScreen = globals.s.curGameScreen;

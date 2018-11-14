@@ -84,7 +84,7 @@ public class BallMaster : MonoBehaviour {
 	}
 
 	IEnumerator JumpMothaFockaJump(bool iAmLeft){
-        Debug.Log("bbbbbbbbbbbbb");
+//        Debug.Log("bbbbbbbbbbbbb");
 
         for (int i = 0; i <= globals.s.ACTUAL_SKIN.bandN - 2; i++) {
 			yield return new WaitForSeconds (GD.s.FOLLOWER_DELAY);
@@ -118,7 +118,7 @@ public class BallMaster : MonoBehaviour {
 		currentBall = 0;
 
 		Debug.Log ("[BALLMASTER]! NEW GAME LOGIC - UPDATE BALL SKIN ");
-		if (balls.ToArray () [1].enabled)
+		if (balls.ToArray () [1].gameObject.activeInHierarchy)
 			balls.ToArray () [1].UpdateMySkin ();
 		else {
 			balls.ToArray () [1].gameObject.SetActive (true);

@@ -19,7 +19,7 @@ public class saw : scenario_objects
     bool already_alerted = false;
     public bool triple_spk = false;
     float timer = 0;
- 	public string wave_name;
+ 	public string wave_name = "";
     public float distance2Appear = 0;
 
     private void OnEnable()

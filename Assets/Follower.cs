@@ -50,6 +50,7 @@ public class Follower : MonoBehaviour {
 	}
 
 	public void UpdateMySkin(Skin skin, int bandPosition, Vector2 velocity){
+//		Debug.Log ("FOLLOWER " + bandPosition + " UPDATE MY SKIN!! : " + skin.skinName);
 		iAmDead = false;
 		myBandPosition = bandPosition;
 

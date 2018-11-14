@@ -386,6 +386,7 @@ public class sound_controller : MonoBehaviour
 	public void PlaySfxTrapHiddenSpikeAppear()	{ 
 		if (soundMuted == false) {
 			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/Traps/sfx_trap_hidden_spike_appear");
+			Debug.Log (" PLAY HIDDEN SPIKE");
 		}
 	}
 

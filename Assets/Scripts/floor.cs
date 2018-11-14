@@ -21,7 +21,7 @@ public class floor : scenario_objects {
 	public bool already_placed = false;
 	public GameObject pauta;
 	public GameObject myHighscoreAnimation = null;
-	bool canUpdate;
+	bool canUpdate = false;
 	#endregion
 
     // Use this for initialization

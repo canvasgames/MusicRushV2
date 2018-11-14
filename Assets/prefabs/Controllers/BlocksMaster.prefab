@@ -51,9 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dea727388cc364418dd650933772ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NotRepeatFrequency: 3
+  NotRepeatFrequency: 1
   NewCreationLogic: 1
-  superEasy: 1
+  superEasy: 100
   easy: 15
   medium: 30
   hard: 45
@@ -124,6 +124,35 @@ MonoBehaviour:
       xInit: -2.1
       xEnd: 0
       fixedDist: 0
+  - name: Saw_Spk_5
+    customName: Saw_Spk
+    chance: 5
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: saw_[3, 3.4]
+      myType: 4
+      xInit: 3
+      xEnd: 3.4
+      fixedDist: 0
+    - name: hiddenSpk_3
+      myType: 2
+      xInit: 3
+      xEnd: 0
+      fixedDist: 0
+    obstaclesFloor2: []
+  - name: hhh_150
+    customName: hhh
+    chance: 150
+    type: 0
+    denyConditions: 
+    obstacles:
+    - name: hiddenSpk_[-1, 1]
+      myType: 2
+      xInit: -1
+      xEnd: 1
+      fixedDist: 0
+    obstaclesFloor2: []
   BlocksEasy:
   - name: easy_2_spks_mid_near_10
     customName: easy_2_spks_mid_near

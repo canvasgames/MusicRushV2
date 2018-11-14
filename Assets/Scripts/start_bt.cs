@@ -44,7 +44,7 @@ public class start_bt : MonoBehaviour {
 			}
 		}
 		else{
-			Debug.Log ("CAN TAP " + canTap   );
+			if ( globals.s.curGameScreen == GameScreen.MainMenu) Debug.Log ("CAN TAP " + canTap  + " CUR SCREEN: "+ globals.s.curGameScreen +" GAME STARTED "+  globals.s.GAME_STARTED + " MENU OPEN FALSE " + globals.s.MENU_OPEN  + "  GIFT ANIMATION " + globals.s.GIFT_ANIMATION);
 		}
 
     }

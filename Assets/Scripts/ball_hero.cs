@@ -50,7 +50,7 @@ public class ball_hero : MonoBehaviour
     public float time_dif;
     //public GameObject
 
-    Rigidbody2D rb;
+   	public Rigidbody2D rb;
 	SpriteRenderer mySprite;
     [HideInInspector]
     public Vector2 vetor;
@@ -68,7 +68,7 @@ public class ball_hero : MonoBehaviour
 
     void Awake() {
 		myFollowers = null;
-        rb = transform.GetComponent<Rigidbody2D>();
+//        rb = transform.GetComponent<Rigidbody2D>();
         my_alert.SetActive(false);
     }
 
@@ -94,7 +94,7 @@ public class ball_hero : MonoBehaviour
 
 	void OnEnable() {
 		if (first_ball == false && my_skin.activeInHierarchy && myStyle != globals.s.ACTUAL_STYLE) {
-//			Debug.Log (iAmLeft + " [BALL HERO] UPDATE BALL SKIN ON ENABLE");
+			Debug.Log (iAmLeft + " [BALL HERO] UPDATE BALL SKIN ON ENABLE");
 			UpdateMySkin ();
 		}
 	}
@@ -137,7 +137,9 @@ public class ball_hero : MonoBehaviour
 				my_skin.GetComponent<Animator> ().runtimeAnimatorController = 
 					Resources.Load ("Sprites/Animations/" + globals.s.ACTUAL_STYLE.ToString () + "Animator") as RuntimeAnimatorController;
 			}
-		} else if (globals.s.ACTUAL_SKIN.isBand == true) {
+		} 
+		//band case
+		else if (globals.s.ACTUAL_SKIN.isBand == true) {
 			if (Resources.Load ("Sprites/Animations/" + globals.s.ACTUAL_STYLE.ToString () + "Band1" + "Animator") as RuntimeAnimatorController != null) {
 				my_skin.GetComponent<Animator> ().runtimeAnimatorController = 
 					Resources.Load ("Sprites/Animations/" + globals.s.ACTUAL_STYLE.ToString () + "Band1" + "Animator") as RuntimeAnimatorController;
@@ -149,7 +151,7 @@ public class ball_hero : MonoBehaviour
 				
 			//UPDATE BAND! USERSS!
 			myFollowers = new Follower[globals.s.ACTUAL_SKIN.bandN - 1];
-			Debug.Log ("[BALL BAND] INIT MY FOLLOWERS - SIZE: " + myFollowers.Length);
+			Debug.Log (iAmLeft + " [BALL BAND] INIT MY FOLLOWERS - SIZE: " + myFollowers.Length);
 //			myFollowers = BallMaster.s.GimmeMyFollowers (globals.s.ACTUAL_SKIN.bandN);
 
 			//ADD FOLLOWERS
@@ -163,12 +165,22 @@ public class ball_hero : MonoBehaviour
 //				Debug.Log (iAmLeft + i.ToString () + " uu3 UPDATE MY SKIN: " + globals.s.ACTUAL_STYLE.ToString ());
 //				Debug.Log (i.ToString ()  + " my followER name : " + myFollowers[i].name + " NULL: "+ myFollowers[i] );
 
-				myFollowers [i].gameObject.SetActive (true);
-				myFollowers [i].UpdateMySkin (globals.s.ACTUAL_SKIN, i + 2, rb.velocity);
+				if (myFollowers [i] == null)
+					Debug.LogError (" follower is nul...");
+				else {
+					myFollowers [i].gameObject.SetActive (true);
+//					Debug.Log (" SKIN: " + globals.s.ACTUAL_SKIN.skinName + " FOLLOWER NAME :" + myFollowers[i].name );
 
-				Debug.Log (iAmLeft + i.ToString () + "usd4 UPDATE MY SKIN: " + globals.s.ACTUAL_STYLE.ToString ());
+					myFollowers [i].UpdateMySkin (globals.s.ACTUAL_SKIN, i + 2, rb.velocity);
+
+//					Debug.Log (" SKIN:222 " + globals.s.ACTUAL_SKIN.skinName);
+
+				}
+
+//				Debug.Log (iAmLeft + i.ToString () + "usd4 UPDATE MY SKIN: " + globals.s.ACTUAL_STYLE.ToString ());
 			} 
 		}
+		//gaga case
 		else if (globals.s.ACTUAL_SKIN.isClothChanger == true) {
 //			Debug.Log ("!!!!!!!!!IS CLOTH CHANGER");
 			my_skin.GetComponent<Animator> ().runtimeAnimatorController = 
@@ -715,7 +727,10 @@ public class ball_hero : MonoBehaviour
             {
                 if (globals.s.PW_INVENCIBLE == false)
                 {
-                    destroy_me(coll.gameObject.GetComponent<saw>().wave_name);
+					if (coll.gameObject.GetComponent<saw> () != null)
+						destroy_me (coll.gameObject.GetComponent<saw> ().wave_name);
+					else
+						Debug.Log (" SAW IS NULL.. THIS SHOULD NEVER HAPPEN");
                     //coll.gameObject.transform.position = new Vector3(coll.gameObject.transform.position.x + 50, coll.gameObject.transform.position.y, coll.gameObject.transform.position.z);
                 }
                 else {

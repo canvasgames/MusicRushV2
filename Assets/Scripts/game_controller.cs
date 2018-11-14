@@ -391,7 +391,7 @@ public class game_controller : MonoBehaviour {
         killer_wave_to_report = killer_wave_name;
         time_to_report = (int)(Time.time - starting_time);
 
-		if (globals.s.BALL_FLOOR <= 4) { // instant revive logic
+		if (globals.s.BALL_FLOOR <= 3) { // instant revive logic
 			StartCoroutine( InstantRestartLogic ());
 
 		} else { // start game over logic
@@ -458,6 +458,7 @@ public class game_controller : MonoBehaviour {
 	#region ==== RESTART====
 
 	IEnumerator InstantRestartLogic(){
+		Debug.Log ("[GM] INSTANT RESTART LOGIC start");
 		globals.s.GAME_OVER = 1;
 		AnalyticController.s.ReportGameEnded(killer_wave_to_report, time_to_report);
 		yield return new WaitForSeconds (0.5f + 0.20f * globals.s.ACTUAL_SKIN.bandN);
@@ -834,8 +835,12 @@ public class game_controller : MonoBehaviour {
 		if (wave_found == false) {
 			Debug.Log ("\n******* ERROR! WAVE NOT FOUND!! ********");
 			create_floor (0, n_floor);
+		} else {
+			wave_name = "";
+			if (QA.s.TRACE_PROFUNDITY >= 1)
+				Debug.Log ("\n " + n_floor + " - " + wave_name);
 		}
-        else if (QA.s.TRACE_PROFUNDITY >= 1) Debug.Log("\n " + n_floor + " - " + wave_name);
+
 
         n_floor++;
 

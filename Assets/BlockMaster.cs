@@ -23,6 +23,7 @@ public class BlockMaster : MonoBehaviour {
 	#region === Vars ===
 	public static BlockMaster s;
 
+	int i=0;
 //	public InputField iField;
 	Obstacle[] nextBlock;
 	public int NotRepeatFrequency;
@@ -929,7 +930,7 @@ public class BlockMaster : MonoBehaviour {
 			BlockType blockType = BlockType.SpkMid;
 			int last = 0;
 
-			while (blockfound == false && count < 3) {
+			while (blockfound == false && count < 5) {
 				count++;
 				int rand = Random.Range (0, max);
 				last = 0;
@@ -937,10 +938,12 @@ public class BlockMaster : MonoBehaviour {
 				if(QA.s.LOG_BLOCKMASTER) Debug.Log (" LLLLLLLLLL  " + count + " RAND: " + rand + " MAX CHANCE " + max + " LLLLLLLLLL  ");
 				foreach (Block block in BlockList) {
 					blockType = block.type;
-					last = last + GetBlockChance (blockType);
+					last = last + GetBlockChance (block.name);
 					if(QA.s.LOG_BLOCKMASTER && rand < last && blockfound == false) Debug.Log (count + "KKK BLOCK: " + blockType.ToString () + " MY CHANCE: " + block.chance.ToString () + "...  RAND: " + rand + " REAL VALUE: "+ last);
+					if(QA.s.LOG_BLOCKMASTER && blockfound == false) Debug.Log (count + "KKK BLOCK: " + blockType.ToString () + " MY CHANCE: " + block.chance.ToString () + "...  RAND: " + rand + " REAL VALUE: "+ last);
 
 					if (blockfound == false && rand < last) {
+						game_controller.s.wave_name = block.name;
 //					if ( AllowCreationByDenyConditions (block) && CreateBlockByType (blockType, n_floor)) {
 						if (!justCreatedBlockTypes.Contains (block.name) && AllowCreationByDenyConditions (block, n_floor) && CreateBlockByType (block, n_floor)) {
 							if(QA.s.LOG_BLOCKMASTER) Debug.Log (count + " bbbbbbbbbbbbbbbb BLOCK FOUND! " + blockType + "  name: " + block.name);
@@ -965,7 +968,8 @@ public class BlockMaster : MonoBehaviour {
 							}
 							break;
 						}
-					} else
+					} 
+					else
 						if(QA.s.LOG_BLOCKMASTER)Debug.Log (count + " ~~~~~~~~ CAN'T FIND SEARCHING BLOCK.... LAST : " + last + " BLOCK FOUND IS "+  blockfound + " NAME: " + block.name);
 				}
 			}
@@ -987,7 +991,6 @@ public class BlockMaster : MonoBehaviour {
 					}
 				}
 			}
-
 			return blockfound;
 		} else {
 //			B_Custom2FloorsBlock (nextBlock, n);,
@@ -1002,10 +1005,12 @@ public class BlockMaster : MonoBehaviour {
 		}
 	}
 	
-	int GetBlockChance(BlockType type){
-		foreach (Block b in BlockList) {
-			if (b.type == type) {
-				return b.chance;
+	int GetBlockChance(string blockName){
+//		foreach (Block b in BlockList) {
+		Block[] arrayBlock = BlockList.ToArray();
+		for (i=0; i < arrayBlock.Length ; i++) {
+			if (arrayBlock[i].name == blockName) {
+				return arrayBlock[i].chance;
 			}
 		}
 		return 0;

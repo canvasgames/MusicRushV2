@@ -12,8 +12,8 @@ public enum MusicStyle{
 	Latina = 7,
 	Reggae = 8,
 	AnimeShounen = 9,
-//	DingoBells = 10,
-	Lenght = 10
+	DingoBells = 10,
+	Lenght = 11
 }
 
 public struct Skin{
@@ -143,7 +143,8 @@ public class GD : MonoBehaviour {
 		// RAP = 7
 		NewSkin("Jing Bling", MusicStyle.Rap, 1);
 		NewSkin("Rap Boy", MusicStyle.Rap, 2);
-		NewSkin("Jump This Way", MusicStyle.Rap, 3, true, 3, false, SkinRarity.uncommon);
+//		NewSkin("Jump This Way", MusicStyle.Rap, 3, true, 3, false, SkinRarity.uncommon);
+		NewSkin("Jump This Way", MusicStyle.DingoBells, 3, true, 3, false, SkinRarity.uncommon);
 
 		// LATINA = 8
 		NewSkin("Waka Waka", MusicStyle.Latina, 1);
@@ -160,6 +161,9 @@ public class GD : MonoBehaviour {
 		NewSkin("Ora Ora Ora", MusicStyle.AnimeShounen, 1);
 		NewSkin("Not a Ninja", MusicStyle.AnimeShounen, 2);
 		NewSkin("Revived Franchise", MusicStyle.AnimeShounen, 3, true, 3, false, SkinRarity.uncommon);
+
+		// DINGO BELLS = 11
+//		NewSkin("Dingo Bells", MusicStyle.DingoBells, 3, true, 3, false, SkinRarity.rare);
 
 //		for (int i = 0; i < MusicStyle.Lenght; i++) {
 //			skins [i] = new Skin[3];
@@ -241,7 +245,8 @@ public class GD : MonoBehaviour {
 		else if (style == MusicStyle.Pop)
 			return "music_pop";
 		else if (style == MusicStyle.Rap)
-			return "music_rap";
+			return "music_dingo_bells_2";
+//			return "music_rap";
 //			return "music_funk";
 //			return "music_ty_hands_on";
 		else if (style == MusicStyle.PopGaga)
@@ -252,8 +257,9 @@ public class GD : MonoBehaviour {
 			return "music_samba";
 		else if (style == MusicStyle.AnimeShounen)
 			return "music_anime_shounen";
-		//		else if (style == MusicStyle.DingoBells)
-		//			return "Dingo Bells";
+		else if (style == MusicStyle.DingoBells)
+			return "music_dingo_bells_2";
+
 		else return "";
 	}
 

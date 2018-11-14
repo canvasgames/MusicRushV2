@@ -47,6 +47,7 @@ public class QA : MonoBehaviour {
 	public GameObject SqBt, invButton;
 
 	public void ResetStuff(){
+		Debug.Log ("QA RESET STUFF CALLED");
 		BallMaster.s.NewGameLogic ();
 //		sound_controller.s.change_music((MusicStyle) globals.s.
 		sound_controller.s.SoltaOSomAeDJAndreMarques (globals.s.ACTUAL_STYLE);
