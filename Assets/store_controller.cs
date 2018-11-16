@@ -103,7 +103,7 @@ public class store_controller : MonoBehaviour {
 //		StartCoroutine (InitCoinFallingAnimation (globals.s.NOTES_COLLECTED_JUKEBOX));
 
         s = this;
-//		USER.s.AddNotes (101);
+//		USER.s.AddNotes (70);
 
 		PlayerPrefs.SetInt(GD.s.skins[0].skinName+"AlreadyBuyed", 1);
 //		PlayerPrefs.SetInt(MusicStyle.Rap.ToString()+"AlreadyBuyed", 1);
@@ -128,15 +128,17 @@ public class store_controller : MonoBehaviour {
 //		alreadyBuyed[(int)MusicStyle.Samba] = PlayerPrefs.GetInt("sambaAlreadyBuyed", 0);
 //		alreadyBuyed[(int)MusicStyle.DingoBells] = PlayerPrefs.GetInt("dingoBellscAlreadyBuyed", 0);
 
-		for (int i = 0; i < alreadyBuyed.Length; i++) {
+		if(FTUController.s.firstSongPurchased == 1){
+			for (int i = 0; i < alreadyBuyed.Length; i++) {
 //			PlayerPrefs.SetInt(((MusicStyle)i).ToString()+"AlreadyBuyed", 0);
-			int unlocked = 0;
-			if (QA.s.ALL_UNLOCKED)
-				unlocked = 1;
-			alreadyBuyed[i] = PlayerPrefs.GetInt(GD.s.skins[i].skinName + "AlreadyBuyed", unlocked);
+				int unlocked = 0;
+				if (QA.s.ALL_UNLOCKED)
+					unlocked = 1;
+				alreadyBuyed [i] = PlayerPrefs.GetInt (GD.s.skins [i].skinName + "AlreadyBuyed", unlocked);
 //			Debug.Log("ALREADY BUYED I: "+ i + " TRUE: " + alreadyBuyed[i]);
-			if (alreadyBuyed [i] == 1)
-				nCharsBuyed++;
+				if (alreadyBuyed [i] == 1)
+					nCharsBuyed++;
+			}
 		}
 
 //		changeAnimationEquipButton("eletronic");
