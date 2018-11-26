@@ -878,8 +878,9 @@ public class BlockMaster : MonoBehaviour {
 
 		if ((b.type == BlockType.Custom2Blocks || b.type == BlockType.HoleAbove) &&
 		    (n_floor == USER.s.DAY_SCORE - 1 || n_floor == USER.s.LAST_SCORE - 1 || n_floor == USER.s.BEST_SCORE - 1)) {
+//			if (QA.s.LOG_BLOCKMASTER) Debug.Log ("[BM] ÇÇÇÇÇ FLOOR SIGN IS ABOVE ÇÇÇÇÇÇ CANT CREATE 2 FLOOR BLOCK");
+			 Debug.Log ("[BM] ÇÇÇÇÇ FLOOR SIGN IS ABOVE ÇÇÇÇÇÇ CANT CREATE 2 FLOOR BLOCK");
 			return false;
-			if (QA.s.LOG_BLOCKMASTER) Debug.Log ("[BM] ÇÇÇÇÇ FLOOR SIGN IS ABOVE ÇÇÇÇÇÇ CANT CREATE 2 FLOOR BLOCK");
 		}
 
 		return true;

@@ -727,17 +727,16 @@ public class game_controller : MonoBehaviour {
     #region ====== GAME LOGIC ====== 
 
 	int lastFloor = -1;
-    public void ball_up(int ball_floor)
-    {
-        if (ball_floor > cur_floor) {
-            // if (ball_floor >= 1) camerda.GetComponent<Rigidbody2D>().velocity = new Vector2(0, globals.s.CAMERA_SPEED);
+	public void ball_up(int ball_floor, bool dontSaveBallFloor = false, bool dontCreateObstacles = false) {
+		if (ball_floor > cur_floor) {
+			// if (ball_floor >= 1) camerda.GetComponent<Rigidbody2D>().velocity = new Vector2(0, globals.s.CAMERA_SPEED);
 			coinAlreadTryiedToCreateThisFloor = false;
 			coinSuccefullyCreated = false;
 			pwAlreadyTryiedToCreateThisFloor = false;
 
 			cur_floor = ball_floor;
-            hud_controller.si.update_floor(cur_floor);
-			globals.s.BALL_FLOOR = cur_floor;
+			hud_controller.si.update_floor (cur_floor);
+			if(dontSaveBallFloor == false) globals.s.BALL_FLOOR = cur_floor;
 //			globals.s.BALL_CUR_FLOOR_Y = globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * cur_floor;
 
 			if (USER.s.NEWBIE_PLAYER == 1 && cur_floor >= GD.s.FTU_NEWBIE_SCORE) {
@@ -746,32 +745,34 @@ public class game_controller : MonoBehaviour {
 
 			// NEW STAGE WARNING
 			if (globals.s.PW_SUPER_JUMP == false) {
-				for (int k = 0; k < GD.s.SCENERY_FLOOR_VALUES.Length ; k++) {
-					if(cur_floor == GD.s.SCENERY_FLOOR_VALUES[k]) 
-						stage_intro.s.StartEntering (k+2);
+				for (int k = 0; k < GD.s.SCENERY_FLOOR_VALUES.Length; k++) {
+					if (cur_floor == GD.s.SCENERY_FLOOR_VALUES [k])
+						stage_intro.s.StartEntering (k + 2);
 //						stage_intro.s.StartEntering ((int)(cur_floor/5)+1);
-
 				}
 			}
 
-			Debug.Log ("NEW CUR FLOOR!! " + cur_floor);
+			Debug.Log ("[GM] BALL UP - NEW CUR FLOOR!! " + cur_floor);
 
 			if (ball_floor >= lastFloor) {
-				create_new_wave ();
+				Debug.Log ("[GM] create new wave! " + ball_floor);
+
+				create_new_wave (dontCreateObstacles);
 				lastFloor = ball_floor;
 			}
 
 			NewHighscoreAnimation (ball_floor);
 
 //			if (ball_floor >= 5 && ball_floor % 5 == 0) {
-			if (ball_floor >= 5 && musicLayerN < GD.s.SCENERY_FLOOR_VALUES.Length && ball_floor > GD.s.SCENERY_FLOOR_VALUES[musicLayerN] -1 ) {
+			if (ball_floor >= 5 && musicLayerN < GD.s.SCENERY_FLOOR_VALUES.Length && ball_floor > GD.s.SCENERY_FLOOR_VALUES [musicLayerN] - 1) {
 				Debug.Log (" NNNNNNNEEEEEEW LAYER! " + cur_floor);
 				musicLayerN++;
 				if (sound_controller.s != null)
 					sound_controller.s.update_music ();
 			}
 
-        }
+		} else { Debug.Log ("[GM] DONT CREATE FLOOR. cur_floor: " + cur_floor + " .. PARAM FLOOR: " + ball_floor);
+		}
 //        else if (ball_floor >= 1) {
 //            camerda.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 //            //Debug.Log( "~~~~~~~~~~~~~~~~ DON'T CREATE FLOOR!!!! BALL FLOOR: "+ ball_floor + " CUR FLOOR: " + cur_floor);
@@ -790,7 +791,7 @@ public class game_controller : MonoBehaviour {
 		}
 	}
 
-    public void create_new_wave (){
+	public void create_new_wave (bool emptyFloor = false){
 		Debug.Log(" \n::::::::::::::::::::::: CREATING NEW FLOOR: " +n_floor);
 		#if DEBUGMODE
 		#endif
@@ -813,10 +814,12 @@ public class game_controller : MonoBehaviour {
             // ======== SORT INITIAL WAVES! ========
 			if (1 == 2) {
 				wave_found = create_wave_saw_far (n_floor, 1);
-			} else if (n_floor - 1 == GD.s.SCENERY_FLOOR_VALUES [0]
-			           || n_floor - 1 == GD.s.SCENERY_FLOOR_VALUES [1]
-			           || n_floor - 1 == GD.s.SCENERY_FLOOR_VALUES [2]
-			           || n_floor - 1 == GD.s.SCENERY_FLOOR_VALUES [3]) {
+			} 
+			else if (emptyFloor == true ||
+					n_floor - 1 == GD.s.SCENERY_FLOOR_VALUES [0]
+		           || n_floor - 1 == GD.s.SCENERY_FLOOR_VALUES [1]
+		           || n_floor - 1 == GD.s.SCENERY_FLOOR_VALUES [2]
+		           || n_floor - 1 == GD.s.SCENERY_FLOOR_VALUES [3]) {
 				wave_found = true;
 				create_floor (0, n_floor);
 				BlockMaster.s.ClearDenys ();
@@ -2600,6 +2603,7 @@ GameObject instance = Instantiate(Resources.Load("Prefabs/Bgs/Scenario2/bg_"+ran
 //		 Debug.Log("tttttttttttttttttttttt TRYING TO CREATE SPIKE FLOOR: " + n);
 		float rand_x = 0, xInit = 0, xEnd = 0;
 
+//		if(obstType == ObstaclesType.hiddenSpk || obstType == ObstacleType.hiddenSpk 
 		xInit = (customXInit != 0) ? customXInit : corner_left;
 		xEnd =  (customXEnd != 0) ? customXEnd : corner_right;
 		

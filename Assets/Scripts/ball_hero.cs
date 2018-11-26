@@ -286,7 +286,6 @@ public class ball_hero : MonoBehaviour
 		my_alert.SetActive(false);
 	}
 
-
 	public void activate_pos_revive() // TBD FOLLOWERS
 	{
 		if (transform.position.x > 0)
@@ -327,25 +326,28 @@ public class ball_hero : MonoBehaviour
 		}
 	}
 
-    void Update()
-    {
+    void Update() {
 		// ================= SUPER JUMP START!!!!!!!!!! =====================
-		if (globals.s.PW_SUPER_JUMP == true && transform.position.y >= nextTargetSuperJumpY)
-		{
+//		GetComponent<Transform>().
+		if (globals.s.PW_SUPER_JUMP == true && transform.position.y >= nextTargetSuperJumpY) {
 			Debug.Log ("passing through floor!!! N: " + my_floor);
 
-			my_floor++;
 			nextTargetSuperJumpY += globals.s.FLOOR_HEIGHT;
-			for(int i=0; i< objects_pool_controller.s.floor_scripts.Length;i++){
-				Debug.Log ("[sp] are you ...  " + objects_pool_controller.s.floor_scripts[i].my_floor);
+			if( targetSuperJumpFloor > my_floor + 2) 
+				game_controller.s.ball_up (my_floor, true, true); // f
+			else
+				game_controller.s.ball_up (my_floor, true, false); // f
 
-				if (objects_pool_controller.s.floor_scripts[i].isActiveAndEnabled && objects_pool_controller.s.floor_scripts[i].my_floor == my_floor+1) {
-					Debug.Log ("FLOOR FOFFFOUNDO floor!!! N: " + objects_pool_controller.s.floor_scripts[i].my_floor);
-					objects_pool_controller.s.floor_scripts[i].colidded_super_pw ();
-//					Debug.Log ("PW TRIGGER!! MY FLOOR: " + my_floor);
-					game_controller.s.ball_up (my_floor);
-				}
-			}
+			my_floor++;
+
+//			for(int i=0; i< objects_pool_controller.s.floor_scripts.Length;i++){
+//				Debug.Log ("[sp] are you " + my_floor + "? =>  " + objects_pool_controller.s.floor_scripts[i].my_floor);
+//
+//				if (objects_pool_controller.s.floor_scripts[i].isActiveAndEnabled && objects_pool_controller.s.floor_scripts[i].my_floor == my_floor+1) {
+//					Debug.Log ("FLOOR FOFFFOUNDO floor!!! N: " + objects_pool_controller.s.floor_scripts[i].my_floor);
+//					objects_pool_controller.s.floor_scripts[i].colidded_super_pw ();
+//				}
+//			}
 		}
 
 		// ========================  SHOW ALERT ======================
@@ -353,9 +355,6 @@ public class ball_hero : MonoBehaviour
 //            globals.s.ALERT_BALL = false;
 			myAlertAlreadyShowed = true;
 			StartCoroutine(ShowAlert());
-			//Debug.Log ("!!!!!!!!!!!!!!!!!!! SHOW ALERT NOW !! ");
-//			Invoke("show_alert", 0.05f);
-            //show_alert();
         }
 
         symbols_PW_activate();
@@ -379,16 +378,8 @@ public class ball_hero : MonoBehaviour
 				}
 			}
         }
-        //Vector3 abc = new Vector3(0, 0, 90);
-        //if (rb.velocity.y != 0)
-         //  my_trail.transform.rotation = new Quaternion(0, 0, 110, 0);
-        //else
-        //   my_trail.transform.rotation = new Quaternion(0, 0, 0, 0);
 
-//
-        //Debug.Log (" MY X SPEED: " + rb.velocity.x);
-        //grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Floor"));
-
+		// ==== STOP SUPER JUMP LOGIC  
         if (globals.s.PW_SUPER_JUMP == true && target_y_reached == false && target_y > 0) {
             // main_camera.s.PW_super_jump(transform.position.y);
             if (transform.position.y >= target_y) {
@@ -397,13 +388,54 @@ public class ball_hero : MonoBehaviour
             }
         }
 
-        // falling case
+        // === MAKE MYSELF NOT GROUNDED
         if (rb.velocity.y < -0.02f) grounded = false; //else grounded = true;
        
-        #region ================ Ball Up ====================
-
 		if (globals.s.PW_SUPER_JUMP == false && son_created == false && ((transform.position.x <= globals.s.LIMIT_LEFT + globals.s.BALL_R + 0.3f && rb.velocity.x < 0) ||
-		    (transform.position.x >= globals.s.LIMIT_RIGHT - globals.s.BALL_R - 0.3f && rb.velocity.x > 0))) {
+			(transform.position.x >= globals.s.LIMIT_RIGHT - globals.s.BALL_R - 0.3f && rb.velocity.x > 0))) 
+			Update_BallUp ();
+        
+		// ===== DEACTIVATE MYSELF !!!!! ===========
+        else if (son_created == true && (transform.position.x < globals.s.LIMIT_LEFT - globals.s.BALL_D ||
+		               transform.position.x > globals.s.LIMIT_RIGHT + globals.s.BALL_D)) {
+//			Debug.Log ("Destroy me !!!! my pos:" + transform.position.x);
+
+			son_created = false;
+
+			if(myFollowers != null) DeactivateMyFollowers ();
+			my_alert.SetActive(false);
+			gameObject.SetActive (false);
+			//my_light.SetActive(false);
+		}
+//		else {
+//			Debug.Log (my_id + ": NEVER REACH HERE... SON CREATED: " + son_created);
+//		}
+
+		if (my_id == BallMaster.s.currentBall) {
+            globals.s.BALL_Y = transform.position.y;
+            globals.s.BALL_X = transform.position.x;
+            globals.s.CUR_BALL_SPEED = rb.velocity.x;
+            globals.s.BALL_GROUNDED = grounded;
+//			Debug.Log (" id update: " + my_id);
+
+            //Debug.Log("XY UPDATED | MY ID: " + my_id + " time: " + Time.time + " MY FLOOR " + my_floor + " CUR BALL SPEED: " + globals.s.CUR_BALL_SPEED);
+            //globals.s.BALL_FLOOR = my_floor;
+        }
+
+
+		//Vector3 abc = new Vector3(0, 0, 90);
+		//if (rb.velocity.y != 0)
+		//  my_trail.transform.rotation = new Quaternion(0, 0, 110, 0);
+		//else
+		//   my_trail.transform.rotation = new Quaternion(0, 0, 0, 0);
+
+		//
+		//Debug.Log (" MY X SPEED: " + rb.velocity.x);
+		//grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Floor"));
+    }
+
+	void Update_BallUp(){
+		{
 			// my_light.SetActive(false);
 			// Destroy(my_light);
 			if (QA.s.TRACE_PROFUNDITY >=1) Debug.Log ("BALL UP: END REACHED!!!!!!! MY POS: " + transform.position.x + " LEFT: " + globals.s.LIMIT_LEFT + " RIGHT: " + globals.s.LIMIT_RIGHT);
@@ -419,13 +451,13 @@ public class ball_hero : MonoBehaviour
 			}
 
 			//Debug.Log("BALL DESTROYED TIME: " + Time.time + " .. TIME DIF: " + (Time.time - time_dif));
-//			 Debug.Log (my_id + " BALL UP: END REACHED!!!!!!! MY POS: " + transform.position.x + " LEFT: " + globals.s.LIMIT_LEFT + " RIGHT: " + globals.s.LIMIT_RIGHT);
+			//			 Debug.Log (my_id + " BALL UP: END REACHED!!!!!!! MY POS: " + transform.position.x + " LEFT: " + globals.s.LIMIT_LEFT + " RIGHT: " + globals.s.LIMIT_RIGHT);
 
 			my_son = BallMaster.s.ReturnInactiveBall ();
 			my_son.transform.position = new Vector2 (x_new_pos, transform.position.y + globals.s.FLOOR_HEIGHT);
 
 			PW_controller.s.add_ball (my_son.GetComponent<ball_hero> ());
-//			BallMaster.s.AddNewBall(my_son.GetComponent<ball_hero>());
+			//			BallMaster.s.AddNewBall(my_son.GetComponent<ball_hero>());
 
 			my_son.GetComponent<ball_hero> ().myAlertAlreadyShowed = false;
 
@@ -435,7 +467,7 @@ public class ball_hero : MonoBehaviour
 			my_son.GetComponent<ball_hero> ().grounded = grounded;
 
 
-//			globals.s.CUR_BALL_SPEED = my_son.GetComponent<Rigidbody2D> ().velocity.x;
+			//			globals.s.CUR_BALL_SPEED = my_son.GetComponent<Rigidbody2D> ().velocity.x;
 			globals.s.CUR_BALL_SPEED = -rb.velocity.x;
 			globals.s.BALL_Y = my_son.transform.position.y;
 			globals.s.BALL_X = my_son.transform.position.x;
@@ -464,23 +496,23 @@ public class ball_hero : MonoBehaviour
 			if (hitted_wall)
 				main_camera.s.hitted_on_wall = false;
 
-            // MAKE WALLS POSITION THEMSELVES
-            List<wall> paredez = wall.All;// TBD
+			// MAKE WALLS POSITION THEMSELVES
+			List<wall> paredez = wall.All;// TBD
 			for (int i=0 ; i<paredez.Count ; i++) {
 				paredez.ToArray()[i].place_me_at_the_other_corner (-my_son.transform.position.x, my_floor + 2);
 			}
 
-            // MAKE SAWS POSITION THEMSELVES
-            List<saw> saws = saw.All; // TBD
-            foreach (saw p in saws) {
-                p.place_me_at_the_other_corner(-my_son.transform.position.x, my_floor + 2);
-            }
+			// MAKE SAWS POSITION THEMSELVES
+			List<saw> saws = saw.All; // TBD
+			foreach (saw p in saws) {
+				p.place_me_at_the_other_corner(-my_son.transform.position.x, my_floor + 2);
+			}
 
-            if (USER.s.BEST_SCORE <= 5) {
-//				floor[] floors = GameObject.FindObjectsOfType(typeof(floor)) as floor[];
-//				foreach(floor p in floors){
-//					p.reposite_me_at_the_other_corner(-my_son.transform.position.x, my_floor + 2);
-//				}
+			if (USER.s.BEST_SCORE <= 5) {
+				//				floor[] floors = GameObject.FindObjectsOfType(typeof(floor)) as floor[];
+				//				foreach(floor p in floors){
+				//					p.reposite_me_at_the_other_corner(-my_son.transform.position.x, my_floor + 2);
+				//				}
 
 				List<hole_behaviour> holes = hole_behaviour.All;
 				foreach (hole_behaviour p in holes) {
@@ -503,35 +535,7 @@ public class ball_hero : MonoBehaviour
 			//Debug.Log("------------ NEW BALL CREATED! MY ID: " +my_id +" time: " + Time.time + " | pos y: " +my_son.transform.position.y + " CAMERA Y: " + main_camera.s.transform.position.y);
 
 		}
-        #endregion
-
-		// ===== DEACTIVATE MYSELF !!!!! ===========
-        else if (son_created == true && (transform.position.x < globals.s.LIMIT_LEFT - globals.s.BALL_D ||
-		               transform.position.x > globals.s.LIMIT_RIGHT + globals.s.BALL_D)) {
-//			Debug.Log ("Destroy me !!!! my pos:" + transform.position.x);
-
-			son_created = false;
-
-			if(myFollowers != null) DeactivateMyFollowers ();
-			my_alert.SetActive(false);
-			gameObject.SetActive (false);
-			//my_light.SetActive(false);
-		}
-//		else {
-//			Debug.Log (my_id + ": NEVER REACH HERE... SON CREATED: " + son_created);
-//		}
-
-		if (my_id == BallMaster.s.currentBall) {
-            globals.s.BALL_Y = transform.position.y;
-            globals.s.BALL_X = transform.position.x;
-            globals.s.CUR_BALL_SPEED = rb.velocity.x;
-            globals.s.BALL_GROUNDED = grounded;
-//			Debug.Log (" id update: " + my_id);
-
-            //Debug.Log("XY UPDATED | MY ID: " + my_id + " time: " + Time.time + " MY FLOOR " + my_floor + " CUR BALL SPEED: " + globals.s.CUR_BALL_SPEED);
-            //globals.s.BALL_FLOOR = my_floor;
-        }
-    }
+	}
 
 	void create_note_trail() {
 		//note_trail_behavior obj = (note_trail_behavior)Instantiate(my_note_trail, 
@@ -967,9 +971,7 @@ public class ball_hero : MonoBehaviour
 		Instantiate(explosion, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);
 
 		game_controller.s.game_over(killer_wave_name, bolas, with_high_score);
-
 	}
-
 
     #endregion
 
@@ -1018,6 +1020,7 @@ public class ball_hero : MonoBehaviour
     }
 
     #region === POWER UP -> GO UP ===
+	int targetSuperJumpFloor = 0;
     void go_up_pw_start()
     {
 		if(QA.s.TRACE_PROFUNDITY >=2) Debug.Log ("PW GO UP START!! MY FLOOR: " + my_floor);
@@ -1034,10 +1037,15 @@ public class ball_hero : MonoBehaviour
         rb.gravityScale = 0;
         rb.isKinematic = true;
 
-		nextTargetSuperJumpY = ((globals.s.BASE_Y + ((my_floor+2) * globals.s.FLOOR_HEIGHT) - 0.7f)); // define the target y for Floor creation
-		float pos = ((globals.s.BASE_Y + ((my_floor+1) * globals.s.FLOOR_HEIGHT) +  (5* globals.s.FLOOR_HEIGHT) + globals.s.FLOOR_HEIGHT / 2 ));
-		main_camera.s.init_PW_super_jump( pos,  (pos-transform.position.y)/ 20  + 0.5f);
+		nextTargetSuperJumpY = ((globals.s.BASE_Y + ((my_floor) * globals.s.FLOOR_HEIGHT) - 0.7f)); // define the target y for Floor creation
+//		float pos = ((globals.s.BASE_Y + ((my_floor+1) * globals.s.FLOOR_HEIGHT) +  (5* globals.s.FLOOR_HEIGHT) + globals.s.FLOOR_HEIGHT / 2 ));
+		float pos = ((globals.s.BASE_Y + ((my_floor) * globals.s.FLOOR_HEIGHT) +  (5* globals.s.FLOOR_HEIGHT) + 2.3f ));
+		targetSuperJumpFloor = my_floor + 5;
+//		main_camera.s.init_PW_super_jump( pos,  (pos-transform.position.y)/ 20  + 0.5f);
+//		2.295371
+		Debug.Log ("SP TIME: " + Mathf.Abs(pos - transform.position.y) / 20 + 0.5f);
 		target_y = (globals.s.BASE_Y + ((my_floor) * globals.s.FLOOR_HEIGHT) +  (5* globals.s.FLOOR_HEIGHT) + globals.s.FLOOR_HEIGHT / 2 - 0.6f );
+		main_camera.s.init_PW_super_jump( pos,  (target_y - transform.position.y)/ 20  + 0.5f);
 
         //construct floors
         int temp = my_floor;
@@ -1235,7 +1243,7 @@ public class ball_hero : MonoBehaviour
 		foreach (spike spikes in objects_pool_controller.s.spikes_scripts)
         {
 			if (spikes != null) {
-				Debug.Log ("FOUND!!! " + spikes.transform.position.y);
+//				Debug.Log ("[SUPER JUMP] DESTROY SPIKES FOUND!!! " + spikes.transform.position.y);
 				spikes.destroy_throwed_spikes (yTarget, transform.position.y + globals.s.FLOOR_HEIGHT * 3);
 			}
         }

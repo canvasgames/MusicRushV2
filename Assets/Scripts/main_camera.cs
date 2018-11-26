@@ -80,9 +80,7 @@ public class main_camera : MonoBehaviour {
             else { 
                 target_dif = globals.s.FLOOR_HEIGHT - 0.5f;
                 target_dif = target_dif / 2 + target_dif/4 + (((dif*target_dif)/100) * (target_dif/2)) ;
-
             }
-
 //            Debug.Log("vvvvvvvvvvvvvvvvvvvvv [CAMERA] ON BALL FALLING !! TDIF: " + target_dif + " [] YD: " + (transform.position.y - globals.s.BALL_Y) + " MY POSITION: " + transform.position.y + "  MY TARGET Y " + (transform.position.y - globals.s.FLOOR_HEIGHT - 0.5f));
 
             transform.DOMoveY(transform.position.y - target_dif, 0.4f).SetEase(Ease.InOutQuad).OnComplete(() => falling = false);
