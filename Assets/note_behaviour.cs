@@ -24,7 +24,9 @@ public class note_behaviour : MonoBehaviour {
     }
 
 	public void Init(){
-		DOTween.KillAll ();
+//		DOTween.KillAll ();
+//		Debug.LogError ("((((((((((((((((((KILL ALL !!!!!!");
+		transform.DOKill ();
 		active = true;
 
 		init_y = transform.position.y;

@@ -280,7 +280,7 @@ public class ball_hero : MonoBehaviour
 		StartCoroutine (HideAlertForReal ());
 	}
 	IEnumerator HideAlertForReal(){
-		yield return new WaitForSeconds (0.2f);
+		yield return new WaitForSeconds (0.34f);
 		my_alert.transform.DOScaleY(0, 0.14f);
 		yield return new WaitForSeconds (0.14f);
 		my_alert.SetActive(false);
@@ -789,7 +789,7 @@ public class ball_hero : MonoBehaviour
 			//coll.transform.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
 			//grounded = false;
 			//coll.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -100f);
-			if (transform.position.y < main_camera.s.transform.position.y + cam_fall_dist) { 
+			if (globals.s.PW_SUPER_JUMP == false && transform.position.y < main_camera.s.transform.position.y + cam_fall_dist) { 
 				main_camera.s.OnBallFalling();
 				//coll.transform.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
 			}
@@ -811,6 +811,7 @@ public class ball_hero : MonoBehaviour
 				globals.s.BALL_CUR_FLOOR_Y = coll.gameObject.transform.position.y;
 
 				if (globals.s.PW_SUPER_JUMP) {
+					Debug.Log ("~~~~~~~~~~~~~~ SHOULD NEVER HAPPEN");
 					pw_super_end_for_real();
 				}
 
@@ -834,7 +835,7 @@ public class ball_hero : MonoBehaviour
         //Debug.Log("xxxxxxxxxxxxxxxxxxxxx COLLIDING WITH SOMETHING!");
 
         if (coll.gameObject.CompareTag("Floor")) {
-			//Debug.Log ("FLOOOOOOOOR COLLIDING! " + coll.transform.GetComponent<floor>().my_floor.ToString() );
+//			Debug.Log ("FLOOOOOOOooooooooOR COLLIDING! " + coll.transform.GetComponent<floor>().my_floor.ToString() );
 			if (coll.transform.position.y + coll.transform.GetComponent<floor>().my_skin.GetComponent<SpriteRenderer>().bounds.size.y / 2 <= transform.position.y - globals.s.BALL_R + 1f) {
                 //rb.AddForce (new Vector2 (0, 0));
                 rb.velocity = new Vector2(rb.velocity.x, 0);
@@ -855,7 +856,7 @@ public class ball_hero : MonoBehaviour
 
 //                coll.gameObject.GetComponent<floor>().try_to_display_best_score();
             }
-            else { Debug.Log("" + my_id + " ***************ERROR! THIS SHOULD NEVER HAPPEN ***************\n\n"); }
+			else { Debug.LogError("" + my_id + " ***************ERROR! THIS SHOULD NEVER HAPPEN *************** super jump: "+ globals.s.PW_SUPER_JUMP); }
         }
 
 		else if (coll.gameObject.CompareTag("Revive"))
@@ -1009,8 +1010,12 @@ public class ball_hero : MonoBehaviour
         }
         else if (temp.pw_type == (int)PW_Types.Super)
         {
-            go_up_pw_start();
-			globals.s.pwSuperJumpCollected++;
+			if (globals.s.PW_SUPER_JUMP == false) {
+				go_up_pw_start ();
+				globals.s.pwSuperJumpCollected++;
+			} else {
+				Debug.Log ("SP collision do nothing...");
+			}
         }
         else if((temp.pw_type == (int)PW_Types.Sight))
         {
@@ -1043,9 +1048,9 @@ public class ball_hero : MonoBehaviour
 		targetSuperJumpFloor = my_floor + 5;
 //		main_camera.s.init_PW_super_jump( pos,  (pos-transform.position.y)/ 20  + 0.5f);
 //		2.295371
-		Debug.Log ("SP TIME: " + Mathf.Abs(pos - transform.position.y) / 20 + 0.5f);
 		target_y = (globals.s.BASE_Y + ((my_floor) * globals.s.FLOOR_HEIGHT) +  (5* globals.s.FLOOR_HEIGHT) + globals.s.FLOOR_HEIGHT / 2 - 0.6f );
-		main_camera.s.init_PW_super_jump( pos,  (target_y - transform.position.y)/ 20  + 0.5f);
+		main_camera.s.init_PW_super_jump( pos,  Mathf.Abs(target_y - transform.position.y)/ 20  + 0.5f);
+		Debug.Log ("SP TIME: " + (Mathf.Abs(pos - transform.position.y) / 20 + 0.5f));
 
         //construct floors
         int temp = my_floor;
@@ -1067,7 +1072,7 @@ public class ball_hero : MonoBehaviour
     void go_up_PW() {
 		sound_controller.s.PlaySfxCharacterSuperJumpEffect ();
 
-		if(QA.s.TRACE_PROFUNDITY >=2) Debug.Log ("PW GO UP START STEP 2!! MY FLOOR START:  " + my_floor);
+		if(QA.s.TRACE_PROFUNDITY >=-1) Debug.Log ("[GOUPPW] GO UP START STEP 2!! MY FLOOR START:  " + my_floor);
         //globals.s.PW_SUPER_JUMP = true;
         desactivate_pws_super();
 		superJumpEffect.SetActive (true);
@@ -1093,7 +1098,7 @@ public class ball_hero : MonoBehaviour
     }
 
     void stop_go_up_PW() {
-		if(QA.s.TRACE_PROFUNDITY >=2)  Debug.Log("[GOUPPW] FINISHED GOING UP ! MY Y: " + transform.position.y);
+		if(QA.s.TRACE_PROFUNDITY >=-1)  Debug.Log("[GOUPPW] FINISHED GOING UP ! MY Y: " + transform.position.y);
         rb.velocity = new Vector2(0.3f, globals.s.BALL_SPEED_Y/2);
         rb.gravityScale = 0.5f;
         rb.isKinematic = false;
@@ -1125,6 +1130,7 @@ public class ball_hero : MonoBehaviour
     }
 
    void pw_super_end_for_real() {
+		Debug.Log ("[BALL] SUPER JUMP END FOR REAL");
         globals.s.PW_SUPER_JUMP = false;
         squares_desappear();
         rb.gravityScale = 1;

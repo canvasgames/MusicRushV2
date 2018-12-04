@@ -81,7 +81,7 @@ public class main_camera : MonoBehaviour {
                 target_dif = globals.s.FLOOR_HEIGHT - 0.5f;
                 target_dif = target_dif / 2 + target_dif/4 + (((dif*target_dif)/100) * (target_dif/2)) ;
             }
-//            Debug.Log("vvvvvvvvvvvvvvvvvvvvv [CAMERA] ON BALL FALLING !! TDIF: " + target_dif + " [] YD: " + (transform.position.y - globals.s.BALL_Y) + " MY POSITION: " + transform.position.y + "  MY TARGET Y " + (transform.position.y - globals.s.FLOOR_HEIGHT - 0.5f));
+            Debug.Log("vvvvvvvvvvvvvvvvvvvvv [CAMERA] ON BALL FALLING !! TDIF: " + target_dif + " [] YD: " + (transform.position.y - globals.s.BALL_Y) + " MY POSITION: " + transform.position.y + "  MY TARGET Y " + (transform.position.y - globals.s.FLOOR_HEIGHT - 0.5f));
 
             transform.DOMoveY(transform.position.y - target_dif, 0.4f).SetEase(Ease.InOutQuad).OnComplete(() => falling = false);
         }
@@ -89,20 +89,24 @@ public class main_camera : MonoBehaviour {
 
     public void OnBallTooHigh() {
         if (!falling) {
-//            Debug.Log("[CAMERA] ON BALL TOO HIGH !! BALL Y: " + globals.s.BALL_Y + " | LIMIT: " + (transform.position.y + globals.s.FLOOR_HEIGHT + 1.5f));
+            Debug.Log("[CAMERA] ON BALL TOO HIGH !! BALL Y: " + globals.s.BALL_Y + " | LIMIT: " + (transform.position.y + globals.s.FLOOR_HEIGHT + 1.5f));
             falling = true;
             transform.DOMoveY(transform.position.y + globals.s.FLOOR_HEIGHT + 0.5f, 0.4f).SetEase(Ease.InOutQuad).OnComplete(() => falling = false);
         }
         else Debug.Log("[CAMERA] IT IS FALLING! NOT BALL TO HIGH =/");
     }
 
-    public void init_PW_super_jump(float pos_y, float time)
-    {
-		transform.DOMoveY(pos_y, time).SetEase(Ease.InOutSine);
+    public void init_PW_super_jump(float pos_y, float time) {
+		Debug.Log( "^^^^^^^ [CAM] INIT SUPER JUMP!! TWIENS: "+ DOTween.IsTweening(transform) + " MY YP :" + transform.position.y + " TARGET Y: " + pos_y + " .. ydif: "+ (pos_y - transform.position.y));
+		transform.DOKill ();
+		transform.DOMoveY (pos_y, time).SetEase (Ease.InOutSine); //.OnComplete(() => OnCompleteSuperJumpCamera(pos_y));
 //        transform.DOMoveY(pos_y, 3f).SetEase(Ease.OutSine);
         pw_super_jump = true;
-		Debug.Log( "CAMERA INIT SUPER JUMP!! MY YP :" + transform.position.y + " TARGET Y: " + pos_y);
     }
+	
+	void OnCompleteSuperJumpCamera(float targetY){
+//		Debug.Log ("[[[[[[[[[CAM PW] MY Y: " + transform.position.y + " TARGET Y: " + targetY);
+	}
    
 	public void PW_super_jump(float pos_y) {
         transform.position = new Vector3(transform.position.x, pos_y, transform.position.z);
@@ -117,7 +121,7 @@ public class main_camera : MonoBehaviour {
 
 	void pw_super_jump_end_for_real(){
 		pw_super_jump = false;
-		Debug.Log ("SUPER JUMP END FOR REAL!!");
+		Debug.Log ("[CAM] SUPER JUMP END FOR REAL!!");
 	}
 
 	 public void ResetMeForRestart(){
@@ -132,8 +136,10 @@ public class main_camera : MonoBehaviour {
 	}
 
     public void on_ball_up(float ball_y) {
-        if (!moving && ball_y > transform.position.y - globals.s.FLOOR_HEIGHT / 4)//Debug.Log("MY Y POS: " + transform.position.y);  if (globals.s.BALL_Y > transform.position.y)
+        if (!moving && ball_y > transform.position.y - globals.s.FLOOR_HEIGHT / 4)
         {
+			if(QA.s.TRACE_PROFUNDITY >= -1) Debug.Log("[CAM] ON BALL UP!! MY Y POS: " + transform.position.y);  
+			//if (globals.s.BALL_Y > transform.position.y)
             //rb.velocity = new Vector2(0, globals.s.CAMERA_SPEED);
 
 			camSpeed = globals.s.CAMERA_SPEED;
@@ -241,7 +247,7 @@ public class main_camera : MonoBehaviour {
 		#endif
 
         //transform.position = new Vector3 (0, 0,0);
-        if (pw_super_jump == false && globals.s.REVIVING == false && globals.s.GAME_STARTED == true)
+		if (pw_super_jump == false && globals.s.REVIVING == false && globals.s.GAME_STARTED == true)
         {
             if (globals.s.GAME_OVER == 0 && !falling && !hitted_on_wall) {
                 if (initiated == false)
@@ -250,7 +256,7 @@ public class main_camera : MonoBehaviour {
 					if ( globals.s.BALL_Y > globals.s.FLOOR_HEIGHT*1+ globals.s.BASE_Y &&  
 						((globals.s.CUR_BALL_SPEED > 0 && globals.s.BALL_X > 1.1f) || (globals.s.CUR_BALL_SPEED < 0 && globals.s.BALL_X < -1.1f)) ) //if ball is in a superior position than the camera
                     {
-						Debug.Log (" MY Y " + globals.s.BALL_Y + "  TARGET Y: " + (globals.s.FLOOR_HEIGHT * 1 + globals.s.BASE_Y) + " BALL SPEED : "+globals.s.BALL_SPEED_X+ " BALLX "+ globals.s.BALL_X  );
+						Debug.Log ("[CAM] MY Y " + globals.s.BALL_Y + "  TARGET Y: " + (globals.s.FLOOR_HEIGHT * 1 + globals.s.BASE_Y) + " BALL SPEED : "+globals.s.BALL_SPEED_X+ " BALLX "+ globals.s.BALL_X  );
                         //rb.velocity = new Vector2(0, globals.s.CAMERA_SPEED);
 						camSpeed = globals.s.CAMERA_SPEED;
                         initiated = true;
@@ -297,6 +303,10 @@ public class main_camera : MonoBehaviour {
 
 		}
 		//Debug.Log (camSpeed);
-		transform.position += camSpeed * Vector3.up * Time.deltaTime;
+//		if (pw_super_jump == false) 
+		if(globals.s.PW_SUPER_JUMP == false) transform.position += camSpeed * Vector3.up * Time.deltaTime;
+		if (pw_super_jump == true) {
+//			Debug.Log ("[CAM] SUPER JUMP! IS:" + globals.s.PW_SUPER_JUMP + "My Y: "+transform.position.y +   " ..  ball dif y: " + (transform.position.y - globals.s.BALL_Y));   
+		}
     }
 }

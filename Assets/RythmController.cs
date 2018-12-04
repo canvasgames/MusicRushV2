@@ -18,7 +18,7 @@ public class RythmController : MonoBehaviour {
 	private float next_step_time = 0;
 	int my_state = 0, lightStep = 3, lightStep2 = 15;
 
-	public GameObject[] glowAnimationsObjs;
+	public Animator[] glowAnimationsObjs;
 	Animator[] glowAnimators;
 	public GameObject[] sliderHorizontalObjs;
 	
@@ -63,13 +63,16 @@ public class RythmController : MonoBehaviour {
 //		}
 
 		int a = 0;
-		foreach (GameObject anims in glowAnimationsObjs) {
-			if (a % 2 == 0) {
-				anims.GetComponent<Animator> ().Play ("normal");
+		foreach (Animator anims in glowAnimationsObjs) {
+			if (anims.gameObject.activeInHierarchy && anims != null) {
+				if (a % 2 == 0) {
+					anims.SetTrigger ("Play");
 //				Debug.Log ("REST 0000000000");
-			} else {
-				anims.GetComponent<Animator> ().Play ("normal", 1, 0.7f);
+				} else {
+					anims.Play ("normal", 1, 0.7f);
+//					anims.SetTrigger ("Play");
 //				Debug.Log ("REST NO 0");
+				}
 			}
 
 			//Debug.Log ("HEY LISTEN LINK, YOUR RAP DOESN'T STINK " + a + " LENGT: " + glowAnimators [a]);
@@ -78,14 +81,17 @@ public class RythmController : MonoBehaviour {
 
 		a = 0;
 		foreach (GameObject anims in sliderHorizontalObjs) {
+			if (anims.activeInHierarchy && anims.GetComponent<Animator> () != null) {
+
 //			if(a % 2 == 0)
-			anims.GetComponent<Animator> ().Play("normal");
-			//Debug.Log ("HEY LISTEN LINK, YOUR RAP DOESN'T STINK " + a + " LENGT: " + glowAnimators [a]);
-			a++;
+				anims.GetComponent<Animator> ().Play ("normal");
+				//Debug.Log ("HEY LISTEN LINK, YOUR RAP DOESN'T STINK " + a + " LENGT: " + glowAnimators [a]);
+				a++;
+			}
 		}
 
 	}
-		
+	int i=0;	
 	// Update is called once per frame
 	void FixedUpdate () {
 		if (music_started == true) {
@@ -105,43 +111,46 @@ public class RythmController : MonoBehaviour {
 
 		if (current_step == step_glow_in && my_state != 0) {
 			my_state = 0;
-			foreach (GameObject anims in glowAnimationsObjs) {
-				anims.GetComponent<Animator> ().Play ("normal",0,0);
+//			foreach (GameObject anims in glowAnimationsObjs) {
+			for(i=0; i < glowAnimationsObjs.Length; i++) {
+				if (glowAnimationsObjs[i] != null && glowAnimationsObjs[i].gameObject.activeInHierarchy ) 
+					glowAnimationsObjs [i].SetTrigger ("Play");
 				//Debug.Log (" PLAY THE ANIMATION!!");
 			}
 
-			foreach (RythmScenarioBehaviour s in stages) {
-				if (s != null)
-					s.RestartAnimations ();
+			for(i=0; i< stages.Length; i++) {
+				if (stages[i] != null && stages[i].gameObject.activeInHierarchy)
+					stages[i].RestartAnimations ();
 			}
 		} else if (current_step == lightStep && my_state != 1) {
 			my_state = 1;
-			foreach (RythmScenarioBehaviour s in stages) {
-				if (s != null)
-					s.RestartGlowFadeInAnimation ();
+//			foreach (RythmScenarioBehaviour s in stages) {
+			for(i=0; i< stages.Length; i++) {
+				if (stages[i] != null && stages[i].gameObject.activeInHierarchy)
+					stages[i].RestartGlowFadeInAnimation ();
 			}
 		
 
 		} else if (current_step == lightStep + 6 && my_state != 2) {
 			my_state = 2;
-			foreach (RythmScenarioBehaviour s in stages) {
-				if (s != null)
-					s.RestartGlowFadeOutAnimation ();
+			for(i=0; i< stages.Length; i++) {
+				if (stages[i] != null && stages[i].gameObject.activeInHierarchy)
+					stages[i].RestartGlowFadeOutAnimation ();
 			}
 		
 		} else if (current_step == lightStep2 && my_state != 3) {
 			my_state = 3;
-			foreach (RythmScenarioBehaviour s in stages) {
-				if (s != null)
-					s.RestartGlowFadeInAnimation2 ();
+			for(i=0; i< stages.Length; i++) {
+				if (stages[i]!= null && stages[i].gameObject.activeInHierarchy)
+					stages[i].RestartGlowFadeInAnimation2 ();
 			}
 
 
 		} else if (current_step == lightStep2 + 6 && my_state != 3) {
 			my_state = 3;
-			foreach (RythmScenarioBehaviour s in stages) {
-				if (s != null)
-					s.RestartGlowFadeOutAnimation2 ();
+			for(i=0; i< stages.Length; i++) {
+				if (stages[i] != null && stages[i].gameObject.activeInHierarchy)
+					stages[i].RestartGlowFadeOutAnimation2 ();
 			}
 		}
 

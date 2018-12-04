@@ -471,7 +471,6 @@ public class game_controller : MonoBehaviour {
 //		globals.s.FIRST_GAME = false;
 		globals.s.ALERT_BALL_N = 0;
 
-
 		hud_controller.si.update_floor (0);
 
 		cur_floor = -1;
@@ -663,18 +662,21 @@ public class game_controller : MonoBehaviour {
 		else
 			rand = Random.Range(0, 100);
 
-//		rand = 5;
+		rand = 5;
 
         //rand = Random.Range(0, 10);
         // create chance check
-		if (QA.s.TRACE_PROFUNDITY > 0) Debug.Log("FIRST PW CREATED " + USER.s.FIRST_PW_CREATED + " .. CREATE POWER UPS CHANCE: " + rand + " .. CONDITION: " + ((pw_floors_not_created - pw_dont_create_for_n_floors) * 7));
+//		if (QA.s.TRACE_PROFUNDITY > 0)
+			Debug.Log("FIRST PW CREATED " + USER.s.FIRST_PW_CREATED + " .. CREATE POWER UPS CHANCE: " + rand + " .. CONDITION: " + ((pw_floors_not_created - pw_dont_create_for_n_floors) * 7));
         // if (!QA.s.NO_PWS && pw_floors_not_created > pw_dont_create_for_n_floors && rand <= 15 && globals.s.PW_ACTIVE == true) {
 //		if (!QA.s.NO_PWS && USER.s.TOTAL_GAMES_WITH_TUTORIAL >= 1 && USER.s.NEWBIE_PLAYER == 0 && (
-		if (!QA.s.NO_PWS && 
+		if (1==1 || !QA.s.NO_PWS && 
 			(USER.s.NEWBIE_PLAYER == 0 && JustUnvirginedFromTheHoleAndHas1Death == true) && (
-			(USER.s.FIRST_PW_CREATED == 1 && pw_floors_not_created > pw_dont_create_for_n_floors && rand <= (pw_floors_not_created - pw_dont_create_for_n_floors) *6) 
+			(USER.s.FIRST_PW_CREATED == 1 && pw_floors_not_created > pw_dont_create_for_n_floors && 
+					rand <= (pw_floors_not_created - pw_dont_create_for_n_floors) *6) 
 			|| 
 			(USER.s.FIRST_PW_CREATED == 0 && !first_pw_created)
+
 			))
 		{
             int my_type = 0;
@@ -682,7 +684,7 @@ public class game_controller : MonoBehaviour {
 				rand = Random.Range(0, GD.s.GD_PW_CHANCE_SUPER_JUMP + GD.s.GD_PW_CHANCE_SHIELD );
 			else
 				rand = Random.Range(0, 100);
-//			rand = 1;
+			rand = 1;
 //			rand = GD.s.GD_PW_CHANCE_SUPER_JUMP-1;
 			if ( rand < GD.s.GD_PW_CHANCE_SUPER_JUMP || (USER.s.FIRST_PW_CREATED == 0 && !first_pw_created)) {
 //			if ( 1==2) {
@@ -693,14 +695,13 @@ public class game_controller : MonoBehaviour {
 			} else {
 				my_type = (int)PW_Types.Sight;
 			}
-			if (QA.s.TRACE_PROFUNDITY > -1)Debug.Log ("---------- cREATE PW !! TYPE: " + my_type + " FIRST PW CREATED " + USER.s.FIRST_PW_CREATED);
 
 			first_pw_created = true;
 //			Debug.Log(globals.s.PW_ACTIVE + "  pw created RAND " + rand + " type: " + my_type);
             
 			hud_controller.si.ActivateFirstPw ();
             // int my_type = Random.Range((int)PW_Types.Invencible, (int)PW_Types.Sight + 1);
-			if (QA.s.TRACE_PROFUNDITY > 0) Debug.Log ("---------- cREATE PW !! TYPE: " + my_type + " FIRST PW CREATED " + USER.s.FIRST_PW_CREATED);
+//			if (QA.s.TRACE_PROFUNDITY > 0) Debug.Log ("---------- cREATE PW !! TYPE: " + my_type + " FIRST PW CREATED " + USER.s.FIRST_PW_CREATED);
 
             create_pw_icon(x, y, my_type, floor);
 
@@ -711,15 +712,17 @@ public class game_controller : MonoBehaviour {
     }
 
 	void create_pw_icon(float x, float y, int type, int n) {
-        if (globals.s.PW_INVENCIBLE == false || globals.s.PW_SIGHT_BEYOND_SIGHT == false || globals.s.PW_SUPER_JUMP == false) {
-            //Debug.Log("[GM] CREATING POWER UP!");
+		if (globals.s.PW_INVENCIBLE == false || globals.s.PW_SIGHT_BEYOND_SIGHT == false || globals.s.PW_SUPER_JUMP == false) {
 			//GameObject obj  = (GameObject) Instantiate(pw_icon, new Vector3(x, 2 + globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n, 0), transform.rotation);
-			GameObject obj = objects_pool_controller.s.reposite_power_up(x, 2.3f + globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n);
+			GameObject obj = objects_pool_controller.s.reposite_power_up (x, 2.3f + globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n);
+			Debug.Log ("[GM] CREATING POWER UP! X: " + x + "  y: "+ (globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n));
 			//Debug.Log("PW type " + type);
-            obj.GetComponent<PW_Collect>().my_floor = n;
-            obj.GetComponent<PW_Collect>().pw_type = type;
-            obj.GetComponent<PW_Collect>().init_my_icon();
-        }
+			obj.GetComponent<PW_Collect> ().my_floor = n;
+			obj.GetComponent<PW_Collect> ().pw_type = type;
+			obj.GetComponent<PW_Collect> ().init_my_icon ();
+		} else {
+//			Debug.Log ("[GM] CANT CREATE PW... INVENC: " + globals.s.PW_INVENCIBLE + " SIGHT: " + globals.s.PW_SIGHT_BEYOND_SIGHT == false + " super jump: " + globals.s.PW_SUPER_JUMP); 
+		}
     }
 
     #endregion
@@ -752,10 +755,10 @@ public class game_controller : MonoBehaviour {
 				}
 			}
 
-			Debug.Log ("[GM] BALL UP - NEW CUR FLOOR!! " + cur_floor);
+			//Debug.Log ("[GM] BALL UP - NEW CUR FLOOR!! " + cur_floor);
 
 			if (ball_floor >= lastFloor) {
-				Debug.Log ("[GM] create new wave! " + ball_floor);
+//				Debug.Log ("[GM] create new wave! " + ball_floor);
 
 				create_new_wave (dontCreateObstacles);
 				lastFloor = ball_floor;
@@ -771,8 +774,9 @@ public class game_controller : MonoBehaviour {
 					sound_controller.s.update_music ();
 			}
 
-		} else { Debug.Log ("[GM] DONT CREATE FLOOR. cur_floor: " + cur_floor + " .. PARAM FLOOR: " + ball_floor);
-		}
+		} 
+//		else  Debug.Log ("[GM] DONT CREATE FLOOR. cur_floor: " + cur_floor + " .. PARAM FLOOR: " + ball_floor);
+
 //        else if (ball_floor >= 1) {
 //            camerda.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 //            //Debug.Log( "~~~~~~~~~~~~~~~~ DON'T CREATE FLOOR!!!! BALL FLOOR: "+ ball_floor + " CUR FLOOR: " + cur_floor);
@@ -803,9 +807,9 @@ public class game_controller : MonoBehaviour {
 
         //PW Creation
 //		if(/*globals.s.PW_ACTIVE == true &&*/ globals.s.PW_SUPER_JUMP == false && USER.s.FIRST_PW_CREATED == 1){
-//            create_power_up_logic();
+////            create_power_up_logic();
 //        }
-       
+//       
         while (wave_found == false && count < 80)
         {
             //hole_creation_failed = 9;

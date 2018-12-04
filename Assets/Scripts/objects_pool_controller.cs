@@ -567,7 +567,7 @@ public class objects_pool_controller : MonoBehaviour {
 		power_ups_pool[power_ups_actual_i].transform.position = new Vector3(x_pos, y_pos, 0);
 		GameObject repos_power_up = power_ups_pool[power_ups_actual_i];
 		//repos_note.GetComponent <note_behaviour>().Init ();
-
+		repos_power_up.SetActive(true);
 		power_ups_actual_i++;
 		if (power_ups_actual_i == power_ups_pool_size)
 			power_ups_actual_i  = 0;
