@@ -55,7 +55,7 @@ namespace FMODUnity
 
                     try
                     {
-                        #if UNITY_ANDROID && !UNITY_EDITOR
+						#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
             
                         // First, obtain the current activity context
                         AndroidJavaObject activity = null;
@@ -561,7 +561,7 @@ retry:
             {
                 string bankPath = RuntimeUtils.GetBankPath(bankName);
                 FMOD.RESULT loadResult;
-                #if UNITY_ANDROID && !UNITY_EDITOR
+					#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
                 if (!bankPath.StartsWith("file:///android_asset"))
                 {
                     using (var www = new WWW(bankPath))

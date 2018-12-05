@@ -382,7 +382,7 @@ namespace FMODUnity
 
         public static void EnforceLibraryOrder()
         {
-            #if UNITY_ANDROID && !UNITY_EDITOR
+			#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
 
             AndroidJavaClass jSystem = new AndroidJavaClass("java.lang.System");
             jSystem.CallStatic("loadLibrary", FMOD.VERSION.dll);

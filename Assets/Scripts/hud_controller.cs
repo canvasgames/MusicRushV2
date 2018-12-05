@@ -145,7 +145,7 @@ public class hud_controller : MonoBehaviour {
 
 		FMODUnity.RuntimeManager.PlayOneShot ("event:/JumpTest");
 //		lowlevelSystem.p
-		#if UNITY_ANDROID
+		#if UNITY_ANDROID || UNITY_IOS
 		Advertisement.Initialize ("1194074");
 		#endif
 //		game_title_y = game_title.transform.position.y;
@@ -1114,7 +1114,7 @@ public class hud_controller : MonoBehaviour {
 		flagVideoRevive = false;
 		flagVideoCoins = true;
 		flagVideoPower = false;
-		#if UNITY_ANDROID
+		#if UNITY_ANDROID || UNITY_IOS
 		ShowAd();
 		#endif
 
@@ -1152,7 +1152,7 @@ public class hud_controller : MonoBehaviour {
 		#endif
     }
 
-	#if UNITY_ANDROID || UNITY_EDITOR
+	#if UNITY_ANDROID || UNITY_EDITOR || UNITY_IOS
     private void HandleShowResult(ShowResult result)
     {
         switch (result)
