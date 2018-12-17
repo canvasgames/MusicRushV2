@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 
-
 public class scenario_objects : MonoBehaviour {
+	public static readonly List<scenario_objects> AllScenery = new List<scenario_objects>();
+
     public int my_floor;
     public int count_blink = 16;
     public bool already_blinked = false;
@@ -13,6 +15,9 @@ public class scenario_objects : MonoBehaviour {
 	void Awake(){
 		myId = globals.s.obstacleId;
 		globals.s.obstacleId++;
+	}
+
+	public virtual void TurnTheLightsOnForThePartyHard() {
 	}
 
     public void try_blink(int floor)
@@ -54,4 +59,13 @@ public class scenario_objects : MonoBehaviour {
         transform.GetComponent<SpriteRenderer>().DOColor(new Color(r, g, b), time);
         //Debug.Log(" MY COLOR : " + transform.GetComponent<SpriteRenderer>().color);
     }
+
+
+	private void OnEnable(){
+		AllScenery.Add(this);
+	}
+
+	private void OnDisable() {
+		AllScenery.Remove(this);
+	}
 }

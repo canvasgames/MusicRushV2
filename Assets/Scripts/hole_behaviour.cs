@@ -41,7 +41,7 @@ public class hole_behaviour : MonoBehaviour
             show_me_pw_sight();
 		}
 
-		my_skin.GetComponent<SpriteRenderer> ().color = Color.black;
+//		my_skin.GetComponent<SpriteRenderer> ().color = Color.black;
     }
 
     // Update is called once per frame

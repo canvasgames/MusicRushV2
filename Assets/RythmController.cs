@@ -21,6 +21,8 @@ public class RythmController : MonoBehaviour {
 	public Animator[] glowAnimationsObjs;
 	Animator[] glowAnimators;
 	public GameObject[] sliderHorizontalObjs;
+
+	private GlowBehaviour[] glows;
 	
 	private RythmScenarioBehaviour[] stages;
 
@@ -33,6 +35,11 @@ public class RythmController : MonoBehaviour {
 		foreach(RythmScenarioBehaviour s in stages){
 			s.RestartAnimations();
 		}
+
+		glows = GameObject.FindObjectsOfType(typeof(GlowBehaviour)) as GlowBehaviour[];
+//		foreach(GlowBehaviour s in glows){
+//			glows.RestartAnimations();
+//		}
 
 //		glowAnimators = new Animator[glowAnimationsObjs.Length];
 //		int i = 0;
@@ -112,48 +119,64 @@ public class RythmController : MonoBehaviour {
 		if (current_step == step_glow_in && my_state != 0) {
 			my_state = 0;
 //			foreach (GameObject anims in glowAnimationsObjs) {
-			for(i=0; i < glowAnimationsObjs.Length; i++) {
-				if (glowAnimationsObjs[i] != null && glowAnimationsObjs[i].gameObject.activeInHierarchy ) 
+			for (i = 0; i < glowAnimationsObjs.Length; i++) {
+				if (glowAnimationsObjs [i] != null && glowAnimationsObjs [i].gameObject.activeInHierarchy)
 					glowAnimationsObjs [i].SetTrigger ("Play");
 				//Debug.Log (" PLAY THE ANIMATION!!");
 			}
 
-			for(i=0; i< stages.Length; i++) {
-				if (stages[i] != null && stages[i].gameObject.activeInHierarchy)
-					stages[i].RestartAnimations ();
+			// FFFFFFFFF FADE IN GLOWS
+//			for (i = 0; i < glows.Length; i++) {
+			GlowBehaviour[] glowsz = GlowBehaviour.All.ToArray(); 
+			for (i = 0; i < glowsz.Length; i++) {
+				if (glowsz [i] != null && glowsz [i].gameObject.activeInHierarchy)
+					glowsz [i].FadeIn ();
 			}
+
+			// Stages
+			for (i = 0; i < stages.Length; i++) {
+				if (stages [i] != null && stages [i].gameObject.activeInHierarchy)
+					stages [i].RestartAnimations ();
+			}
+
 		} else if (current_step == lightStep && my_state != 1) {
 			my_state = 1;
 //			foreach (RythmScenarioBehaviour s in stages) {
-			for(i=0; i< stages.Length; i++) {
-				if (stages[i] != null && stages[i].gameObject.activeInHierarchy)
-					stages[i].RestartGlowFadeInAnimation ();
+			for (i = 0; i < stages.Length; i++) {
+				if (stages [i] != null && stages [i].gameObject.activeInHierarchy)
+					stages [i].RestartGlowFadeInAnimation ();
 			}
 		
 
 		} else if (current_step == lightStep + 6 && my_state != 2) {
 			my_state = 2;
-			for(i=0; i< stages.Length; i++) {
-				if (stages[i] != null && stages[i].gameObject.activeInHierarchy)
-					stages[i].RestartGlowFadeOutAnimation ();
+			for (i = 0; i < stages.Length; i++) {
+				if (stages [i] != null && stages [i].gameObject.activeInHierarchy)
+					stages [i].RestartGlowFadeOutAnimation ();
 			}
 		
 		} else if (current_step == lightStep2 && my_state != 3) {
 			my_state = 3;
-			for(i=0; i< stages.Length; i++) {
-				if (stages[i]!= null && stages[i].gameObject.activeInHierarchy)
-					stages[i].RestartGlowFadeInAnimation2 ();
+			for (i = 0; i < stages.Length; i++) {
+				if (stages [i] != null && stages [i].gameObject.activeInHierarchy)
+					stages [i].RestartGlowFadeInAnimation2 ();
 			}
-
-
 		} else if (current_step == lightStep2 + 6 && my_state != 3) {
 			my_state = 3;
-			for(i=0; i< stages.Length; i++) {
-				if (stages[i] != null && stages[i].gameObject.activeInHierarchy)
-					stages[i].RestartGlowFadeOutAnimation2 ();
+			for (i = 0; i < stages.Length; i++) {
+				if (stages [i] != null && stages [i].gameObject.activeInHierarchy)
+					stages [i].RestartGlowFadeOutAnimation2 ();
+			}
+
+		}
+		// FFFFFFFFF FADE OUT GLOWS
+		else if (current_step == step_glow_out) {
+			GlowBehaviour[] glowsz = GlowBehaviour.All.ToArray();
+			for (i = 0; i < glowsz.Length; i++) {
+				if (glowsz [i] != null && glowsz [i].gameObject.activeInHierarchy)
+					glowsz [i].FadeOut ();
 			}
 		}
-
 
 //		Debug.Log("STEP: " + current_step);
 //		if( current_step == step_glow_in)

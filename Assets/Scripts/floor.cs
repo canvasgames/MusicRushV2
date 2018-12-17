@@ -16,13 +16,19 @@ public class floor : scenario_objects {
     public GameObject my_skin_bg;
     public floor_note [] my_notes_fg;
     float my_txt_y_dif = 0.32f;
-    public GameObject my_glow, my_lines_glow;
+    public GameObject my_glow, my_glow_off, my_lines_glow;
 	public bool repositionable = false;
 	public bool already_placed = false;
 	public GameObject pauta;
 	public GameObject myHighscoreAnimation = null;
 	bool canUpdate = false;
+
 	#endregion
+
+	public override void TurnTheLightsOnForThePartyHard(){
+		my_glow.SetActive (true);
+//		my_glow_off.SetActive (false);
+	}
 
     // Use this for initialization
     void Start () {
@@ -300,6 +306,7 @@ public class floor : scenario_objects {
         pw_super_collided = false;
         my_skin.transform.GetComponent<SpriteRenderer>().enabled = true;
         my_skin.GetComponent<SpriteRenderer>().color = Color.black;
+		my_glow.SetActive (false);
 //		pauta.SetActive (true);
 
 		if (myHighscoreAnimation != null) {

@@ -3,13 +3,10 @@ using System.Collections;
 
 public class hole_skin_behaviour : scenario_objects {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public GameObject myGlowOn, myGlowOff;
+
+	public override void TurnTheLightsOnForThePartyHard(){
+		myGlowOn.SetActive (true);
+//		myGlowOff.SetActive (false);
 	}
 }

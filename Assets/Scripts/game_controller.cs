@@ -768,13 +768,22 @@ public class game_controller : MonoBehaviour {
 
 //			if (ball_floor >= 5 && ball_floor % 5 == 0) {
 			if (ball_floor >= 5 && musicLayerN < GD.s.SCENERY_FLOOR_VALUES.Length && ball_floor > GD.s.SCENERY_FLOOR_VALUES [musicLayerN] - 1) {
-				Debug.Log (" NNNNNNNEEEEEEW LAYER! " + cur_floor);
+//				Debug.Log (" NNNNNNNEEEEEEW LAYER! " + cur_floor);
 				musicLayerN++;
 				if (sound_controller.s != null)
 					sound_controller.s.update_music ();
 			}
 
-		} 
+			foreach (scenario_objects obj in scenario_objects.AllScenery) {
+				Debug.Log ("XXXXXX  this is a scanerio: " + obj.name);
+				if (obj.my_floor-1 <= ball_floor) {
+					obj.TurnTheLightsOnForThePartyHard ();
+				}
+			}
+
+		}
+
+
 //		else  Debug.Log ("[GM] DONT CREATE FLOOR. cur_floor: " + cur_floor + " .. PARAM FLOOR: " + ball_floor);
 
 //        else if (ball_floor >= 1) {
@@ -786,10 +795,10 @@ public class game_controller : MonoBehaviour {
 
 	public void NewHighscoreAnimation(int floor){
 		if (USER.s.DAY_SCORE >= 4  || 1==1){
-			for (int i = 0; i < objects_pool_controller.s.floor_pool.Length; i++) {
-				if (objects_pool_controller.s.floor_pool [i].GetComponent<floor>().my_floor == floor && 
-					objects_pool_controller.s.floor_pool [i].GetComponent<floor>().already_blinked) {
-					objects_pool_controller.s.floor_pool [i].GetComponent<floor>().try_to_display_best_score ();
+			for (int i = 0; i < objects_pool_controller.s.floor_scripts.Length; i++) {
+				if (objects_pool_controller.s.floor_scripts[i].my_floor == floor && 
+					objects_pool_controller.s.floor_scripts[i].already_blinked) {
+					objects_pool_controller.s.floor_scripts[i].try_to_display_best_score ();
 				}
 			}
 		}

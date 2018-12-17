@@ -17,7 +17,7 @@ public class spike : scenario_objects {
     bool already_alerted = false;
 	public bool triple_spk = false;
 
-	public GameObject my_glow;
+	public GameObject my_glow, my_glow_off;
     public GameObject my_skin;
 	float my_skin_scale;
 
@@ -25,15 +25,21 @@ public class spike : scenario_objects {
     float target_y;
     public PolygonCollider2D my_collider;
 
-    private void OnEnable()
-    {
+    private void OnEnable(){
         All.Add(this);
+		AllScenery.Add (this);
     }
 
-    private void OnDisable()
-    {
+    private void OnDisable() {
         All.Remove(this);
+		AllScenery.Remove (this);
     }
+
+	public override void TurnTheLightsOnForThePartyHard(){
+		Debug.Log (myId + "  DOING SOMETHING!! for the dance ");
+		my_glow.SetActive (true);
+		my_glow_off.SetActive (false);
+	}
 
     // Use this for initialization
     void Awake()
@@ -222,6 +228,8 @@ public class spike : scenario_objects {
 
         timer = 0;
 //        GetComponent<SpriteRenderer>().color = Color.black;
+		my_glow.SetActive(false);
+		my_glow_off.SetActive(true);
         transform.localScale = new Vector3(globals.s.SPK_SCALE, globals.s.SPK_SCALE, globals.s.SPK_SCALE);
         count_blink = 16;
         //transform.DOScale(0.7f, 0.1f);

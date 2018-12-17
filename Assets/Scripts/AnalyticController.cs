@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+#if USE_DELTADNA
 using DeltaDNA;
+#endif
 
 public class AnalyticController : MonoBehaviour {
 
@@ -12,7 +14,7 @@ public class AnalyticController : MonoBehaviour {
 
     void Start() {
 		// Enter additional configuration here
-        
+		#if USE_DELTADNA  
 		// Launch the SDK
 		if (QA.s.DELTADNA_ON){
 			if (GD.s.AnalyticsLive == false) {
@@ -42,10 +44,11 @@ public class AnalyticController : MonoBehaviour {
 				);
 			}
 		}
+		#endif
     }
 
 	#region === Report Main Events ===
-
+	#if USE_DELTADNA
 	EventBuilder DefaultEvent(){
 		EventBuilder eventParams = new EventBuilder();
 
@@ -79,7 +82,10 @@ public class AnalyticController : MonoBehaviour {
 		return eventParams;
 	}
 
+	#endif
+
     public void ReportGameStarted() {
+		#if USE_DELTADNA
 		if(QA.s.DELTADNA_ON){
         Debug.Log("[ANAL] REPORTING GAME STARTED");
 //       
@@ -107,9 +113,11 @@ public class AnalyticController : MonoBehaviour {
 //
 //        DDNA.Instance.RecordEvent("missionStarted", eventParams);
 		}
+		#endif
 	}
 
     public void ReportGameEnded(string killer_wave_name, int duration) {
+		#if USE_DELTADNA
 		if (QA.s.DELTADNA_ON) {
 			Debug.Log ("[ANAL] REPORTING GAME ENDED");
 //		EventBuilder eventParams = new EventBuilder();
@@ -136,6 +144,8 @@ public class AnalyticController : MonoBehaviour {
 
 			DDNA.Instance.RecordEvent ("missionCompleted", eventParams);
 		}
+
+		#endif
     }
 
 	#endregion
