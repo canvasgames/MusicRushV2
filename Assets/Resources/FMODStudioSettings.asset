@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Name: FMODStudioSettings
   m_EditorClassIdentifier: 
   HasSourceProject: 0
-  HasPlatforms: 1
+  HasPlatforms: 0
   sourceProjectPath: D:\MusicRushFmodRepo\MusicRushFMod\Music_Rush.fspro
   SourceProjectPathUnformatted: D:\MusicRushFmodRepo\MusicRushFMod\Music_Rush.fspro
-  SourceBankPathUnformatted: D:\MusicRushFmodRepo\MusicRushFMod\Build
+  SourceBankPathUnformatted: D:\MusicRushFmodRepo\MusicRushFMod\Build\Mobile
   AutomaticEventLoading: 1
   AutomaticSampleLoading: 0
   ImportType: 0
