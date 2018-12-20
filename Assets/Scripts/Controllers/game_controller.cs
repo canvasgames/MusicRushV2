@@ -775,7 +775,7 @@ public class game_controller : MonoBehaviour {
 			}
 
 			foreach (scenario_objects obj in scenario_objects.AllScenery) {
-				Debug.Log ("XXXXXX  this is a scanerio: " + obj.name);
+//				Debug.Log ("XXXXXX  this is a scanerio: " + obj.name);
 				if (obj.my_floor-1 <= ball_floor) {
 					obj.TurnTheLightsOnForThePartyHard ();
 				}

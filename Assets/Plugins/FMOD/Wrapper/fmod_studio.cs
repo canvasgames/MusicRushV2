@@ -15,10 +15,10 @@ namespace FMOD.Studio
     {
 #if (UNITY_IPHONE || UNITY_TVOS || UNITY_SWITCH || UNITY_WEBGL) && !UNITY_EDITOR
         public const string dll     = "__Internal";
-#elif (UNITY_PS4 || UNITY_WIIU || UNITY_PSP2) && !UNITY_EDITOR
-        public const string dll     = "libfmodstudio";
 #elif (UNITY_PS4) && DEVELOPMENT_BUILD
         public const string dll     = "libfmodstudioL";
+#elif (UNITY_PS4 || UNITY_WIIU || UNITY_PSP2) && !UNITY_EDITOR
+        public const string dll     = "libfmodstudio";
 #elif UNITY_EDITOR || ((UNITY_STANDALONE || UNITY_ANDROID || UNITY_XBOXONE) && DEVELOPMENT_BUILD)
         public const string dll     = "fmodstudioL";
 #else
@@ -248,6 +248,7 @@ namespace FMOD.Studio
         NORMAL                  = 0x00000000,   /* Standard behaviour. */
         SKIP_CLEANUP            = 0x00000001,   /* Normally the playback will release any created resources when it stops, unless this flag is set. */
         FAST_FORWARD            = 0x00000002,   /* Play back at maximum speed, ignoring the timing of the original replay. */
+        SKIP_BANK_LOAD          = 0x00000004,   /* Skip commands related to bank loading. */
     }
 
     public enum PLAYBACK_STATE : int
@@ -293,6 +294,8 @@ namespace FMOD.Studio
         TIMELINE_BEAT            = 0x00001000,  /* Called when the timeline hits a beat in a tempo section.  Parameters = FMOD_STUDIO_TIMELINE_BEAT_PROPERTIES. */
         SOUND_PLAYED             = 0x00002000,  /* Called when the event plays a sound.  Parameters = FMOD::Sound. */
         SOUND_STOPPED            = 0x00004000,  /* Called when the event finishes playing a sound.  Parameters = FMOD::Sound. */
+        REAL_TO_VIRTUAL          = 0x00008000,  /* Called when the event becomes virtual.  Parameters = unused. */
+        VIRTUAL_TO_REAL          = 0x00010000,  /* Called when the event becomes real.  Parameters = unused. */
 
         ALL                      = 0xFFFFFFFF,  /* Pass this mask to Studio::EventDescription::setCallback or Studio::EventInstance::setCallback to receive all callback types. */
     }

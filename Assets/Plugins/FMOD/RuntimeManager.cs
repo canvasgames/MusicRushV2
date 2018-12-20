@@ -6,6 +6,10 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace FMODUnity
 {
     [AddComponentMenu("")]
@@ -17,6 +21,25 @@ namespace FMODUnity
 
         [SerializeField]
         FMODPlatform fmodPlatform;
+
+        [AOT.MonoPInvokeCallback(typeof(FMOD.DEBUG_CALLBACK))]
+        static FMOD.RESULT DEBUG_CALLBACK(FMOD.DEBUG_FLAGS flags, FMOD.StringWrapper file, int line, FMOD.StringWrapper func, FMOD.StringWrapper message)
+        {
+            if (flags == FMOD.DEBUG_FLAGS.ERROR)
+            {
+                Debug.LogError(string.Format(("[FMOD] {0} : {1}"), (string)func, (string)message));
+            }
+            else if (flags == FMOD.DEBUG_FLAGS.WARNING)
+            {
+                Debug.LogWarning(string.Format(("[FMOD] {0} : {1}"), (string)func, (string)message));
+            }
+            else if (flags == FMOD.DEBUG_FLAGS.LOG)
+            {
+                Debug.Log(string.Format(("[FMOD] {0} : {1}"), (string)func, (string)message));
+            }
+            return FMOD.RESULT.OK;
+        }
+
         static RuntimeManager Instance
         {
             get
@@ -27,7 +50,7 @@ namespace FMODUnity
                 }
                 if (isQuitting)
                 {
-                    throw new Exception("FMOD Studio attempted access by script to RuntimeManager while application is quitting");
+                    throw new Exception("[FMOD] Attempted access by script to RuntimeManager while application is quitting");
                 }
 
                 if (instance == null)
@@ -50,13 +73,17 @@ namespace FMODUnity
 
                     var gameObject = new GameObject("FMOD.UnityIntegration.RuntimeManager");
                     instance = gameObject.AddComponent<RuntimeManager>();
-                    DontDestroyOnLoad(gameObject);
+
+                    if (Application.isPlaying) // This class is used in edit mode by the Timeline auditioning system
+                    {
+                        DontDestroyOnLoad(gameObject);
+                    }
                     gameObject.hideFlags = HideFlags.HideInHierarchy;
 
                     try
                     {
-						#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
-            
+                        #if UNITY_ANDROID && !UNITY_EDITOR
+
                         // First, obtain the current activity context
                         AndroidJavaObject activity = null;
                         using (var activityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
@@ -72,7 +99,7 @@ namespace FMODUnity
                             }
                             else
                             {
-                                UnityEngine.Debug.LogWarning("FMOD Studio: Cannot initialize Java wrapper");
+                                UnityEngine.Debug.LogWarning("[FMOD] Cannot initialize Java wrapper");
                             }
                         }
                         
@@ -151,7 +178,7 @@ namespace FMODUnity
                 if (studioSystem.isValid())
                 {
                     studioSystem.release();
-					studioSystem.clearHandle();
+                    studioSystem.clearHandle();
                 }
                 throw new SystemNotInitializedException(result, cause);
             }
@@ -159,6 +186,14 @@ namespace FMODUnity
 
         FMOD.RESULT Initialize()
         {
+            #if UNITY_EDITOR
+                #if UNITY_2017_2_OR_NEWER
+            EditorApplication.playModeStateChanged += HandlePlayModeStateChange;
+                #elif UNITY_2017_1_OR_NEWER
+            EditorApplication.playmodeStateChanged += HandleOnPlayModeChanged;
+                #endif // UNITY_2017_2_OR_NEWER
+            #endif // UNITY_EDITOR
+
             FMOD.RESULT result = FMOD.RESULT.OK;
             FMOD.RESULT initResult = FMOD.RESULT.OK;
             Settings fmodSettings = Settings.Instance;
@@ -185,15 +220,8 @@ namespace FMODUnity
             SetThreadAffinity();
 
             #if UNITY_EDITOR || ((UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX) && DEVELOPMENT_BUILD)
-            result = FMOD.Debug.Initialize(FMOD.DEBUG_FLAGS.LOG, FMOD.DEBUG_MODE.FILE, null, RuntimeUtils.LogFileName);
-            if (result == FMOD.RESULT.ERR_FILE_NOTFOUND)
-            {
-                UnityEngine.Debug.LogWarningFormat("FMOD Studio: Cannot open FMOD debug log file '{0}', logs will be missing for this session.", System.IO.Path.Combine(Application.dataPath, RuntimeUtils.LogFileName));
-            }
-            else
-            {
-                CheckInitResult(result, "FMOD.Debug.Initialize");
-            }
+            result = FMOD.Debug.Initialize(fmodSettings.LoggingLevel, FMOD.DEBUG_MODE.CALLBACK, DEBUG_CALLBACK, null);
+            CheckInitResult(result, "FMOD.Debug.Initialize");
             #endif
 
             FMOD.Studio.INITFLAGS studioInitFlags = FMOD.Studio.INITFLAGS.NORMAL | FMOD.Studio.INITFLAGS.DEFERRED_CALLBACKS;
@@ -202,7 +230,7 @@ namespace FMODUnity
                 studioInitFlags |= FMOD.Studio.INITFLAGS.LIVEUPDATE;
 
                 #if UNITY_5_0 || UNITY_5_1 // These versions of Unity shipped with FMOD4 profiling enabled consuming our port number.
-                UnityEngine.Debug.LogWarning("FMOD Studio: Live Update port in-use by Unity, switching to port 9265");
+                UnityEngine.Debug.LogWarning("[FMOD] Live Update port in-use by Unity, switching to port 9265");
                 advancedSettings.profilePort = 9265;
                 #endif
             }
@@ -231,7 +259,7 @@ retry:
             {
                 initResult = result; // Save this to throw at the end (we'll attempt NO SOUND to shield ourselves from unexpected device failures)
                 outputType = FMOD.OUTPUTTYPE.NOSOUND;
-                UnityEngine.Debug.LogErrorFormat("FMOD Studio: Studio::System::initialize returned {0}, defaulting to no-sound mode.", result.ToString());
+                UnityEngine.Debug.LogErrorFormat("[FMOD] Studio::System::initialize returned {0}, defaulting to no-sound mode.", result.ToString());
 
                 goto retry;
             }
@@ -246,7 +274,7 @@ retry:
                 if (result == FMOD.RESULT.ERR_NET_SOCKET_ERROR)
                 {
                     studioInitFlags &= ~FMOD.Studio.INITFLAGS.LIVEUPDATE;
-                    UnityEngine.Debug.LogWarning("FMOD Studio: Cannot open network port for Live Update (in-use), restarting with Live Update disabled.");
+                    UnityEngine.Debug.LogWarning("[FMOD] Cannot open network port for Live Update (in-use), restarting with Live Update disabled.");
 
                     result = studioSystem.release();
                     CheckInitResult(result, "FMOD.Studio.System.Release");
@@ -308,7 +336,7 @@ retry:
                 if (!hasAllListeners && !listenerWarningIssued)
                 {
                     listenerWarningIssued = true;
-                    UnityEngine.Debug.LogWarning("FMOD Studio Integration: Please add an 'FMOD Studio Listener' component to your a camera in the scene for correct 3D positioning of sounds");
+                    UnityEngine.Debug.LogWarning("[FMOD] Please add an 'FMOD Studio Listener' component to your a camera in the scene for correct 3D positioning of sounds");
                 }
 
                 for (int i = 0; i < attachedInstances.Count; i++)
@@ -352,7 +380,7 @@ retry:
                             FMOD.Studio.EventDescription desc;
                             eventPositionWarnings[i].getDescription(out desc);
                             desc.getPath(out path);
-                            Debug.LogWarningFormat("FMOD Studio: Instance of Event {0} has not had EventInstance.set3DAttributes() called on it yet!", path);
+                            Debug.LogWarningFormat("[FMOD] Instance of Event {0} has not had EventInstance.set3DAttributes() called on it yet!", path);
                         }
                     }
                     eventPositionWarnings.RemoveAt(i);
@@ -393,14 +421,14 @@ retry:
             }
         }
 
-        /*Rect windowRect = new Rect(10, 10, 300, 100);
+        Rect windowRect = new Rect(10, 10, 300, 100);
         void OnGUI()
         {
             if (studioSystem.isValid() && Settings.Instance.IsOverlayEnabled(fmodPlatform))
             {
-//                windowRect = GUI.Window(0, windowRect, DrawDebugOverlay, "FMOD Studio Debug");
+                windowRect = GUI.Window(0, windowRect, DrawDebugOverlay, "FMOD Studio Debug");
             }
-        }*/
+        }
 
         string lastDebugText;
         float lastDebugUpdate = 0;
@@ -477,13 +505,82 @@ retry:
             isQuitting = true;
         }
 
-        void OnApplicationPause(bool pauseStatus)
+#if UNITY_EDITOR
+        public static void Destroy()
+        {
+            if (instance)
+            {
+                if (instance.studioSystem.isValid())
+                {
+                    instance.studioSystem.release();
+                    instance.studioSystem.clearHandle();
+                }
+                DestroyImmediate(instance.gameObject);
+            }
+
+            initException = null;
+            instance = null;
+        }
+
+        #if UNITY_2017_2_OR_NEWER
+        void HandlePlayModeStateChange(PlayModeStateChange state)
+        {
+            if (state == PlayModeStateChange.ExitingEditMode)
+            {
+                Destroy();
+            }
+            else if (state == PlayModeStateChange.EnteredEditMode)
+            {
+                isQuitting = false;
+            }
+        }
+        #elif UNITY_2017_1_OR_NEWER
+        void HandleOnPlayModeChanged()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode &&
+                !EditorApplication.isPlaying)
+            {
+                Destroy();
+            }
+            else if (!EditorApplication.isPlaying)
+            {
+                isQuitting = false;
+            }
+        }
+        #endif // UNITY_2017_2_OR_NEWER
+#endif
+
+#if UNITY_IOS
+        /* iOS alarm interruptions do not trigger OnApplicationPause
+         * Sending the app to the background does trigger OnApplicationFocus
+         * We don't want to use this on Android as other things (like the keyboard)
+         * can steal focus.
+         * https://docs.unity3d.com/ScriptReference/MonoBehaviour.OnApplicationFocus.html */
+
+        void OnApplicationFocus(bool focus)
         {
             if (studioSystem.isValid())
             {
                 // Strings bank is always loaded
                 if (loadedBanks.Count > 1)
-                    PauseAllEvents(pauseStatus);
+                    PauseAllEvents(!focus);
+
+                if (focus)
+                {
+                    lowlevelSystem.mixerResume();
+                }
+                else
+                {
+                    lowlevelSystem.mixerSuspend();
+                }
+            }
+        }
+#else
+        void OnApplicationPause(bool pauseStatus)
+        {
+            if (studioSystem.isValid())
+            {
+                PauseAllEvents(pauseStatus);
 
                 if (pauseStatus)
                 {
@@ -495,6 +592,7 @@ retry:
                 }
             }
         }
+#endif
 
         private void loadedBankRegister(LoadedBank loadedBank, string bankPath, string bankName, bool loadSamples, FMOD.RESULT loadResult)
         {
@@ -536,11 +634,11 @@ retry:
             loadResult = Instance.studioSystem.loadBankMemory(loadWebResult, FMOD.Studio.LOAD_BANK_FLAGS.NORMAL, out loadedBank.Bank);
             if (loadResult != FMOD.RESULT.OK)
             {
-                UnityEngine.Debug.LogWarningFormat("loadFromWeb.  Path = {0}, result = {1}.", bankPath, loadResult);
+                UnityEngine.Debug.LogWarningFormat("[FMOD] loadFromWeb.  Path = {0}, result = {1}.", bankPath, loadResult);
             }
             loadedBankRegister(loadedBank, bankPath, bankName, loadSamples, loadResult);
 
-            Debug.LogFormat("Finished loading {0}", bankPath);
+            Debug.LogFormat("[FMOD] Finished loading {0}", bankPath);
         }
 #endif
 
@@ -561,7 +659,7 @@ retry:
             {
                 string bankPath = RuntimeUtils.GetBankPath(bankName);
                 FMOD.RESULT loadResult;
-					#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
+                #if UNITY_ANDROID && !UNITY_EDITOR
                 if (!bankPath.StartsWith("file:///android_asset"))
                 {
                     using (var www = new WWW(bankPath))
@@ -644,12 +742,18 @@ retry:
                 // Always load strings bank
                 try
                 {
-                    LoadBank(fmodSettings.MasterBank + ".strings", fmodSettings.AutomaticSampleLoading);
+                    foreach (string masterBankFileName in fmodSettings.MasterBanks)
+                    {
+                        LoadBank(masterBankFileName + ".strings", fmodSettings.AutomaticSampleLoading);
+
+                        if (fmodSettings.AutomaticEventLoading)
+                        {
+                            LoadBank(masterBankFileName, fmodSettings.AutomaticSampleLoading);
+                        }
+                    }
 
                     if (fmodSettings.AutomaticEventLoading)
                     {
-                        LoadBank(fmodSettings.MasterBank, fmodSettings.AutomaticSampleLoading);
-
                         foreach (var bank in fmodSettings.Banks)
                         {
                             LoadBank(bank, fmodSettings.AutomaticSampleLoading);
@@ -757,7 +861,7 @@ retry:
             }
             catch (EventNotFoundException)
             {
-                Debug.LogWarning("FMOD Event not found: " + path);
+                Debug.LogWarning("[FMOD] Event not found: " + path);
             }
         }
 
@@ -777,7 +881,7 @@ retry:
             }
             catch (EventNotFoundException)
             {
-                Debug.LogWarning("FMOD Event not found: " + path);
+                Debug.LogWarning("[FMOD] Event not found: " + path);
             }
         }
 
@@ -879,12 +983,26 @@ retry:
 
         public static void PauseAllEvents(bool paused)
         {
-            GetBus("bus:/").setPaused(paused);
+            if (HasBanksLoaded)
+            {
+                FMOD.Studio.Bus masterBus;
+                if (StudioSystem.getBus("bus:/", out masterBus) == FMOD.RESULT.OK)
+                {
+                    masterBus.setPaused(paused);
+                }
+            }
         }
 
         public static void MuteAllEvents(bool muted)
         {
-            GetBus("bus:/").setMute(muted);
+            if (HasBanksLoaded)
+            {
+                FMOD.Studio.Bus masterBus;
+                if (StudioSystem.getBus("bus:/", out masterBus) == FMOD.RESULT.OK)
+                {
+                    masterBus.setMute(muted);
+                }
+            }
         }
 
         public static bool IsInitialized
@@ -894,6 +1012,14 @@ retry:
                 return instance != null && instance.studioSystem.isValid();
             }
         }
+
+#if UNITY_EDITOR
+        /* Only relavant to protect the Play-In-Editor to Editor transition. */
+        public static bool IsQuitting()
+        {
+            return isQuitting;
+        }
+#endif
 
         public static bool HasBanksLoaded
         {

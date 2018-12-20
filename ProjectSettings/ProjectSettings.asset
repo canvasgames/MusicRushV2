@@ -599,6 +599,7 @@ PlayerSettings:
   webGLUseWasm: 0
   webGLCompressionFormat: 1
   scriptingDefineSymbols:
+    4: xxxUSE_CHOCOLATE;USE_FIREBASE
     7: xxFLOOR_SQUARES_LOGIC
   platformArchitecture:
     iOS: 2
