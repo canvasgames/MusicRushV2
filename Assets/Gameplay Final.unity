@@ -5607,7 +5607,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 499274, guid: 4cc57f3b8634de2418ef84ff56528f78, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 195054, guid: 4cc57f3b8634de2418ef84ff56528f78, type: 2}
       propertyPath: m_Name
@@ -8114,8 +8114,8 @@ Transform:
   - {fileID: 325615261}
   - {fileID: 1906094068}
   - {fileID: 1120167109}
-  - {fileID: 2017602400}
   - {fileID: 1399277412}
+  - {fileID: 2017602400}
   - {fileID: 367350236}
   - {fileID: 221306871}
   - {fileID: 1228690844}
@@ -36166,6 +36166,19 @@ Prefab:
     - target: {fileID: 2014356, guid: 2c13f692049b82d40a3ae2a5d73ddebc, type: 2}
       propertyPath: orthographic size
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2014356, guid: 2c13f692049b82d40a3ae2a5d73ddebc, type: 2}
+      propertyPath: near clip plane
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2014356, guid: 2c13f692049b82d40a3ae2a5d73ddebc, type: 2}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114361824406498776, guid: 2c13f692049b82d40a3ae2a5d73ddebc,
+        type: 2}
+      propertyPath: ListenerNumber
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5013276, guid: 2c13f692049b82d40a3ae2a5d73ddebc, type: 2}
@@ -65755,7 +65768,7 @@ Transform:
   - {fileID: 570271881}
   - {fileID: 240186122}
   m_Father: {fileID: 297975339}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2017688063 stripped
 Transform:
