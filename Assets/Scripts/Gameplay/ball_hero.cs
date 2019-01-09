@@ -302,6 +302,7 @@ public class ball_hero : MonoBehaviour
 	void FixedUpdate(){
 		// ===================== JUMP ============================
 		if (globals.s.GAME_STARTED == true && globals.s.CURSOR_IN_PAUSE_BT == false) {
+//			if (Input.GetMouseButtonDown (0)) Debug.Log("JUMPING");
 			if ((Input.GetMouseButtonDown (0) || Input.GetKey ("space")) && globals.s.GAME_STARTED == true) {
 				StartCoroutine (Jump ());
 				//                Debug.Log ("1JJJJJJJUMP! " + Input.mousePosition.y );
@@ -325,10 +326,15 @@ public class ball_hero : MonoBehaviour
 			}
 		}
 	}
-
+	int sign = -1;
     void Update() {
 		// ================= SUPER JUMP START!!!!!!!!!! =====================
 //		GetComponent<Transform>().
+//		if (globals.s.PW_SUPER_JUMP == true) {
+//			my_skin.transform.position += Vector3.up * 0.1f * sign;
+//			sign = sign * (-1);
+//		}
+
 		if (globals.s.PW_SUPER_JUMP == true && transform.position.y >= nextTargetSuperJumpY) {
 			Debug.Log ("passing through floor!!! N: " + my_floor);
 
@@ -584,8 +590,7 @@ public class ball_hero : MonoBehaviour
 		}
 
         //GetComponent<EdgeCollider2D>().enabled = false;
-		if (grounded == true && gameObject.activeInHierarchy)
-        {
+		if (grounded == true && gameObject.activeInHierarchy) {
             // my_trail.transform.localRotation = new Quaternion(0, 0, 110, 0);
 			if (my_trail != null) my_trail.transform.DOLocalRotate(new Vector3(0, 0, 90), 0.01f, RotateMode.Fast);
 			sound_controller.s.PlayJump();
@@ -930,7 +935,6 @@ public class ball_hero : MonoBehaviour
 //        }
     }
 
-
 	void destroy_me(string killer_wave_name) { //TBD PEGAR A OUTRA BOLA DO BALL MASTER, PEGAR OS FLOOR DA POOL
 
 		if (myFollowers != null) {
@@ -974,63 +978,51 @@ public class ball_hero : MonoBehaviour
 		game_controller.s.game_over(killer_wave_name, bolas, with_high_score);
 	}
 
-    #endregion
-
-    public void send_actual_balls() {
-        ball_hero[] bolas = GameObject.FindObjectsOfType(typeof(ball_hero)) as ball_hero[];
-
-        game_controller.s.store_unactive_balls(bolas);
-
-        foreach (ball_hero b in bolas) {
-            //Destroy(b.gameObject);
-            b.gameObject.SetActive(false);
-        }
-    }
-
-    void pw_do_something(PW_Collect temp)
-    {
+	void pw_do_something(PW_Collect temp)
+	{
 		//USER.s.FIRST_PW_CREATED = 1;
 		//PlayerPrefs.SetInt("first_pw_created", 1);
 
-       // temp.collect();
-        if(globals.s.PW_INVENCIBLE == true)
-        {
-            PW_controller.s.invencible_end();
-        }
-        else if(globals.s.PW_SIGHT_BEYOND_SIGHT == true)
-        {
-            PW_controller.s.sight_end();
-        }
+		// temp.collect();
+		if(globals.s.PW_INVENCIBLE == true)
+		{
+			PW_controller.s.invencible_end();
+		}
+		else if(globals.s.PW_SIGHT_BEYOND_SIGHT == true)
+		{
+			PW_controller.s.sight_end();
+		}
 
-      //  Debug.Log("Tipodo PW q peguei " + temp.pw_type);
-        if (temp.pw_type == (int) PW_Types.Invencible)
-        {
-            PW_controller.s.invencible_start();
+		//  Debug.Log("Tipodo PW q peguei " + temp.pw_type);
+		if (temp.pw_type == (int) PW_Types.Invencible)
+		{
+			PW_controller.s.invencible_start();
 			globals.s.pwShieldCollected++;
-        }
-        else if (temp.pw_type == (int)PW_Types.Super)
-        {
+		}
+		else if (temp.pw_type == (int)PW_Types.Super)
+		{
 			if (globals.s.PW_SUPER_JUMP == false) {
-				go_up_pw_start ();
+				StartCoroutine( StartSuperJump ());
 				globals.s.pwSuperJumpCollected++;
 			} else {
 				Debug.Log ("SP collision do nothing...");
 			}
-        }
-        else if((temp.pw_type == (int)PW_Types.Sight))
-        {
-            PW_controller.s.PW_sight_start();
+		}
+		else if((temp.pw_type == (int)PW_Types.Sight))
+		{
+			PW_controller.s.PW_sight_start();
 			globals.s.pwVisionCollected++;
-        }
-    }
+		}
+	}
+
+    #endregion
 
     #region === POWER UP -> GO UP ===
 	int targetSuperJumpFloor = 0;
-    void go_up_pw_start()
-    {
+	IEnumerator StartSuperJump() {
 		if(QA.s.TRACE_PROFUNDITY >=2) Debug.Log ("PW GO UP START!! MY FLOOR: " + my_floor);
 		my_floor_after_super_jump = my_floor + 5;
-		jetpack.SetActive(true);
+//		jetpack.SetActive(true);
         my_alert.SetActive(false);
 		globals.s.ALERT_BALL = false;
 		globals.s.ALERT_BALL_N = 0;
@@ -1049,6 +1041,9 @@ public class ball_hero : MonoBehaviour
 //		main_camera.s.init_PW_super_jump( pos,  (pos-transform.position.y)/ 20  + 0.5f);
 //		2.295371
 		target_y = (globals.s.BASE_Y + ((my_floor) * globals.s.FLOOR_HEIGHT) +  (5* globals.s.FLOOR_HEIGHT) + globals.s.FLOOR_HEIGHT / 2 - 0.6f );
+
+		BallMaster.s.SetSuperJumpEffectSSJPurple ();
+		yield return new WaitForSeconds (0.22f);
 		main_camera.s.init_PW_super_jump( pos,  Mathf.Abs(target_y - transform.position.y)/ 20  + 0.5f);
 		Debug.Log ("SP TIME: " + (Mathf.Abs(pos - transform.position.y) / 20 + 0.5f));
 
@@ -1066,16 +1061,17 @@ public class ball_hero : MonoBehaviour
         
 		if(QA.s.TRACE_PROFUNDITY >=2) Debug.Log ("PW GO UP start end, MY FLOOR:  " + my_floor);
 
-        Invoke("go_up_PW", 0.2f);
-    }
+//		Invoke("go_up_PW", 0.2f);
 
-    void go_up_PW() {
+		yield return new WaitForSeconds (0.2f);
+
+
 		sound_controller.s.PlaySfxCharacterSuperJumpEffect ();
 
 		if(QA.s.TRACE_PROFUNDITY >=-1) Debug.Log ("[GOUPPW] GO UP START STEP 2!! MY FLOOR START:  " + my_floor);
         //globals.s.PW_SUPER_JUMP = true;
         desactivate_pws_super();
-		superJumpEffect.SetActive (true);
+//		superJumpEffect.SetActive (true);
         GetComponent<Collider2D>().enabled = false;
 
         int ball_speed = 20;
@@ -1110,6 +1106,8 @@ public class ball_hero : MonoBehaviour
         unactivate_particles_floor();
         
         Invoke("create_floor", 0.2f);
+
+
     }
 	
 
@@ -1126,7 +1124,9 @@ public class ball_hero : MonoBehaviour
 //		floor.GetComponent<floor> ().pauta.SetActive (false);
 //        floor.transform.DOMoveX(0, 0.3f);//.OnComplete(pw_super_end);
 
-		superJumpEffect.SetActive (false);
+//		superJumpEffect.SetActive (false);
+
+		BallMaster.s.EndSuperJumpEffect ();
     }
 
    void pw_super_end_for_real() {
@@ -1311,12 +1311,23 @@ public class ball_hero : MonoBehaviour
 	}
     #endregion
 
-
     #region =========== DEBUG ================
     void back_to_normal_color() {
         GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     #endregion
+
+	public void send_actual_balls() {
+		ball_hero[] bolas = GameObject.FindObjectsOfType(typeof(ball_hero)) as ball_hero[];
+
+		game_controller.s.store_unactive_balls(bolas);
+
+		foreach (ball_hero b in bolas) {
+			//Destroy(b.gameObject);
+			b.gameObject.SetActive(false);
+		}
+	}
+
 
 }

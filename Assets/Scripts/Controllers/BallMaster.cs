@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class BallMaster : MonoBehaviour {
 	#region === VARS ===
 	public static BallMaster s;
+	public GameObject superJumpEffect, superJumpJetpack;
 	public GameObject ballExplosion, collectCoinEffect, collectPowerUpEffect;
 //	public ArrayList balls;
 	public List<ball_hero> balls;
@@ -267,6 +268,32 @@ public class BallMaster : MonoBehaviour {
 
 	public void CreateCollectPowerUpEffect(Vector3 pos){
 		Instantiate(collectPowerUpEffect, pos, transform.rotation);
+	}
+
+	public void SetSuperJumpEffectSSJPurple(){
+		superJumpEffect.SetActive (true);
+		superJumpEffect.transform.position = balls.ToArray () [currentBall].transform.position + new Vector3(0.06f, - 0.26f, 0);
+		superJumpEffect.transform.SetParent (balls.ToArray () [currentBall].transform);
+
+		if (balls.ToArray () [currentBall].rb.velocity.x > 0) {
+			superJumpJetpack.transform.localScale = new Vector3 (-1, 1, 1);
+		} else {
+			superJumpJetpack.transform.localScale = Vector3.one;
+		}
+
+		superJumpEffect.GetComponent<Animator> ().Play ("SuperJumpStartEffectForReal");
+	}
+
+	public void EndSuperJumpEffect(){
+
+		superJumpEffect.GetComponent<Animator> ().Play ("SuperJumpEndEffect");
+		Invoke ("EndSuperJumpEffect2", 0.3f);
+	}
+
+	public void EndSuperJumpEffect2(){
+//		superJumpEffect.GetComponent<Animator> ().Play ("SuperJumpEndEffect");
+		superJumpEffect.transform.SetParent (null);
+		superJumpEffect.SetActive (false);
 	}
 
     #endregion

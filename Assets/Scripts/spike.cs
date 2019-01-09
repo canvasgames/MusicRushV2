@@ -36,7 +36,7 @@ public class spike : scenario_objects {
     }
 
 	public override void TurnTheLightsOnForThePartyHard(){
-		Debug.Log (myId + "  DOING SOMETHING!! for the dance ");
+//		Debug.Log (myId + "  DOING SOMETHING!! for the dance ");
 		my_glow.SetActive (true);
 		my_glow_off.SetActive (false);
 	}

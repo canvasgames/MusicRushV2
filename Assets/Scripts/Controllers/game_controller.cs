@@ -476,6 +476,8 @@ public class game_controller : MonoBehaviour {
 		cur_floor = -1;
 
 		BallMaster.s.NewGameLogic();
+
+		globals.s.curGameScreen = GameScreen.Gameplay;
 	}
 
 	public void RewindEffect(){
@@ -484,7 +486,7 @@ public class game_controller : MonoBehaviour {
 	}
 
 	public IEnumerator RewindStuff(){
-		Debug.Log ("SSSSSSSOUND CONTROLLER REWIND");
+		Debug.Log ("[GM] Rewind Stuff Start");
 		GameOverController.s.gameObject.SetActive (false);
 		hud_controller.si.DisplayRestartLoading ();
 		BallMaster.s.DeactivateBallsForRestart ();
@@ -689,7 +691,7 @@ public class game_controller : MonoBehaviour {
 			if ( rand < GD.s.GD_PW_CHANCE_SUPER_JUMP || (USER.s.FIRST_PW_CREATED == 0 && !first_pw_created)) {
 //			if ( 1==2) {
 				my_type = (int)PW_Types.Super;
-				x = Random.Range (-center_mid_area, center_mid_area);
+				x = Random.Range (-0.5f, 0.5f);
 			} else if (rand < GD.s.GD_PW_CHANCE_SUPER_JUMP + GD.s.GD_PW_CHANCE_SHIELD) {
 				my_type = (int)PW_Types.Invencible;
 			} else {

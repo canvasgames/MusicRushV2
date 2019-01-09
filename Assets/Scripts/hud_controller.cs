@@ -430,7 +430,7 @@ public class hud_controller : MonoBehaviour {
 		}
 
 
-		if (Input.GetKey ("space") && globals.s.curGameScreen == GameScreen.LevelEnd) {
+		if (QA.s.PC_MODE && Input.GetKey ("space") && globals.s.curGameScreen == GameScreen.LevelEnd) {
 			OnReplayButtonPressed ();
 		}
 
@@ -573,9 +573,9 @@ public class hud_controller : MonoBehaviour {
 	IEnumerator ManualReset(){
 		yield return new WaitForSeconds (100);
 
-		if (globals.s.GAME_OVER == 1) {
-			hud_controller.si.OnReplayButtonPressed ();
-		}
+//		if (globals.s.GAME_OVER == 1) {
+//			hud_controller.si.OnReplayButtonPressed ();
+//		}
 	}
 
 	public void show_game_over(int currentFloor, bool fromRevive = false)

@@ -304,9 +304,13 @@ public class main_camera : MonoBehaviour {
 		}
 		//Debug.Log (camSpeed);
 //		if (pw_super_jump == false) 
-		if(globals.s.PW_SUPER_JUMP == false) transform.position += camSpeed * Vector3.up * Time.deltaTime;
+		if(globals.s.PW_SUPER_JUMP == false) transform.position += camSpeed * Vector3.up * Time.deltaTime ;
+//		 + new Vector3(0,0.8f* sign,0);
+//		sign = sign * -1;
+
 		if (pw_super_jump == true) {
 //			Debug.Log ("[CAM] SUPER JUMP! IS:" + globals.s.PW_SUPER_JUMP + "My Y: "+transform.position.y +   " ..  ball dif y: " + (transform.position.y - globals.s.BALL_Y));   
 		}
     }
+	int sign = 1;
 }
