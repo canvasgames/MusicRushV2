@@ -1020,8 +1020,9 @@ public class ball_hero : MonoBehaviour
     #region === POWER UP -> GO UP ===
 	int targetSuperJumpFloor = 0;
 	IEnumerator StartSuperJump() {
-		if(QA.s.TRACE_PROFUNDITY >=2) Debug.Log ("PW GO UP START!! MY FLOOR: " + my_floor);
-		my_floor_after_super_jump = my_floor + 5;
+        if (QA.s.TRACE_PROFUNDITY >=2) Debug.Log ("PW GO UP START!! MY FLOOR: " + my_floor);
+        int ball_speed = 33;
+		my_floor_after_super_jump = my_floor + GD.s.GD_PW_SUPER_JUMP_FLOORS;
 //		jetpack.SetActive(true);
         my_alert.SetActive(false);
 		globals.s.ALERT_BALL = false;
@@ -1036,16 +1037,17 @@ public class ball_hero : MonoBehaviour
 
 		nextTargetSuperJumpY = ((globals.s.BASE_Y + ((my_floor) * globals.s.FLOOR_HEIGHT) - 0.7f)); // define the target y for Floor creation
 //		float pos = ((globals.s.BASE_Y + ((my_floor+1) * globals.s.FLOOR_HEIGHT) +  (5* globals.s.FLOOR_HEIGHT) + globals.s.FLOOR_HEIGHT / 2 ));
-		float pos = ((globals.s.BASE_Y + ((my_floor) * globals.s.FLOOR_HEIGHT) +  (5* globals.s.FLOOR_HEIGHT) + 2.3f ));
-		targetSuperJumpFloor = my_floor + 5;
+		float pos = ((globals.s.BASE_Y + ((my_floor) * globals.s.FLOOR_HEIGHT) +  (GD.s.GD_PW_SUPER_JUMP_FLOORS * globals.s.FLOOR_HEIGHT) + 2.3f ));
+		targetSuperJumpFloor = my_floor + GD.s.GD_PW_SUPER_JUMP_FLOORS;
 //		main_camera.s.init_PW_super_jump( pos,  (pos-transform.position.y)/ 20  + 0.5f);
 //		2.295371
-		target_y = (globals.s.BASE_Y + ((my_floor) * globals.s.FLOOR_HEIGHT) +  (5* globals.s.FLOOR_HEIGHT) + globals.s.FLOOR_HEIGHT / 2 - 0.6f );
+		target_y = (globals.s.BASE_Y + ((my_floor) * globals.s.FLOOR_HEIGHT) +  (GD.s.GD_PW_SUPER_JUMP_FLOORS * globals.s.FLOOR_HEIGHT) + globals.s.FLOOR_HEIGHT / 2 - 0.6f );
 
 		BallMaster.s.SetSuperJumpEffectSSJPurple ();
 		yield return new WaitForSeconds (0.22f);
-		main_camera.s.init_PW_super_jump( pos,  Mathf.Abs(target_y - transform.position.y)/ 20  + 0.5f);
-		Debug.Log ("SP TIME: " + (Mathf.Abs(pos - transform.position.y) / 20 + 0.5f));
+		main_camera.s.init_PW_super_jump( pos,  Mathf.Abs(target_y - transform.position.y)/ ball_speed  + 0.5f);
+
+        Debug.Log ("SP TIME: " + (Mathf.Abs(pos - transform.position.y) / ball_speed + 0.5f));
 
         //construct floors
         int temp = my_floor;
@@ -1065,7 +1067,6 @@ public class ball_hero : MonoBehaviour
 
 		yield return new WaitForSeconds (0.2f);
 
-
 		sound_controller.s.PlaySfxCharacterSuperJumpEffect ();
 
 		if(QA.s.TRACE_PROFUNDITY >=-1) Debug.Log ("[GOUPPW] GO UP START STEP 2!! MY FLOOR START:  " + my_floor);
@@ -1073,8 +1074,7 @@ public class ball_hero : MonoBehaviour
         desactivate_pws_super();
 //		superJumpEffect.SetActive (true);
         GetComponent<Collider2D>().enabled = false;
-
-        int ball_speed = 20;
+        
         target_y_reached = false;
 
         rb.velocity = new Vector2(0, ball_speed);
@@ -1089,8 +1089,22 @@ public class ball_hero : MonoBehaviour
 
 		destroy_spikes(transform.position.y + 5* globals.s.FLOOR_HEIGHT + (globals.s.FLOOR_HEIGHT/2));
 		Debug.Log (" DESTROY THIS SPIKES: ... " + (transform.position.y + 5 * globals.s.FLOOR_HEIGHT + (globals.s.FLOOR_HEIGHT / 2)));
-//		destroy_spikes(globals.s.BASE_Y + (my_floor + 5)* globals.s.FLOOR_HEIGHT + (globals.s.FLOOR_HEIGHT/2));
-//		destroy_spikes(nextTargetSuperJumpY +1f);
+        //		destroy_spikes(globals.s.BASE_Y + (my_floor + 5)* globals.s.FLOOR_HEIGHT + (globals.s.FLOOR_HEIGHT/2));
+        //		destroy_spikes(nextTargetSuperJumpY +1f);
+        StartCoroutine(ShakeMyBodyAtSuperJump());
+    }
+
+    int mult = 1;
+    IEnumerator ShakeMyBodyAtSuperJump() { 
+        if(globals.s.PW_SUPER_JUMP == true && target_y_reached == false) {
+            yield return new WaitForSeconds(0.05f);
+            my_skin.transform.localPosition = new Vector2(my_skin.transform.localPosition.x, 0.04f + mult * 0.061f);
+            //my_skin.transform.DOShakePosition(time);
+            mult = mult * -1;
+            StartCoroutine(ShakeMyBodyAtSuperJump());
+        }
+        else
+            my_skin.transform.localPosition = new Vector2(my_skin.transform.localPosition.x, 0.04f);
     }
 
     void stop_go_up_PW() {
@@ -1106,8 +1120,6 @@ public class ball_hero : MonoBehaviour
         unactivate_particles_floor();
         
         Invoke("create_floor", 0.2f);
-
-
     }
 	
 

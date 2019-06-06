@@ -39,6 +39,7 @@ public class GD : MonoBehaviour {
 	public int GD_PW_CHANCE_SUPER_JUMP = 20;
 	public int GD_PW_CHANCE_SHIELD = 40;
 	public int GD_PW_CHANCE_VISION = 40;
+    public int GD_PW_SUPER_JUMP_FLOORS = 5;
 
 	[Space (10)]
 	[Header ("METAGAME ECONOMY")]

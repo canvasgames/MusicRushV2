@@ -664,7 +664,7 @@ public class game_controller : MonoBehaviour {
 		else
 			rand = Random.Range(0, 100);
 
-		rand = 5;
+		//rand = 5;
 
         //rand = Random.Range(0, 10);
         // create chance check

@@ -1133,7 +1133,6 @@ public class hud_controller : MonoBehaviour {
 		Invoke("change_menu_open_state", 1f);
 	}
 
-    #endregion
 
     void change_menu_open_state()
     {
@@ -1228,10 +1227,13 @@ public class hud_controller : MonoBehaviour {
                 break;
         }
     }
-	#endif
+#endif
 
-	#region ======== SPIN DISK ============
-	public void RodaMenu(){
+    #endregion
+
+
+    #region ======== SPIN DISK ============
+    public void RodaMenu(){
 		//StartCoroutine(activeRodaaRoda());
 		globals.s.previousGameScreen = globals.s.curGameScreen;
 		globals.s.curGameScreen = GameScreen.SpinDisk;
