@@ -18,4 +18,4 @@ MonoBehaviour:
   AppName: d42ff3e4-c2b1-412f-9f0b-05ee40dd671e
   AppSlug: e9ba4291-aff9-4464-a0f3-7eaa8f08579a
   AppItemId: 274878427257
-  Permission: owner
+  Permission: none

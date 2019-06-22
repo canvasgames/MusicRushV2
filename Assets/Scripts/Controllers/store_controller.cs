@@ -936,7 +936,7 @@ public class store_controller : MonoBehaviour {
 		}
 
 		else if (curCategory == Categories.Promo1) {
-			CompleteProject.Purchaser.instance.BuyPack ((MusicStyle)USER.s.CUR_SPECIAL_OFFER);
+			//CompleteProject.Purchaser.instance.BuyPack ((MusicStyle)USER.s.CUR_SPECIAL_OFFER);
 		}
 
 

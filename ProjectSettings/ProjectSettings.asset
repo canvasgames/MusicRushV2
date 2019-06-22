@@ -248,7 +248,7 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: E:/Desktop/Music Rush new SVN/trunk/ms2.keystore
+  AndroidKeystoreName: E:/ProjetosUnity/MusicRush/ms2.keystore
   AndroidKeyaliasName: com.canvasgames.musicrush
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
@@ -599,8 +599,8 @@ PlayerSettings:
   webGLUseWasm: 0
   webGLCompressionFormat: 1
   scriptingDefineSymbols:
-    4: xxxUSE_CHOCOLATE;USE_FIREBASE
-    7: xxFLOOR_SQUARES_LOGIC
+    4: xxxUSE_CHOCOLATE;USE_FIREBASE;NO_GPGS
+    7: xxFLOOR_SQUARES_LOGIC;xxxUSE_CHOCOLATE;USE_APPODEAL;USE_FIREBASE;USE_DEVTODEV;USE_GAMEANALYTICS;xxxUNITY_PURCHASING
   platformArchitecture:
     iOS: 2
   scriptingBackend:

@@ -579,18 +579,21 @@ public class ball_hero : MonoBehaviour
 
 	public IEnumerator Jump()
     {
-        //Instantiate(explosion, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);
+        yield return new WaitForEndOfFrame();
+        Instantiate(explosion, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);
 
-		if (grounded == false) { // wait a short delay if the player miss press jump in the air
-			yield return new WaitForSeconds(0.05f);
-		}
+        if (grounded == false)
+        { // wait a short delay if the player miss press jump in the air
+            yield return new WaitForSeconds(0.05f);
+        }
 
-		if (grounded == false) { // wait a short delay if the player miss press jump in the air
-			yield return new WaitForSeconds(0.05f);
-		}
+        if (grounded == false)
+        { // wait a short delay if the player miss press jump in the air
+            yield return new WaitForSeconds(0.05f);
+        }
 
         //GetComponent<EdgeCollider2D>().enabled = false;
-		if (grounded == true && gameObject.activeInHierarchy) {
+        if (grounded == true && gameObject.activeInHierarchy) {
             // my_trail.transform.localRotation = new Quaternion(0, 0, 110, 0);
 			if (my_trail != null) my_trail.transform.DOLocalRotate(new Vector3(0, 0, 90), 0.01f, RotateMode.Fast);
 			sound_controller.s.PlayJump();
