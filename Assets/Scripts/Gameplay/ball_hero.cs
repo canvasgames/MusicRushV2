@@ -61,6 +61,7 @@ public class ball_hero : MonoBehaviour
 
     public float cam_fall_dist = 0;
 	int my_floor_after_super_jump= 0;
+    private bool isAbleToJump;
 
     #endregion
 
@@ -299,43 +300,54 @@ public class ball_hero : MonoBehaviour
 	float nextTargetSuperJumpY = 0;
 	bool myAlertAlreadyShowed = false;
 
-	void FixedUpdate(){
-		// ===================== JUMP ============================
-		if (globals.s.GAME_STARTED == true && globals.s.CURSOR_IN_PAUSE_BT == false) {
-//			if (Input.GetMouseButtonDown (0)) Debug.Log("JUMPING");
-			if ((Input.GetMouseButtonDown (0) || Input.GetKey ("space")) && globals.s.GAME_STARTED == true) {
-				StartCoroutine (Jump ());
-				//                Debug.Log ("1JJJJJJJUMP! " + Input.mousePosition.y );
-				//				Debug.Log ("GAME ALREADY STARTED, JUST JUMP!!!");
-			} 
-			//			else if (Input.GetMouseButtonUp (0) && hud_controller.si.HUD_BUTTON_CLICKED == false) {
-			//				StartCoroutine (Jump ());
-			////				Debug.Log ("GAME ALREADY STARTED, JUST JUMP!!!2");
-			//
-			//			}
-		} else {
-			if (QA.s.DONT_START_THE_GAME == false && globals.s.MENU_OPEN == false && globals.s.curGameScreen == GameScreen.MainMenu && 
-				(Input.GetMouseButtonDown (0) || Input.GetKey ("space"))) {
-				//				&& Input.mousePosition.y > -7.3f && Input.mousePosition.y < 1.3f
-				//				Debug.Log ("GAME NOT STARTED YET! MENU: " + globals.s.GIFT_ANIMATION);
-				//				Debug.Log ("0JJJJJJJUMP! " + Input.mousePosition.y );
-				globals.s.GAME_STARTED = true;
-				hud_controller.si.start_game_coroutine ();
-				//				Debug.Log ("START GAME: FIRST JUMP!!!");
-				StartCoroutine (Jump ());
-			}
-		}
+	void FixedUpdate()
+    {
+        if (isAbleToJump)
+            StartCoroutine(Jump());
 	}
 	int sign = -1;
-    void Update() {
-		// ================= SUPER JUMP START!!!!!!!!!! =====================
-//		GetComponent<Transform>().
-//		if (globals.s.PW_SUPER_JUMP == true) {
-//			my_skin.transform.position += Vector3.up * 0.1f * sign;
-//			sign = sign * (-1);
-//		}
+    void Update()
+    {
+        // ===================== JUMP ============================
+        if (globals.s.GAME_STARTED == true && globals.s.CURSOR_IN_PAUSE_BT == false)
+        {
+            //			if (Input.GetMouseButtonDown (0)) Debug.Log("JUMPING");
+            if ((Input.GetMouseButtonDown(0) || Input.GetKey("space")) && globals.s.GAME_STARTED == true)
+            {
+                isAbleToJump = true;
+                //StartCoroutine(Jump());
+                //                Debug.Log ("1JJJJJJJUMP! " + Input.mousePosition.y );
+                //				Debug.Log ("GAME ALREADY STARTED, JUST JUMP!!!");
+            }
+            //			else if (Input.GetMouseButtonUp (0) && hud_controller.si.HUD_BUTTON_CLICKED == false) {
+            //				StartCoroutine (Jump ());
+            ////				Debug.Log ("GAME ALREADY STARTED, JUST JUMP!!!2");
+            //
+            //			}
+        }
+        else
+        {
+            if (QA.s.DONT_START_THE_GAME == false && globals.s.MENU_OPEN == false && globals.s.curGameScreen == GameScreen.MainMenu &&
+                (Input.GetMouseButtonDown(0) || Input.GetKey("space")))
+            {
+                //				&& Input.mousePosition.y > -7.3f && Input.mousePosition.y < 1.3f
+                //				Debug.Log ("GAME NOT STARTED YET! MENU: " + globals.s.GIFT_ANIMATION);
+                //				Debug.Log ("0JJJJJJJUMP! " + Input.mousePosition.y );
+                globals.s.GAME_STARTED = true;
+                hud_controller.si.start_game_coroutine();
+                //				Debug.Log ("START GAME: FIRST JUMP!!!");
+                //StartCoroutine(Jump());
+                isAbleToJump = true;
+            }
+        }
+        // ================= SUPER JUMP START!!!!!!!!!! =====================
+        //		GetComponent<Transform>().
+        //		if (globals.s.PW_SUPER_JUMP == true) {
+        //			my_skin.transform.position += Vector3.up * 0.1f * sign;
+        //			sign = sign * (-1);
+        //		}
 
-		if (globals.s.PW_SUPER_JUMP == true && transform.position.y >= nextTargetSuperJumpY) {
+        if (globals.s.PW_SUPER_JUMP == true && transform.position.y >= nextTargetSuperJumpY) {
 			Debug.Log ("passing through floor!!! N: " + my_floor);
 
 			nextTargetSuperJumpY += globals.s.FLOOR_HEIGHT;
@@ -579,35 +591,46 @@ public class ball_hero : MonoBehaviour
 
 	public IEnumerator Jump()
     {
-        yield return new WaitForEndOfFrame();
-        Instantiate(explosion, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);
+        //Instantiate(explosion, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);
+        isAbleToJump = false;
 
-        if (grounded == false)
-        { // wait a short delay if the player miss press jump in the air
-            yield return new WaitForSeconds(0.05f);
-        }
-
-        if (grounded == false)
-        { // wait a short delay if the player miss press jump in the air
-            yield return new WaitForSeconds(0.05f);
-        }
-
-        //GetComponent<EdgeCollider2D>().enabled = false;
-        if (grounded == true && gameObject.activeInHierarchy) {
+        if (grounded && this.gameObject.activeInHierarchy)
+        {
             // my_trail.transform.localRotation = new Quaternion(0, 0, 110, 0);
-			if (my_trail != null) my_trail.transform.DOLocalRotate(new Vector3(0, 0, 90), 0.01f, RotateMode.Fast);
-			sound_controller.s.PlayJump();
+            if (my_trail != null) my_trail.transform.DOLocalRotate(new Vector3(0, 0, 90), 0.01f, RotateMode.Fast);
+            sound_controller.s.PlayJump();
             grounded = false;
             //rb.AddForce (new Vector2 (0, y_jump));
             rb.velocity = new Vector2(rb.velocity.x, globals.s.BALL_SPEED_Y);
 
-           // my_skin.GetComponent<Animator>().Play("Jumping");
+            // my_skin.GetComponent<Animator>().Play("Jumping");
             my_skin.GetComponent<Animator>().SetBool("Jumping", true);
 
-//			if(myFollowers != null) StartCoroutine (JumpMyFollowers ());
-			if(myFollowers != null)
+            //			if(myFollowers != null) StartCoroutine (JumpMyFollowers ());
+            if (myFollowers != null)
                 BallMaster.s.IEnumeratorJumpMyFollowers(iAmLeft);
         }
+        else
+        { // wait a short delay if the player miss press jump in the air
+            yield return new WaitForSeconds(0.05f);
+        }
+
+//        //GetComponent<EdgeCollider2D>().enabled = false;
+//        if (grounded == true && gameObject.activeInHierarchy) {
+//            // my_trail.transform.localRotation = new Quaternion(0, 0, 110, 0);
+//			if (my_trail != null) my_trail.transform.DOLocalRotate(new Vector3(0, 0, 90), 0.01f, RotateMode.Fast);
+//			sound_controller.s.PlayJump();
+//            grounded = false;
+//            //rb.AddForce (new Vector2 (0, y_jump));
+//            rb.velocity = new Vector2(rb.velocity.x, globals.s.BALL_SPEED_Y);
+
+//           // my_skin.GetComponent<Animator>().Play("Jumping");
+//            my_skin.GetComponent<Animator>().SetBool("Jumping", true);
+
+////			if(myFollowers != null) StartCoroutine (JumpMyFollowers ());
+//			if(myFollowers != null)
+//                BallMaster.s.IEnumeratorJumpMyFollowers(iAmLeft);
+//        }
         //else Debug.Log("ÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇ CANT JUMP! I AM NOT GROUNDED");
     }
 
