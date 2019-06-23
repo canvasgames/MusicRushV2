@@ -302,20 +302,16 @@ public class ball_hero : MonoBehaviour
 
 	void FixedUpdate()
     {
-        if (isAbleToJump)
-            StartCoroutine(Jump());
-	}
-	int sign = -1;
-    void Update()
-    {
+        //if (isAbleToJump)
+           // StartCoroutine(Jump());
         // ===================== JUMP ============================
         if (globals.s.GAME_STARTED == true && globals.s.CURSOR_IN_PAUSE_BT == false)
         {
             //			if (Input.GetMouseButtonDown (0)) Debug.Log("JUMPING");
             if ((Input.GetMouseButtonDown(0) || Input.GetKey("space")) && globals.s.GAME_STARTED == true)
             {
-                isAbleToJump = true;
-                //StartCoroutine(Jump());
+                //isAbleToJump = true;
+                StartCoroutine(Jump());
                 //                Debug.Log ("1JJJJJJJUMP! " + Input.mousePosition.y );
                 //				Debug.Log ("GAME ALREADY STARTED, JUST JUMP!!!");
             }
@@ -336,10 +332,17 @@ public class ball_hero : MonoBehaviour
                 globals.s.GAME_STARTED = true;
                 hud_controller.si.start_game_coroutine();
                 //				Debug.Log ("START GAME: FIRST JUMP!!!");
-                //StartCoroutine(Jump());
-                isAbleToJump = true;
+                StartCoroutine(Jump());
+               // isAbleToJump = true;
             }
         }
+    }
+
+
+	int sign = -1;
+    void Update()
+    {
+        
         // ================= SUPER JUMP START!!!!!!!!!! =====================
         //		GetComponent<Transform>().
         //		if (globals.s.PW_SUPER_JUMP == true) {
@@ -1182,6 +1185,8 @@ public class ball_hero : MonoBehaviour
 		init_my_skin ();
 
         Invoke("unactivate_squares", 0.3f);
+
+        globals.s.BALL_FLOOR = my_floor;
     }
 
     void activate_particles_floor() {  

@@ -126,7 +126,7 @@ public class main_camera : MonoBehaviour {
 
 	 public void ResetMeForRestart(){
 		initiated = false;
-		transform.position = new Vector2 (0, yStart);
+		transform.position = new Vector3 (0, yStart, -10f);
 	}
 
 	public void ResetMeFoInstantRestart(){

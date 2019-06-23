@@ -19,7 +19,7 @@ public class spike : scenario_objects {
 
 	public GameObject my_glow, my_glow_off;
     public GameObject my_skin;
-	float my_skin_scale;
+	float my_skin_scale  = 1.042153f;
 
     float timer = 0;
     float target_y;
@@ -46,7 +46,7 @@ public class spike : scenario_objects {
     {
         my_collider = GetComponent<PolygonCollider2D>();
 		my_vision_effect.SetActive (false);
-		my_skin_scale = my_skin.transform.localScale.y;
+		//my_skin_scale = my_skin.transform.localScale.y;
     }
 	void Start () {
 
@@ -231,6 +231,7 @@ public class spike : scenario_objects {
 		my_glow.SetActive(false);
 		my_glow_off.SetActive(true);
         transform.localScale = new Vector3(globals.s.SPK_SCALE, globals.s.SPK_SCALE, globals.s.SPK_SCALE);
+        my_skin.transform.localScale = new Vector3(my_skin_scale, my_skin_scale, my_skin_scale);
         count_blink = 16;
         //transform.DOScale(0.7f, 0.1f);
     }
