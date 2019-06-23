@@ -114,6 +114,7 @@
      <Compile Include="Assets\GooglePlayGames\Editor\NearbyConnectionUI.cs" />
      <Compile Include="Assets\GoogleVR\Editor\FmodGvrAudioRoomEditor.cs" />
      <Compile Include="Assets\ResonanceAudio\Editor\FmodResonanceAudioRoomEditor.cs" />
+     <Compile Include="Assets\Scripts\Camera\Editor\AspectRatioCalculator.cs" />
      <Compile Include="Assets\SimpleAnimationComponent\Editor\SimpleAnimationEditor.cs" />
      <Compile Include="Assets\Unity-Logs-Viewer\Reporter\Editor\ReporterEditor.cs" />
      <None Include="Assets\devtodev\Editor\AppDependencies.xml" />

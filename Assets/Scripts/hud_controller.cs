@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System;
 using UnityEngine.Advertisements;
+using Ads;
 
 public enum RewardedVideoType{ Revive, ResortChar, RespinDisk, SpinDisk, DoubleReward}
 
@@ -408,19 +409,18 @@ public class hud_controller : MonoBehaviour {
 	#region ==== Update ====
 	// Update is called once per frame
 	void Update () {
-
-		//GAME OVER GAME CASE
-		//if(Input.GetMouseButtonDown(0))
-		//   Debug.Log("ueeeeeeeeeeeeeeeeee epaaaaaaaaaaaaaaaaaaa epa, veja la como fala sua " + globals.s.CAN_RESTART);
-		// Debug.Log(globals.s.PW_ACTIVE);
-		//        if (globals.s.CAN_RESTART && Input.GetMouseButtonDown(0))
-		//        {
-		//            //Application.LoadLevel("Gameplay");
-		//            //Application.LoadLevel()
-		//            
-		//            SceneManager.LoadScene("Gameplay 1");
-		//        }
-		if (USER.s.NEWBIE_PLAYER == 0 && globals.s.FIRST_GAME == false && globals.s.GAME_STARTED == false) {
+        //GAME OVER GAME CASE
+        //if(Input.GetMouseButtonDown(0))
+        //   Debug.Log("ueeeeeeeeeeeeeeeeee epaaaaaaaaaaaaaaaaaaa epa, veja la como fala sua " + globals.s.CAN_RESTART);
+        // Debug.Log(globals.s.PW_ACTIVE);
+        //        if (globals.s.CAN_RESTART && Input.GetMouseButtonDown(0))
+        //        {
+        //            //Application.LoadLevel("Gameplay");
+        //            //Application.LoadLevel()
+        //            
+        //            SceneManager.LoadScene("Gameplay 1");
+        //        }
+        if (USER.s.NEWBIE_PLAYER == 0 && globals.s.FIRST_GAME == false && globals.s.GAME_STARTED == false) {
 			if (USER.s.NEWBIE_PLAYER == 0) {
 				show_pw_time ();
 				show_roullete_time ();
@@ -1141,14 +1141,23 @@ public class hud_controller : MonoBehaviour {
 
     public void ShowAd()
     {
-		#if UNITY_ANDROID || UNITY_IOS
-		if (Advertisement.IsReady ("rewardedVideo")) {
-			var options = new ShowOptions { resultCallback = HandleShowResult };
-			Advertisement.Show ("rewardedVideo", options);
-		} else {
-			Advertisement.Initialize ("1194074");
-		}
-		#endif
+    #if UNITY_ANDROID || UNITY_IOS
+    #if USE_APPODEAL
+        // Runs Appodeal Rewarded Ad.
+        PluginManager.Instance.RunAppodealAd((Ads.AdType.Rewarded));
+    #endif
+            /*
+            if (Advertisement.IsReady("rewardedVideo"))
+            {
+                var options = new ShowOptions { resultCallback = HandleShowResult };
+                Advertisement.Show("rewardedVideo", options);
+            }
+            else
+            {
+                Advertisement.Initialize("1194074");
+            }
+            */
+    #endif
     }
 
 	#if UNITY_ANDROID || UNITY_EDITOR || UNITY_IOS

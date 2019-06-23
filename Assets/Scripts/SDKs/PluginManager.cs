@@ -23,7 +23,7 @@ namespace Ads
     public enum AdType { Interstitial, Rewarded, Banner }
 }
 
-public abstract class BaseSDK //: IRewardedVideoAdListener, IInterstitialAdListener, IBannerAdListener 
+public abstract class BaseSDK : IRewardedVideoAdListener, IInterstitialAdListener, IBannerAdListener 
 {
     public abstract void Initialize();
 
@@ -49,7 +49,9 @@ public abstract class BaseSDK //: IRewardedVideoAdListener, IInterstitialAdListe
         Appodeal.cache(Appodeal.BANNER_BOTTOM);
         Appodeal.cache(Appodeal.INTERSTITIAL);
         Appodeal.initialize(appKey, Appodeal.BANNER | Appodeal.INTERSTITIAL | Appodeal.REWARDED_VIDEO, true);
-        //Appodeal.setRewardedVideoCallbacks(this);
+        Appodeal.setRewardedVideoCallbacks(this);
+        Appodeal.setInterstitialCallbacks(this);
+        Appodeal.setBannerCallbacks(this);
         Debug.Log("<color=blue>Appodeal initialized for Android.</color>");
     }
 
@@ -438,11 +440,16 @@ public class IOSSDK : BaseSDK
 
 public class PluginManager : MonoBehaviour
 {
+    public static PluginManager Instance;
+
     BaseSDK sdk;
     public bool enableAppodeal;
 
     private void Awake()
     {
+        if (Instance == null)
+            Instance = this;
+
         InitializeSdks();
     }
 
@@ -486,10 +493,10 @@ public class PluginManager : MonoBehaviour
     }
     #endregion
 
-    public void RunAppodealAd(int type)
+    public void RunAppodealAd(Ads.AdType type)
     {
 #if USE_APPODEAL
-        sdk.RunAppodealAd((Ads.AdType)type);
+        sdk.RunAppodealAd(type);
 #endif
     }
 }

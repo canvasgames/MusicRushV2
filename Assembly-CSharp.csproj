@@ -377,6 +377,7 @@
      <Compile Include="Assets\Scripts\BlockFixed.cs" />
      <Compile Include="Assets\Scripts\button_close_video_ended.cs" />
      <Compile Include="Assets\Scripts\Button_New_Game_QA.cs" />
+     <Compile Include="Assets\Scripts\Camera\AspectRatio.cs" />
      <Compile Include="Assets\Scripts\close_bt_revive.cs" />
      <Compile Include="Assets\Scripts\collider_tutorial_left.cs" />
      <Compile Include="Assets\Scripts\collider_tutorial_right.cs" />

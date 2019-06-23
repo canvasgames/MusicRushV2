@@ -22186,7 +22186,7 @@ Camera:
   near clip plane: 0.01
   far clip plane: 1000
   field of view: 77.3
-  orthographic: 0
+  orthographic: 1
   orthographic size: 8
   m_Depth: -1
   m_CullingMask:
@@ -22664,7 +22664,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -135, y: -508}
+  m_AnchoredPosition: {x: 78, y: -705}
   m_SizeDelta: {x: 129, y: 70}
   m_Pivot: {x: 0.49999997, y: 0.5}
 --- !u!1 &764041698
@@ -49065,7 +49065,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 67, y: -421}
+  m_AnchoredPosition: {x: 67, y: -421.00003}
   m_SizeDelta: {x: 129, y: 70}
   m_Pivot: {x: 0.49999997, y: 0.5}
 --- !u!114 &1528870670
@@ -51228,7 +51228,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -216, y: -725.00006}
+  m_AnchoredPosition: {x: -216, y: -725}
   m_SizeDelta: {x: 129, y: 70}
   m_Pivot: {x: 0.5000002, y: 0.5}
 --- !u!114 &1597513478
@@ -74902,6 +74902,10 @@ Prefab:
     - target: {fileID: 22431976, guid: ecdcf36fa174111478a970bd3aad3bb7, type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 121436, guid: ecdcf36fa174111478a970bd3aad3bb7, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ecdcf36fa174111478a970bd3aad3bb7, type: 2}
