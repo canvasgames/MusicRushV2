@@ -100,7 +100,6 @@ public class ball_hero : MonoBehaviour
 		}
 	}
 
-
 	 // FAZER CODIGO QUE PROCURA PRA VER SE "BANDN != NULL, E VAI ATRIBUINDO AS SKINS ATÉ SER NULL"
 	public void UpdateMySkin() {
 		Debug.Log (iAmLeft + " UPDATE MY SKIN: " + globals.s.ACTUAL_STYLE.ToString () +  " ACT SKIN " + globals.s.ACTUAL_SKIN.skinName + " id: "+globals.s.ACTUAL_SKIN.id );
@@ -1064,7 +1063,7 @@ public class ball_hero : MonoBehaviour
         rb.gravityScale = 0;
         rb.isKinematic = true;
 
-		nextTargetSuperJumpY = ((globals.s.BASE_Y + ((my_floor) * globals.s.FLOOR_HEIGHT) - 0.7f)); // define the target y for Floor creation
+		nextTargetSuperJumpY = ((globals.s.BASE_Y + ((my_floor+1) * globals.s.FLOOR_HEIGHT) - 0.7f)); // define the target y for Floor creation
 //		float pos = ((globals.s.BASE_Y + ((my_floor+1) * globals.s.FLOOR_HEIGHT) +  (5* globals.s.FLOOR_HEIGHT) + globals.s.FLOOR_HEIGHT / 2 ));
 		float pos = ((globals.s.BASE_Y + ((my_floor) * globals.s.FLOOR_HEIGHT) +  (GD.s.GD_PW_SUPER_JUMP_FLOORS * globals.s.FLOOR_HEIGHT) + 2.3f ));
 		targetSuperJumpFloor = my_floor + GD.s.GD_PW_SUPER_JUMP_FLOORS;
