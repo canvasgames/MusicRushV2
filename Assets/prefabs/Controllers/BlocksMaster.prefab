@@ -727,21 +727,21 @@ MonoBehaviour:
     customName: 
     chance: 25
     type: 8
-    denyConditions: 0200000004000000
+    denyConditions: 020000000400000003000000
     obstacles: []
     obstaclesFloor2: []
   - name: WallAndHiddenSpkAtCenter_25
     customName: 
     chance: 25
     type: 7
-    denyConditions: 0200000004000000
+    denyConditions: 020000000400000003000000
     obstacles: []
     obstaclesFloor2: []
   - name: WallCornerVeryHard_25
     customName: 
     chance: 25
     type: 9
-    denyConditions: 0200000004000000
+    denyConditions: 020000000400000003000000
     obstacles: []
     obstaclesFloor2: []
   - name: ThreeSpks_15
@@ -1057,6 +1057,23 @@ MonoBehaviour:
       xInit: -2.4
       xEnd: 0
       fixedDist: 0
+  - name: h_saw_hidSpk_10
+    customName: h_saw_hidSpk
+    chance: 10
+    type: 0
+    denyConditions: 020000000300000004000000
+    obstacles:
+    - name: saw_[3, 3.5]
+      myType: 4
+      xInit: 3
+      xEnd: 3.5
+      fixedDist: 0
+    - name: hiddenSpk_3
+      myType: 2
+      xInit: 3
+      xEnd: 0
+      fixedDist: 0
+    obstaclesFloor2: []
   BlocksVeryHard:
   - name: TwoTripleSpksMid_10
     customName: 0
@@ -1274,7 +1291,7 @@ MonoBehaviour:
     customName: E_HoleAbove_&HiddenSpikes
     chance: 10
     type: 8
-    denyConditions: 0200000004000000
+    denyConditions: 020000000400000003000000
     obstacles: []
     obstaclesFloor2: []
   - name: TripleSpkMid_5

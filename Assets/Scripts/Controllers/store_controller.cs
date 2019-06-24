@@ -882,25 +882,34 @@ public class store_controller : MonoBehaviour {
 				DefineNextSpecialPack();
 			}
 
-			// coins pile settings
-			if (purchaseFromGems == false) {
-				myCoinsFullAnimator.enabled = false;
-				SetPileOfCoinsInitalPosition ();
-				// FALL THE EXTRA COINS
-				if (USER.s.NOTES > 0) {
-					//			globals.s.NOTES_COLLECTED_JUKEBOX = USER.s.NOTES;
-					StartCoroutine (InitCoinFallingAnimation (USER.s.NOTES));
-				}
-			}
-		} else { // ****** SPECIAL PACK CASE *********
+            // coins pile settings
+            if (purchaseFromGems == false)
+            {
+                myCoinsFullAnimator.enabled = false;
+                SetPileOfCoinsInitalPosition();
+                // FALL THE EXTRA COINS
+                if (USER.s.NOTES > 0)
+                {
+                    //			globals.s.NOTES_COLLECTED_JUKEBOX = USER.s.NOTES;
+                    StartCoroutine(InitCoinFallingAnimation(USER.s.NOTES));
+                }
+
+                AnalyticController.s.NewCharacterPurchased(GD.s.skins[actualCharInScreen].skinName, "Coins");
+            }
+            else
+            {
+                AnalyticController.s.NewCharacterPurchased(GD.s.skins[actualCharInScreen].skinName, "Gems");
+            }
+        } else { // ****** SPECIAL PACK CASE *********
 			UnlockCharactersForSpecialPack ((MusicStyle)USER.s.CUR_SPECIAL_OFFER);
 			USER.s.SetANewSpecialOffer ();
 			DefineNextSpecialPack();
 
 			actualCharInScreen = USER.s.CUR_SPECIAL_OFFER * GD.s.SKINS_PER_MUSIC + 2;
 			ChangeCategoryTo (Categories.Main);
-		}
-	}
+            AnalyticController.s.NewCharacterPurchased(GD.s.skins[actualCharInScreen].skinName, "SpecialPack");
+        }
+    }
 
 	void ActivatePlayAndBackButtonsAgain(){
 		if (FTUController.s.firstSongPurchased == 1) {

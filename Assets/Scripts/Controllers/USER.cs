@@ -14,8 +14,9 @@ public class USER : MonoBehaviour {
 	[HideInInspector]   public int GEMS, TOTAL_GEMS;
 	[HideInInspector]   public string FIRST_SESSION_DATE, FIRST_SATURDAY, NEXT_SATURDAY;
 	[HideInInspector]   public int LAST_UPDATE_UNLOCKED;
+    [HideInInspector]   public int TOTAL_SESSIONS;
 
-	[HideInInspector]   public int CUR_SPECIAL_OFFER;
+    [HideInInspector]   public int CUR_SPECIAL_OFFER;
 	[HideInInspector]   public string SPECIAL_OFFER_END_DATE;
 
 //    [HideInInspector]   public int N_CHARS_PURCHASED;
@@ -24,8 +25,10 @@ public class USER : MonoBehaviour {
 
     void Awake() {
 //		PlayerPrefs.SetInt ("notes", 4);
+        TOTAL_SESSIONS = PlayerPrefs.GetInt("totalSessions", 0) + 1;
+        PlayerPrefs.SetInt("totalSessions", TOTAL_SESSIONS);
 
-		globals.s.ACTUAL_STYLE = (MusicStyle) PlayerPrefs.GetInt ("curStyle", 0);
+        globals.s.ACTUAL_STYLE = (MusicStyle) PlayerPrefs.GetInt ("curStyle", 0);
 		globals.s.ACTUAL_SKIN =  GD.s.skins[PlayerPrefs.GetInt ("curSkin", 0)];
 
 		// ========= SPECIAL OFFER LOGIC ========
