@@ -672,7 +672,8 @@ public class game_controller : MonoBehaviour {
 			Debug.Log("FIRST PW CREATED " + USER.s.FIRST_PW_CREATED + " .. CREATE POWER UPS CHANCE: " + rand + " .. CONDITION: " + ((pw_floors_not_created - pw_dont_create_for_n_floors) * 7));
         // if (!QA.s.NO_PWS && pw_floors_not_created > pw_dont_create_for_n_floors && rand <= 15 && globals.s.PW_ACTIVE == true) {
 //		if (!QA.s.NO_PWS && USER.s.TOTAL_GAMES_WITH_TUTORIAL >= 1 && USER.s.NEWBIE_PLAYER == 0 && (
-		if (1==1 || !QA.s.NO_PWS && 
+		//if (1==1 || !QA.s.NO_PWS && 
+		if (!QA.s.NO_PWS && 
 			(USER.s.NEWBIE_PLAYER == 0 && JustUnvirginedFromTheHoleAndHas1Death == true) && (
 			(USER.s.FIRST_PW_CREATED == 1 && pw_floors_not_created > pw_dont_create_for_n_floors && 
 					rand <= (pw_floors_not_created - pw_dont_create_for_n_floors) *6) 
@@ -686,7 +687,7 @@ public class game_controller : MonoBehaviour {
 				rand = Random.Range(0, GD.s.GD_PW_CHANCE_SUPER_JUMP + GD.s.GD_PW_CHANCE_SHIELD );
 			else
 				rand = Random.Range(0, 100);
-			rand = 1;
+			//rand = 1;
 //			rand = GD.s.GD_PW_CHANCE_SUPER_JUMP-1;
 			if ( rand < GD.s.GD_PW_CHANCE_SUPER_JUMP || (USER.s.FIRST_PW_CREATED == 0 && !first_pw_created)) {
 //			if ( 1==2) {
@@ -2325,11 +2326,13 @@ public class game_controller : MonoBehaviour {
     public void create_wall(float x, int n)
     {
         GameObject obj = (GameObject)Instantiate(wall_type, new Vector3(x, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n +  globals.s.SLOT/2, 0), transform.rotation);
+        obj.SetActive(true);
         obj.GetComponent<wall>().my_floor = n;
     }
 
     public wall create_wall_corner(int n, bool spk_trigger = false){
         GameObject obj = (GameObject)Instantiate(wall_type, new Vector3(corner_right, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n  + globals.s.SLOT / 2, 0), transform.rotation);
+        obj.SetActive(true);
         wall temp_wall = obj.GetComponent<wall>();
         temp_wall.my_floor = n;
         temp_wall.corner_wall = true;

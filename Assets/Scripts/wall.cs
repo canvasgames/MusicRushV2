@@ -130,7 +130,7 @@ public class wall : MonoBehaviour
 //			my_vision_effect.SetActive (false);
 
         //Debug.Log("\n NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN SCALE ME UP! DIST: " + Mathf.Abs(transform.position.x - globals.s.BALL_X) );
-        transform.GetComponent<SpriteRenderer>().color = new Color32(0, 0, 0, 0);
+        //transform.GetComponent<SpriteRenderer>().color = new Color32(0, 0, 0, 0);
         already_appeared = true;
         my_skin.transform.DOScaleY(1f, 0.2f);
 
