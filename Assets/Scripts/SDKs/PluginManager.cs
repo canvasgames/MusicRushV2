@@ -3,6 +3,7 @@ using UnityEngine;
 #if USE_APPODEAL
 using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
+using AppodealAds.Handler.RewardedResultHandler;
 #endif
 #if UNITY_ANDROID
 using GooglePlayGames;
@@ -40,8 +41,6 @@ public abstract class BaseSDK : IRewardedVideoAdListener, IInterstitialAdListene
 #elif UNITY_IOS
         appKey = "d69b153104983f02e46a80ff0d7f32216b85a57eb38a11a4";
 #endif
-        //Appodeal.disableNetwork("startapp");
-        //Appodeal.disableNetwork("mobvista");
         Appodeal.setTesting(true); // use it to show test ad
         Appodeal.setAutoCache(Appodeal.REWARDED_VIDEO, true); // auto caching rewarded video ads
         Appodeal.setAutoCache(Appodeal.INTERSTITIAL, true); // auto caching interstitial ads
@@ -119,10 +118,24 @@ public abstract class BaseSDK : IRewardedVideoAdListener, IInterstitialAdListene
 
 #region  Rewarded Video callback handlers
     public void onRewardedVideoLoaded(bool isPrecache) { Debug.Log("Video loaded"); }
-    public void onRewardedVideoFailedToLoad() { Debug.Log("Video failed"); }
+    public void onRewardedVideoFailedToLoad()
+    {
+        Debug.Log("Video failed");
+        AdsHandler.currentAdState = Result.Failed;
+        hud_controller.si.HandleAppodealResul();
+    }
     public void onRewardedVideoShown() { Debug.Log("Video shown"); }
-    public void onRewardedVideoClosed(bool finished) { Debug.Log("Video closed"); }
-    public void onRewardedVideoFinished(double amount, string name) { Debug.Log("Reward: " + amount + " " + name); }
+    public void onRewardedVideoClosed(bool finished)
+    {
+        Debug.Log("Video closed");
+    }
+    public void onRewardedVideoFinished(double amount, string name)
+    {
+        //Debug.Log("Reward: " + amount + " " + name);
+        Debug.Log("RewardedVideo Finished.");
+        AdsHandler.currentAdState = Result.Finished;
+        hud_controller.si.HandleAppodealResul();
+    }
     public void onRewardedVideoExpired() { Debug.Log("Video expired"); }
 #endregion
 
@@ -442,7 +455,7 @@ public class PluginManager : MonoBehaviour
 {
     public static PluginManager Instance;
 
-    BaseSDK sdk;
+    public BaseSDK sdk;
     public bool enableAppodeal;
 
     private void Awake()

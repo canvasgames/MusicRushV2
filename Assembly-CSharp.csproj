@@ -441,6 +441,7 @@
      <Compile Include="Assets\Scripts\RythmicBehaviour.cs" />
      <Compile Include="Assets\Scripts\scenario_objects.cs" />
      <Compile Include="Assets\Scripts\Score_floor_txt.cs" />
+     <Compile Include="Assets\Scripts\SDKs\AdsHandler.cs" />
      <Compile Include="Assets\Scripts\SDKs\Debugger.cs" />
      <Compile Include="Assets\Scripts\SDKs\FirebaseNotificationsController.cs" />
      <Compile Include="Assets\Scripts\SDKs\FooButton.cs" />

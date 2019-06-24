@@ -6,12 +6,16 @@ using DG.Tweening;
 using System;
 using UnityEngine.Advertisements;
 using Ads;
+#if USE_APPODEAL
+using AppodealAds.Unity.Common;
+using AppodealAds.Handler.RewardedResultHandler;
+#endif
 
 public enum RewardedVideoType{ Revive, ResortChar, RespinDisk, SpinDisk, DoubleReward}
 
-public class hud_controller : MonoBehaviour {
+public class hud_controller : MonoBehaviour, IRewardedVideoAdListener {
 
-	#region === Variables Declaration ===
+#region === Variables Declaration ===
 	public static hud_controller si;
 
 	RewardedVideoType curVideoType = RewardedVideoType.Revive;
@@ -120,9 +124,9 @@ public class hud_controller : MonoBehaviour {
 		start_game_bt.SetActive (true);
     }
 
-	#endregion
+#endregion
 
-	#region ======= INIT ========
+#region ======= INIT ========
 
 	public void ActivateFirstPw(){
 		if (USER.s.FIRST_PW_CREATED == 0) {
@@ -146,9 +150,9 @@ public class hud_controller : MonoBehaviour {
 
 		FMODUnity.RuntimeManager.PlayOneShot ("event:/JumpTest");
 //		lowlevelSystem.p
-		#if UNITY_ANDROID || UNITY_IOS
+#if UNITY_ANDROID || UNITY_IOS
 		Advertisement.Initialize ("1194074");
-		#endif
+#endif
 //		game_title_y = game_title.transform.position.y;
 		game_title_y = header.transform.localPosition.y;
 		//Invoke ("GiftButtonClicked", 1f);
@@ -319,9 +323,9 @@ public class hud_controller : MonoBehaviour {
 		notes.GetComponent<Text>().text = (n).ToString();
 	}
 
-	#endregion
+#endregion
 
-	#region ==== RESTART ======
+#region ==== RESTART ======
 
 	public void OnReplayButtonPressed(){
 		//		SceneManager.LoadScene("Gameplay 1");
@@ -404,9 +408,9 @@ public class hud_controller : MonoBehaviour {
 		restartScreen.SetActive (false);
 	}
 		
-	#endregion
+#endregion
 
-	#region ==== Update ====
+#region ==== Update ====
 	// Update is called once per frame
 	void Update () {
         //GAME OVER GAME CASE
@@ -462,9 +466,9 @@ public class hud_controller : MonoBehaviour {
 		floor.GetComponent<Text>().text = "Floor " + (n + 1).ToString("00");
 	}
 
-	#endregion
+#endregion
 
-	#region === Custom Messages ===
+#region === Custom Messages ===
 	public void DisplayNewCharactersAvailable(){
 		StartCoroutine (DisplayNewCharactersMessageNow ());
 	}
@@ -478,9 +482,9 @@ public class hud_controller : MonoBehaviour {
 		screenCustomMessage.SetActive (false);
 	}
 
-	#endregion
+#endregion
 
-	#region ==== Store ====
+#region ==== Store ====
 	float pw_info_y, game_title_y;
 
 	public void OnJukeboxBtPressed(){
@@ -567,9 +571,9 @@ public class hud_controller : MonoBehaviour {
 	}
 
 
-	#endregion
+#endregion
 
-    #region === GAME OVER ===
+#region === GAME OVER ===
 	IEnumerator ManualReset(){
 		yield return new WaitForSeconds (100);
 
@@ -635,9 +639,9 @@ public class hud_controller : MonoBehaviour {
         game_over_text.SetActive(false);
     }
 
-    #endregion
+#endregion
 
-    #region === PLAYER PREFS ===
+#region === PLAYER PREFS ===
     int get_and_set_best_score(int cur_floor)
     {
         int cur_best = PlayerPrefs.GetInt("best", 0);
@@ -681,7 +685,7 @@ public class hud_controller : MonoBehaviour {
         return day_best;
     }
 
-    #endregion
+#endregion
 
     bool day_passed()
     {
@@ -715,7 +719,7 @@ public class hud_controller : MonoBehaviour {
         return false;
     }
 
-    #region === LIFE SYSTEM ===
+#region === LIFE SYSTEM ===
 
 	public void show_pw_time() // atualiza o tempo do power ups
     {
@@ -937,9 +941,9 @@ public class hud_controller : MonoBehaviour {
         PlayerPrefs.SetString("RouletteDate2ChangeState", roullete_date);
 
     }
-    #endregion
+#endregion
 
-    #region ===== REVIVE =======
+#region ===== REVIVE =======
     public void show_revive_menu()
     {
 		Debug.Log ("[HUD] REVIVE MENU OPENING");
@@ -1033,9 +1037,9 @@ public class hud_controller : MonoBehaviour {
 //		game_over_for_real();
     }
 
-    #endregion
+#endregion
 
-	#region ======== Video =========
+#region ======== Video =========
 
 	public void DisplayRewardedVideo2(string videoType){
 		RewardedVideoType tempVideo = (RewardedVideoType) System.Enum.Parse (typeof(RewardedVideoType), videoType);
@@ -1114,13 +1118,13 @@ public class hud_controller : MonoBehaviour {
 		flagVideoRevive = false;
 		flagVideoCoins = true;
 		flagVideoPower = false;
-		#if UNITY_ANDROID || UNITY_IOS
+#if UNITY_ANDROID || UNITY_IOS
 		ShowAd();
-		#endif
+#endif
 
-		#if UNITY_STANDALONE_WIN
+#if UNITY_STANDALONE_WIN
 			WatchedVideoResortStyle();
-		#endif
+#endif
 
 	}
 		
@@ -1141,26 +1145,159 @@ public class hud_controller : MonoBehaviour {
 
     public void ShowAd()
     {
-    #if UNITY_ANDROID || UNITY_IOS
-    #if USE_APPODEAL
+#if UNITY_ANDROID || UNITY_IOS
+#if USE_APPODEAL
+#if UNITY_EDITOR
+        Debug.Log("Shown as success in Editor.");
+        // YOUR CODE TO REWARD THE GAMER
+        if (flagVideoPower == true || curVideoType == RewardedVideoType.RespinDisk)
+        {
+            CAN_ROTATE_ROULETTE = true;
+            PlayerPrefs.SetInt("CanRotate", 1);
+            roda_a_roda.ReSpinVideoWatched();
+            //                    StartCoroutine (openTampa());
+            //Invoke("activeRodaaRoda", 1);
+            flagVideoPower = false;
+        }
+        else if (flagVideoRevive == true || curVideoType == RewardedVideoType.Revive)
+        {
+            watched_the_video_revive();
+        }
+        else if (flagVideoCoins == true || curVideoType == RewardedVideoType.ResortChar)
+        {
+            //					store_controller.s.watchedVideo();
+            store_controller.s.WatchedVideoForResort();
+        }
+        else if (curVideoType == RewardedVideoType.SpinDisk)
+        {
+            RodaMenu();
+        }
+        else if (curVideoType == RewardedVideoType.DoubleReward)
+        {
+
+        }
+#else
         // Runs Appodeal Rewarded Ad.
         PluginManager.Instance.RunAppodealAd((Ads.AdType.Rewarded));
-    #endif
-            /*
-            if (Advertisement.IsReady("rewardedVideo"))
-            {
-                var options = new ShowOptions { resultCallback = HandleShowResult };
-                Advertisement.Show("rewardedVideo", options);
-            }
-            else
-            {
-                Advertisement.Initialize("1194074");
-            }
-            */
-    #endif
+#endif
+#endif
+
+        //if (Advertisement.IsReady("rewardedVideo"))
+        //{
+        //    var options = new ShowOptions { resultCallback = HandleShowResult };
+        //    Advertisement.Show("rewardedVideo", options);
+        //}
+        //else
+        //{
+        //    Advertisement.Initialize("1194074");
+        //}
+
+#endif
     }
 
-	#if UNITY_ANDROID || UNITY_EDITOR || UNITY_IOS
+    public void HandleAppodealResul()
+    {
+        switch (AdsHandler.currentAdState)
+        {
+            case Result.Default:
+                Debug.Log("Shown as success in Editor.");
+                // YOUR CODE TO REWARD THE GAMER
+                if (flagVideoPower == true || curVideoType == RewardedVideoType.RespinDisk)
+                {
+                    CAN_ROTATE_ROULETTE = true;
+                    PlayerPrefs.SetInt("CanRotate", 1);
+                    roda_a_roda.ReSpinVideoWatched();
+                    //                    StartCoroutine (openTampa());
+                    //Invoke("activeRodaaRoda", 1);
+                    flagVideoPower = false;
+                }
+                else if (flagVideoRevive == true || curVideoType == RewardedVideoType.Revive)
+                {
+                    watched_the_video_revive();
+                }
+                else if (flagVideoCoins == true || curVideoType == RewardedVideoType.ResortChar)
+                {
+                    //					store_controller.s.watchedVideo();
+                    store_controller.s.WatchedVideoForResort();
+                }
+                else if (curVideoType == RewardedVideoType.SpinDisk)
+                {
+                    RodaMenu();
+                }
+                else if (curVideoType == RewardedVideoType.DoubleReward)
+                {
+
+                }
+
+                AdsHandler.currentAdState = Result.Default;
+                // Give coins etc.
+                break;
+
+            case Result.Failed:
+                Debug.LogError("The ad failed to be shown.");
+
+                // @TBD HANDLE RESULT DIFFERENTLY
+                if (flagVideoPower == true)
+                {
+                    CAN_ROTATE_ROULETTE = true;
+                    PlayerPrefs.SetInt("CanRotate", 1);
+                    roda_a_roda.ReSpinVideoWatched();
+                    //                    StartCoroutine (openTampa());
+                    //Invoke("activeRodaaRoda", 1);
+                    flagVideoPower = false;
+                }
+                else if (flagVideoRevive == true)
+                {
+                    watched_the_video_revive();
+                }
+                else if (flagVideoCoins == true)
+                {
+                    //					store_controller.s.watchedVideo();
+                    store_controller.s.WatchedVideoForResort();
+                }
+                break;
+
+            case Result.Finished:
+                Debug.Log("The ad was successfully shown.");
+                //
+                // YOUR CODE TO REWARD THE GAMER
+                if (flagVideoPower == true || curVideoType == RewardedVideoType.RespinDisk)
+                {
+                    CAN_ROTATE_ROULETTE = true;
+                    PlayerPrefs.SetInt("CanRotate", 1);
+                    roda_a_roda.ReSpinVideoWatched();
+                    //                    StartCoroutine (openTampa());
+                    //Invoke("activeRodaaRoda", 1);
+                    flagVideoPower = false;
+                }
+                else if (flagVideoRevive == true || curVideoType == RewardedVideoType.Revive)
+                {
+                    watched_the_video_revive();
+                }
+                else if (flagVideoCoins == true || curVideoType == RewardedVideoType.ResortChar)
+                {
+                    //					store_controller.s.watchedVideo();
+                    store_controller.s.WatchedVideoForResort();
+                }
+                else if (curVideoType == RewardedVideoType.SpinDisk)
+                {
+                    RodaMenu();
+                }
+                else if (curVideoType == RewardedVideoType.DoubleReward)
+                {
+
+                }
+
+                AdsHandler.currentAdState = Result.Default;
+                // Give coins etc.
+                break;
+
+            default:
+                throw new System.NotImplementedException();
+        }
+    }
+
+#if UNITY_ANDROID || UNITY_EDITOR || UNITY_IOS
     private void HandleShowResult(ShowResult result)
     {
         switch (result)
@@ -1238,10 +1375,10 @@ public class hud_controller : MonoBehaviour {
     }
 #endif
 
-    #endregion
+#endregion
 
 
-    #region ======== SPIN DISK ============
+#region ======== SPIN DISK ============
     public void RodaMenu(){
 		//StartCoroutine(activeRodaaRoda());
 		globals.s.previousGameScreen = globals.s.curGameScreen;
@@ -1273,9 +1410,9 @@ public class hud_controller : MonoBehaviour {
         //roda_a_roda.Entrance ();
         roda_a_roda.openTampa();
     }
-    #endregion
+#endregion
 
-    #region ======== Gift ============
+#region ======== Gift ============
     void show_gift_time()
     {
         tempcurDate = System.DateTime.Now;
@@ -1402,9 +1539,9 @@ public class hud_controller : MonoBehaviour {
     //		giftAnimation.GetComponent<GiftAnimationLogic> ().EnterTitle ((MusicStyle)musicType);
     //	}
 
-    #endregion
+#endregion
 
-    #region PAUSE MENU
+#region PAUSE MENU
     public void OpenPauseMenu()
     {
         pause.SetActive(true);
@@ -1415,4 +1552,34 @@ public class hud_controller : MonoBehaviour {
         pause.GetComponent<PauseMenu>().BGAlphaOff();
     }
     #endregion
+
+    public void onRewardedVideoLoaded(bool precache)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void onRewardedVideoFailedToLoad()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void onRewardedVideoShown()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void onRewardedVideoFinished(double amount, string name)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void onRewardedVideoClosed(bool finished)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void onRewardedVideoExpired()
+    {
+        throw new NotImplementedException();
+    }
 }
