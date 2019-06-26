@@ -98,7 +98,8 @@ public class main_camera : MonoBehaviour {
 
     public void init_PW_super_jump(float pos_y, float time) {
 		Debug.Log( "^^^^^^^ [CAM] INIT SUPER JUMP!! TWIENS: "+ DOTween.IsTweening(transform) + " MY YP :" + transform.position.y + " TARGET Y: " + pos_y + " .. ydif: "+ (pos_y - transform.position.y));
-		transform.DOKill ();
+        falling = false;
+        transform.DOKill ();
 		transform.DOMoveY (pos_y, time).SetEase (Ease.InOutSine); //.OnComplete(() => OnCompleteSuperJumpCamera(pos_y));
 //        transform.DOMoveY(pos_y, 3f).SetEase(Ease.OutSine);
         pw_super_jump = true;

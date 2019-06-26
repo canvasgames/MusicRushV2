@@ -1,37 +1,47 @@
 {
+  "project_info": {
+    "project_number": "436511543471",
+    "firebase_url": "https://musicrushsdks.firebaseio.com",
+    "project_id": "musicrushsdks",
+    "storage_bucket": "musicrushsdks.appspot.com"
+  },
   "client": [
     {
-      "services": {
-        "appinvite_service": {
-          "status": 1
-        }, 
-        "analytics_service": {
-          "status": 0
-        }
-      }, 
-      "oauth_client": [
-        {
-          "client_id": "436511543471-6cmj371q498bejqq7e0kfgv19lt9j1b1.apps.googleusercontent.com"
-        }
-      ], 
-      "api_key": [
-        {
-          "current_key": "AIzaSyBq8B4-1qVZja4Bfyk_GC7RJyx1wvR1gLI"
-        }
-      ], 
       "client_info": {
-        "mobilesdk_app_id": "1:436511543471:ios:2c3c0fab5767fad6", 
+        "mobilesdk_app_id": "1:436511543471:android:2c3c0fab5767fad6",
         "android_client_info": {
           "package_name": "com.CanvasMobileGames.SuperCasual"
         }
+      },
+      "oauth_client": [
+        {
+          "client_id": "436511543471-nubdjhjcsfh5qen996alg6pei5o7821l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMVv9jVa-WMVO6a_fHzlnok_VYD44WMsI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "436511543471-nubdjhjcsfh5qen996alg6pei5o7821l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "436511543471-6cmj371q498bejqq7e0kfgv19lt9j1b1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.CanvasMobileGames.SuperCasual"
+              }
+            }
+          ]
+        }
       }
     }
-  ], 
-  "configuration_version": "1", 
-  "project_info": {
-    "storage_bucket": "musicrushsdks.appspot.com", 
-    "project_id": "musicrushsdks", 
-    "firebase_url": "https://musicrushsdks.firebaseio.com", 
-    "project_number": "436511543471"
-  }
+  ],
+  "configuration_version": "1"
 }

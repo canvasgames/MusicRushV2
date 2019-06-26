@@ -2700,18 +2700,19 @@ GameObject instance = Instantiate(Resources.Load("Prefabs/Bgs/Scenario2/bg_"+ran
 		floor_left.GetComponent<floor>().check_if_have_score();
 		floor_left.GetComponent<floor>().repositionable = repositionable;
 
-		//obj = (GameObject)Instantiate(floor_type, new Vector3(rand + hole_size / 2 + floor_type.transform.GetComponent<SpriteRenderer>().bounds.size.x / 2, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n, 0), transform.rotation);
 		GameObject floor_right = objects_pool_controller.s.reposite_floor(xPos + hole_size / 2 + floor_type.transform.GetComponent<SpriteRenderer>().bounds.size.x / 2, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n);
 		floor_right.GetComponent<floor>().my_floor = n;
 		floor_right.GetComponent<floor>().repositionable = repositionable;
 
 		GameObject hole;
 		hole = (GameObject)Instantiate(hole_type, new Vector3(xPos, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n, 0), transform.rotation);
-		hole.GetComponent<hole_behaviour>().my_floor = n;
-		hole.GetComponent<hole_behaviour> ().repositionable = repositionable;
+        hole.GetComponent<hole_behaviour>().my_floor = n;
+        hole.GetComponent<hole_behaviour>().my_skin.GetComponent<hole_skin_behaviour>().my_floor = n;
+        hole.GetComponent<hole_behaviour> ().repositionable = repositionable;
 		hole.GetComponent<hole_behaviour> ().floor_left = floor_left;
 		hole.GetComponent<hole_behaviour> ().floor_right = floor_right;
 		floor_left.GetComponent<floor> ().my_hole = hole.GetComponent<hole_behaviour> ();
+        hole.gameObject.SetActive(true);
 
 		//return obj;
 		last_hole_x = xPos;

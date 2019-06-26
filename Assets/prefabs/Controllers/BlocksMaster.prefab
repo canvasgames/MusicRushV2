@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dea727388cc364418dd650933772ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NotRepeatFrequency: 1
+  NotRepeatFrequency: 2
   NewCreationLogic: 1
   superEasy: 5
   easy: 15
@@ -83,9 +83,9 @@ MonoBehaviour:
     denyConditions: 
     obstacles: []
     obstaclesFloor2: []
-  - name: TwoSpksMid_4
+  - name: TwoSpksMid_5
     customName: 
-    chance: 4
+    chance: 5
     type: 5
     denyConditions: 
     obstacles: []
@@ -124,35 +124,6 @@ MonoBehaviour:
       xInit: -2.1
       xEnd: 0
       fixedDist: 0
-  - name: Saw_Spk_5
-    customName: Saw_Spk
-    chance: 5
-    type: 0
-    denyConditions: 
-    obstacles:
-    - name: saw_[3, 3.4]
-      myType: 4
-      xInit: 3
-      xEnd: 3.4
-      fixedDist: 0
-    - name: hiddenSpk_3
-      myType: 2
-      xInit: 3
-      xEnd: 0
-      fixedDist: 0
-    obstaclesFloor2: []
-  - name: hhh_1
-    customName: hhh
-    chance: 1
-    type: 0
-    denyConditions: 
-    obstacles:
-    - name: hiddenSpk_[-1, 1]
-      myType: 2
-      xInit: -1
-      xEnd: 1
-      fixedDist: 0
-    obstaclesFloor2: []
   BlocksEasy:
   - name: easy_2_spks_mid_near_10
     customName: easy_2_spks_mid_near
@@ -1057,21 +1028,21 @@ MonoBehaviour:
       xInit: -2.4
       xEnd: 0
       fixedDist: 0
-  - name: h_saw_hidSpk_10
+  - name: h_saw_hidSpk_12
     customName: h_saw_hidSpk
-    chance: 10
+    chance: 12
     type: 0
     denyConditions: 020000000300000004000000
     obstacles:
-    - name: saw_[3, 3.5]
+    - name: saw_[3, 3.4]
       myType: 4
       xInit: 3
-      xEnd: 3.5
+      xEnd: 3.4
       fixedDist: 0
-    - name: hiddenSpk_3
+    - name: hiddenSpk_[2.95, 3.15]
       myType: 2
-      xInit: 3
-      xEnd: 0
+      xInit: 2.95
+      xEnd: 3.15
       fixedDist: 0
     obstaclesFloor2: []
   BlocksVeryHard:
