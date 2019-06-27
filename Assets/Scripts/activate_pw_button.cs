@@ -68,7 +68,6 @@ public class activate_pw_button : MonoBehaviour {
 
 		//blinkText ();
 		//myBt.interactable = true;
-
 	}
 
 	IEnumerator ReadyAnimation(){

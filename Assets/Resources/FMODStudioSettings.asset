@@ -33,7 +33,7 @@ MonoBehaviour:
   - Platform: 1
     Value: 1
   - Platform: 2
-    Value: 1
+    Value: 2
   - Platform: 18
     Value: 0
   - Platform: 7
@@ -42,7 +42,7 @@ MonoBehaviour:
   - Platform: 1
     Value: 1
   - Platform: 2
-    Value: 1
+    Value: 2
   - Platform: 18
     Value: 0
   - Platform: 7

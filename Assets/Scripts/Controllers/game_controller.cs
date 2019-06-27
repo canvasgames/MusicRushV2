@@ -2592,8 +2592,10 @@ GameObject instance = Instantiate(Resources.Load("Prefabs/Bgs/Scenario2/bg_"+ran
 			GameObject hole;
             if (not_hidden == false) {
 				hole = (GameObject)Instantiate(hole_type, new Vector3(rand, globals.s.BASE_Y + globals.s.FLOOR_HEIGHT * n, 0), transform.rotation);
+                hole.SetActive(true);
 				hole.GetComponent<hole_behaviour>().my_floor = n;
-				hole.GetComponent<hole_behaviour> ().repositionable = repositionable;
+                hole.GetComponent<hole_behaviour>().my_skin.GetComponent<hole_skin_behaviour>().my_floor = n;
+                hole.GetComponent<hole_behaviour> ().repositionable = repositionable;
 				hole.GetComponent<hole_behaviour> ().floor_left = floor_left;
 				hole.GetComponent<hole_behaviour> ().floor_right = floor_right;
 				floor_left.GetComponent<floor> ().my_hole = hole.GetComponent<hole_behaviour> ();

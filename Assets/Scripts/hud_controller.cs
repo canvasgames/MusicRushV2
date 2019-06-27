@@ -1145,37 +1145,70 @@ public class hud_controller : MonoBehaviour, IRewardedVideoAdListener {
 
     public void ShowAd()
     {
+        if (QA.s.NO_ADS == true) {
+            Debug.Log("Shown as success in Editor.");
+            // YOUR CODE TO REWARD THE GAMER
+            if (flagVideoPower == true || curVideoType == RewardedVideoType.RespinDisk)
+            {
+                CAN_ROTATE_ROULETTE = true;
+                PlayerPrefs.SetInt("CanRotate", 1);
+                roda_a_roda.ReSpinVideoWatched();
+                //                    StartCoroutine (openTampa());
+                //Invoke("activeRodaaRoda", 1);
+                flagVideoPower = false;
+            }
+            else if (flagVideoRevive == true || curVideoType == RewardedVideoType.Revive)
+            {
+                watched_the_video_revive();
+            }
+            else if (flagVideoCoins == true || curVideoType == RewardedVideoType.ResortChar)
+            {
+                //					store_controller.s.watchedVideo();
+                store_controller.s.WatchedVideoForResort();
+            }
+            else if (curVideoType == RewardedVideoType.SpinDisk)
+            {
+                RodaMenu();
+            }
+            else if (curVideoType == RewardedVideoType.DoubleReward)
+            {
+
+            }
+        }
+        else
+        {
 #if UNITY_ANDROID || UNITY_IOS
 #if USE_APPODEAL
 #if UNITY_EDITOR
-        Debug.Log("Shown as success in Editor.");
-        // YOUR CODE TO REWARD THE GAMER
-        if (flagVideoPower == true || curVideoType == RewardedVideoType.RespinDisk)
-        {
-            CAN_ROTATE_ROULETTE = true;
-            PlayerPrefs.SetInt("CanRotate", 1);
-            roda_a_roda.ReSpinVideoWatched();
-            //                    StartCoroutine (openTampa());
-            //Invoke("activeRodaaRoda", 1);
-            flagVideoPower = false;
-        }
-        else if (flagVideoRevive == true || curVideoType == RewardedVideoType.Revive)
-        {
-            watched_the_video_revive();
-        }
-        else if (flagVideoCoins == true || curVideoType == RewardedVideoType.ResortChar)
-        {
-            //					store_controller.s.watchedVideo();
-            store_controller.s.WatchedVideoForResort();
-        }
-        else if (curVideoType == RewardedVideoType.SpinDisk)
-        {
-            RodaMenu();
-        }
-        else if (curVideoType == RewardedVideoType.DoubleReward)
-        {
+            Debug.Log("Shown as success in Editor.");
+            // YOUR CODE TO REWARD THE GAMER
+            if (flagVideoPower == true || curVideoType == RewardedVideoType.RespinDisk)
+            {
+                CAN_ROTATE_ROULETTE = true;
+                PlayerPrefs.SetInt("CanRotate", 1);
+                roda_a_roda.ReSpinVideoWatched();
+                //                    StartCoroutine (openTampa());
+                //Invoke("activeRodaaRoda", 1);
+                flagVideoPower = false;
+            }
+            else if (flagVideoRevive == true || curVideoType == RewardedVideoType.Revive)
+            {
+                watched_the_video_revive();
+            }
+            else if (flagVideoCoins == true || curVideoType == RewardedVideoType.ResortChar)
+            {
+                //					store_controller.s.watchedVideo();
+                store_controller.s.WatchedVideoForResort();
+            }
+            else if (curVideoType == RewardedVideoType.SpinDisk)
+            {
+                RodaMenu();
+            }
+            else if (curVideoType == RewardedVideoType.DoubleReward)
+            {
 
-        }
+            }
+        
 #else
         // Runs Appodeal Rewarded Ad.
         PluginManager.Instance.RunAppodealAd((Ads.AdType.Rewarded));
@@ -1193,6 +1226,7 @@ public class hud_controller : MonoBehaviour, IRewardedVideoAdListener {
         //}
 
 #endif
+        }
     }
 
     public void HandleAppodealResul()

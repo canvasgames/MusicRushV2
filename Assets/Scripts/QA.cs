@@ -10,6 +10,7 @@ public class QA : MonoBehaviour {
 	[Header ("MAIN VARS")]
 	public bool INVENCIBLE ;
 	public float TIMESCALE = 1;
+    public bool NO_ADS = false;
 	public bool FORCED_LOW_FRAME_RATE = false;
 	public bool SHOW_WAVE_TYPE = false;
 	public bool ALWAYS_REVIVE = false;
