@@ -142,7 +142,7 @@ dependencies {
 	compile project(':mobvistavideojs')
 	//compile files('libs/unity-classes.jar')
 	//compile(name: 'unity-classes', ext: 'jar')
-	//compile(name: 'fmod', ext: 'jar')
+	compile(name: 'fmod', ext: 'jar')
 	compile(name:'common', ext: 'aar')
 	compile(name:'UnityAds', ext:'aar')
 	compile(name:'GoogleAIDL', ext:'aar')
