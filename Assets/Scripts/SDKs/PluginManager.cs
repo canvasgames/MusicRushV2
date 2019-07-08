@@ -355,6 +355,13 @@ public abstract class BaseSDK : IRewardedVideoAdListener, IInterstitialAdListene
 #endif
     }
 #endif
+    #endregion
+
+#region Applovin
+    public void RunAppLovinAd()
+    {
+        AppLovin.ShowInterstitial();
+    }
 #endregion
 }
 
@@ -368,6 +375,7 @@ public class AndroidSDK : BaseSDK
 #if UNITY_ANDROID
         InitializeGooglePlayGames();
         SignIn();
+        AppLovin.InitializeSdk();
 #if USE_APPODEAL
         InitializeAppodeal();
 #endif
@@ -414,6 +422,7 @@ public class IOSSDK : BaseSDK
     {
 #if UNITY_IOS
         SignIn();
+        AppLovin.InitializeSdk();
 #if USE_APPODEAL
         InitializeAppodeal();
 #endif
@@ -511,5 +520,10 @@ public class PluginManager : MonoBehaviour
 #if USE_APPODEAL
         sdk.RunAppodealAd(type);
 #endif
+    }
+
+    public void RunAppLovinInterstitialAd()
+    {
+        sdk.RunAppLovinAd();
     }
 }

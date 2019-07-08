@@ -51,6 +51,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\AppLovinSdk\Scripts\AppLovin.cs" />
+     <Compile Include="Assets\AppLovinSdk\Scripts\AppLovinEvents.cs" />
      <Compile Include="Assets\Appodeal\Api\Appodeal.cs" />
      <Compile Include="Assets\Appodeal\AppodealDemo\AppodealDemo.cs" />
      <Compile Include="Assets\Appodeal\AppodealDemo\GDPR.cs" />
@@ -504,6 +506,7 @@
      <None Include="Assets\GameSparks\README.txt" />
      <None Include="Assets\GooglePlayGames\Plugins\Android\GooglePlayGamesManifest.plugin\AndroidManifest.xml" />
      <None Include="Assets\UnityAds\link.xml" />
+     <None Include="Assets\AppLovinSdk\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\Appodeal\SampleAndroidManifest.xml" />
      <None Include="Assets\Fonts\Aldo the Apache_Regular.xml" />
      <None Include="Assets\Firebase\Plugins\link.xml" />
