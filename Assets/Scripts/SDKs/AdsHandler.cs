@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using AppodealAds.Handler.RewardedResultHandler;
+﻿using SDKs.Ads.ResultHandler;
 
-namespace AppodealAds.Handler.RewardedResultHandler
+namespace SDKs.Ads.ResultHandler
 {
     public enum Result
     {

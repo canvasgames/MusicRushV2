@@ -38,6 +38,8 @@ MonoBehaviour:
     Value: 0
   - Platform: 7
     Value: 0
+  - Platform: 3
+    Value: 1
   OverlaySettings:
   - Platform: 1
     Value: 1

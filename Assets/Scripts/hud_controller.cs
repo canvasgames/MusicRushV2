@@ -6,14 +6,17 @@ using DG.Tweening;
 using System;
 using UnityEngine.Advertisements;
 using Ads;
+using SDKs.Ads.ResultHandler;
 #if USE_APPODEAL
 using AppodealAds.Unity.Common;
-using AppodealAds.Handler.RewardedResultHandler;
+using SDKs.Ads.ResultHandler;
+using SDKs.AdsService;
 #endif
 
 public enum RewardedVideoType{ Revive, ResortChar, RespinDisk, SpinDisk, DoubleReward}
 
-public class hud_controller : MonoBehaviour, IRewardedVideoAdListener {
+public class hud_controller : MonoBehaviour//, IRewardedVideoAdListener
+{
 
 #region === Variables Declaration ===
 	public static hud_controller si;
@@ -128,6 +131,17 @@ public class hud_controller : MonoBehaviour, IRewardedVideoAdListener {
 
 #region ======= INIT ========
 
+    private void OnEnable()
+    {
+        //PluginManager.Instance
+    }
+
+    private void OnDisable()
+    {
+
+    }
+
+
 	public void ActivateFirstPw(){
 		if (USER.s.FIRST_PW_CREATED == 0) {
 //			firstPw.gameObject.SetActive (true);
@@ -140,6 +154,7 @@ public class hud_controller : MonoBehaviour, IRewardedVideoAdListener {
 	}
 
     void Start () {
+        AppLovin.SetUnityAdListener(this.gameObject.name);
 		var studioSystem = FMODUnity.RuntimeManager.StudioSystem;
 		FMOD.Studio.CPU_USAGE cpuUsage;
 		studioSystem.getCPUUsage(out cpuUsage);
@@ -1208,28 +1223,28 @@ public class hud_controller : MonoBehaviour, IRewardedVideoAdListener {
             {
 
             }
-        
+
 #else
         // Runs Appodeal Rewarded Ad.
-        PluginManager.Instance.RunAppodealAd((Ads.AdType.Rewarded));
+            PluginManager.Instance.RunAd(Service.Applovin, AdType.Rewarded);        
 #endif
 #endif
 
-        //if (Advertisement.IsReady("rewardedVideo"))
-        //{
-        //    var options = new ShowOptions { resultCallback = HandleShowResult };
-        //    Advertisement.Show("rewardedVideo", options);
-        //}
-        //else
-        //{
-        //    Advertisement.Initialize("1194074");
-        //}
+            //if (Advertisement.IsReady("rewardedVideo"))
+            //{
+            //    var options = new ShowOptions { resultCallback = HandleShowResult };
+            //    Advertisement.Show("rewardedVideo", options);
+            //}
+            //else
+            //{
+            //    Advertisement.Initialize("1194074");
+            //}
 
 #endif
         }
     }
 
-    public void HandleAppodealResul()
+    public void HandleAdResult()
     {
         switch (AdsHandler.currentAdState)
         {

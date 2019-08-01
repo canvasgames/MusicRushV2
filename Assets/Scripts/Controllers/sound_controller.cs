@@ -465,6 +465,36 @@ public class sound_controller : MonoBehaviour
 		}
 	}
 
+    // New
+    public void PlaySfxUIButtonBack()
+    {
+        if (!soundMuted)
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/sfx_ui_button_back");
+    }
+
+    public void PlaySfxUIGameOverBarFill()
+    {
+        if (!soundMuted)
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/sfx_ui_game_over_bar_fill");
+    }
+
+    public void PlaySfxUIJukeBoxUnlock()
+    {
+        if (!soundMuted)
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/sfx_ui_jukebox_unlock");
+    }
+
+    public void PlaySfxUIReviveCountDown()
+    {
+        if (!soundMuted)
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/sfx_ui_revive_countdown");
+    }
+
+    public void PlaySfxUIClickGeneric()
+    {
+        if (!soundMuted)
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/UI/sfx_ui_click_generic");
+    }
 	#endregion
   
 	#region ==== Technical Stuff =====

@@ -3,7 +3,6 @@ using UnityEngine;
 #if USE_APPODEAL
 using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
-using AppodealAds.Handler.RewardedResultHandler;
 #endif
 #if UNITY_ANDROID
 using GooglePlayGames;
@@ -18,19 +17,24 @@ using Firebase;
 #if USE_CHOCOLATE
 using Vdopia; // Chocolate
 #endif
+using SDKs.AdsService;
+using Ads;
+using SDKs.Ads.ResultHandler;
 
 namespace Ads
 {
     public enum AdType { Interstitial, Rewarded, Banner }
 }
 
-public abstract class BaseSDK : IRewardedVideoAdListener, IInterstitialAdListener, IBannerAdListener 
+public abstract class BaseSDK// : IRewardedVideoAdListener, IInterstitialAdListener, IBannerAdListener
 {
     public abstract void Initialize();
+    public Result ResultHandler { get; set; }
 
 #region Appodeal
 #if USE_APPODEAL
     public string appKey;
+
     /// <summary>
     /// Initialize Appodeal.
     /// </summary>
@@ -58,7 +62,7 @@ public abstract class BaseSDK : IRewardedVideoAdListener, IInterstitialAdListene
     /// Runs Appodeal Ad of type.
     /// </summary>
     /// <param name="type"></param>
-    public void RunAppodealAd(Ads.AdType type)
+    public void RunAppodealAd(AdType type)
     {
         switch (type)
         {
@@ -95,7 +99,7 @@ public abstract class BaseSDK : IRewardedVideoAdListener, IInterstitialAdListene
     /// Disables Appodeal Ad of type.
     /// </summary>
     /// <param name="type"></param>
-    public void DisableAppodealAd(Ads.AdType type)
+    public void DisableAppodealAd(AdType type)
     {
         switch (type)
         {
@@ -121,20 +125,22 @@ public abstract class BaseSDK : IRewardedVideoAdListener, IInterstitialAdListene
     public void onRewardedVideoFailedToLoad()
     {
         Debug.Log("Video failed");
-        AdsHandler.currentAdState = Result.Failed;
-        hud_controller.si.HandleAppodealResul();
+        //AdsHandler.currentAdState = Result.Failed;
+        ResultHandler = Result.Failed;
+        hud_controller.si.HandleAdResult();
     }
     public void onRewardedVideoShown() { Debug.Log("Video shown"); }
     public void onRewardedVideoClosed(bool finished)
     {
         Debug.Log("Video closed");
+        ResultHandler = Result.Finished;
     }
     public void onRewardedVideoFinished(double amount, string name)
     {
         //Debug.Log("Reward: " + amount + " " + name);
         Debug.Log("RewardedVideo Finished.");
-        AdsHandler.currentAdState = Result.Finished;
-        hud_controller.si.HandleAppodealResul();
+        //AdsHandler.currentAdState = Result.Finished;
+        //hud_controller.si.HandleAdResult();
     }
     public void onRewardedVideoExpired() { Debug.Log("Video expired"); }
 #endregion
@@ -358,8 +364,42 @@ public abstract class BaseSDK : IRewardedVideoAdListener, IInterstitialAdListene
     #endregion
 
 #region Applovin
-    public void RunAppLovinAd()
+    /// <summary>
+    /// Initialize Applovin SDK.
+    /// </summary>
+    /// <param name="preLoadAds">Enable pre-load ads.</param>
+    public void InitializeApplovin(bool preLoadAds = true, string listenergo = null)
     {
+        AppLovin.InitializeSdk();
+
+        if(preLoadAds)
+        {
+            AppLovin.LoadRewardedInterstitial();
+            AppLovin.PreloadInterstitial();
+        }
+    }
+
+    public void RunAppLovinAd(AdType type)
+    {
+        switch (type)
+        {
+            case AdType.Interstitial:
+                if (AppLovin.HasPreloadedInterstitial())
+                    AppLovin.ShowInterstitial();
+                break;
+
+            case AdType.Rewarded:
+                if (AppLovin.IsIncentInterstitialReady())
+                    AppLovin.ShowRewardedInterstitial();
+                break;
+
+            case AdType.Banner:
+                throw new System.NotImplementedException("Applovin does't have type of Banner.");
+
+            default:
+                throw new System.NotImplementedException("Unknown type.");
+        }
+
         AppLovin.ShowInterstitial();
     }
 #endregion
@@ -375,7 +415,9 @@ public class AndroidSDK : BaseSDK
 #if UNITY_ANDROID
         InitializeGooglePlayGames();
         SignIn();
-        AppLovin.InitializeSdk();
+#if USE_APPLOVIN
+        InitializeApplovin();
+#endif
 #if USE_APPODEAL
         InitializeAppodeal();
 #endif
@@ -391,7 +433,6 @@ public class AndroidSDK : BaseSDK
 #if USE_USE_DEVTODEV
         InitializeDevToDev();
 #endif
-
         Debug.Log("<color=blue>SDK Manager Initialized</color>");
 #endif
     }
@@ -422,9 +463,11 @@ public class IOSSDK : BaseSDK
     {
 #if UNITY_IOS
         SignIn();
-        AppLovin.InitializeSdk();
 #if USE_APPODEAL
         InitializeAppodeal();
+#endif
+#if USE_APPLOVIN
+        InitializeApplovin(true);
 #endif
 #if USE_GAMEANALYTICS
         InitializeGameAnalytics();
@@ -460,20 +503,11 @@ public class IOSSDK : BaseSDK
     }
 }
 
-public class PluginManager : MonoBehaviour
+public class PluginManager : Singleton<PluginManager>
 {
-    public static PluginManager Instance;
 
     public BaseSDK sdk;
     public bool enableAppodeal;
-
-    private void Awake()
-    {
-        if (Instance == null)
-            Instance = this;
-
-        InitializeSdks();
-    }
 
     private void Start()
     {
@@ -489,9 +523,12 @@ public class PluginManager : MonoBehaviour
         sdk = new IOSSDK();
 #endif
         sdk.Initialize();
+#if USE_APPLOVIN
+        AppLovin.SetUnityAdListener(this.gameObject.name);
+#endif
     }
 
-    #region Firebase Cloud Message CallBacks
+#region Firebase Cloud Message CallBacks
     /// <summary>
     /// Start Firebase Cloud Messaging Callbacks.
     /// </summary>
@@ -515,15 +552,16 @@ public class PluginManager : MonoBehaviour
     }
     #endregion
 
-    public void RunAppodealAd(Ads.AdType type)
-    {
-#if USE_APPODEAL
-        sdk.RunAppodealAd(type);
-#endif
-    }
 
-    public void RunAppLovinInterstitialAd()
+    public void RunAd(Service service, AdType type)
     {
-        sdk.RunAppLovinAd();
+#if UNITY_ANDROID || UNITY_IOS
+#if USE_APPODEAL
+        if (service == Service.Appodeal)
+            sdk.RunAppodealAd(type);
+#endif
+        else if (service == Service.Applovin)
+            sdk.RunAppLovinAd(type);
+#endif
     }
 }
