@@ -15,7 +15,7 @@ using SDKs.AdsService;
 
 public enum RewardedVideoType{ Revive, ResortChar, RespinDisk, SpinDisk, DoubleReward}
 
-public class hud_controller : MonoBehaviour//, IRewardedVideoAdListener
+public class hud_controller : MonoBehaviour
 {
 
 #region === Variables Declaration ===
@@ -133,14 +133,24 @@ public class hud_controller : MonoBehaviour//, IRewardedVideoAdListener
 
     private void OnEnable()
     {
-        //PluginManager.Instance
+        BaseSDK.OnRewardedAdClosed += HandleAdResult;
+        BaseSDK.OnInterstitialAdClosed += HandleAdResult;
+        PluginManager.OnRewardedAdClosed += HandleAdResult;
+        PluginManager.OnInterstitialAdClosed += HandleAdResult;
     }
 
     private void OnDisable()
     {
-
+        BaseSDK.OnRewardedAdClosed -= HandleAdResult;
+        BaseSDK.OnInterstitialAdClosed -= HandleAdResult;
+        PluginManager.OnRewardedAdClosed -= HandleAdResult;
+        PluginManager.OnInterstitialAdClosed -= HandleAdResult;
     }
 
+    void Foo()
+    {
+        Debug.Log("Rewarded ad finished.");
+    }
 
 	public void ActivateFirstPw(){
 		if (USER.s.FIRST_PW_CREATED == 0) {
@@ -1058,10 +1068,12 @@ public class hud_controller : MonoBehaviour//, IRewardedVideoAdListener
 
 	public void DisplayRewardedVideo2(string videoType){
 		RewardedVideoType tempVideo = (RewardedVideoType) System.Enum.Parse (typeof(RewardedVideoType), videoType);
-		if (tempVideo != null) { // @TBD THERE IS REWARDED VIDEO TO SHOW
-			curVideoType = tempVideo;
-			ShowAd ();
-		}
+        if (tempVideo != null)
+        { // @TBD THERE IS REWARDED VIDEO TO SHOW
+            curVideoType = tempVideo;
+            //ShowAd();
+            ShowCustomAd(Service.Applovin, AdType.Rewarded);
+        }
 	}
 
 	public void DisplayRewardedVideo(RewardedVideoType videoType){
@@ -1244,6 +1256,11 @@ public class hud_controller : MonoBehaviour//, IRewardedVideoAdListener
         }
     }
 
+    public void ShowCustomAd(Service service, AdType type)
+    {
+        PluginManager.Instance.RunAd(service, type);
+    }
+
     public void HandleAdResult()
     {
         switch (AdsHandler.currentAdState)
@@ -1306,7 +1323,7 @@ public class hud_controller : MonoBehaviour//, IRewardedVideoAdListener
                 }
                 break;
 
-            case Result.Finished:
+            case Result.Closed:
                 Debug.Log("The ad was successfully shown.");
                 //
                 // YOUR CODE TO REWARD THE GAMER
@@ -1344,6 +1361,8 @@ public class hud_controller : MonoBehaviour//, IRewardedVideoAdListener
             default:
                 throw new System.NotImplementedException();
         }
+
+        AdsHandler.currentAdState = Result.Default;
     }
 
 #if UNITY_ANDROID || UNITY_EDITOR || UNITY_IOS
@@ -1601,34 +1620,4 @@ public class hud_controller : MonoBehaviour//, IRewardedVideoAdListener
         pause.GetComponent<PauseMenu>().BGAlphaOff();
     }
     #endregion
-
-    public void onRewardedVideoLoaded(bool precache)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void onRewardedVideoFailedToLoad()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void onRewardedVideoShown()
-    {
-        throw new NotImplementedException();
-    }
-
-    public void onRewardedVideoFinished(double amount, string name)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void onRewardedVideoClosed(bool finished)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void onRewardedVideoExpired()
-    {
-        throw new NotImplementedException();
-    }
 }

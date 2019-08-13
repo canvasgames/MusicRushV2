@@ -85,6 +85,9 @@ dependencies {
 	compile(name: 'com.google.firebase.firebase-messaging-unity-5.4.3', ext:'aar')
 	compile(name: 'com.google.games.gpgs-plugin-support-0.9.54', ext:'aar')
 	compile(name: 'devtodev', ext:'aar')
+	compile(name: 'applovin-sdk', ext:'aar')
+	compile(name: 'applovin-unity-plugin', ext:'aar')
+	compile(name: 'devtodev', ext:'aar')
 	compile(name: 'gameanalytics', ext:'aar')
 	// Vdopia Session
 	//compile("com.vdopia.ads.lw:unity-plugin:1.1.8")
@@ -147,8 +150,8 @@ dependencies {
 	compile(name:'UnityAds', ext:'aar')
 	compile(name:'GoogleAIDL', ext:'aar')
     compile(name:'GooglePlay', ext:'aar')
-    compile(name:'applovin-sdk', ext:'aar')
-    compile(name:'applovin-unity-plugin', ext:'aar')
+    //compile(name:'applovin-sdk', ext:'aar')
+    //compile(name:'applovin-unity-plugin', ext:'aar')
 }
 
 configurations.all {

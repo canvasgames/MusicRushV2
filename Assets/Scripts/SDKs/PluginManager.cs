@@ -26,10 +26,16 @@ namespace Ads
     public enum AdType { Interstitial, Rewarded, Banner }
 }
 
-public abstract class BaseSDK// : IRewardedVideoAdListener, IInterstitialAdListener, IBannerAdListener
+public abstract class BaseSDK : IRewardedVideoAdListener, IInterstitialAdListener, IBannerAdListener
 {
-    public abstract void Initialize();
+    public abstract void Initialize(string applovinGameObjectName = null);
     public Result ResultHandler { get; set; }
+
+    public delegate void AdEvent();
+    public static event AdEvent OnRewardedAdClosed;
+    public static event AdEvent OnRewardedAdFinished;
+    public static event AdEvent OnInterstitialAdClosed;
+    public static event AdEvent OnInterstitialAdFinished;
 
 #region Appodeal
 #if USE_APPODEAL
@@ -132,15 +138,17 @@ public abstract class BaseSDK// : IRewardedVideoAdListener, IInterstitialAdListe
     public void onRewardedVideoShown() { Debug.Log("Video shown"); }
     public void onRewardedVideoClosed(bool finished)
     {
-        Debug.Log("Video closed");
-        ResultHandler = Result.Finished;
+        //Debug.Log("Video closed");
+        //ResultHandler = Result.Finished;
+        AdsHandler.currentAdState = Result.Closed;
+        OnRewardedAdClosed();
     }
     public void onRewardedVideoFinished(double amount, string name)
     {
         //Debug.Log("Reward: " + amount + " " + name);
-        Debug.Log("RewardedVideo Finished.");
-        //AdsHandler.currentAdState = Result.Finished;
-        //hud_controller.si.HandleAdResult();
+        //Debug.Log("RewardedVideo Finished.");
+        AdsHandler.currentAdState = Result.Finished;
+        OnRewardedAdFinished();
     }
     public void onRewardedVideoExpired() { Debug.Log("Video expired"); }
 #endregion
@@ -149,7 +157,12 @@ public abstract class BaseSDK// : IRewardedVideoAdListener, IInterstitialAdListe
     public void onInterstitialLoaded(bool isPrecache) { Debug.Log("Interstitial loaded"); }
     public void onInterstitialFailedToLoad() { Debug.Log("Interstitial failed"); }
     public void onInterstitialShown() { Debug.Log("Interstitial opened"); }
-    public void onInterstitialClosed() { Debug.Log("Interstitial closed"); }
+    public void onInterstitialClosed()
+    {
+        Debug.Log("Interstitial closed");
+        OnInterstitialAdClosed();
+        AdsHandler.currentAdState = Result.Closed;
+    }
     public void onInterstitialClicked() { Debug.Log("Interstitial clicked"); }
     public void onInterstitialExpired() { Debug.Log("Interstitial expired"); }
 #endregion
@@ -183,16 +196,16 @@ public abstract class BaseSDK// : IRewardedVideoAdListener, IInterstitialAdListe
     #endregion
 
 #region Game Analytics
-#if USE_GAMEANALYTICS
     /// <summary>
     /// Initializes Game Analytics SDK(use it in Start method).
     /// </summary>
     public void InitializeGameAnalytics()
     {
+#if USE_GAMEANALYTICS
         GameAnalytics.Initialize();
         Debugger.Log("blue", "Game Analytics", "Initialized.");
-    }
 #endif
+    }
 #endregion
 
 #region Firebase
@@ -362,47 +375,6 @@ public abstract class BaseSDK// : IRewardedVideoAdListener, IInterstitialAdListe
     }
 #endif
     #endregion
-
-#region Applovin
-    /// <summary>
-    /// Initialize Applovin SDK.
-    /// </summary>
-    /// <param name="preLoadAds">Enable pre-load ads.</param>
-    public void InitializeApplovin(bool preLoadAds = true, string listenergo = null)
-    {
-        AppLovin.InitializeSdk();
-
-        if(preLoadAds)
-        {
-            AppLovin.LoadRewardedInterstitial();
-            AppLovin.PreloadInterstitial();
-        }
-    }
-
-    public void RunAppLovinAd(AdType type)
-    {
-        switch (type)
-        {
-            case AdType.Interstitial:
-                if (AppLovin.HasPreloadedInterstitial())
-                    AppLovin.ShowInterstitial();
-                break;
-
-            case AdType.Rewarded:
-                if (AppLovin.IsIncentInterstitialReady())
-                    AppLovin.ShowRewardedInterstitial();
-                break;
-
-            case AdType.Banner:
-                throw new System.NotImplementedException("Applovin does't have type of Banner.");
-
-            default:
-                throw new System.NotImplementedException("Unknown type.");
-        }
-
-        AppLovin.ShowInterstitial();
-    }
-#endregion
 }
 
 public class AndroidSDK : BaseSDK
@@ -410,14 +382,11 @@ public class AndroidSDK : BaseSDK
     /// <summary>
     /// Initializes the SDK Manager.
     /// </summary>
-    public override void Initialize()
+    public override void Initialize(string applovinGameObjectName = null)
     {
 #if UNITY_ANDROID
         InitializeGooglePlayGames();
         SignIn();
-#if USE_APPLOVIN
-        InitializeApplovin();
-#endif
 #if USE_APPODEAL
         InitializeAppodeal();
 #endif
@@ -427,9 +396,12 @@ public class AndroidSDK : BaseSDK
 #if USE_FIREBASE
         InitializeFirebase();
 #endif
-#if USE_CHOCOLATE
-        InitializeChocolate();
+#if USE_APPLOVIN
+        //InitializeApplovin(true, applovinGameObjectName);
 #endif
+        //#if USE_CHOCOLATE
+        //        InitializeChocolate();
+        //#endif
 #if USE_USE_DEVTODEV
         InitializeDevToDev();
 #endif
@@ -459,15 +431,12 @@ public class IOSSDK : BaseSDK
     /// <summary>
     /// Initializes the SDK Manager.
     /// </summary>
-    public override void Initialize()
+    public override void Initialize(string applovinGameObjectName = null)
     {
 #if UNITY_IOS
         SignIn();
 #if USE_APPODEAL
         InitializeAppodeal();
-#endif
-#if USE_APPLOVIN
-        InitializeApplovin(true);
 #endif
 #if USE_GAMEANALYTICS
         InitializeGameAnalytics();
@@ -475,9 +444,12 @@ public class IOSSDK : BaseSDK
 #if USE_FIREBASE
         InitializeFirebase();
 #endif
-#if USE_CHOCOLATE
-        InitializeChocolate();
+#if USE_APPLOVIN
+        //InitializeApplovin(true);
 #endif
+//#if USE_CHOCOLATE
+//        InitializeChocolate();
+//#endif
 #if USE_DEVTODEV
         InitializeDevToDev();
 #endif
@@ -509,10 +481,23 @@ public class PluginManager : Singleton<PluginManager>
     public BaseSDK sdk;
     public bool enableAppodeal;
 
+    public delegate void AdEvent();
+    public static event AdEvent OnRewardedAdClosed;
+    public static event AdEvent OnInterstitialAdClosed;
+
+    private void Awake()
+    {
+        InitializeSdks();
+#if USE_APPLOVIN
+        //AppLovin.SetUnityAdListener(this.gameObject.name);
+#endif
+    }
+
     private void Start()
     {
         StartCoroutine(StartFirebaseCallBacks(3f));
         //sdk.InitializeGameAnalytics();
+        InitializeApplovin(true, this.gameObject.name);
     }
 
     public void InitializeSdks()
@@ -523,10 +508,116 @@ public class PluginManager : Singleton<PluginManager>
         sdk = new IOSSDK();
 #endif
         sdk.Initialize();
-#if USE_APPLOVIN
-        AppLovin.SetUnityAdListener(this.gameObject.name);
-#endif
     }
+
+#region Applovin
+#if USE_APPLOVIN
+    /// <summary>
+    /// Initialize Applovin SDK.
+    /// </summary>
+    /// <param name="preLoadAds">Enable pre-load ads.</param>
+    public void InitializeApplovin(bool preLoadAds = true, string listenergo = null)
+    {
+        AppLovin.SetSdkKey("kVL0LZFNc8EVPKb9s4tuJRZOu0UHxTphLiVnq4BoOahg-2NEK5Urh5f3gu7G9ttx9FkLeHvD7v08TMOrF-w1Hv");
+        AppLovin.InitializeSdk();
+        AppLovin.SetTestAdsEnabled("true");
+        AppLovin.SetUnityAdListener(listenergo);
+
+        if (preLoadAds)
+        {
+            AppLovin.LoadRewardedInterstitial();
+            AppLovin.PreloadInterstitial();
+        }
+
+        Debug.Log("<color=blue> AppLovin Initialized.</color>");
+    }
+
+    public void RunAppLovinAd(AdType type)
+    {
+        switch (type)
+        {
+            case AdType.Interstitial:
+                if (AppLovin.HasPreloadedInterstitial())
+                    AppLovin.ShowInterstitial();
+                break;
+
+            case AdType.Rewarded:
+                if (AppLovin.IsIncentInterstitialReady())
+                {
+                    AppLovin.ShowRewardedInterstitial();
+                }
+                break;
+
+            case AdType.Banner:
+                throw new System.NotImplementedException("Applovin does't have type of Banner.");
+
+            default:
+                throw new System.NotImplementedException("Unknown type.");
+        }
+    }
+#endif
+#endregion
+
+#region AppLovin Callbacks
+    void onAppLovinEventReceived(string ev)
+    {
+        Debug.Log("ENTERED APPLOVIN CALLABACK REGION.");
+        Debug.Log("EVENT: " + ev);
+
+        if (ev.Contains("DISPLAYEDINTER"))
+        {
+            // An ad was shown.  Pause the game.
+        }
+        else if (ev.Contains("HIDDENINTER"))
+        {
+            // Ad ad was closed.  Resume the game.
+            // If you're using PreloadInterstitial/HasPreloadedInterstitial, make a preload call here.
+            AppLovin.PreloadInterstitial();
+            AdsHandler.currentAdState = Result.Closed;
+            OnInterstitialAdClosed();
+        }
+        else if (ev.Contains("LOADEDINTER"))
+        {
+            // An interstitial ad was successfully loaded.
+        }
+        else if (string.Equals(ev, "LOADINTERFAILED"))
+        {
+            // An interstitial ad failed to load.
+        }
+
+        if (ev.Contains("REWARDAPPROVEDINFO"))
+        {
+            // The format would be "REWARDAPPROVEDINFO|AMOUNT|CURRENCY" so "REWARDAPPROVEDINFO|10|Coins" for example
+            string delimeter = "|";
+
+            // Split the string based on the delimeter
+            string[] split = ev.Split(delimeter.ToCharArray());
+
+            // Pull out the currency amount
+            double amount = double.Parse(split[1]);
+
+            // Pull out the currency name
+            string currencyName = split[2];
+
+            // Do something with the values from above.  For example, grant the coins to the user.
+        }
+        else if (ev.Contains("LOADEDREWARDED"))
+        {
+            // A rewarded video was successfully loaded.
+        }
+        else if (ev.Contains("LOADREWARDEDFAILED"))
+        {
+            // A rewarded video failed to load.
+        }
+        else if (ev.Contains("HIDDENREWARDED"))
+        {
+            // A rewarded video was closed.  Preload the next rewarded video.
+            AppLovin.LoadRewardedInterstitial();
+            AdsHandler.currentAdState = Result.Closed;
+            OnRewardedAdClosed();
+        }
+    }
+    #endregion
 
 #region Firebase Cloud Message CallBacks
     /// <summary>
@@ -552,7 +643,6 @@ public class PluginManager : Singleton<PluginManager>
     }
     #endregion
 
-
     public void RunAd(Service service, AdType type)
     {
 #if UNITY_ANDROID || UNITY_IOS
@@ -560,8 +650,15 @@ public class PluginManager : Singleton<PluginManager>
         if (service == Service.Appodeal)
             sdk.RunAppodealAd(type);
 #endif
+#if USE_APPLOVIN
         else if (service == Service.Applovin)
-            sdk.RunAppLovinAd(type);
+            RunAppLovinAd(type);
 #endif
+#endif
+    }
+
+    public void RunApplovinAd()
+    {
+        RunAppLovinAd(AdType.Rewarded);
     }
 }

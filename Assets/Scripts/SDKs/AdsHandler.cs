@@ -6,7 +6,8 @@ namespace SDKs.Ads.ResultHandler
     {
         Default = 0,
         Failed = 1,
-        Finished = 2
+        Finished = 2,
+        Closed = 3
     }
 }
 
