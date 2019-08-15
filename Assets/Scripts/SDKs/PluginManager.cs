@@ -375,6 +375,21 @@ public abstract class BaseSDK : IRewardedVideoAdListener, IInterstitialAdListene
     }
 #endif
     #endregion
+
+#region AppsFlyer
+    public void InitializeAppsFlyer()
+    {
+        AppsFlyer.setAppsFlyerKey("zcKrZYJWnrWWctCxcLNnyT");
+
+#if UNITY_IOS
+        AppsFlyer.setAppID("YOUR_APP_ID_HERE");
+        AppsFlyer.trackAppLaunch();
+#elif UNITY_ANDROID
+        AppsFlyer.setAppID("com.CanvasMobileGames.SuperCasual");
+        AppsFlyer.init("zcKrZYJWnrWWctCxcLNnyT", "AppsFlyerTrackerCallbacks");
+#endif
+    }
+    #endregion
 }
 
 public class AndroidSDK : BaseSDK
@@ -404,6 +419,9 @@ public class AndroidSDK : BaseSDK
         //#endif
 #if USE_USE_DEVTODEV
         InitializeDevToDev();
+#endif
+#if USE_APPSFLYER
+        InitializeAppsFlyer();
 #endif
         Debug.Log("<color=blue>SDK Manager Initialized</color>");
 #endif
@@ -452,6 +470,9 @@ public class IOSSDK : BaseSDK
 //#endif
 #if USE_DEVTODEV
         InitializeDevToDev();
+#endif
+#if USE_APPSFLYER
+        InitializeAppsFlyer();
 #endif
 
         Debug.Log("<color=blue>SDK Manager Initialized</color>");
@@ -617,7 +638,7 @@ public class PluginManager : Singleton<PluginManager>
             OnRewardedAdClosed();
         }
     }
-    #endregion
+#endregion
 
 #region Firebase Cloud Message CallBacks
     /// <summary>
@@ -641,7 +662,7 @@ public class PluginManager : Singleton<PluginManager>
     {
         UnityEngine.Debug.Log("Received a new message from: " + e.Message.From);
     }
-    #endregion
+#endregion
 
     public void RunAd(Service service, AdType type)
     {
