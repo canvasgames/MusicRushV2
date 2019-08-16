@@ -126,7 +126,7 @@ PlayerSettings:
     16:10: 0
     16:9: 1
     Others: 1
-  bundleVersion: 28
+  bundleVersion: 31
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -165,7 +165,7 @@ PlayerSettings:
     tvOS: com.CanvasMobileGames.SuperCasual
   buildNumber:
     iOS: 0
-  AndroidBundleVersionCode: 18
+  AndroidBundleVersionCode: 21
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -245,7 +245,7 @@ PlayerSettings:
   tvOSManualSigningProvisioningProfileID: 
   appleEnableAutomaticSigning: 0
   clonedFromGUID: 00000000000000000000000000000000
-  AndroidTargetDevice: 3
+  AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: E:/Desktop/Music Rush Ultimate Github/MusicRushV2/ms2.keystore

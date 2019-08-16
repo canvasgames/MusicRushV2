@@ -72,6 +72,7 @@ public class hole_behaviour : MonoBehaviour
     void start_falling() {
 		BallMaster.s.DeacreaseBallAlertN ("hole");
 
+		sound_controller.s.PlaySfxTrapHiddenHoleFall ();
 
 		my_skin.transform.DOMoveY(my_skin.transform.position.y - 8f, 0.8f).OnComplete(() => GetBacktoMeBaby());
         GetComponent<BoxCollider2D>().enabled = false;
@@ -80,7 +81,6 @@ public class hole_behaviour : MonoBehaviour
 		my_vision_effect.GetComponent<SpriteRenderer> ().DOFade (0, 0.35f).OnComplete(() => my_vision_effect.SetActive (false));
 		//my_vision_effect
 
-		sound_controller.s.PlaySfxTrapHiddenHoleFall ();
 //		my_vision_effect.SetActive (false);
     }
 

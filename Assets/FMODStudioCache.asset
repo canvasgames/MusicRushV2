@@ -61,7 +61,7 @@ MonoBehaviour:
   - {fileID: 114359002989519160}
   StringsBanks:
   - {fileID: 114002666543093066}
-  stringsBankWriteTime: 637011644383087586
+  stringsBankWriteTime: 637015282848207983
   cacheVersion: 3
 --- !u!114 &114002666543093066
 MonoBehaviour:
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: D:\MusicRushFmodRepo\MusicRushFMod\Build\Desktop\Master Bank.strings.bank
-  lastModified: 637011644383087586
+  lastModified: 637015282848207983
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -151,6 +151,21 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &114009883824914720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
 --- !u!114 &114012112958331438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,6 +211,21 @@ MonoBehaviour:
   Min: 1
   Max: 5
   Default: 1
+--- !u!114 &114019455969756532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: spin
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114025135278385272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,6 +459,51 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114050348095307540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
+--- !u!114 &114051345559832090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: spin
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114053883376190902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: spin
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114055261002911950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,8 +679,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114365627628541266}
-  - {fileID: 114161294065241416}
+  - {fileID: 114051345559832090}
+  - {fileID: 114387319849090338}
   MinDistance: 0
   MaxDistance: 0
   Length: 46829
@@ -805,6 +880,21 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114132508296019788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
 --- !u!114 &114132676286574142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -945,8 +1035,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114569628075842822}
-  - {fileID: 114336202304438910}
+  - {fileID: 114500556527274334}
+  - {fileID: 114050348095307540}
   MinDistance: 0
   MaxDistance: 0
   Length: 12229
@@ -981,6 +1071,21 @@ MonoBehaviour:
   Max: 1
   Default: 0
 --- !u!114 &114161294065241416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
+--- !u!114 &114162318845842384
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1114,8 +1219,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114781705156432810}
-  - {fileID: 114042310528037694}
+  - {fileID: 114607406620703796}
+  - {fileID: 114269118112072406}
   MinDistance: 0
   MaxDistance: 0
   Length: 15360
@@ -1138,8 +1243,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114982925362581990}
-  - {fileID: 114984866872670390}
+  - {fileID: 114269428771307040}
+  - {fileID: 114258262340109568}
   MinDistance: 0
   MaxDistance: 0
   Length: 30720
@@ -1350,6 +1455,21 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 160
+--- !u!114 &114220644303689428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
 --- !u!114 &114221251732654622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1435,6 +1555,21 @@ MonoBehaviour:
   Max: 1
   Default: 0
 --- !u!114 &114250423421686780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
+--- !u!114 &114258262340109568
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1539,6 +1674,36 @@ MonoBehaviour:
   - Name: 
     Value: 2782
   Exists: 1
+--- !u!114 &114269118112072406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: spin
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114269428771307040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: spin
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114271723040299088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1563,6 +1728,21 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 30720
+--- !u!114 &114273664047874796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: spin
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114274754500073290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1915,15 +2095,15 @@ MonoBehaviour:
   guid: 470fdc1e36d09243a93bfee180a95b91
   Banks:
   - {fileID: 114361999905795598}
-  IsStream: 1
+  IsStream: 0
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114467748510353330}
-  - {fileID: 114245960928694860}
+  - {fileID: 114220644303689428}
+  - {fileID: 114423437983205788}
   MinDistance: 0
   MaxDistance: 0
-  Length: 187454
+  Length: 160000
 --- !u!114 &114319330340146710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1973,7 +2153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: D:\MusicRushFmodRepo\MusicRushFMod\Build\Desktop\SFX.bank
-  lastModified: 637011644386790552
+  lastModified: 637015282793511082
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -2196,7 +2376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: D:\MusicRushFmodRepo\MusicRushFMod\Build\Desktop\Master Bank.bank
-  lastModified: 637011644383017616
+  lastModified: 637015282848139640
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -2238,11 +2418,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: D:\MusicRushFmodRepo\MusicRushFMod\Build\Desktop\Soundtrack.bank
-  lastModified: 637011644410557877
+  lastModified: 637015282879092510
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 54695328
+    Value: 41974400
   - Name: Mobile
     Value: 22156800
   Exists: 1
@@ -2352,6 +2532,21 @@ MonoBehaviour:
   Min: 1
   Max: 5
   Default: 1
+--- !u!114 &114371886719640244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: spin
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114379335320336112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2407,6 +2602,21 @@ MonoBehaviour:
   MaxDistance: 0
   Length: 12229
 --- !u!114 &114381870342556232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
+--- !u!114 &114387319849090338
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -2663,11 +2873,11 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114876588353340360}
-  - {fileID: 114944921444674238}
+  - {fileID: 114485039807271706}
+  - {fileID: 114415876042775562}
   MinDistance: 0
   MaxDistance: 0
-  Length: 187454
+  Length: 16552
 --- !u!114 &114414424772590040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2707,6 +2917,51 @@ MonoBehaviour:
   Min: 1
   Max: 5
   Default: 1
+--- !u!114 &114415876042775562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: spin
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114423333517325506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
+--- !u!114 &114423437983205788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: spin
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114425913394572590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2956,6 +3211,21 @@ MonoBehaviour:
   Min: 1
   Max: 5
   Default: 1
+--- !u!114 &114449860848578862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: spin
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114455321417744432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3034,6 +3304,21 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 187454
+--- !u!114 &114469248673742608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: spin
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114469341227204112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3068,8 +3353,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114414574345873232}
-  - {fileID: 114767907542804206}
+  - {fileID: 114423333517325506}
+  - {fileID: 114273664047874796}
   MinDistance: 0
   MaxDistance: 0
   Length: 15360
@@ -3097,6 +3382,21 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 46829
+--- !u!114 &114485039807271706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
 --- !u!114 &114485645229731142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3246,6 +3546,21 @@ MonoBehaviour:
   Min: 1
   Max: 5
   Default: 1
+--- !u!114 &114500556527274334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: spin
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114500674981374914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3410,8 +3725,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114327237526329380}
-  - {fileID: 114513860618493398}
+  - {fileID: 114582372646320118}
+  - {fileID: 114679199682536998}
   MinDistance: 0
   MaxDistance: 0
   Length: 15360
@@ -3505,6 +3820,21 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114528167376884014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: style
+  Min: 1
+  Max: 30
+  Default: 1
 --- !u!114 &114528415133976662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3749,8 +4079,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114933511950638776}
-  - {fileID: 114319330340146710}
+  - {fileID: 114469248673742608}
+  - {fileID: 114162318845842384}
   MinDistance: 0
   MaxDistance: 0
   Length: 19200
@@ -3895,6 +4225,21 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &114582372646320118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
 --- !u!114 &114584984944407838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3979,6 +4324,21 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114607406620703796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
 --- !u!114 &114609373968183628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4009,15 +4369,15 @@ MonoBehaviour:
   guid: d0a7bf0c669157459392ef210a0fd3bf
   Banks:
   - {fileID: 114361999905795598}
-  IsStream: 1
+  IsStream: 0
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114046832390006932}
-  - {fileID: 114569607105001546}
+  - {fileID: 114019455969756532}
+  - {fileID: 114628526328198846}
   MinDistance: 0
   MaxDistance: 0
-  Length: 12978
+  Length: 7347
 --- !u!114 &114625576693114748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4040,6 +4400,21 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &114628526328198846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
 --- !u!114 &114630715996814610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4101,6 +4476,21 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114636824320937622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
 --- !u!114 &114638934550240144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4438,11 +4828,26 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114433460001547502}
+  - {fileID: 114528167376884014}
   MinDistance: 0
   MaxDistance: 0
   Length: 2000
 --- !u!114 &114679076285736692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: spin
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114679199682536998
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -4607,6 +5012,21 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 3727
+--- !u!114 &114715313460639396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: spin
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114716201260838370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5116,8 +5536,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114262788051801936}
-  - {fileID: 114891957590546718}
+  - {fileID: 114132508296019788}
+  - {fileID: 114449860848578862}
   MinDistance: 0
   MaxDistance: 0
   Length: 9142
@@ -5201,8 +5621,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114759369923173304}
-  - {fileID: 114187662189865286}
+  - {fileID: 114636824320937622}
+  - {fileID: 114715313460639396}
   MinDistance: 0
   MaxDistance: 0
   Length: 9142
@@ -5225,8 +5645,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114513931933670604}
-  - {fileID: 114561159938324582}
+  - {fileID: 114371886719640244}
+  - {fileID: 114009883824914720}
   MinDistance: 0
   MaxDistance: 0
   Length: 17777
@@ -5899,6 +6319,21 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114921915523892842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: layer
+  Min: 1
+  Max: 5
+  Default: 1
 --- !u!114 &114924017039910714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6203,8 +6638,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114353992965198490}
-  - {fileID: 114531295782293232}
+  - {fileID: 114053883376190902}
+  - {fileID: 114921915523892842}
   MinDistance: 0
   MaxDistance: 0
   Length: 7680

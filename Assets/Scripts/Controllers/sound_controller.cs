@@ -327,15 +327,18 @@ public class sound_controller : MonoBehaviour
 
 	public void PlayJump()
 	{
+       // Debug.Log(" plaaaaaaay jump");
         if (soundMuted == false)
         {
-            if (QA.s.FMOD_ON && can_play_jump == true) { 
+            if (QA.s.FMOD_ON && can_play_jump == true)
+            { 
                 FMODUnity.RuntimeManager.PlayOneShot("event:/Sfx/sfx_character_jump");
+                can_play_jump = false;
                 Invoke("can_play_jump_again", 0.3f);
+                //Debug.Log(" plaaaaaaay asdasdasdasd");
+
             }
-            else
-        {
-            if (efxSource.volume > 0 && can_play_jump == true)
+            else if (QA.s.FMOD_ON == false && efxSource.volume > 0 && can_play_jump == true)
             {
                 can_play_jump = false;
                 //			Debug.Log ("PLAY JUMP");
@@ -344,7 +347,6 @@ public class sound_controller : MonoBehaviour
                 Invoke("can_play_jump_again", 0.3f);
             }
         }
-		}
 	}
 
 	void can_play_jump_again() 	{

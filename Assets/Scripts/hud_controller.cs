@@ -1072,10 +1072,15 @@ public class hud_controller : MonoBehaviour
         { // @TBD THERE IS REWARDED VIDEO TO SHOW
             curVideoType = tempVideo;
             //ShowAd();
-            if ((FTUController.s.firstSongPurchased == 1 && tempVideo == RewardedVideoType.SpinDisk) || FTUController.s.firstSongPurchased == 0)
-                ShowCustomAd(Service.Applovin, AdType.Rewarded);
-            else
+/*#if UNITY_EDITOR || UNITY_PC 
+            HandleAdResult();
+            return;
+#endif*/
+
+            if (FTUController.s.firstSongPurchased == 0 && tempVideo == RewardedVideoType.SpinDisk)
                 HandleAdResult();
+            else
+                ShowCustomAd(Service.Applovin, AdType.Rewarded);
 
         }
 	}
