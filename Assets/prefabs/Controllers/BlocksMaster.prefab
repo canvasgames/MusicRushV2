@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NotRepeatFrequency: 2
   NewCreationLogic: 1
-  superEasy: 5
+  superEasy: 7
   easy: 15
   medium: 30
   hard: 45
@@ -1087,14 +1087,14 @@ MonoBehaviour:
     type: 0
     denyConditions: 0000000001000000
     obstacles:
-    - name: tripleSpk_4.4
+    - name: tripleSpk_4.3
       myType: 1
-      xInit: 4.4
+      xInit: 4.3
       xEnd: 0
       fixedDist: 0
-    - name: tripleSpk_-4.4
+    - name: tripleSpk_-4.3
       myType: 1
-      xInit: -4.4
+      xInit: -4.3
       xEnd: 0
       fixedDist: 0
     - name: tripleSpk_0

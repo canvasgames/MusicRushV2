@@ -248,7 +248,7 @@ PlayerSettings:
   AndroidTargetDevice: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: E:/ProjetosUnity/MusicRush/ms2.keystore
+  AndroidKeystoreName: E:/Desktop/Music Rush Ultimate Github/MusicRushV2/ms2.keystore
   AndroidKeyaliasName: com.canvasgames.musicrush
   AndroidTVCompatibility: 1
   AndroidIsGame: 1

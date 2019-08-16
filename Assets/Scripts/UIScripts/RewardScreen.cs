@@ -341,7 +341,7 @@ public class RewardScreen : MonoBehaviour {
 
 		yield return new WaitForSeconds (0.1f);
 
-		sound_controller.s.PlaySfxUISpinDiskReward ();
+		//sound_controller.s.PlaySfxUISpinDiskReward ();
 
 		yield return new WaitForSeconds (0.2f);
 
