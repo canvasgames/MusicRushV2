@@ -203,19 +203,22 @@ public class GameOverController : MonoBehaviour {
 		int inc = curScore/15;
 		if (inc == 0)
 			inc = 1;
-		for (int i = 0; i < 15 && value < curScore; i++) {
+        sound_controller.s.PlaySfxUIGameOverScoreRaisingWhichIsBasicallyTheSoundOfALoser();
+        for (int i = 0; i < 15 && value < curScore; i++) {
 			yield return new WaitForSeconds (0.035f);
 			value += inc;
 			scoreText.text = value.ToString();
 		}
 		scoreText.text = curScore.ToString();
 		if(coinsCollectedDebug.isActiveAndEnabled) coinsCollectedDebug.text = globals.s.NOTES_COLLECTED.ToString();
-	}
+        sound_controller.s.StopSfxEffect();
 
-	#endregion
+    }
 
-	// Update is called once per frame
-	void Update () {
+    #endregion
+
+    // Update is called once per frame
+    void Update () {
 		if(globals.s.curGameScreen == GameScreen.LevelEnd){
 			if (hud_controller.si.CAN_ROTATE_ROULETTE == false) {
 //				Debug.Log ("LEVEL END SCREEEN GAME OVER");
@@ -335,7 +338,7 @@ public class GameOverController : MonoBehaviour {
 
 	IEnumerator IncreaseNoteNumbers(float time){
 		float dif = globals.s.NOTES_COLLECTED ;
-		sound_controller.s.PlaySfxUIGameOverScoreRaisingWhichIsBasicallyTheSoundOfALoser ();
+		//sound_controller.s.PlaySfxUIGameOverScoreRaisingWhichIsBasicallyTheSoundOfALoser ();
 
 		for (int i = 1; i <= dif ; i++) {
 			DisplayJukeboxNotes (USER.s.NOTES - globals.s.NOTES_COLLECTED + i);
@@ -343,7 +346,6 @@ public class GameOverController : MonoBehaviour {
 //			Debug.Log ("DIF: " + dif + " INCREASING!! " + (dif + i));
 		}
 
-		sound_controller.s.StopSfxEffect ();
 
 		yield return new WaitForSeconds (1f);
 

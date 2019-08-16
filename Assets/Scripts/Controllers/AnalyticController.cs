@@ -16,8 +16,8 @@ public class AnalyticController : MonoBehaviour {
     void Awake() { s = this; }
 
     void Start() {
-		// Enter additional configuration here
-		#if USE_DELTADNA  
+        // Enter additional configuration here
+#if USE_DELTADNA
 		// Launch the SDK
 		if (QA.s.DELTADNA_ON){
 			if (GD.s.AnalyticsLive == false) {
@@ -47,7 +47,11 @@ public class AnalyticController : MonoBehaviour {
 				);
 			}
 		}
-		#endif
+#endif
+
+#if USE_GAMEANALYTICS
+        GameAnalytics.Initialize();
+#endif
     }
 
     #region === Report Main Events ===

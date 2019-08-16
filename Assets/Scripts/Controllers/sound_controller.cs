@@ -327,19 +327,23 @@ public class sound_controller : MonoBehaviour
 
 	public void PlayJump()
 	{
-		if (soundMuted == false) {
-			if (QA.s.FMOD_ON)
-				FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_jump");
-			else {
-				if (efxSource.volume > 0 && can_play_jump == true)
-				{
-					can_play_jump = false;
-					//			Debug.Log ("PLAY JUMP");
-					PlaySingle(Jump);
-					//PlaySingle(Jumps[Random.Range(0,7)]);
-					Invoke("can_play_jump_again", 0.3f);
-				}
-			}
+        if (soundMuted == false)
+        {
+            if (QA.s.FMOD_ON && can_play_jump == true) { 
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Sfx/sfx_character_jump");
+                Invoke("can_play_jump_again", 0.3f);
+            }
+            else
+        {
+            if (efxSource.volume > 0 && can_play_jump == true)
+            {
+                can_play_jump = false;
+                //			Debug.Log ("PLAY JUMP");
+                PlaySingle(Jump);
+                //PlaySingle(Jumps[Random.Range(0,7)]);
+                Invoke("can_play_jump_again", 0.3f);
+            }
+        }
 		}
 	}
 
@@ -355,19 +359,19 @@ public class sound_controller : MonoBehaviour
 
 	public void PlaySfxShieldBreak()	{
 		if (soundMuted == false) {
-			//FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_shield_break");
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_shield_break");
 		}
 	}
 
 	public void PlaySfxCharacterSuperJumpEffect()	{
 		if (soundMuted == false) {
-			//FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_super_jump");
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_super_jump");
 		}
 	}
 
 	public void PlaySfxCharacterVisionEndingAlert()	{ 
 		if (soundMuted == false) {
-//			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_vision_ending_alert");
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_vision_ending_alert");
 		}
 	}
 
@@ -379,7 +383,7 @@ public class sound_controller : MonoBehaviour
 
 	public void PlaySfxTrapHiddenSawAppear() {
 		if (soundMuted == false) {
-			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/Traps/sfx_trap_hidden_saw_appear");
+			//FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/Traps/sfx_trap_hidden_saw_appear");
 		}
 	}
 
@@ -398,7 +402,7 @@ public class sound_controller : MonoBehaviour
 
 	public void PlaySfxCharacterWallCollided()	{ 
 		if (soundMuted == false) {
-			//FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_wall_collided");
+			FMODUnity.RuntimeManager.PlayOneShot ("event:/Sfx/sfx_character_wall_collided");
 		}
 	}
 

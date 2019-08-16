@@ -225,6 +225,7 @@ public class spike : scenario_objects {
         repositionable = false;
         already_appeared = false;
 		already_alerted = false;
+        my_vision_effect.SetActive(false);
 
         timer = 0;
 //        GetComponent<SpriteRenderer>().color = Color.black;
@@ -232,6 +233,7 @@ public class spike : scenario_objects {
 		my_glow_off.SetActive(true);
         transform.localScale = new Vector3(globals.s.SPK_SCALE, globals.s.SPK_SCALE, globals.s.SPK_SCALE);
         my_skin.transform.localScale = new Vector3(my_skin_scale, my_skin_scale, my_skin_scale);
+        
         count_blink = 16;
         //transform.DOScale(0.7f, 0.1f);
     }
