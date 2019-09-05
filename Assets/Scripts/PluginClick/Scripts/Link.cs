@@ -19,11 +19,11 @@ public class Link : MonoBehaviour
 	public void OpenLinkJSPlugin()
 	{
 #if !UNITY_EDITOR
-		openWindow("https://play.google.com/store/apps/details?id=mominis.Generic_Android.Bomblast");
+		//openWindow("https://play.google.com/store/apps/details?id=mominis.Generic_Android.Bomblast");
 #endif
     }
 
-    [DllImport("__Internal")]
-	private static extern void openWindow(string url);
+    //[DllImport("__Internal")]
+	//private static extern void openWindow(string url);
 
 }

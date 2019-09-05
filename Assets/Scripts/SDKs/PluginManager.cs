@@ -26,7 +26,7 @@ namespace Ads
     public enum AdType { Interstitial, Rewarded, Banner }
 }
 
-public abstract class BaseSDK : IRewardedVideoAdListener, IInterstitialAdListener, IBannerAdListener
+public abstract class BaseSDK// : IRewardedVideoAdListener, IInterstitialAdListener, IBannerAdListener
 {
     public abstract void Initialize(string applovinGameObjectName = null);
     public Result ResultHandler { get; set; }
@@ -672,7 +672,7 @@ public class PluginManager : Singleton<PluginManager>
             sdk.RunAppodealAd(type);
 #endif
 #if USE_APPLOVIN
-        else if (service == Service.Applovin)
+        if (service == Service.Applovin)
             RunAppLovinAd(type);
 #endif
 #endif

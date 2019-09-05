@@ -7,6 +7,7 @@ using System;
 using UnityEngine.Advertisements;
 using Ads;
 using SDKs.Ads.ResultHandler;
+using SDKs.AdsService;
 #if USE_APPODEAL
 using AppodealAds.Unity.Common;
 using SDKs.Ads.ResultHandler;
@@ -1077,9 +1078,9 @@ public class hud_controller : MonoBehaviour
             return;
 #endif*/
 
-            if (FTUController.s.firstSongPurchased == 0 && tempVideo == RewardedVideoType.SpinDisk)
-                HandleAdResult();
-            else
+            //if (FTUController.s.firstSongPurchased == 0 && tempVideo == RewardedVideoType.SpinDisk)
+            //    HandleAdResult();
+            //else
                 ShowCustomAd(Service.Applovin, AdType.Rewarded);
 
         }
@@ -1088,8 +1089,9 @@ public class hud_controller : MonoBehaviour
 	public void DisplayRewardedVideo(RewardedVideoType videoType){
 		if (1 == 1) { // @TBD THERE IS REWARDED VIDEO TO SHOW
 			curVideoType = videoType;
-			ShowAd ();
-		}
+            //ShowAd ();
+            ShowCustomAd(Service.Applovin, AdType.Rewarded);
+        }
 	}
 
     public void show_video_pw()

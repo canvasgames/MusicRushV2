@@ -66,7 +66,7 @@ public class new_external_link_bt : MonoBehaviour {
         {
 
         #if !UNITY_EDITOR
-		    openWindow("https://www.facebook.com/battlepegsmultiplayer/");
+		    //openWindow("https://www.facebook.com/battlepegsmultiplayer/");
         #else
             Application.OpenURL("https://www.facebook.com/battlepegsmultiplayer/");
 #endif
@@ -78,7 +78,7 @@ public class new_external_link_bt : MonoBehaviour {
         {
             // 
         #if !UNITY_EDITOR
-		    openWindow("https://play.google.com/store/apps/details?id=mominis.Generic_Android.Bomblast");
+		    //openWindow("https://play.google.com/store/apps/details?id=mominis.Generic_Android.Bomblast");
         #else
             Application.OpenURL("https://play.google.com/store/apps/details?id=mominis.Generic_Android.Bomblast");
         #endif
@@ -101,8 +101,8 @@ public class new_external_link_bt : MonoBehaviour {
         }
 
     }
-    [DllImport("__Internal")]
-    private static extern void openWindow(string url);
+    //[DllImport("__Internal")]
+    //private static extern void openWindow(string url);
 
     void appear_and_set_close_bt()
     {
